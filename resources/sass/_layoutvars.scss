@@ -1,0 +1,51 @@
+.main-container{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+//html, body {
+//    margin:0;
+//    padding:0;
+//}
+.page-spacer{
+    //This is to help keep the page from having white space at the bottom
+    // when the initial window is larger vertically
+    // than subsequent pages
+    margin-top: 500px;
+}
+
+/*.router-tabs {*/
+ul.nav-tabs {
+    //set to color of the card so won't get lost in background
+    background-color:$card-bg;
+}
+
+//Topmost level on any of the modes
+.main-area{
+    .card {
+        //background-color: #00efb2;
+        $card-border-radius: 0;
+    }
+}
+
+.main-page{
+    //dev
+    //background: rgb(8,85,101);
+    //background: linear-gradient(90deg, rgba(8,85,101,1) 0%, rgba(89,89,122,1) 59%, rgba(8,85,101,1) 100%);
+    background: linear-gradient(0deg, #4b6cb7 0%, #182848 100%);
+    //height: 100%;
+
+    //background-color: #b9c2c3;
+}
+
+.router-tab-touching-card{
+        /*Fix annoying gap with navbar*/
+        --bs-card-border-radius: 0;
+
+}
+
+#pageNav{
+    background-color: #182848;
+    /*padding-left: 100px;*/
+}
+

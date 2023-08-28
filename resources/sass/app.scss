@@ -1,0 +1,13 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+//container extends to edges of screen
+$container-padding-x : 0;
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+@import "layoutvars";
