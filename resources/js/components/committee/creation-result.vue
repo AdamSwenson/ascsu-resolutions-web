@@ -2,15 +2,13 @@
 <div class="creation-result ">
 
     <div class="card">
-        <div class="card-header">
-            <h4>{{title}}</h4>
-        </div>
+            <h4 class="card-title text-light" >{{title}}</h4>
 
         <div class="card-body">
-            <p class="card-text">
+            <p class="card-text text-light">
                 Your resolution has been created! You can find it here:
             </p>
-            <p class="card-text">
+            <p class="card-text text-light">
                 <a v-bind:href="url" target="_blank">{{url}}</a>
             </p>
 

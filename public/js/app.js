@@ -2877,14 +2877,14 @@ var render = function render() {
     staticClass: "creation-result"
   }, [_c("div", {
     staticClass: "card"
-  }, [_c("div", {
-    staticClass: "card-header"
-  }, [_c("h4", [_vm._v(_vm._s(_vm.title))])]), _vm._v(" "), _c("div", {
+  }, [_c("h4", {
+    staticClass: "card-title text-light"
+  }, [_vm._v(_vm._s(_vm.title))]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("p", {
-    staticClass: "card-text"
+    staticClass: "card-text text-light"
   }, [_vm._v("\n                Your resolution has been created! You can find it here:\n            ")]), _vm._v(" "), _c("p", {
-    staticClass: "card-text"
+    staticClass: "card-text text-light"
   }, [_c("a", {
     attrs: {
       href: _vm.url,
