@@ -1,5 +1,5 @@
 <template>
-<div class="creation-result " v-show="showResult">
+<div class="creation-result ">
 
     <div class="card">
         <div class="card-header">
@@ -12,6 +12,12 @@
             </p>
             <p class="card-text">
                 <a v-bind:href="url" target="_blank">{{url}}</a>
+            </p>
+
+        </div>
+        <div class="card-body">
+            <p class="card-text">
+                <button class="btn btn-success" v-on:click="reloadPage">Create a new resolution</button>
             </p>
         </div>
     </div>
@@ -40,7 +46,11 @@ export default {
 
     computed: {},
 
-    methods: {}
+    methods: {
+        reloadPage: function(){
+            location.reload();
+        }
+    }
 
 }
 </script>

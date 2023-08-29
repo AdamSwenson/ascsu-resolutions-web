@@ -12,23 +12,30 @@ class Resolution extends Model
     use HasFactory;
 
     protected $fillable = ['document_id', 'title', 'number', 'waiver'];
-protected $appends = ['url'];
-    public function getSponsorAttribute(){
+    protected $appends = ['url'];
+
+    public function getSponsorAttribute()
+    {
         return $this->committees()->where('is_sponsor', true)->first();
     }
 
-    public function getCosponsorsAttribute(){
+    public function getCosponsorsAttribute()
+    {
         return $this->committees()->where('is_sponsor', '!=', true)->get();
     }
 
-    public function getUrlAttribute(){
+    public function getUrlAttribute()
+    {
         return self::URL_BASE . $this->document_id;
     }
 
     //not sure if need since resolution will be in multiple plenaries
-    public function plenaries(){}
+    public function plenaries()
+    {
+    }
 
-    public function committees(){
+    public function committees()
+    {
         return $this->belongsToMany(Committee::class)->withPivot('is_sponsor');
     }
 

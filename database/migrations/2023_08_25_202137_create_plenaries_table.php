@@ -13,12 +13,14 @@ return new class extends Migration {
         Schema::create('plenaries', function (Blueprint $table) {
             $table->id();
 
+            $table->date('thursday_date');
+
             $table->text('second_reading_folder_id')->nullable();
             $table->text('feedback_folder_id')->nullable();
             $table->text('plenary_folder_id')->nullable();
             $table->text('first_reading_folder_id')->nullable();
-            $table->date('thursday_date');
 
+            $table->boolean('is_current')->nullable();
             $table->timestamps();
         });
     }

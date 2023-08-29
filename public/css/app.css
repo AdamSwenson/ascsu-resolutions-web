@@ -4343,7 +4343,7 @@ textarea.form-control-lg {
   --bs-card-cap-color: ;
   --bs-card-height: ;
   --bs-card-color: ;
-  --bs-card-bg: var(--bs-body-bg);
+  --bs-card-bg: ;
   --bs-card-img-overlay-padding: 1rem;
   --bs-card-group-margin: 0.75rem;
   position: relative;
@@ -11981,9 +11981,13 @@ textarea.form-control-lg {
   margin-top: 500px;
 }
 
+.top-spacer {
+  margin-top: 20px;
+}
+
 /*.router-tabs {*/
 ul.nav-tabs {
-  background-color: var(--bs-body-bg);
+  background-color: "";
 }
 
 .main-page {

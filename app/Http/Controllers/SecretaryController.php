@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activity;
+use App\Models\Plenary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Process;
 
 class SecretaryController extends Controller
 {
@@ -12,19 +14,30 @@ class SecretaryController extends Controller
     public function __construct()
     {
 //        $this->middleware('auth');
+    }
+
+    public function createPlenary(Request $request)
+    {
+        $plenary = Plenary::create(['thursday_date' => $request->thursday_date]);
+        $result = $this->runCreatePlenaryFoldersScript($plenary);
+        $plenary->refresh();
+        return response()->json($plenary);
 
     }
 
-    public function getSecretaryPage(){
+    public function getSecretaryPage()
+    {
+
+        $plenary = Plenary::where('is_current', true)->first();
 
         // Return the page with student and activity data embedded
         $data = [
             'data' => [
-                'url' => url()
-//                'user' => $student,
-//                'activity' => $activity,
+                'url' => url(),
+                'plenaryId' => $plenary->id,
+                'plenary' => $plenary
+
             ],
-//            'name' => $activity->name
         ];
 
         return view('secretary', $data);
@@ -32,12 +45,61 @@ class SecretaryController extends Controller
 
     }
 
-    public function unlockEditing(){
+    public function unlockEditing()
+    {
 
     }
 
 
-    public function lockEditing(){
+    public function lockEditing()
+    {
+
+    }
+
+    public function togglePermissions()
+    {
+    }
+
+    public function createPublic(Plenary $plenary)
+    {
+        $result = $this->runCreatePublicScript($plenary);
+        $plenary->refresh();
+        return response()->json($plenary);
+
+        return response()->json($plenary);
+    }
+
+    public function runCreatePlenaryFoldersScript(Plenary $plenary)
+    {
+        $command = "../../ResolutionManager/rezzies/bin/python";
+        $command .= " web_make_folders_for_plenary.py " . $plenary->id;
+        $executablePath = '../../ResolutionManager/executables';
+        $result = Process::path($executablePath)
+            ->run($command);
+
+        if ($result->successful()) {
+            return $result->output();
+        }
+//        dd($result->output());
+        return $result->errorOutput();
+
+
+    }
+
+    public function runCreatePublicScript(Plenary $plenary)
+    {
+        $command = "../../ResolutionManager/rezzies/bin/python";
+        $command .= " web_copy_first_readings_for_feedback.py " . $plenary->id;
+        $executablePath = '../../ResolutionManager/executables';
+        $result = Process::path($executablePath)
+            ->run($command);
+
+        if ($result->successful()) {
+            return $result->output();
+        }
+//        dd($result->output());
+        return $result->errorOutput();
+
 
     }
 

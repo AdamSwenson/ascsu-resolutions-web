@@ -22,10 +22,14 @@ class CommitteeController extends Controller
 
     public function getCommitteePage()
     {
+        $plenary = Plenary::where('is_current', true)->first();
+
         // Return the page with student and activity data embedded
         $data = [
             'data' => [
-                'url' => url()
+                'url' => url(),
+                'plenaryId' => $plenary->id,
+                'plenary' => $plenary
 //                'user' => $student,
 //                'activity' => $activity,
             ],

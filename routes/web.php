@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CommitteeController;
+use App\Http\Controllers\PlenaryController;
 use App\Http\Controllers\SecretaryController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,3 +25,9 @@ Route::get('/committee', [CommitteeController::class, 'getCommitteePage']);
 Route::post('/committee', [CommitteeController::class, 'recordResolution']);
 
 Route::get('/secretary', [SecretaryController::class, 'getSecretaryPage']);
+Route::post('/secretary/folders', [SecretaryController::class, 'createPlenary']);
+Route::post('secretary/public/{plenary}', [SecretaryController::class, 'createPublic']);
+Route::post('secretary/permissions', [SecretaryController::class, 'togglePermissions']);
+
+Route::post('plenary/current/{plenary}', [PlenaryController::class, 'setCurrent']);
+Route::resource('plenaries', PlenaryController::class);
