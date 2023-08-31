@@ -45,20 +45,7 @@ class SecretaryController extends Controller
 
     }
 
-    public function unlockEditing()
-    {
 
-    }
-
-
-    public function lockEditing()
-    {
-
-    }
-
-    public function togglePermissions()
-    {
-    }
 
     public function createPublic(Plenary $plenary)
     {
