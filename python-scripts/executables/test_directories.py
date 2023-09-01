@@ -1,5 +1,6 @@
 import sys
-
+sys.path.append("/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts/executables")
+import ResolutionManager.Repositories.DocumentRepository.DocumentRepository as d
 
 def add_path():
     data = ''
@@ -11,7 +12,7 @@ def add_path():
     sys.stdout.write(data + "\n")
 
 def main():
-    print(sys.path)
+#     print(sys.path)
 #     import ResolutionManager.Repositories.DocumentRepository.DocumentRepository as d
 
     print('done')
@@ -21,5 +22,5 @@ def main():
 
 
 if __name__ == '__main__':
-    add_path()
+#     add_path()
     main()

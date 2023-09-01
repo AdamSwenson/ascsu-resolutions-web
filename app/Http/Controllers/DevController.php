@@ -23,8 +23,8 @@ class DevController extends Controller
         $executablePath = config('app.pythonScript');
 //        $executablePath = config('app.pythonBin');
 
-//        $command = config('app.pythonBin');
-//        $command .= " test_directories.py ";
+        $command = config('app.pythonBin');
+        $command .= " test_directories.py ";
 
         $result = Process::path($executablePath)
             ->run('ls');
