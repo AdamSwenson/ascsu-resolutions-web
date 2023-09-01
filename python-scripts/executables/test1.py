@@ -3,7 +3,11 @@ import sys
 
 # https://stackoverflow.com/questions/55102788/module-not-found-running-on-command-line
 # sys.path.append("/Users/ars62917/Dropbox/ResolutionManager/ResolutionManager")
-sys.path.append("/Users/ars62917/Dropbox/ResolutionManager")
+sys.path.append("/Users/ars62917/Dropbox/ResolutionManagerWeb/python")
+# sys.path.append("/Users/ars62917/Dropbox/ResolutionManager")
+
+# sys.path.append("/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts")
+
 
 from ResolutionManager.Repositories.CommitteeRepository import CommitteeRepository
 # from Repositories.CommitteeRepository import CommitteeRepository

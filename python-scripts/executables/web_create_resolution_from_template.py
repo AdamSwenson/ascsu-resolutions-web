@@ -1,7 +1,13 @@
 import sys
-sys.path.append("/Users/ars62917/Dropbox/ResolutionManager")
+import os
 
-# from ResolutionManager import environment as env
+
+
+    # sys.path.append("/Users/ars62917/Dropbox/ResolutionManager")
+sys.path.append("/Users/ars62917/Dropbox/ResolutionManagerWeb/python-scripts")
+
+
+    # from ResolutionManager import environment as env
 
 from ResolutionManager.Repositories.DocumentRepository import DocumentRepository
 from ResolutionManager.Repositories.FileRepository import FileRepository
@@ -16,8 +22,8 @@ from ResolutionManager.Repositories.CommitteeRepository import CommitteeReposito
 from ResolutionManager.Repositories.PlenaryRepository import PlenaryRepository
 from ResolutionManager.Repositories.ResolutionRepository import ResolutionRepository
 
-
 def main(plenary_id=None, resolution_id=None):
+
     if plenary_id is None:
         plenary_id = int(sys.argv[1])
     if resolution_id is None:
@@ -46,19 +52,6 @@ def main(plenary_id=None, resolution_id=None):
     template_repo.update_header(resolution_file)
 
     print(resolution_file.__dict__)
-
-    # resolution_name = "Opposing the existence of the CO"
-    # resolution_number = 3456
-    # committee = Committee('Faculty Affairs', 'FA')
-    # cosponsors = [ Committee('Academic Affairs', 'AA')]
-    # resolution = Resolution(resolution_number, resolution_name, committee, cosponsors)
-    #
-    # plenary = Plenary(year=2023,
-    #                   month='September',
-    #                   thursday_date=12,
-    #                   friday_date=14,
-    #                   first_reading_folder_id='1sv_4BUV5fk6Kcjss8HeSCJWnsLZJVpKC'
-    #                   )
 
 
 if __name__ == '__main__':

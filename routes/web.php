@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CommitteeController;
+use App\Http\Controllers\DevController;
 use App\Http\Controllers\PlenaryController;
 use App\Http\Controllers\SecretaryController;
 use Illuminate\Support\Facades\Route;
@@ -32,4 +33,4 @@ Route::post('secretary/permissions', [SecretaryController::class, 'togglePermiss
 Route::post('plenary/current/{plenary}', [PlenaryController::class, 'setCurrent']);
 Route::resource('plenaries', PlenaryController::class);
 
-Route::get('diagnosis', [CommitteeController::class, 'diagnostics']);
+Route::get('diagnosis', [DevController::class, 'diagnostics']);
