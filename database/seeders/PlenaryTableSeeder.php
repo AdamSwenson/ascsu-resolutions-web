@@ -17,7 +17,7 @@ class PlenaryTableSeeder extends Seeder
         Plenary::factory()->create([
             'thursday_date' => Carbon::today(),
 
-            'first_reading_folder_id' =>'1sv_4BUV5fk6Kcjss8HeSCJWnsLZJVpKC',
+            'first_reading_folder_id' =>'1m_tElzh9_b6ousdOVgM0cIID6vOvom3p',
             'plenary_folder_id'=>'1ITs5N1qpTbqVqAhALrxqSsDwiSKsnSj5',
             'is_current' => true
         ]);

@@ -88,13 +88,19 @@ class CommitteeController extends Controller
         $resolution = $this->addCosponsors($resolution, $request);
 
         $result = $this->createResolutionInDriveNew($plenary, $resolution);
+
+        if ($result->successful()) {
+            $resolution->refresh();
+            return response()->json($resolution);
+        }
+        return $result->errorOutput();
 //        dd($result);
 //        $result = $this->createResolutionInDrive($plenary, $resolution);
 
 //        $result = $this->runScript();
         //dd($result);
-        $resolution->refresh();
-        return response()->json($resolution);
+//        $resolution->refresh();
+//        return response()->json($resolution);
     }
 
     public function createResolutionInDriveNew(Plenary $plenary, Resolution $resolution)
@@ -104,11 +110,11 @@ class CommitteeController extends Controller
         $executablePath = config('app.pythonScript');
         $result = Process::path($executablePath)
             ->run($command);
-
-        if ($result->successful()) {
-            return $result->output();
-        }
-        return $result->errorOutput();
+return $result;
+//        if ($result->successful()) {
+//            return $result->output();
+//        }
+//        return $result->errorOutput();
     }
 
     public function runScript()
