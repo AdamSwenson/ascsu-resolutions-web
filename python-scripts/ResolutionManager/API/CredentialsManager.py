@@ -38,14 +38,17 @@ class CredentialsManager(object):
         self.get_credentials()
 
 
+
     def get_credentials(self):
+        cred_manager = CredentialsManager()
+
         self.creds = None
         # The file token-1.json stores the user's access and refresh tokens, and is
         # created automatically when the authorization flow completes for the first
         # time.
-        if os.path.exists(TOKEN_FILEPATH):
+        if os.path.exists(cred_manager.TOKEN_FILEPATH):
             # if os.path.exists(env.TOKEN_FILEPATH):
-            self.creds = Credentials.from_authorized_user_file(TOKEN_FILEPATH, SCOPES)
+            self.creds = Credentials.from_authorized_user_file(cred_manager.TOKEN_FILEPATH, SCOPES)
 
         # self.creds = Credentials.from_authorized_user_file(env.TOKEN_FILEPATH, SCOPES)
         # If there are no (valid) credentials available, let the user log in.
