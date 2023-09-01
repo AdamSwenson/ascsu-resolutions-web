@@ -31,7 +31,7 @@ export default {
             waiver: false,
             committees: [
                 'Academic Affairs',
-                'Academic Preparation EP',
+                'Academic Preparation and Educational Programs',
                 'Executive Committee',
                 'Faculty Affairs',
                 'Fiscal and Governmental Affairs',

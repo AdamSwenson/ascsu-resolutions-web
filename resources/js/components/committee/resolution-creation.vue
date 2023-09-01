@@ -52,7 +52,9 @@
                     </div>
 
                     <div class="mt-5">
-                        <p class="">
+                        <working-spinner v-if="isWorking"></working-spinner>
+
+                         <p v-else class="">
                             <button
                                 class="btn btn-primary btn-lg "
                                 v-on:click="createRezzie"
@@ -77,10 +79,11 @@ import SponsorSelect from "./sponsor-select";
 import CosponsorsSelect from "./cosponsors-select";
 import CreationResult from "./creation-result";
 import plenaryMixin from "../../mixins/plenaryMixin";
+import WorkingSpinner from "../common/working-spinner";
 
 export default {
     name: "resolution-creation",
-    components: {CreationResult, CosponsorsSelect, PageFooter, SponsorSelect},
+    components: {WorkingSpinner, CreationResult, CosponsorsSelect, PageFooter, SponsorSelect},
     props: [],
 
     mixins: [plenaryMixin],
@@ -100,6 +103,7 @@ export default {
                 'Fiscal and Governmental Affairs',
                 'Justice, Equity, Diversity, and Inclusion'
             ],
+            isWorking : false,
             url: null
         }
     },
@@ -126,7 +130,10 @@ export default {
             window.console.log('committee', 'createRezzie', 124, this.$data);
             let url = window.routeRoot + '/committee'
             let me = this;
-            Vue.axios.post(url, this.$data).then((response) => {
+            this.isWorking = true;
+            Vue.axios.post(url, this.$data)
+                .then((response) => {
+                    me.isWorking = false;
                 window.console.log('committee', 'response', 126, response);
                 me.url = response.data.url;
             });
