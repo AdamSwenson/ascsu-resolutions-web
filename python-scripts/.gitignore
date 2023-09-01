@@ -100,7 +100,7 @@ celerybeat-schedule
 .venv
 venv/
 ENV/
-rezzies
+#rezzies
 
 # Spyder project settings
 .spyderproject
