@@ -1,5 +1,5 @@
 import sys
-sys.path.append("/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts/executables")
+sys.path.append("/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts")
 from ResolutionManager.Repositories.DocumentRepository import DocumentRepository
 
 def add_path():
