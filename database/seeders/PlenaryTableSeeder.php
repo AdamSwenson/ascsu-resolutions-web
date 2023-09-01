@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Plenary;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Carbon;
 
 class PlenaryTableSeeder extends Seeder
 {
@@ -14,6 +15,8 @@ class PlenaryTableSeeder extends Seeder
     public function run(): void
     {
         Plenary::factory()->create([
+            'thursday_date' => Carbon::today(),
+
             'first_reading_folder_id' =>'1sv_4BUV5fk6Kcjss8HeSCJWnsLZJVpKC',
             'plenary_folder_id'=>'1ITs5N1qpTbqVqAhALrxqSsDwiSKsnSj5',
             'is_current' => true

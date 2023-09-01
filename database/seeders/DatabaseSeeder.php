@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(PlenaryTableSeeder::class);
         $this->call(CommitteeTableSeeder::class);
+        $this->call(ResolutionTableSeeder::class);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
