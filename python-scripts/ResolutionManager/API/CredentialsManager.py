@@ -1,6 +1,7 @@
 import os.path
 
-from ResolutionManager import environment as env
+# from ResolutionManager import environment as env
+import ResolutionManager.environment as env
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
