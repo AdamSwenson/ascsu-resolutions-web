@@ -1,4 +1,4 @@
-import ResolutionManager.config.environment as env
+import ResolutionManager.environment as env
 from ResolutionManager.Repositories.DocumentRepository import DocumentRepository
 from ResolutionManager.Repositories.FileRepository import FileRepository
 from ResolutionManager.Repositories.ResolutionRepository import ResolutionRepository

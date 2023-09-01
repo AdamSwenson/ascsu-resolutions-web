@@ -1,5 +1,5 @@
 from ResolutionManager.Repositories.FileRepository import FileRepository
-import ResolutionManager.config.environment as env
+import ResolutionManager.environment as env
 from ResolutionManager.DAO.DAO import MySqlDao
 from ResolutionManager.Repositories.PlenaryRepository import PlenaryRepository
 
