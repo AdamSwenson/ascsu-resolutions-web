@@ -3,7 +3,7 @@ sys.path.append("/Users/ars62917/Dropbox/ResolutionManager")
 
 
 from ResolutionManager.Repositories.FileRepository import FileRepository
-import ResolutionManager.environment as env
+import ResolutionManager.config.environment as env
 from ResolutionManager.DAO.DAO import MySqlDao
 from ResolutionManager.Repositories.PlenaryRepository import PlenaryRepository
 

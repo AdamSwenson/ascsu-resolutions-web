@@ -6,7 +6,6 @@ __author__ = 'adam'
 
 from sqlalchemy import create_engine
 
-import ResolutionManager.environment as env
 
 #
 # class SqliteDao:

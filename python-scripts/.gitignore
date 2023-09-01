@@ -4,7 +4,7 @@
 
 .DS_STORE
 
-ResolutionManager/environment.py
+ResolutionManager/config/environment.py
 
 # Created by .ignore support plugin (hsz.mobi)
 .idea

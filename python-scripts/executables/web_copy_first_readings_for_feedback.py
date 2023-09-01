@@ -1,8 +1,6 @@
 import sys
 sys.path.append("/Users/ars62917/Dropbox/ResolutionManager")
 
-import ResolutionManager.environment as env
-
 from ResolutionManager.Repositories.DocumentRepository import DocumentRepository
 from ResolutionManager.Repositories.FileRepository import FileRepository
 from ResolutionManager.Repositories.PlenaryRepository import PlenaryRepository

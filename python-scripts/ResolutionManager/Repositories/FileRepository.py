@@ -1,5 +1,3 @@
-import ResolutionManager.environment as env
-
 from ResolutionManager.API.CredentialsManager import CredentialsManager
 
 from googleapiclient.discovery import build

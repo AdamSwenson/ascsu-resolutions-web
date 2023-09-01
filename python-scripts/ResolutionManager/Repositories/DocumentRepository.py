@@ -1,6 +1,5 @@
 from __future__ import print_function
 
-import os.path
 # import google.auth
 # from googleapiclient.http import MediaFileUpload
 #
@@ -11,8 +10,6 @@ from googleapiclient.discovery import build
 # from googleapiclient.errors import HttpError
 
 from ResolutionManager.API.CredentialsManager import CredentialsManager
-import ResolutionManager.environment as env
-
 
 # The ID of a sample document.
 DOCUMENT_ID = '195j9eDD3ccgjQRttHhJPymLJUCOUjs-jmwTrekvdjFE'

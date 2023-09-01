@@ -1,11 +1,10 @@
-import ResolutionManager.environment as env
+import ResolutionManager.config.environment as env
 from ResolutionManager.Repositories.DocumentRepository import DocumentRepository
 from ResolutionManager.Repositories.FileRepository import FileRepository
 from ResolutionManager.Repositories.ResolutionRepository import ResolutionRepository
 from ResolutionManager.API.CredentialsManager import CredentialsManager
 import sys
 from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
 
 HEADER_TEMPLATE = "AS-{resolution_number}-{year}/{committee}"
 

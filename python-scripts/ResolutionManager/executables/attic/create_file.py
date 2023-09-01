@@ -11,8 +11,6 @@ from googleapiclient.errors import HttpError
 # from API.CredentialsManager import CredentialsManager
 # from ResolutionManager import environment as env
 
-import ResolutionManager.environment as env
-
 # If modifying these scopes, delete the file token-1.json.
 # SCOPES = ['https://www.googleapis.com/auth/documents.readonly']
 SCOPES = ['https://www.googleapis.com/auth/documents', 'https://www.googleapis.com/auth/drive']

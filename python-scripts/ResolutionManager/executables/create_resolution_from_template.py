@@ -1,11 +1,5 @@
-import ResolutionManager.environment as env
-
-from ResolutionManager.Repositories.DocumentRepository import DocumentRepository
-from ResolutionManager.Repositories.FileRepository import FileRepository
 from ResolutionManager.Repositories.ResolutionTemplateRespository import ResolutionTemplateRepository
-from ResolutionManager.Models.Plenaries import Plenary
-from ResolutionManager.Models.Committees import Committee
-from ResolutionManager.Models.Resolutions import Resolution
+
 
 def main(plenary, resolution):
     template_repo = ResolutionTemplateRepository(plenary=plenary)
