@@ -23,10 +23,10 @@ class DevController extends Controller
         $executablePath = config('app.pythonScript');
 //        $executablePath = config('app.pythonBin');
 
-//        $command = config('app.pythonBin');
-//        $command .= " test_directories.py ";
-        $command = " pip install --upgrade mysql-connector-python google SQLAlchemy==1.4.0 google-api-python-client google-auth-httplib2 google-auth-oauthlib
-";
+        $command = config('app.pythonBin');
+        $command .= " test_directories.py ";
+//        $command = " pip install --upgrade mysql-connector-python google SQLAlchemy==1.4.0 google-api-python-client google-auth-httplib2 google-auth-oauthlib
+//";
 
         $result = Process::path($executablePath)
             ->run($command);
