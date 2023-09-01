@@ -14,9 +14,21 @@ class CommitteeController extends Controller
 {
     //
 
+    /**
+     * @var \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|\Illuminate\Foundation\Application|mixed
+     */
+    public mixed $executablePath;
+    /**
+     * @var \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|\Illuminate\Foundation\Application|mixed
+     */
+    public mixed $command;
+
     public function __construct()
     {
 //        $this->middleware('auth');
+        $this->command = config('app.pythonBin');
+        $this->executablePath = config('app.pythonScript');
+
 
     }
 
@@ -60,9 +72,10 @@ class CommitteeController extends Controller
         return $resolution;
     }
 
-    public function getNextResolutionNumber(){
-        $v =collect(Resolution::all())->pluck('number')->max();
-    return $v +1;
+    public function getNextResolutionNumber()
+    {
+        $v = collect(Resolution::all())->pluck('number')->max();
+        return $v + 1;
     }
 
 
@@ -74,12 +87,46 @@ class CommitteeController extends Controller
         $resolution = $this->addSponsor($resolution, $request);
         $resolution = $this->addCosponsors($resolution, $request);
 
-        $result = $this->createResolutionInDrive($plenary, $resolution);
+        $result = $this->createResolutionInDriveNew($plenary, $resolution);
+//        dd($result);
+//        $result = $this->createResolutionInDrive($plenary, $resolution);
+
 //        $result = $this->runScript();
 //        dd($result);
         $resolution->refresh();
         return response()->json($resolution);
     }
+
+    public function createResolutionInDriveNew(Plenary $plenary, Resolution $resolution)
+    {
+        $command = config('app.pythonBin');
+        $command .= " web_create_resolution_from_template.py " . $plenary->id . " " . $resolution->id;
+        $executablePath = config('app.pythonScript');
+        $result = Process::path($executablePath)
+            ->run($command);
+
+        if ($result->successful()) {
+            return $result->output();
+        }
+        return $result->errorOutput();
+    }
+
+    public function runScript()
+    {
+//        $result = Process::run('pwd');
+//        $result = Process::path('../../ResolutionManager/ResolutionManager/executables')
+//            ->run('ls');
+        $result = Process::path('../python/executables')
+//            ->run('ls');
+            ->run('ls');
+//return $result->errorOutput();
+//        ->run('PYTHONPATH=/Users/ars62917/Dropbox/ResolutionManager/ResolutionManager python3 test.py 2');
+//            ->run('PYTHONPATH=/Users/ars62917/Dropbox/ResolutionManager/ResolutionManager python3 test.py 2');
+        return $result->output();
+    }
+
+
+
 
     public function createResolutionInDrive(Plenary $plenary, Resolution $resolution){
 //        $command = "PYTHONPATH=$(../../ResolutionManager/ResolutionManager) python3 test.py " . $plenary->id . " " . $resolution->id;
@@ -102,19 +149,6 @@ class CommitteeController extends Controller
 //        dd($result->output());
         return $result->errorOutput();
 
-    }
-
-    public function runScript(){
-//        $result = Process::run('pwd');
-//        $result = Process::path('../../ResolutionManager/ResolutionManager/executables')
-//            ->run('ls');
-        $result = Process::path('../../ResolutionManager/executables')
-//            ->run('ls');
-            ->run('python3 test1.py 2');
-//return $result->errorOutput();
-//        ->run('PYTHONPATH=/Users/ars62917/Dropbox/ResolutionManager/ResolutionManager python3 test.py 2');
-//            ->run('PYTHONPATH=/Users/ars62917/Dropbox/ResolutionManager/ResolutionManager python3 test.py 2');
-    return $result->output();
     }
 
 }

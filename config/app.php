@@ -6,6 +6,9 @@ use Illuminate\Support\ServiceProvider;
 return [
 
     'version' => env('VERSION', ''),
+    'pythonBin' =>env('PYTHON_BIN_PATH', ''),
+    'pythonScript' =>env('PYTHON_SCRIPT_PATH', ''),
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
