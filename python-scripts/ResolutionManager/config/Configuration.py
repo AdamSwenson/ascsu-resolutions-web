@@ -14,5 +14,8 @@ class Configuration(object):
     TEMPLATE_HEADER_ID = 'kix.ykwloztnzf1q'
     RESOLUTION_FILENAME_TEMPLATE = "{resolution_number} {resolution_name}"
 
+    SCOPES = ['https://www.googleapis.com/auth/documents',
+              'https://www.googleapis.com/auth/drive']
+
     def __init__(self):
         pass
