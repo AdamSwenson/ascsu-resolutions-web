@@ -127,7 +127,9 @@ return $result;
 
     public function runScript()
     {
-        $executablePath = config('app.pythonScript');
+//        $executablePath = config('app.pythonScript');
+        $executablePath = config('app.pythonBin');
+
 
 //        $result = Process::run('pwd');
 //        $result = Process::path('../../ResolutionManager/ResolutionManager/executables')
