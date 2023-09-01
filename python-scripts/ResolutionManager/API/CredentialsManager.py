@@ -40,15 +40,15 @@ class CredentialsManager(object):
 
 
     def get_credentials(self):
-        cred_manager = CredentialsManager()
+        config = Configuration()
 
         self.creds = None
         # The file token-1.json stores the user's access and refresh tokens, and is
         # created automatically when the authorization flow completes for the first
         # time.
-        if os.path.exists(cred_manager.TOKEN_FILEPATH):
+        if os.path.exists(config.TOKEN_FILEPATH):
             # if os.path.exists(env.TOKEN_FILEPATH):
-            self.creds = Credentials.from_authorized_user_file(cred_manager.TOKEN_FILEPATH, cred_manager.SCOPES)
+            self.creds = Credentials.from_authorized_user_file(config.TOKEN_FILEPATH, config.SCOPES)
 
         # self.creds = Credentials.from_authorized_user_file(env.TOKEN_FILEPATH, SCOPES)
         # If there are no (valid) credentials available, let the user log in.
@@ -57,12 +57,12 @@ class CredentialsManager(object):
                 self.creds.refresh(Request())
             else:
                 flow = InstalledAppFlow.from_client_secrets_file(
-                cred_manager.CREDENTIALS_FILEPATH, cred_manager.SCOPES)
+                config.CREDENTIALS_FILEPATH, config.SCOPES)
 
                 # env.CREDENTIALS_FILEPATH, SCOPES)
                 self.creds = flow.run_local_server(port=0)
             # Save the credentials for the next run
-            with open(cred_manager.TOKEN_FILEPATH, 'w') as token:
+            with open(config.TOKEN_FILEPATH, 'w') as token:
                 # with open(env.TOKEN_FILEPATH, 'w') as token:
                 token.write(self.creds.to_json())
 
