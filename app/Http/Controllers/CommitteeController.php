@@ -92,7 +92,7 @@ class CommitteeController extends Controller
 //        $result = $this->createResolutionInDrive($plenary, $resolution);
 
 //        $result = $this->runScript();
-//        dd($result);
+        //dd($result);
         $resolution->refresh();
         return response()->json($resolution);
     }

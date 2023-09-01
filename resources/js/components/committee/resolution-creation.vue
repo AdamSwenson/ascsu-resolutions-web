@@ -3,15 +3,17 @@
 
         <div class="row top-spacer"></div>
 
+        <error-alert v-if="showError"></error-alert>
         <div class="row">
             <div class="col-lg-2">
             </div>
 
             <div class="col-lg-8">
                 <div class="mb-2">
-                <h2 class="text-light text-center">{{plenaryName}} Plenary</h2>
+                    <h2 class="text-light text-center">{{ plenaryName }} Plenary</h2>
                 </div>
-                <creation-result :url="url" :title="title" v-if="showResult"></creation-result>
+
+                <creation-result :url="url" :title="title" v-if="showResult" :is-error="showError"></creation-result>
 
                 <div class="resolution-creation-main" v-else>
                     <!--                <form>-->
@@ -54,7 +56,7 @@
                     <div class="mt-5">
                         <working-spinner v-if="isWorking"></working-spinner>
 
-                         <p v-else class="">
+                        <p v-else class="">
                             <button
                                 class="btn btn-primary btn-lg "
                                 v-on:click="createRezzie"
@@ -80,10 +82,11 @@ import CosponsorsSelect from "./cosponsors-select";
 import CreationResult from "./creation-result";
 import plenaryMixin from "../../mixins/plenaryMixin";
 import WorkingSpinner from "../common/working-spinner";
+import ErrorAlert from "../common/error-alert";
 
 export default {
     name: "resolution-creation",
-    components: {WorkingSpinner, CreationResult, CosponsorsSelect, PageFooter, SponsorSelect},
+    components: {ErrorAlert, WorkingSpinner, CreationResult, CosponsorsSelect, PageFooter, SponsorSelect},
     props: [],
 
     mixins: [plenaryMixin],
@@ -97,21 +100,23 @@ export default {
             waiver: false,
             committees: [
                 'Academic Affairs',
-                'Academic Preparation EP',
+                'Academic Preparation and Educational Programs',
                 'Executive Committee',
                 'Faculty Affairs',
                 'Fiscal and Governmental Affairs',
                 'Justice, Equity, Diversity, and Inclusion'
             ],
-            isWorking : false,
+            isWorking: false,
+            showError: false,
+            showResult: false,
             url: null
         }
     },
 
     asyncComputed: {
-        showResult: function () {
-            return !_.isNull(this.title) && !_.isNull(this.url)
-        }
+        // showResult: function () {
+        //     return !_.isNull(this.title) && !_.isNull(this.url)
+        // }
     },
 
     computed: {
@@ -133,9 +138,21 @@ export default {
             this.isWorking = true;
             Vue.axios.post(url, this.$data)
                 .then((response) => {
+                    me.handleError(response);
+                    me.showResult = true;
                     me.isWorking = false;
-                window.console.log('committee', 'response', 126, response);
-                me.url = response.data.url;
+                    window.console.log('committee', 'response', 126, response);
+                    me.url = response.data.url;
+                }).catch((err) => {
+                //todo this is a very dumb and brittle way to do it
+                let r = {
+                    data: {
+                        document_id: null
+                    }
+                };
+                me.handleError(r);
+                me.showResult = true;
+
             });
         },
 
@@ -143,6 +160,17 @@ export default {
             window.console.log('committee', 'handleSponsor', 220, v);
             this.sponsor = v;
         },
+
+        /**
+         * Both validates the server response and shows the error
+         * @param response
+         */
+        handleError: function (response) {
+            if (_.isNull(response.data.document_id)) {
+                this.showError = true;
+            }
+        },
+
         handleCosponsor: function (v) {
             //if already in, remove
             let idx = this.cosponsors.indexOf(v);
