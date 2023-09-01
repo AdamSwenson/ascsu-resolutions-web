@@ -16,6 +16,8 @@ SCOPES = ['https://www.googleapis.com/auth/documents',
 # TOKEN_FILENAME = env.TOKEN_FILEPATH
 # CREDENTIALS_FILENAME = env.CREDENTIALS_FILEPATH
 
+from ResolutionManager.config.Configuration import Configuration
+
 BASE = "/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts/"
 
 CREDENTIALS_FOLDER = f"{BASE}/private"
