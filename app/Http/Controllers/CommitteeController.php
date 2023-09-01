@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ResolutionRequest;
 use App\Models\Committee;
 use App\Models\Plenary;
 use App\Models\Resolution;
@@ -79,7 +80,7 @@ class CommitteeController extends Controller
     }
 
 
-    public function recordResolution(Request $request)
+    public function recordResolution(ResolutionRequest $request)
     {
         $plenary = Plenary::where('id', 1)->first();
         $request->merge(['number' => $this->getNextResolutionNumber()]);

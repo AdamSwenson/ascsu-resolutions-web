@@ -2349,6 +2349,9 @@ __webpack_require__.r(__webpack_exports__);
      * @param response
      */
     handleError: function handleError(response) {
+      if (!_.isNull(response.errors)) {
+        window.console.log('resolution-creation', 'handleError', 170);
+      }
       if (_.isNull(response.data.document_id)) {
         this.showError = true;
       }

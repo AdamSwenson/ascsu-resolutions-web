@@ -166,6 +166,9 @@ export default {
          * @param response
          */
         handleError: function (response) {
+            if(!_.isNull(response.errors)){
+                window.console.log('resolution-creation', 'handleError', 170,);
+            }
             if (_.isNull(response.data.document_id)) {
                 this.showError = true;
             }
