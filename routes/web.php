@@ -31,3 +31,5 @@ Route::post('secretary/permissions', [SecretaryController::class, 'togglePermiss
 
 Route::post('plenary/current/{plenary}', [PlenaryController::class, 'setCurrent']);
 Route::resource('plenaries', PlenaryController::class);
+
+Route::get('diagnosis', [CommitteeController::class, 'diagnostics']);
