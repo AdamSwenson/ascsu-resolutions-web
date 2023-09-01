@@ -1,6 +1,6 @@
-private
-private/credentials.json
-t/token-1.json
+#private
+#private/credentials.json
+#t/token-1.json
 
 .DS_STORE
 
