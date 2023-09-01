@@ -27,7 +27,7 @@ class DevController extends Controller
         $command .= " test_directories.py ";
 
         $result = Process::path($executablePath)
-            ->run('ls');
+            ->run($command);
         return $result;
 
 //        $result = Process::run('pwd');
