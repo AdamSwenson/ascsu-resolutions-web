@@ -15,7 +15,6 @@ class ProductionSeeder extends Seeder
     public function run(): void
     {
 
-        $this->call(CommitteeTableSeeder::class);
 
         $p = new Plenary([
             'thursday_date' => Carbon::today(),
@@ -25,5 +24,8 @@ class ProductionSeeder extends Seeder
             'is_current' => true
         ]);
         $p->save();
+
+        $this->call(CommitteeTableSeeder::class);
+
     }
 }
