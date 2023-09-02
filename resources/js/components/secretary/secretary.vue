@@ -39,7 +39,7 @@
 <script>
 import PageFooter from "../layout/page-footer";
 import PublicFolderCreation from "./public-folder-creation";
-import ManagerPermissions from "./manager-permissions";
+import ManagerPermissions from "./resolutions/manager-permissions";
 import CreatePlenaries from "./create-plenaries";
 import plenaryMixin from "../../mixins/plenaryMixin";
 import SelectPlenary from "./select-plenary";

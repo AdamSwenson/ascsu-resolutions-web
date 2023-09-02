@@ -12,7 +12,7 @@ class Resolution extends Model
     use HasFactory;
 
     protected $fillable = ['document_id', 'title', 'number', 'waiver'];
-    protected $appends = ['url'];
+    protected $appends = ['url', 'formattedNumber'];
 
     public function getSponsorAttribute()
     {
@@ -22,6 +22,11 @@ class Resolution extends Model
     public function getCosponsorsAttribute()
     {
         return $this->committees()->where('is_sponsor', '!=', true)->get();
+    }
+
+    public function getFormattedNumberAttribute(){
+        //todo add year
+     return "AS-" . $this->number; // . '-';
     }
 
     public function getUrlAttribute()
