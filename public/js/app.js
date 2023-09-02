@@ -3600,13 +3600,11 @@ var render = function render() {
     staticClass: "card-title text-light"
   }, [_vm._v("Bulk manage permissions")]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
-  }, [_c("toggle-all-resolution-permissions")], 1), _vm._v(" "), _c("div", {
+  }, [_c("toggle-all-resolution-permissions")], 1), _vm._v(" "), _c("h3", {
+    staticClass: "card-title text-light"
+  }, [_vm._v("Manage individual permissions")]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
-  }, [_c("p", [_vm._v("Individual resolutions ....")]), _vm._v(" "), _c("resolution-permission-button", {
-    attrs: {
-      "resolution-id": 1
-    }
-  }), _vm._v(" "), _c("ul", {
+  }, [_c("ul", {
     staticClass: "list-group list-group-flush"
   }, _vm._l(_vm.resolutions, function (r) {
     return _c("resolution-permission-item", {
@@ -3617,7 +3615,7 @@ var render = function render() {
         number: r.formattedNumber
       }
     });
-  }), 1)], 1)]);
+  }), 1)])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;

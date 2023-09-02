@@ -5,9 +5,10 @@
             <toggle-all-resolution-permissions></toggle-all-resolution-permissions>
         </div>
 
+        <h3 class="card-title text-light">Manage individual permissions</h3>
         <div class="card-body">
-            <p>Individual resolutions ....</p>
-            <resolution-permission-button :resolution-id="1"></resolution-permission-button>
+
+<!--            <resolution-permission-button :resolution-id="1"></resolution-permission-button>-->
 
             <ul class="list-group list-group-flush">
                 <resolution-permission-item :resolution-id="r.id"
