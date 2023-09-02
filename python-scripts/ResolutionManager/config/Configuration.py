@@ -10,11 +10,11 @@ class Configuration(object):
     # CREDENTIALS_FILEPATH = f"{CREDENTIALS_FOLDER}/credentials.json"
     # TOKEN_FILEPATH = f"{CREDENTIALS_FOLDER}/token.json"
 
-    GOOGLE_DRIVE_ROOT_FOLDER_ID = '1p0nw_jsf8nfFIrCDLF6IejKLyngtcYtg'
+    # GOOGLE_DRIVE_ROOT_FOLDER_ID = '1p0nw_jsf8nfFIrCDLF6IejKLyngtcYtg'
 
-    TEMPLATE_DOCUMENT_ID = '1ipZ_SrSdh_wBHEqc92Oji-k8FxC8irp_yGMxeUZrpYU'
+    # TEMPLATE_DOCUMENT_ID = '1ipZ_SrSdh_wBHEqc92Oji-k8FxC8irp_yGMxeUZrpYU'
 
-    TEMPLATE_HEADER_ID = 'kix.ykwloztnzf1q'
+    # TEMPLATE_HEADER_ID = 'kix.ykwloztnzf1q'
     RESOLUTION_FILENAME_TEMPLATE = "{resolution_number} {resolution_name}"
 
     SCOPES = ['https://www.googleapis.com/auth/documents',
@@ -29,7 +29,7 @@ class Configuration(object):
         else:
             self.BASE = "/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts"
             self.config_path = "/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts/private/config.ini"
-            
+
         self.CREDENTIALS_FOLDER = f"{self.BASE}/private"
         self.CREDENTIALS_FILEPATH = f"{self.CREDENTIALS_FOLDER}/credentials.json"
         self.TOKEN_FILEPATH = f"{self.CREDENTIALS_FOLDER}/token.json"
@@ -37,6 +37,11 @@ class Configuration(object):
         # self.config_path = "../../private/config.ini";
         self.configuration = configparser.ConfigParser()
         self.configuration.read( self.config_path )
+
+        self.GOOGLE_DRIVE_ROOT_FOLDER_ID = self.configuration['drive']['GOOGLE_DRIVE_ROOT_FOLDER_ID']
+        self.TEMPLATE_DOCUMENT_ID = self.configuration['drive']['TEMPLATE_DOCUMENT_ID']
+        self.TEMPLATE_HEADER_ID = self.configuration['drive']['TEMPLATE_HEADER_ID']
+
         print(self.configuration)
 
     def set_environment(self):
