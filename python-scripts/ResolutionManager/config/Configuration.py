@@ -3,12 +3,12 @@ import os
 
 
 class Configuration(object):
-    BASE = '/Users/ars62917/Dropbox/ResolutionManagerWeb/python-scripts'
-    # BASE = "/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts"
-
-    CREDENTIALS_FOLDER = f"{BASE}/private"
-    CREDENTIALS_FILEPATH = f"{CREDENTIALS_FOLDER}/credentials.json"
-    TOKEN_FILEPATH = f"{CREDENTIALS_FOLDER}/token.json"
+    # BASE = '/Users/ars62917/Dropbox/ResolutionManagerWeb/python-scripts'
+    # # BASE = "/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts"
+    #
+    # CREDENTIALS_FOLDER = f"{BASE}/private"
+    # CREDENTIALS_FILEPATH = f"{CREDENTIALS_FOLDER}/credentials.json"
+    # TOKEN_FILEPATH = f"{CREDENTIALS_FOLDER}/token.json"
 
     GOOGLE_DRIVE_ROOT_FOLDER_ID = '1p0nw_jsf8nfFIrCDLF6IejKLyngtcYtg'
 
@@ -25,8 +25,14 @@ class Configuration(object):
 
         if self.env == 'local':
             self.config_path = "/Users/ars62917/Dropbox/ResolutionManagerWeb/python-scripts/private/config.ini"
+            self.BASE = "/Users/ars62917/Dropbox/ResolutionManagerWeb/python-scripts"
         else:
+            self.BASE = "/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts"
             self.config_path = "/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts/private/config.ini"
+            
+        self.CREDENTIALS_FOLDER = f"{self.BASE}/private"
+        self.CREDENTIALS_FILEPATH = f"{self.CREDENTIALS_FOLDER}/credentials.json"
+        self.TOKEN_FILEPATH = f"{self.CREDENTIALS_FOLDER}/token.json"
 
         # self.config_path = "../../private/config.ini";
         self.configuration = configparser.ConfigParser()
