@@ -1,11 +1,17 @@
 import sys
-sys.path.append("/Users/ars62917/Dropbox/ResolutionManager")
+sys.path.append("/Users/ars62917/Dropbox/ResolutionManagerWeb/python-scripts")
+sys.path.append("/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts/ResolutionManager")
+sys.path.append("/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts")
+
+
+# sys.path.append("/Users/ars62917/Dropbox/ResolutionManager")
 
 
 from ResolutionManager.Repositories.FileRepository import FileRepository
-import ResolutionManager.environment as env
+# import ResolutionManager.environment as env
 from ResolutionManager.DAO.DAO import MySqlDao
 from ResolutionManager.Repositories.PlenaryRepository import PlenaryRepository
+from ResolutionManager.config.Configuration import Configuration
 
 # PLENARY_FOLDER_TEMPLATE = "{year} {month}"
 RESOLUTIONS_ROOT_NAME = 'Resolutions'
@@ -16,6 +22,8 @@ ACTION_FOLDER_NAME = 'Action items'
 def main(plenary_id=None):
     if plenary_id is None:
         plenary_id = int(sys.argv[1])
+
+    config = Configuration()
 
     file_repo = FileRepository()
     # Load from database
@@ -29,7 +37,7 @@ def main(plenary_id=None):
     plenary_folder_id = file_repo.create_folder(plenary_folder_name)
     plenary = plenary_repo.update_plenary_folder(plenary, plenary_folder_id)
     # plenary_root_folder_id = file_repo.create_folder(plenary_folder_name)
-    file_repo.move_file_to_folder(plenary.plenary_folder_id, env.GOOGLE_DRIVE_ROOT_FOLDER_ID)
+    file_repo.move_file_to_folder(plenary.plenary_folder_id, config.GOOGLE_DRIVE_ROOT_FOLDER_ID)
 
     # Make subfolders
     first_reading_folder_id = file_repo.create_folder(FIRST_READING_FOLDER_NAME)
