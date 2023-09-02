@@ -21,11 +21,16 @@ class Configuration(object):
               'https://www.googleapis.com/auth/drive']
 
     def __init__(self):
-        self.config_path = "/Users/ars62917/Dropbox/ResolutionManagerWeb/python-scripts/private/config.ini"
+        self.set_environment()
+
+        if self.config_path == 'local':
+            self.config_path = "/Users/ars62917/Dropbox/ResolutionManagerWeb/python-scripts/private/config.ini"
+        else:
+            self.config_path = "/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts/private/config.ini"
+
         # self.config_path = "../../private/config.ini";
         self.configuration = configparser.ConfigParser()
         self.configuration.read( self.config_path )
-        self.set_environment()
         print(self.configuration)
 
     def set_environment(self):
