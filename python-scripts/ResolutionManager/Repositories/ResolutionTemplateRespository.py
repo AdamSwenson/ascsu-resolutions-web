@@ -1,4 +1,5 @@
-import ResolutionManager.environment as env
+# import ResolutionManager.environment as env
+from ResolutionManager.config.Configuration import Configuration
 from ResolutionManager.Repositories.DocumentRepository import DocumentRepository
 from ResolutionManager.Repositories.FileRepository import FileRepository
 from ResolutionManager.Repositories.ResolutionRepository import ResolutionRepository
@@ -11,6 +12,7 @@ HEADER_TEMPLATE = "AS-{resolution_number}-{year}/{committee}"
 class ResolutionTemplateRepository(object):
 
     def __init__(self, plenary=None, dao=None):
+        self.config = Configuration()
         self.dao = dao
         self.plenary = plenary
         self.doc_repo = DocumentRepository()
@@ -81,13 +83,15 @@ class ResolutionTemplateRepository(object):
 
         return result
 
-    def create_file_from_template(self, resolution, template_id=env.TEMPLATE_DOCUMENT_ID):
+    def create_file_from_template(self, resolution, template_id=None):
+        if template_id is None:
+            template_id = self.config.TEMPLATE_DOCUMENT_ID
         # def create_file_from_template(self, folder_id, resolution_number, resolution_name,
         #                               template_id=env.TEMPLATE_DOCUMENT_ID):
         """Uses the template to make a new resolution in the first readings folder
         returns Resolution object with document id of created resolution set
         """
-        filename = env.RESOLUTION_FILENAME_TEMPLATE.format(resolution_number=resolution.number,
+        filename = self.config.RESOLUTION_FILENAME_TEMPLATE.format(resolution_number=resolution.number,
                                                            resolution_name=resolution.title)
         sys.stdout.write(f"{resolution.__dict__}")
 
@@ -120,7 +124,7 @@ class ResolutionTemplateRepository(object):
         requests = [{
             "insertText": {
                 "location": {
-                 "segmentId": env.TEMPLATE_HEADER_ID,
+                 "segmentId": self.config.TEMPLATE_HEADER_ID,
                 "index": 0
             },
             "text": txt
