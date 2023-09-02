@@ -23,7 +23,7 @@ class Configuration(object):
     def __init__(self):
         self.set_environment()
 
-        if self.config_path == 'local':
+        if self.env == 'local':
             self.config_path = "/Users/ars62917/Dropbox/ResolutionManagerWeb/python-scripts/private/config.ini"
         else:
             self.config_path = "/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts/private/config.ini"
