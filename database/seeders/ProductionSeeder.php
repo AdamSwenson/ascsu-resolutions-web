@@ -24,5 +24,6 @@ class ProductionSeeder extends Seeder
             'plenary_folder_id'=>'1ITs5N1qpTbqVqAhALrxqSsDwiSKsnSj5',
             'is_current' => true
         ]);
+        $p->save();
     }
 }
