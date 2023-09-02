@@ -5,7 +5,7 @@ Created by adam on 8/14/17
 __author__ = 'adam'
 
 from sqlalchemy import create_engine
-
+from ResolutionManager.config.Configuration import Configuration
 
 #
 # class SqliteDao:
@@ -44,10 +44,11 @@ class MySqlDao:
         @param local True connects to localhost; False connects to adamnet
         @type local string
         """
+        config = Configuration()
 
         #     """ local db """
         dsn = "mysql+mysqlconnector://root:@127.0.0.1:3306/ascsu"
-        self.engine = create_engine( dsn )
+        self.engine = create_engine( config.dsn )
         self.conn = self.engine.connect()
 
 

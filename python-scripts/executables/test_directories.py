@@ -1,6 +1,9 @@
 import sys
 sys.path.append("/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts/ResolutionManager")
 sys.path.append("/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts")
+sys.path.append("/Users/ars62917/Dropbox/ResolutionManagerWeb/python-scripts")
+import os
+from ResolutionManager.config.Configuration import Configuration
 
 from sqlalchemy import create_engine
 
@@ -18,8 +21,11 @@ def add_path():
 def main():
 #     print(sys.path)
 #     import ResolutionManager.Repositories.DocumentRepository.DocumentRepository as d
+    con = Configuration()
+    sys.stdout.write(f"{con.env}")
 
-    print('done')
+
+    print(con.configuration)
 
 
 
