@@ -22,7 +22,7 @@ def main():
 #     print(sys.path)
 #     import ResolutionManager.Repositories.DocumentRepository.DocumentRepository as d
     con = Configuration()
-    sys.stdout.write(f"{con.env}")
+    sys.stdout.write(f"{con.dsn}")
 
 
     print(con.configuration)
