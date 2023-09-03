@@ -19,7 +19,7 @@ class ProductionSeeder extends Seeder
         $p = new Plenary([
             'thursday_date' => Carbon::today(),
 
-            'first_reading_folder_id' =>'1m_tElzh9_b6ousdOVgM0cIID6vOvom3p',
+            'first_reading_folder_id' =>'1-U0SBib3UmfiXybzARUViIEmwj3mLhY5',
             'plenary_folder_id'=>'1ITs5N1qpTbqVqAhALrxqSsDwiSKsnSj5',
             'is_current' => true
         ]);
