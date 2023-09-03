@@ -50,6 +50,10 @@ def main(plenary_id=None, resolution_id=None):
     template_repo = ResolutionTemplateRepository(plenary=plenary, dao=dao)
 
     resolution_file = template_repo.create_file_from_template(resolution=resolution)
+
+    sys.stdout.write(f"{resolution_file}")
+
+    # dev
     template_repo.update_title(resolution_file)
     template_repo.update_header(resolution_file)
 
