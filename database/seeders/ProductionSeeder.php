@@ -27,5 +27,7 @@ class ProductionSeeder extends Seeder
 
         $this->call(CommitteeTableSeeder::class);
 
+
+
     }
 }
