@@ -110,7 +110,9 @@ class PermissionsController extends Controller
         $result = Process::path($executablePath)
             ->run($command);
 
-        dd($result->output());
+        $j = json_decode($result->output());
+
+        dd($j);
         if ($result->successful()) {
             $j = json_decode($result->output());
             return $result->output();
