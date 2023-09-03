@@ -15,9 +15,14 @@ class PermissionsController extends Controller
 
     public function lockEditingAll(Plenary $plenary)
     {
-        $command = "../../ResolutionManager/rezzies/bin/python";
+        $command = config('app.pythonBin');
+
+//        $command = "../../ResolutionManager/rezzies/bin/python";
         $command .= " web_lock_all_plenary_files.py " . $plenary->id;
-        $executablePath = '../../ResolutionManager/executables';
+
+        $executablePath = config('app.pythonScript');
+
+//        $executablePath = '../../ResolutionManager/executables';
         $result = Process::path($executablePath)
             ->run($command);
 
@@ -41,10 +46,14 @@ class PermissionsController extends Controller
      */
     public function unlockEditingAll(Plenary $plenary)
     {
+        $command = config('app.pythonBin');
 
-        $command = "../../ResolutionManager/rezzies/bin/python";
+//        $command = "../../ResolutionManager/rezzies/bin/python";
         $command .= " web_unlock_all_plenary_files.py " . $plenary->id;
-        $executablePath = '../../ResolutionManager/executables';
+
+        $executablePath = config('app.pythonScript');
+
+//        $executablePath = '../../ResolutionManager/executables';
         $result = Process::path($executablePath)
             ->run($command);
 
@@ -60,9 +69,14 @@ class PermissionsController extends Controller
 
     public function lockEditingOne(Resolution $resolution)
     {
-        $command = "../../ResolutionManager/rezzies/bin/python";
+        $command = config('app.pythonBin');
+
+//        $command = "../../ResolutionManager/rezzies/bin/python";
         $command .= " web_lock_one_file.py " . $resolution->id;
-        $executablePath = '../../ResolutionManager/executables';
+
+        $executablePath = config('app.pythonScript');
+
+//        $executablePath = '../../ResolutionManager/executables';
         $result = Process::path($executablePath)
             ->run($command);
 
@@ -81,9 +95,14 @@ return $this->sendAjaxSuccess();
 
     public function unlockEditingOne(Resolution $resolution)
     {
-        $command = "../../ResolutionManager/rezzies/bin/python";
+        $command = config('app.pythonBin');
+
+//        $command = "../../ResolutionManager/rezzies/bin/python";
         $command .= " web_unlock_one_file.py " . $resolution->id;
-        $executablePath = '../../ResolutionManager/executables';
+
+        $executablePath = config('app.pythonScript');
+
+//        $executablePath = '../../ResolutionManager/executables';
         $result = Process::path($executablePath)
             ->run($command);
 
@@ -102,10 +121,14 @@ return $this->sendAjaxSuccess();
 
     public function getPermissions(Resolution $resolution)
     {
+        $command = config('app.pythonBin');
 
-        $command = "../../ResolutionManager/rezzies/bin/python";
+//        $command = "../../ResolutionManager/rezzies/bin/python";
         $command .= " web_get_file_permissions.py " . $resolution->id;
-        $executablePath = '../../ResolutionManager/executables';
+
+        $executablePath = config('app.pythonScript');
+
+//        $executablePath = '../../ResolutionManager/executables';
         $result = Process::path($executablePath)
             ->run($command);
 
