@@ -112,6 +112,7 @@ class PermissionsController extends Controller
 
         if ($result->successful()) {
             $j = json_decode($result->output());
+            return $result->output();
             //assumes that the anyoneWithLink will be the first permission
             return response()->json($j->permissions[0]);
 
