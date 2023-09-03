@@ -4,6 +4,7 @@ from ResolutionManager.Repositories.DocumentRepository import DocumentRepository
 from ResolutionManager.Repositories.FileRepository import FileRepository
 from ResolutionManager.Repositories.ResolutionRepository import ResolutionRepository
 from ResolutionManager.API.CredentialsManager import CredentialsManager
+from ResolutionManager.Repositories.CommitteeRepository import CommitteeRepository
 import sys
 from googleapiclient.discovery import build
 
@@ -19,6 +20,7 @@ class ResolutionTemplateRepository(object):
         self.file_repo = FileRepository()
         self.cred_manager = CredentialsManager()
         self.resolution_repo = ResolutionRepository(dao)
+        self.committee_repo = CommitteeRepository(dao)
 
         self.service = build('docs', 'v1', credentials=self.cred_manager.creds)
 
@@ -88,11 +90,14 @@ class ResolutionTemplateRepository(object):
             template_id = self.config.TEMPLATE_DOCUMENT_ID
         # def create_file_from_template(self, folder_id, resolution_number, resolution_name,
         #                               template_id=env.TEMPLATE_DOCUMENT_ID):
+
+        sponsor = self.committee_repo.load_sponsor(resolution_id=resolution.id)
         """Uses the template to make a new resolution in the first readings folder
         returns Resolution object with document id of created resolution set
         """
         filename = self.config.RESOLUTION_FILENAME_TEMPLATE.format(resolution_number=resolution.number,
-                                                           resolution_name=resolution.title)
+                                                           resolution_name=resolution.title,
+                                                                   committee_abbrev=sponsor.abbreviation)
         sys.stdout.write(f"{resolution.__dict__}")
 
         resolution.document_id = self.file_repo.copy_file(template_id, filename)

@@ -24,7 +24,7 @@ class ProductionSeeder extends Seeder
 //            'is_current' => true
 //        ]);
 //        $p->save();
-
+        
         $this->call(CommitteeTableSeeder::class);
 
 
