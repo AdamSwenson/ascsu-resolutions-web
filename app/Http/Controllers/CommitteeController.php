@@ -52,11 +52,12 @@ class CommitteeController extends Controller
 
     }
 
-    public function diagnostics(){
+    public function diagnostics()
+    {
         $result = $this->runScript();
 
         if ($result->successful()) {
-           return $result->output();
+            return $result->output();
         }
         return $result->errorOutput();
     }
@@ -102,71 +103,55 @@ class CommitteeController extends Controller
             return response()->json($resolution);
         }
         return $result->errorOutput();
-//        dd($result);
-//        $result = $this->createResolutionInDrive($plenary, $resolution);
 
-//        $result = $this->runScript();
-        //dd($result);
-//        $resolution->refresh();
-//        return response()->json($resolution);
     }
 
     public function createResolutionInDriveNew(Plenary $plenary, Resolution $resolution)
     {
         $command = config('app.pythonBin');
-        $command .= " web_create_resolution_from_template.py " . $plenary->id . " " . $resolution->id;
         $executablePath = config('app.pythonScript');
-        $result = Process::path($executablePath)
+
+        $command .= " web_create_resolution_from_template.py " . $plenary->id . " " . $resolution->id;
+         $result = Process::path($executablePath)
             ->run($command);
-return $result;
-//        if ($result->successful()) {
-//            return $result->output();
-//        }
-//        return $result->errorOutput();
-    }
-
-    public function runScript()
-    {
-//        $executablePath = config('app.pythonScript');
-        $executablePath = config('app.pythonBin');
-
-
-//        $result = Process::run('pwd');
-//        $result = Process::path('../../ResolutionManager/ResolutionManager/executables')
-//            ->run('ls');
-        $result = Process::path($executablePath)
-//            ->run('ls');
-            ->run('ls');
-//return $result->errorOutput();
-//        ->run('PYTHONPATH=/Users/ars62917/Dropbox/ResolutionManager/ResolutionManager python3 test.py 2');
-//            ->run('PYTHONPATH=/Users/ars62917/Dropbox/ResolutionManager/ResolutionManager python3 test.py 2');
         return $result;
     }
 
-
-
-
-    public function createResolutionInDrive(Plenary $plenary, Resolution $resolution){
-//        $command = "PYTHONPATH=$(../../ResolutionManager/ResolutionManager) python3 test.py " . $plenary->id . " " . $resolution->id;
-        $command = "../../ResolutionManager/rezzies/bin/python";
-
-        $command .= " web_create_resolution_from_template.py " . $plenary->id . " " . $resolution->id;
-//        $command = "python3 web_create_resolution_from_template.py " . $plenary->id . " " . $resolution->id;
-//        $command = "python3 test.py " . $plenary->id;
-        $executablePath = '../../ResolutionManager/executables';
-
-//        $executablePath = '../../ResolutionManager/ResolutionManager/executables';
-
-//        $executablePath = '../../ResolutionManager/ResolutionManager/executables';
-        $result = Process::path($executablePath)
-            ->run($command);
-
-        if($result->successful()){
-            return $result->output();
-        }
-//        dd($result->output());
-        return $result->errorOutput();
-
-    }
+//    public function runScript()
+//    {
+////        $executablePath = config('app.pythonScript');
+//        $executablePath = config('app.pythonBin');
+//
+//
+////        $result = Process::run('pwd');
+////        $result = Process::path('../../ResolutionManager/ResolutionManager/executables')
+////            ->run('ls');
+//        $result = Process::path($executablePath)
+////            ->run('ls');
+//            ->run('ls');
+////return $result->errorOutput();
+////        ->run('PYTHONPATH=/Users/ars62917/Dropbox/ResolutionManager/ResolutionManager python3 test.py 2');
+////            ->run('PYTHONPATH=/Users/ars62917/Dropbox/ResolutionManager/ResolutionManager python3 test.py 2');
+//        return $result;
+//    }
+//
+//
+//    public function createResolutionInDrive(Plenary $plenary, Resolution $resolution)
+//    {
+//        $command = config('app.pythonBin');
+//        $executablePath = config('app.pythonScript');
+//
+//        $command .= " web_create_resolution_from_template.py " . $plenary->id . " " . $resolution->id;
+//
+//        $result = Process::path($executablePath)
+//            ->run($command);
+//
+//        if ($result->successful()) {
+//            return $result->output();
+//        }
+////        dd($result->output());
+//        return $result->errorOutput();
+//
+//    }
 
 }
