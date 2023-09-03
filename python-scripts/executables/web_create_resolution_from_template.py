@@ -55,11 +55,15 @@ def main(plenary_id=None, resolution_id=None):
 
     resolution_file = template_repo.create_file_from_template(resolution=resolution)
 
-    template_repo.update_title(resolution_file)
+    # Make readable since this must happen before range updates
+    permission_repo.make_world_writeable(resolution.document_id)
+
+    # Update parts of the file
+    # AR-29
+    template_repo.update_title_new(resolution_file)
+    # template_repo.update_title(resolution_file)
     template_repo.update_header(resolution_file)
 
-    # Make readable
-    permission_repo.make_world_writeable(resolution.document_id)
 
 
     print(resolution_file.__dict__)
