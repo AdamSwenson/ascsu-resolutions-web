@@ -22,7 +22,7 @@ def main(plenary_id=None):
     plenary = plenary_repo.load_plenary(plenary_id)
 
     for f in file_repo.list_files(folder_id=plenary.first_reading_folder_id):
-        permission_repo.make_world_writable(f['id'])
+        permission_repo.make_world_writeable(f['id'])
 
     return plenary
 

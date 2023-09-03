@@ -23,6 +23,8 @@ from ResolutionManager.DAO.DAO import MySqlDao
 from ResolutionManager.Repositories.CommitteeRepository import CommitteeRepository
 from ResolutionManager.Repositories.PlenaryRepository import PlenaryRepository
 from ResolutionManager.Repositories.ResolutionRepository import ResolutionRepository
+from ResolutionManager.Repositories.PermissionsRepository import PermissionsRepository
+
 
 def main(plenary_id=None, resolution_id=None):
 
@@ -37,6 +39,8 @@ def main(plenary_id=None, resolution_id=None):
     committee_repo = CommitteeRepository(dao)
     resolution_repo = ResolutionRepository(dao)
     plenary_repo = PlenaryRepository(dao)
+    permission_repo = PermissionsRepository()
+
 
     # Load everything
     sponsor = committee_repo.load_sponsor(resolution_id)
@@ -51,11 +55,12 @@ def main(plenary_id=None, resolution_id=None):
 
     resolution_file = template_repo.create_file_from_template(resolution=resolution)
 
-    sys.stdout.write(f"{resolution_file}")
-
-    # dev
     template_repo.update_title(resolution_file)
     template_repo.update_header(resolution_file)
+
+    # Make readable
+    permission_repo.make_world_writeable(resolution.document_id)
+
 
     print(resolution_file.__dict__)
 

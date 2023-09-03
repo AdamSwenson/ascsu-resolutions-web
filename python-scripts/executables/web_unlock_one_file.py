@@ -18,7 +18,7 @@ def main(resolution_id=None):
 
     resolution = resolution_repo.load_resolution(resolution_id)
 
-    permission_repo.make_world_writable(resolution.document_id)
+    permission_repo.make_world_writeable(resolution.document_id)
 
     return resolution
 

@@ -43,7 +43,7 @@ class PermissionsRepository(object):
     def get_permission(self, file_id):
         return self.service.permissions().list(fileId=file_id).execute()
 
-    def make_world_writable(self, file_id):
+    def make_world_writeable(self, file_id):
         user_permission = {
             'type': 'anyone',
             'role': 'writer',
