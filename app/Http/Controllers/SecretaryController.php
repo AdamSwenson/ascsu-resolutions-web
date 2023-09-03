@@ -63,9 +63,8 @@ class SecretaryController extends Controller
         $command = config('app.pythonBin');
         $executablePath = config('app.pythonScript');
 
-//        $command = "../../ResolutionManager/rezzies/bin/python";
         $command .= " web_make_folders_for_plenary.py " . $plenary->id;
-  //      $executablePath = '../../ResolutionManager/executables';
+
         $result = Process::path($executablePath)
             ->run($command);
 
@@ -83,9 +82,8 @@ class SecretaryController extends Controller
         $command = config('app.pythonBin');
         $executablePath = config('app.pythonScript');
 
-//        $command = "../../ResolutionManager/rezzies/bin/python";
         $command .= " web_copy_first_readings_for_feedback.py " . $plenary->id;
-  //      $executablePath = '../../ResolutionManager/executables';
+
         $result = Process::path($executablePath)
             ->run($command);
 
