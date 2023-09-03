@@ -30,11 +30,13 @@ class SecretaryController extends Controller
 
         $plenary = Plenary::where('is_current', true)->first();
 
+        $plenaryId = $plenary->id ? ! is_null($plenary) : null;
+
         // Return the page with student and activity data embedded
         $data = [
             'data' => [
                 'url' => url(),
-                'plenaryId' => $plenary->id,
+                'plenaryId' => $plenaryId,
                 'plenary' => $plenary
 
             ],
