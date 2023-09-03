@@ -18,7 +18,7 @@ class SecretaryController extends Controller
 
     public function createPlenary(Request $request)
     {
-        $plenary = Plenary::create(['thursday_date' => $request->thursday_date]);
+        $plenary = Plenary::create(['thursday_date' => $request->thursday_date, 'is_current' => true]);
         $result = $this->runCreatePlenaryFoldersScript($plenary);
         $plenary->refresh();
         return response()->json($plenary);
