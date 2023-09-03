@@ -15,7 +15,7 @@ class Configuration(object):
     # TEMPLATE_DOCUMENT_ID = '1ipZ_SrSdh_wBHEqc92Oji-k8FxC8irp_yGMxeUZrpYU'
 
     # TEMPLATE_HEADER_ID = 'kix.ykwloztnzf1q'
-    RESOLUTION_FILENAME_TEMPLATE = "{resolution_number} {resolution_name}"
+    RESOLUTION_FILENAME_TEMPLATE = "{resolution_number} {committee_abbrev} {resolution_name}"
 
     SCOPES = ['https://www.googleapis.com/auth/documents',
               'https://www.googleapis.com/auth/drive']
