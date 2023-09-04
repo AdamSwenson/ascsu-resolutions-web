@@ -74,8 +74,10 @@ class CommitteeController extends Controller
     public function addCosponsors(Resolution $resolution, Request $request)
     {
         foreach ($request->cosponsors as $cosponsor) {
-            $c = Committee::where('name', $cosponsor)->first();
-            $resolution->committees()->attach($c, ['is_cosponsor' => true]);
+            if ($resolution->sponsor->name !== $cosponsor) {
+                $c = Committee::where('name', $cosponsor)->first();
+                $resolution->committees()->attach($c, ['is_cosponsor' => true]);
+            }
         }
         $resolution->save();
         return $resolution;
