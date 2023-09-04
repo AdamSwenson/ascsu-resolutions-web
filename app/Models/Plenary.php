@@ -11,7 +11,9 @@ class Plenary extends Model
     const URL_BASE = 'https://drive.google.com/drive/folders/';
     use HasFactory;
 
-    protected $fillable = ['first_reading_folder_id',
+    protected $fillable = [
+        'agenda_id',
+        'first_reading_folder_id',
         'feedback_folder_id',
         'plenary_folder_id',
         'second_reading_folder_id',

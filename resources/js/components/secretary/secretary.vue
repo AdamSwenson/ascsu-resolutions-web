@@ -17,6 +17,10 @@
 
                 </div>
 
+                <div class=" mb-5">
+                    <create-agenda :plenaryId="plenaryId"></create-agenda>
+                </div>
+
                 <div class="mb-5">
                     <manager-permissions :plenaryId="plenaryId"></manager-permissions>
                 </div>
@@ -43,10 +47,11 @@ import ManagerPermissions from "./resolutions/manager-permissions";
 import CreatePlenaries from "./create-plenaries";
 import plenaryMixin from "../../mixins/plenaryMixin";
 import SelectPlenary from "./select-plenary";
+import CreateAgenda from "./create-agenda";
 
 export default {
     name: "secretary",
-    components: {SelectPlenary, CreatePlenaries, ManagerPermissions, PublicFolderCreation, PageFooter},
+    components: {CreateAgenda, SelectPlenary, CreatePlenaries, ManagerPermissions, PublicFolderCreation, PageFooter},
     props: [],
     mixins: [plenaryMixin],
 

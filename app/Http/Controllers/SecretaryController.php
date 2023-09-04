@@ -47,7 +47,24 @@ class SecretaryController extends Controller
 
     }
 
+public function createAgenda(Plenary $plenary){
+    $command = config('app.pythonBin');
+    $executablePath = config('app.pythonScript');
 
+    $command .= " web_make_agenda.py " . $plenary->id;
+
+    $result = Process::path($executablePath)
+        ->run($command);
+
+//    dd($result);
+
+    if ($result->successful()) {
+        return $result->output();
+    }
+//        dd($result->output());
+    return $result->errorOutput();
+
+}
 
     public function createPublic(Plenary $plenary)
     {

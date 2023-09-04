@@ -25,7 +25,7 @@ from ResolutionManager.Repositories.PermissionsRepository import PermissionsRepo
 def main(plenary_id=None):
     AGENDA_FILENAME_TEMPLATE = "{plenary_name} Agenda"
     if plenary_id is None:
-        plenary_id = int(sys.argv[2])
+        plenary_id = int(sys.argv[1])
     # sys.stdout.write(f"{plenary_id} {resolution_id}")
 
     # Load from database
@@ -60,7 +60,8 @@ def main(plenary_id=None):
     agenda_id = document_repo.create_file(fname)
     file_repo.move_file_to_folder(agenda_id, plenary.plenary_folder_id)
 
-    # maybe should store, that way can update
+    # store agenda id so can update
+    plenary = plenary_repo.update_agenda_id(plenary, agenda_id)
     print(agenda_id)
 
     idx = 1
@@ -132,7 +133,10 @@ def main(plenary_id=None):
     print(requests)
 
     result = document_repo.service.documents().batchUpdate(documentId=agenda_id, body={'requests': requests}).execute()
+    sys.stdout.write(f"{result.__dict__}")
 
+if __name__ == '__main__':
+    main()
 
 # ================================ do not need
     # # Get all resolutions

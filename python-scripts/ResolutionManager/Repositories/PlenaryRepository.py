@@ -17,7 +17,14 @@ class PlenaryRepository(object):
                        first_reading_folder_id=result.first_reading_folder_id,
                        plenary_folder_id=result.plenary_folder_id,
                        feedback_folder_id=result.feedback_folder_id,
-                       second_reading_folder_id=result.second_reading_folder_id)
+                       second_reading_folder_id=result.second_reading_folder_id,
+                       agenda_id=result.agenda_id)
+
+    def update_agenda_id(self, plenary, agenda_id):
+        """Saves the document id of the agenda to the db"""
+        self.dao.conn.execute(f"update ascsu.plenaries p set p.agenda_id = '{agenda_id}' where p.id = {plenary.id}")
+        plenary.agenda_id = agenda_id
+        return plenary
 
     def update_plenary_folder(self, plenary, plenary_folder_id):
         self.dao.conn.execute(f"update ascsu.plenaries p set p.plenary_folder_id = '{plenary_folder_id}' where p.id = {plenary.id}")

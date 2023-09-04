@@ -32,6 +32,9 @@ Route::post('/secretary/folders', [SecretaryController::class, 'createPlenary'])
 Route::post('secretary/public/{plenary}', [SecretaryController::class, 'createPublic']);
 
 Route::post('plenary/current/{plenary}', [PlenaryController::class, 'setCurrent']);
+
+Route::post('/secretary/agenda/{plenary}', [SecretaryController::class, 'createAgenda']);
+
 Route::resource('plenaries', PlenaryController::class);
 
 //Permissions

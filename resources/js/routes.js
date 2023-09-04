@@ -39,6 +39,15 @@ module.exports = {
     },
 
     secretary : {
+        agenda : {
+         createAgenda : (plenary) => {
+             plenary_id = idify(plenary);
+             url = normalizedRouteRoot()
+             url += 'secretary/agenda/'
+             url += plenary_id;
+             return url
+         }
+        },
 
         permissions : {
             getPermission: (resolution) => {
