@@ -1,6 +1,7 @@
 from ResolutionManager.Models.Resolutions import Resolution
 from ResolutionManager.Repositories.DocumentRepository import DocumentRepository
 from ResolutionManager.config.Configuration import Configuration
+from ResolutionManager.Repositories.CommitteeRepository import CommitteeRepository
 
 import sys
 
@@ -16,7 +17,7 @@ class ResolutionRepository(object):
 
         # sys.stdout.write(str(resolution_id))
 
-        return Resolution(id=result.id, number=result.number, document_id=result.document_id, title=result.title, committee=sponsor, cosponsors=cosponsors)
+        return Resolution(id=result.id, number=result.number, document_id=result.document_id, title=result.title, waiver=result.waiver, committee=sponsor, cosponsors=cosponsors)
 
 
     def set_google_document_id(self, resolution, document_id):
@@ -93,6 +94,30 @@ class ResolutionRepository(object):
         if len(title) > 0:
             query = f"update ascsu.resolutions r set r.title = '{title}' where r.id={resolution.id}"
             result = self.dao.conn.execute(query)
+
+    def load_all_resolutions(self):
+        """Loads all resolutions with the title as it exists in drive """
+        # For now not going to sync the database, just use title from drive if can be retrieved and default to db version
+        committee_repo = CommitteeRepository(self.dao)
+        resolutions = []
+        query = f"select id from ascsu.resolutions"
+        results = self.dao.conn.execute(query)
+        for r in results:
+            rid = r[0]
+            sponsor = committee_repo.load_sponsor(rid)
+            cosponsors = committee_repo.load_cosponsors(rid)
+            rez = self.load_resolution(rid, sponsor, cosponsors)
+            try:
+                doc_title = self.get_current_title_from_drive(rez)
+                if len(doc_title) > 0:
+                    rez.title = doc_title
+            except Exception as e:
+                print(e)
+                # todo Catch appropriately
+                pass
+
+            resolutions.append(rez)
+        return resolutions
 
 
 
