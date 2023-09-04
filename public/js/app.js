@@ -2549,14 +2549,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../routes */ "./resources/js/routes.js");
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_routes__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _common_working_spinner__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../common/working-spinner */ "./resources/js/components/common/working-spinner.vue");
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "create-agenda",
+  components: {
+    WorkingSpinner: _common_working_spinner__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
   props: ['plenaryId'],
   data: function data() {
     return {
-      url: null
+      url: null,
+      isWorking: false
     };
   },
   asyncComputed: {
@@ -2570,8 +2576,10 @@ __webpack_require__.r(__webpack_exports__);
       window.console.log('secretary', 'createAgenda');
       var url = _routes__WEBPACK_IMPORTED_MODULE_1__.secretary.agenda.createAgenda(this.plenaryId);
       var me = this;
+      this.isWorking = true;
       Vue.axios.post(url).then(function (response) {
         window.console.log('secretary', 'response', 126, response);
+        me.isWorking = false;
         // me.url = response.data.agendaUrl;
       });
     }
@@ -2593,15 +2601,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../mixins/plenaryMixin */ "./resources/js/mixins/plenaryMixin.js");
 /* harmony import */ var _mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _common_working_spinner__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../common/working-spinner */ "./resources/js/components/common/working-spinner.vue");
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "create-plenaries",
+  components: {
+    WorkingSpinner: _common_working_spinner__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   props: [],
   mixins: [(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_0___default())],
   data: function data() {
     return {
       thursdayDate: null,
-      url: null
+      url: null,
+      isWorking: false
     };
   },
   asyncComputed: {
@@ -2615,12 +2629,14 @@ __webpack_require__.r(__webpack_exports__);
       window.console.log('committee', 'createPlenaries', 124, this.$data);
       var url = window.routeRoot + '/secretary/folders';
       var me = this;
+      this.isWorking = true;
       var data = {
         'thursday_date': this.thursdayDate
       };
       Vue.axios.post(url, data).then(function (response) {
         window.console.log('committee', 'response', 126, response);
         me.url = response.data.plenaryUrl;
+        me.isWorking = false;
       });
     }
   }
@@ -2641,13 +2657,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../routes */ "./resources/js/routes.js");
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_routes__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _common_working_spinner__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../common/working-spinner */ "./resources/js/components/common/working-spinner.vue");
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "enforce-styling",
+  components: {
+    WorkingSpinner: _common_working_spinner__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   props: [],
   mixins: [],
   data: function data() {
-    return {};
+    return {
+      isWorking: false
+    };
   },
   asyncComputed: {},
   computed: {},
@@ -2656,8 +2679,10 @@ __webpack_require__.r(__webpack_exports__);
       window.console.log('secretary', 'createAgenda');
       var url = _routes__WEBPACK_IMPORTED_MODULE_0__.secretary.resolutions.enforceStyle();
       var me = this;
+      this.isWorking = true;
       Vue.axios.post(url).then(function (response) {
         window.console.log('secretary', 'response', 126, response);
+        me.isWorking = false;
         // me.url = response.data.agendaUrl;
       });
     }
@@ -2737,14 +2762,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _common_working_spinner__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../common/working-spinner */ "./resources/js/components/common/working-spinner.vue");
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "public-folder-creation",
+  components: {
+    WorkingSpinner: _common_working_spinner__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   props: ['plenaryId'],
   mixins: [],
   data: function data() {
     return {
       // plenary_id: 1,
-      publicUrl: null
+      publicUrl: null,
+      isWorking: false
     };
   },
   asyncComputed: {
@@ -2758,9 +2789,11 @@ __webpack_require__.r(__webpack_exports__);
       var url = window.routeRoot + '/secretary/public/' + this.plenaryId;
       window.console.log('committee', 'createPlenaries', 124, url);
       var me = this;
+      this.isWorking = true;
       Vue.axios.post(url).then(function (response) {
         window.console.log('committee', 'response', 126, response);
         me.url = response.data.publicUrl;
+        me.isWorking = false;
       });
     }
   }
@@ -2993,14 +3026,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_routes__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../mixins/plenaryMixin */ "./resources/js/mixins/plenaryMixin.js");
 /* harmony import */ var _mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _common_working_spinner__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../common/working-spinner */ "./resources/js/components/common/working-spinner.vue");
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "toggle-all-resolution-permissions",
+  components: {
+    WorkingSpinner: _common_working_spinner__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
   props: [],
   mixins: [(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_1___default())],
   data: function data() {
-    return {};
+    return {
+      isLockWorking: false,
+      isUnlockWorking: false
+    };
   },
   asyncComputed: {},
   computed: {},
@@ -3009,16 +3050,21 @@ __webpack_require__.r(__webpack_exports__);
       var url = _routes__WEBPACK_IMPORTED_MODULE_0__.secretary.permissions.lockAll(this.plenaryId);
       window.console.log('permissions', 'lock all', 124, url);
       var me = this;
+      this.isLockWorking = true;
       Vue.axios.post(url).then(function (response) {
         window.console.log('permissions', 'response', 126, response);
+        me.isLockWorking = false;
       });
     },
     handleUnlockAll: function handleUnlockAll() {
+      var _this = this;
       var url = _routes__WEBPACK_IMPORTED_MODULE_0__.secretary.permissions.unlockAll(this.plenaryId);
       window.console.log('permissions', 'lock all', 124, url);
       var me = this;
+      this.isUnlockWorking = true;
       Vue.axios.post(url).then(function (response) {
         window.console.log('permissions', 'response', 126, response);
+        _this.isUnlockWorking = false;
       });
     }
   }
@@ -3702,12 +3748,12 @@ var render = function render() {
     staticClass: "card-title text-light"
   }, [_vm._v("Create agenda ")]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
-  }, [_c("button", {
+  }, [_vm.isWorking ? _c("working-spinner") : _c("button", {
     staticClass: "btn btn-primary",
     on: {
       click: _vm.handleCreateAgenda
     }
-  }, [_vm._v("Create agenda")])])]);
+  }, [_vm._v("Create agenda")])], 1)]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -3765,12 +3811,12 @@ var render = function render() {
     staticClass: "card-body"
   }, [_c("p", {
     staticClass: "card-text text-info"
-  }, [_vm._v("This will create a new plenary meeting with the appropriate folders in the drive")]), _vm._v(" "), _c("button", {
+  }, [_vm._v("This will create a new plenary meeting with the appropriate folders in the drive")]), _vm._v(" "), _vm.isWorking ? _c("working-spinner") : _c("button", {
     staticClass: "btn btn-danger",
     on: {
       click: _vm.handleCreateFolders
     }
-  }, [_vm._v("Create folders")])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Create folders")])], 1), _vm._v(" "), _c("div", {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -3814,12 +3860,12 @@ var render = function render() {
     staticClass: "card-title text-light"
   }, [_vm._v("Enforce styling")]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
-  }, [_c("button", {
+  }, [_vm.isWorking ? _c("working-spinner") : _c("button", {
     staticClass: "btn btn-primary",
     on: {
       click: _vm.handleEnforceStyle
     }
-  }, [_vm._v("Enforce styling")])])]);
+  }, [_vm._v("Enforce styling")])], 1)]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -3884,12 +3930,12 @@ var render = function render() {
     staticClass: "card-title text-light"
   }, [_vm._v("Public version")]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
-  }, [_c("button", {
+  }, [_vm.isWorking ? _c("working-spinner") : _c("button", {
     staticClass: "btn btn-primary",
     on: {
       click: _vm.handleCreatePublic
     }
-  }, [_vm._v("Create public version")])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Create public version")])], 1), _vm._v(" "), _c("div", {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -4043,19 +4089,19 @@ var render = function render() {
     staticClass: "row"
   }, [_c("div", {
     staticClass: "col-6"
-  }, [_c("button", {
+  }, [_vm.isUnlockWorking ? _c("working-spinner") : _c("button", {
     staticClass: "btn btn-primary",
     on: {
       click: _vm.handleUnlockAll
     }
-  }, [_vm._v("Allow editing")])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Allow editing")])], 1), _vm._v(" "), _c("div", {
     staticClass: "col-6"
-  }, [_c("button", {
+  }, [_vm.isLockWorking ? _c("working-spinner") : _c("button", {
     staticClass: "btn btn-primary",
     on: {
       click: _vm.handleLockAll
     }
-  }, [_vm._v("Lock editing")])])])]);
+  }, [_vm._v("Lock editing")])], 1)])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
