@@ -30,22 +30,13 @@ class Resolution(object):
     def agenda_item(self):
         """Returns the text as it should appear in the agenda """
         # todo Add correct date!
-        t = f"AS-{self.number}-23/{self.committee.abbreviation} {self.title}"
+        t = f"AS-{self.number}-23/{self.committee.abbreviation}"
         if len(self.cosponsors) > 0:
             for c in self.cosponsors:
                 t += f"/{c.abbreviation}"
+        t += f" {self.title}"
         if self.waiver == 1:
             t += " WAIVER "
-        t += "\n"
-        t+= f"{self.url}\n"
         return t
-        # t = f"<a href='{self.url}'>AS-{self.number}-23/{self.committee.abbreviation} {self.title}"
-        # if len(self.cosponsors) > 0:
-        #     for c in self.cosponsors:
-        #         t += f"/{c.abbreviation}"
-        # t += "</a>"
-        # return t
-
-
 
 

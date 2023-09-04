@@ -23,10 +23,9 @@ from ResolutionManager.Repositories.PermissionsRepository import PermissionsRepo
 
 
 def main(plenary_id=None):
-    AGENDA_FILENAME_TEMPLATE = "{plenary_name} Agenda"
+    AGENDA_FILENAME_TEMPLATE = "{plenary_name} Resolution list"
     if plenary_id is None:
         plenary_id = int(sys.argv[1])
-    # sys.stdout.write(f"{plenary_id} {resolution_id}")
 
     # Load from database
     dao = MySqlDao()
@@ -36,18 +35,6 @@ def main(plenary_id=None):
     permission_repo = PermissionsRepository()
     document_repo = DocumentRepository()
     file_repo = FileRepository()
-
-    plenary = plenary_repo.load_plenary(plenary_id)
-
-    plenary_id = 1
-
-    # Load from database
-    dao = MySqlDao()
-    committee_repo = CommitteeRepository(dao)
-    resolution_repo = ResolutionRepository(dao)
-    plenary_repo = PlenaryRepository(dao)
-    permission_repo = PermissionsRepository()
-    document_repo = DocumentRepository()
 
     plenary = plenary_repo.load_plenary(plenary_id)
 
@@ -62,78 +49,128 @@ def main(plenary_id=None):
 
     # store agenda id so can update
     plenary = plenary_repo.update_agenda_id(plenary, agenda_id)
+
+    # todo Decide whether want this once have everything working properly
+    permission_repo.make_world_writeable(agenda_id)
+
     print(agenda_id)
 
     idx = 1
     requests = []
+    for r in resolutions:
+        try:
+            text = f"{r.agenda_item} \n"
+            requests.append({
+                'insertText': {
+                    'location': {
+                        'index': idx,
+                    },
+                    'text': text,
+                }
+            })
+            idx += len(text)
 
-    # Currently this only inserts text and link but does not create a clickable link
-    text = ""
-    try:
-        for r in resolutions:
-            text += f"{r.agenda_item} \n"
-            #         text += f"{r.url}\n"
-    except Exception:
-        print(f"Error with : {r.__dict__}")
-        pass
+            url_text = f"{r.url} \n\n"
+            requests.append({
+                'insertText': {
+                    'location': {
+                        'index': idx,
+                    },
+                    'text': url_text
+                }
+            })
 
-    requests.append({
-        'insertText': {
-            'location': {
-                'index': idx,
-            },
-            'text': text,
-        }
-    })
+            requests.append(
+                {
+                    "updateTextStyle": {
+                        "textStyle": {
+                            "link": {
+                                "url": r.url
+                            }
+                        },
+                        "range": {
+                            "startIndex": idx,
+                            "endIndex": idx + len(url_text)
+                        },
+                        "fields": "link"
+                    }
+                })
+            idx += len(url_text)
 
-    # TODO Make this work so that the links are live
-    # for r in resolutions:
-    #     try:
-    #         text = f"{r.agenda_item} \n"
-    #         requests.append(    {
-    #         'insertText': {
-    #             'location': {
-    #                 'index': idx,
-    #             },
-    #             'text': text,
-    #         }
-    #         })
-    #         idx += len(text)
-
-    #         requests.append(    {
-    #         'insertText': {
-    #             'location': {
-    #                 'index': idx,
-    #             },
-    #             'text': r.url,
-    #         }
-    #         })
-
-    # #         requests.append(
-    # #          {
-    # #              "updateTextStyle": {
-    # #                  "textStyle": {
-    # #                      "link": {
-    # #                          "url": r.url
-    # #                      }
-    # #                  },
-    # #                  "range": {
-    # #                      "startIndex": idx,
-    # #                      "endIndex": idx + len(r.url)
-    # #                  },
-    # #                  "fields": "link"
-    # #              }
-    # #          }
-    # #         )
-    #         idx += len(r.url)
-
-    #     except Exception:
-    #         pass
+        except Exception:
+            pass
 
     print(requests)
 
     result = document_repo.service.documents().batchUpdate(documentId=agenda_id, body={'requests': requests}).execute()
-    sys.stdout.write(f"{result.__dict__}")
+
+    # # Currently this only inserts text and link but does not create a clickable link
+    # text = ""
+    # try:
+    #     for r in resolutions:
+    #         text += f"{r.agenda_item} \n"
+    #         #         text += f"{r.url}\n"
+    # except Exception:
+    #     print(f"Error with : {r.__dict__}")
+    #     pass
+    #
+    # requests.append({
+    #     'insertText': {
+    #         'location': {
+    #             'index': idx,
+    #         },
+    #         'text': text,
+    #     }
+    # })
+    #
+    # # TODO Make this work so that the links are live
+    # # for r in resolutions:
+    # #     try:
+    # #         text = f"{r.agenda_item} \n"
+    # #         requests.append(    {
+    # #         'insertText': {
+    # #             'location': {
+    # #                 'index': idx,
+    # #             },
+    # #             'text': text,
+    # #         }
+    # #         })
+    # #         idx += len(text)
+    #
+    # #         requests.append(    {
+    # #         'insertText': {
+    # #             'location': {
+    # #                 'index': idx,
+    # #             },
+    # #             'text': r.url,
+    # #         }
+    # #         })
+    #
+    # # #         requests.append(
+    # # #          {
+    # # #              "updateTextStyle": {
+    # # #                  "textStyle": {
+    # # #                      "link": {
+    # # #                          "url": r.url
+    # # #                      }
+    # # #                  },
+    # # #                  "range": {
+    # # #                      "startIndex": idx,
+    # # #                      "endIndex": idx + len(r.url)
+    # # #                  },
+    # # #                  "fields": "link"
+    # # #              }
+    # # #          }
+    # # #         )
+    # #         idx += len(r.url)
+    #
+    # #     except Exception:
+    # #         pass
+    #
+    # print(requests)
+    #
+    # result = document_repo.service.documents().batchUpdate(documentId=agenda_id, body={'requests': requests}).execute()
+    # sys.stdout.write(f"{result.__dict__}")
 
 if __name__ == '__main__':
     main()
