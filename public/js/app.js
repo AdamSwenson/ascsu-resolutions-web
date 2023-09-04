@@ -4489,14 +4489,14 @@ module.exports = {
       lockOne: function lockOne(resolution) {
         resolution_id = idify(resolution);
         url = normalizedRouteRoot();
-        url += 'secretary/permissions/all/lock/';
+        url += 'secretary/permissions/one/lock/';
         url += resolution_id;
         return url;
       },
       unlockOne: function unlockOne(resolution) {
         resolution_id = idify(resolution);
         url = normalizedRouteRoot();
-        url += 'secretary/permissions/all/unlock/';
+        url += 'secretary/permissions/one/unlock/';
         url += resolution_id;
         return url;
       }
