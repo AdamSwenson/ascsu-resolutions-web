@@ -84,6 +84,39 @@ class DocumentRepository(object):
         except HttpError as err:
             print(err)
 
+    def get_end_index(self, document):
+        body = document.get('body').get('content')
+        return body[len(body) - 1]['endIndex']
+
+    def enforce_styling_on_resolution(self, resolution):
+        document = self.get_document(resolution.document_id)
+        startIndex = 1
+        endIndex = self.get_end_index(document)
+        requests = [{
+            'updateTextStyle': {
+                'range': {
+                    'startIndex': startIndex,
+                    'endIndex': endIndex
+                },
+                'textStyle': {
+                    'weightedFontFamily': {
+                        'fontFamily': 'Atkinson Hyperlegible'
+
+                    },
+                    'fontSize': {
+                        'magnitude': 12,
+                        'unit': 'PT'
+                    },
+                },
+                'fields': 'weightedFontFamily,fontSize'
+
+            }
+        }
+        ]
+
+        self.service.documents().batchUpdate(
+            documentId=resolution.document_id, body={'requests': requests}).execute()
+
 
 if __name__ == '__main__':
     pass

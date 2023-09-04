@@ -18,8 +18,14 @@
                 </div>
 
                 <div class=" mb-5">
+                    <enforce-styling></enforce-styling>
+                </div>
+
+
+                <div class=" mb-5">
                     <create-agenda :plenaryId="plenaryId"></create-agenda>
                 </div>
+
 
                 <div class="mb-5">
                     <manager-permissions :plenaryId="plenaryId"></manager-permissions>
@@ -48,10 +54,13 @@ import CreatePlenaries from "./create-plenaries";
 import plenaryMixin from "../../mixins/plenaryMixin";
 import SelectPlenary from "./select-plenary";
 import CreateAgenda from "./create-agenda";
+import EnforceStyling from "./enforce-styling";
 
 export default {
     name: "secretary",
-    components: {CreateAgenda, SelectPlenary, CreatePlenaries, ManagerPermissions, PublicFolderCreation, PageFooter},
+    components: {
+        EnforceStyling,
+        CreateAgenda, SelectPlenary, CreatePlenaries, ManagerPermissions, PublicFolderCreation, PageFooter},
     props: [],
     mixins: [plenaryMixin],
 

@@ -25,6 +25,24 @@ class SecretaryController extends Controller
 
     }
 
+    public function enforceStyling(){
+        $command = config('app.pythonBin');
+        $executablePath = config('app.pythonScript');
+
+        $command .= " web_enforce_styling.py ";
+
+        $result = Process::path($executablePath)
+            ->run($command);
+
+//    dd($result);
+
+        if ($result->successful()) {
+            return $result->output();
+        }
+//        dd($result->output());
+        return $result->errorOutput();
+    }
+
     public function getSecretaryPage()
     {
 

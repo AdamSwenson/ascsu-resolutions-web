@@ -97,6 +97,12 @@ module.exports = {
                 url = normalizedRouteRoot()
                 url += 'resolutions'
                 return url
+            },
+
+            enforceStyle : () => {
+                url = normalizedRouteRoot()
+                url += 'secretary/styling'
+                return url
             }
         }
 
