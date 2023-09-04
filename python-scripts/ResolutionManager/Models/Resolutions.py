@@ -34,6 +34,8 @@ class Resolution(object):
         if len(self.cosponsors) > 0:
             for c in self.cosponsors:
                 t += f"/{c.abbreviation}"
+        if self.waiver == 1:
+            t += " WAIVER "
         t += "\n"
         t+= f"{self.url}\n"
         return t

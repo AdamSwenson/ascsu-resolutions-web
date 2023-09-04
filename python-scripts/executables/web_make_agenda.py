@@ -56,7 +56,7 @@ def main(plenary_id=None):
     resolutions = resolution_repo.load_all_resolutions()
 
     # Create an agenda document
-    fname = f"{plenary.plenary_folder_name} Agenda"
+    fname = f"{plenary.plenary_folder_name} Resolution list"
     agenda_id = document_repo.create_file(fname)
     file_repo.move_file_to_folder(agenda_id, plenary.plenary_folder_id)
 
