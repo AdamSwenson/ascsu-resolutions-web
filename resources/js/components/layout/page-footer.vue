@@ -18,10 +18,10 @@
                 </div>
                 <div class="col-6 col-lg-2 mb-3">
 
-<!--                    <ul class="list-unstyled">-->
-<!--                        <li class="mb-2"><a href="https://github.com/AdamSwenson/voteomatic#the-voteomatic"  target="_blank" rel="noopener noreferrer">Documentation</a></li>-->
-<!--                        <li class="mb-2"><a href="https://github.com/AdamSwenson/voteomatic/issues"  target="_blank" rel="noopener noreferrer">Feedback</a></li>-->
-<!--                     </ul>-->
+                    <ul class="list-unstyled helpLinks">
+                        <li class="mb-2 text-light text-bold"><span class="text-light"><a href="https://github.com/AdamSwenson/ascsu-resolutions-web#readme"  target="_blank" rel="noopener noreferrer">FAQs and instructions</a></span></li>
+                        <li class="mb-2 text-light"><a href="https://github.com/AdamSwenson/ascsu-resolutions-web/issues"  target="_blank" rel="noopener noreferrer">Feedback</a></li>
+                     </ul>
                 </div>
                 <div class="col-6 col-lg-2 mb-3">
 
@@ -62,5 +62,7 @@ export default {
 </script>
 
 <style scoped>
-
+.helpLinks{
+    color: white;
+}
 </style>
