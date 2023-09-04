@@ -19,9 +19,9 @@ const normalizedRouteRoot = (url = null) => {
     return url + '/';
 };
 
-const idify = (ObjectOrId) =>{
+const idify = (ObjectOrId) => {
 // const idify = (ObjectOrId) =>{
-    if(_.isNumber(ObjectOrId)) return ObjectOrId;
+    if (_.isNumber(ObjectOrId)) return ObjectOrId;
     // if (ObjectOrId instanceof Number) return ObjectOrId;
 
     return ObjectOrId.id;
@@ -34,31 +34,29 @@ const idify = (ObjectOrId) =>{
  */
 module.exports = {
 
-    committee : {
+    committee: {},
 
-    },
-
-    secretary : {
-        agenda : {
-         createAgenda : (plenary) => {
-             plenary_id = idify(plenary);
-             url = normalizedRouteRoot()
-             url += 'secretary/agenda/'
-             url += plenary_id;
-             return url
-         }
+    secretary: {
+        agenda: {
+            createAgenda: (plenary) => {
+                plenary_id = idify(plenary);
+                url = normalizedRouteRoot()
+                url += 'secretary/agenda/'
+                url += plenary_id;
+                return url
+            }
         },
 
-        permissions : {
+        permissions: {
             getPermission: (resolution) => {
                 resolution_id = idify(resolution);
                 url = normalizedRouteRoot()
                 url += 'secretary/permissions/one/'
                 url += resolution_id;
                 return url
-                },
+            },
 
-            lockAll : (plenary) => {
+            lockAll: (plenary) => {
                 plenary_id = idify(plenary);
                 url = normalizedRouteRoot()
                 url += 'secretary/permissions/all/lock/'
@@ -66,7 +64,7 @@ module.exports = {
                 return url
             },
 
-            unlockAll : (plenary) => {
+            unlockAll: (plenary) => {
                 plenary_id = idify(plenary);
                 url = normalizedRouteRoot()
                 url += 'secretary/permissions/all/unlock/'
@@ -74,7 +72,7 @@ module.exports = {
                 return url
             },
 
-            lockOne : (resolution) => {
+            lockOne: (resolution) => {
                 resolution_id = idify(resolution);
                 url = normalizedRouteRoot()
                 url += 'secretary/permissions/one/lock/'
@@ -82,7 +80,7 @@ module.exports = {
                 return url
             },
 
-            unlockOne : (resolution) => {
+            unlockOne: (resolution) => {
                 resolution_id = idify(resolution);
                 url = normalizedRouteRoot()
                 url += 'secretary/permissions/one/unlock/'
@@ -92,17 +90,23 @@ module.exports = {
 
         },
 
-        resolutions : {
-            loadAll : () => {
+        resolutions: {
+            loadAll: () => {
                 url = normalizedRouteRoot()
                 url += 'resolutions'
                 return url
             },
 
-            enforceStyle : () => {
+            enforceStyle: () => {
                 url = normalizedRouteRoot()
                 url += 'secretary/styling'
                 return url
+            },
+
+            syncTitles: () => {
+                url = normalizedRouteRoot();
+                url += 'secretary/sync';
+                return url;
             }
         }
 

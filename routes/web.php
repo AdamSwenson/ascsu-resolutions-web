@@ -35,7 +35,7 @@ Route::post('plenary/current/{plenary}', [PlenaryController::class, 'setCurrent'
 
 Route::post('/secretary/agenda/{plenary}', [SecretaryController::class, 'createAgenda']);
 Route::post('/secretary/styling', [SecretaryController::class, 'enforceStyling']);
-
+Route::post('/secretary/sync', [SecretaryController::class, 'syncTitles']);
 
 Route::resource('plenaries', PlenaryController::class);
 

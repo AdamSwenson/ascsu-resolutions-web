@@ -21,6 +21,10 @@
                     <enforce-styling></enforce-styling>
                 </div>
 
+                <div class=" mb-5">
+                    <sync-titles :plenary-id="plenaryId"></sync-titles>
+                </div>
+
 
                 <div class=" mb-5">
                     <create-agenda :plenaryId="plenaryId"></create-agenda>
@@ -55,10 +59,12 @@ import plenaryMixin from "../../mixins/plenaryMixin";
 import SelectPlenary from "./select-plenary";
 import CreateAgenda from "./create-agenda";
 import EnforceStyling from "./enforce-styling";
+import SyncTitles from "./sync-titles";
 
 export default {
     name: "secretary",
     components: {
+        SyncTitles,
         EnforceStyling,
         CreateAgenda, SelectPlenary, CreatePlenaries, ManagerPermissions, PublicFolderCreation, PageFooter},
     props: [],

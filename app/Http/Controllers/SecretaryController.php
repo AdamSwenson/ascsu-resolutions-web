@@ -128,6 +128,26 @@ public function createAgenda(Plenary $plenary){
 //        dd($result->output());
         return $result->errorOutput();
 
+    }
+
+    /**
+     * Updates all titles in database from titles in resolution text
+     * @return void
+     */
+    public function syncTitles(){
+        $command = config('app.pythonBin');
+        $executablePath = config('app.pythonScript');
+
+        $command .= " web_sync_titles.py ";
+
+        $result = Process::path($executablePath)
+            ->run($command);
+
+        if ($result->successful()) {
+            return $result->output();
+        }
+//        dd($result->output());
+        return $result->errorOutput();
 
     }
 
