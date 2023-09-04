@@ -9,7 +9,7 @@ import sys
 from googleapiclient.discovery import build
 
 HEADER_TEMPLATE = "AS-{resolution_number}-{year}/{committee}"
-TITLE_RANGE_NAME = "titleRange"
+# TITLE_RANGE_NAME = "titleRange"
 
 
 class ResolutionTemplateRepository(object):
@@ -37,7 +37,7 @@ class ResolutionTemplateRepository(object):
         document = self.service.documents().get(documentId=document_id).execute()
 
         # Find the matching named ranges.
-        named_range_list = document.get('namedRanges', {}).get(TITLE_RANGE_NAME)
+        named_range_list = document.get('namedRanges', {}).get(self.config.TITLE_RANGE_NAME)
         if not named_range_list:
             raise Exception('The named range is no longer present in the document.')
 
@@ -83,7 +83,7 @@ class ResolutionTemplateRepository(object):
                 # Re-create the named range on the new text.
                 requests.append({
                     'createNamedRange': {
-                        'name': TITLE_RANGE_NAME,
+                        'name': self.config.TITLE_RANGE_NAME,
                         'range': {
                             'segmentId': segment_id,
                             'startIndex': start,

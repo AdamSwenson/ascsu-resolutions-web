@@ -3,7 +3,9 @@
 ## FAQ
 
 ### How do we update the title of the resolution once it's been created?
-Update the resolution in the folder and let the Secretary, Tracy, and Reem know
+Update the resolution in the folder and let the Secretary, Tracy, and Reem know.
+
+Please try not to delete the entire title before replacing it. If you need to replace the whole title, type in the new title at the end of the existing one and then backspace. Hopefully this extra precaution won't be necessary in the future. 
 
 ### How do we update the cosponsors of the resolution once it's been created?
 Update the resolution in the folder and let the Secretary, Tracy, and Reem know

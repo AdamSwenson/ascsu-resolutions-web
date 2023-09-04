@@ -42,7 +42,9 @@ class Configuration(object):
         self.TEMPLATE_DOCUMENT_ID = self.configuration['drive']['TEMPLATE_DOCUMENT_ID']
         self.TEMPLATE_HEADER_ID = self.configuration['drive']['TEMPLATE_HEADER_ID']
 
-        print(self.configuration)
+        self.TITLE_RANGE_NAME = self.configuration['resolutions']['TITLE_RANGE_NAME']
+
+        # print(self.configuration)
 
     def set_environment(self):
         b = os.getcwd()
