@@ -9,6 +9,8 @@ import sys
 from googleapiclient.discovery import build
 
 HEADER_TEMPLATE = "AS-{resolution_number}-{year}/{committee}"
+
+
 # TITLE_RANGE_NAME = "titleRange"
 
 
@@ -94,17 +96,17 @@ class ResolutionTemplateRepository(object):
                 # Center again
                 requests.append(
                     {
-                    'updateParagraphStyle': {
-                        'range': {
-                            'startIndex': start,
-                            'endIndex': start + new_text_len
-                        },
-                        'paragraphStyle': {
-                            'alignment': 'CENTER'
-                        },
-                        'fields': 'alignment'
-                    }
-                })
+                        'updateParagraphStyle': {
+                            'range': {
+                                'startIndex': start,
+                                'endIndex': start + new_text_len
+                            },
+                            'paragraphStyle': {
+                                'alignment': 'CENTER'
+                            },
+                            'fields': 'alignment'
+                        }
+                    })
 
         # Make a batchUpdate request to apply the changes, ensuring the document
         # hasn't changed since we fetched it.
@@ -119,14 +121,13 @@ class ResolutionTemplateRepository(object):
     def update_title_new(self, resolution):
         return self.replace_named_title_range(resolution.document_id, resolution.title)
 
-    def update_title(self, resolution ):
+    def update_title(self, resolution):
         # def update_title(self, document_id, title):
         title_idxs = {'start_index': 54, 'end_index': 62}
         rez_number = {'start_index': 54, 'end_index': 62}
 
         title_start = title_idxs['start_index'] - 1
         title_end = title_idxs['start_index'] + len(resolution.title)
-
 
         # Make sure to order backwards so offsets don't change
         requests = [
@@ -136,7 +137,6 @@ class ResolutionTemplateRepository(object):
                         'index': title_start,
                     },
                     'text': resolution.title
-
                 }
             },
 
@@ -191,7 +191,7 @@ class ResolutionTemplateRepository(object):
         returns Resolution object with document id of created resolution set
         """
         filename = self.config.RESOLUTION_FILENAME_TEMPLATE.format(resolution_number=resolution.number,
-                                                           resolution_name=resolution.title,
+                                                                   resolution_name=resolution.title,
                                                                    committee_abbrev=sponsor.abbreviation)
         sys.stdout.write(f"{resolution.__dict__}")
 
@@ -201,35 +201,59 @@ class ResolutionTemplateRepository(object):
         self.file_repo.move_file_to_folder(resolution.document_id, self.plenary.first_reading_folder_id)
         return resolution
 
-
     def make_header(self, resolution):
         # def make_header(self, resolution_number, year, committee, cosponsors=[]):
 
         # if self.plenary.year > 2000:
         #     self.plenary.year = self.plenary.year - 2000
 
-        v = HEADER_TEMPLATE.format(resolution_number=resolution.number, year=self.plenary.two_digit_year, committee=resolution.committee.abbreviation)
+        v = HEADER_TEMPLATE.format(resolution_number=resolution.number, year=self.plenary.two_digit_year,
+                                   committee=resolution.committee.abbreviation)
         if len(resolution.cosponsors) > 0:
             for c in resolution.cosponsors:
                 v += f"/{c.abbreviation}"
         return v
-
-
 
     def update_header(self, resolution):
         # def update_header(self, document_id, resolution_number, committee, cosponsors=[]):
         txt = f"{self.make_header(resolution)}\n{self.plenary.formatted_plenary_date}"
         # txt = f"{self.make_header(resolution.number, self.plenary.year, resolution.committee, resolution.cosponsors)}\n{self.plenary.formatted_plenary_date()}"
 
-        requests = [{
-            "insertText": {
-                "location": {
-                 "segmentId": self.config.TEMPLATE_HEADER_ID,
-                "index": 0
+        requests = [
+            {
+                "insertText": {
+                    "location": {
+                        "segmentId": self.config.TEMPLATE_HEADER_ID,
+                        "index": 0
+                    },
+                    "text": txt
+                }
             },
-            "text": txt
-        }
-        }]
+
+            # Force header to correct format
+            {
+                'updateTextStyle': {
+
+                    'range': {
+                        'segmentId': self.config.TEMPLATE_HEADER_ID,
+                        'startIndex': 0,
+                        'endIndex': len(txt)
+                    },
+                    'textStyle': {
+                        'weightedFontFamily': {
+                            'fontFamily': 'Atkinson Hyperlegible'
+
+                        },
+                        'fontSize': {
+                            'magnitude': 12,
+                            'unit': 'PT'
+                        },
+                    },
+                    'fields': 'weightedFontFamily,fontSize'
+                }
+            },
+
+        ]
         # requests = [
         #     {
         #         "createHeader": {
@@ -245,5 +269,3 @@ class ResolutionTemplateRepository(object):
             documentId=resolution.document_id, body={'requests': requests}).execute()
 
         print(result)
-
-

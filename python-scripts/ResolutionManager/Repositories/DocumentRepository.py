@@ -92,7 +92,9 @@ class DocumentRepository(object):
         document = self.get_document(resolution.document_id)
         startIndex = 1
         endIndex = self.get_end_index(document)
-        requests = [{
+        requests = [
+            # Set body to Atkinson Hyperlegible
+            {
             'updateTextStyle': {
                 'range': {
                     'startIndex': startIndex,
@@ -111,7 +113,9 @@ class DocumentRepository(object):
                 'fields': 'weightedFontFamily,fontSize'
 
             }
-        }
+        },
+
+            #
         ]
 
         self.service.documents().batchUpdate(
