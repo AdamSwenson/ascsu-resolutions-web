@@ -1,7 +1,7 @@
 import datetime
 
 PLENARY_FOLDER_TEMPLATE = "{year} {month}"
-DATE_TEMPLATE = "{month}, {thurs}-{friday} {year}"
+DATE_TEMPLATE = "{month} {thurs}-{friday}, {year}"
 
 class Plenary(object):
 
