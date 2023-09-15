@@ -5,6 +5,7 @@ from ResolutionManager.Repositories.CommitteeRepository import CommitteeReposito
 
 import sys
 
+
 class ResolutionRepository(object):
     def __init__(self, dao):
         self.dao = dao
@@ -14,10 +15,14 @@ class ResolutionRepository(object):
         # resolution_id = int(resolution_id)
         # resolution_id =11
         result = self.dao.conn.execute(f"select * from ascsu.resolutions where id = {resolution_id}").fetchone()
+        r = Resolution(id=result.id, number=result.number, document_id=result.document_id, title=result.title, waiver=result.waiver, committee=sponsor, cosponsors=cosponsors)
 
-        # sys.stdout.write(str(resolution_id))
+        # Load the object representation from drive
+        if r.document_id is not None:
+            doc_repo = DocumentRepository()
+            r.document_obj = doc_repo.get_document(r.document_id)
 
-        return Resolution(id=result.id, number=result.number, document_id=result.document_id, title=result.title, waiver=result.waiver, committee=sponsor, cosponsors=cosponsors)
+        return r
 
 
     def set_google_document_id(self, resolution, document_id):

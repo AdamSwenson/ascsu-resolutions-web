@@ -121,65 +121,6 @@ class ResolutionTemplateRepository(object):
     def update_title_new(self, resolution):
         return self.replace_named_title_range(resolution.document_id, resolution.title)
 
-    def update_title(self, resolution):
-        # def update_title(self, document_id, title):
-        title_idxs = {'start_index': 54, 'end_index': 62}
-        rez_number = {'start_index': 54, 'end_index': 62}
-
-        title_start = title_idxs['start_index'] - 1
-        title_end = title_idxs['start_index'] + len(resolution.title)
-
-        # Make sure to order backwards so offsets don't change
-        requests = [
-            {
-                'insertText': {
-                    'location': {
-                        'index': title_start,
-                    },
-                    'text': resolution.title
-                }
-            },
-
-            {
-                'updateTextStyle': {
-                    'range': {
-                        'startIndex': title_start,
-                        'endIndex': title_end
-                    },
-                    'textStyle': {
-                        'bold': True,
-                    },
-                    'fields': 'bold,'
-                }
-            },
-            {
-                'updateParagraphStyle': {
-                    'range': {
-                        'startIndex': title_start,
-                        'endIndex': title_end
-                    },
-                    'paragraphStyle': {
-                        'alignment': 'CENTER'
-                    },
-                    'fields': 'alignment'
-                }
-            },
-
-            {
-                'deleteContentRange': {
-                    'range': {
-                        'startIndex': title_end,
-                        'endIndex': title_end + 1 + len('[Title]'),
-                    }
-                }},
-
-        ]
-
-        result = self.service.documents().batchUpdate(
-            documentId=resolution.document_id, body={'requests': requests}).execute()
-
-        return result
-
     def create_file_from_template(self, resolution, template_id=None):
         if template_id is None:
             template_id = self.config.TEMPLATE_DOCUMENT_ID
@@ -269,3 +210,62 @@ class ResolutionTemplateRepository(object):
             documentId=resolution.document_id, body={'requests': requests}).execute()
 
         print(result)
+
+    # def update_title(self, resolution):
+    #     # def update_title(self, document_id, title):
+    #     title_idxs = {'start_index': 54, 'end_index': 62}
+    #     rez_number = {'start_index': 54, 'end_index': 62}
+    #
+    #     title_start = title_idxs['start_index'] - 1
+    #     title_end = title_idxs['start_index'] + len(resolution.title)
+    #
+    #     # Make sure to order backwards so offsets don't change
+    #     requests = [
+    #         {
+    #             'insertText': {
+    #                 'location': {
+    #                     'index': title_start,
+    #                 },
+    #                 'text': resolution.title
+    #             }
+    #         },
+    #
+    #         {
+    #             'updateTextStyle': {
+    #                 'range': {
+    #                     'startIndex': title_start,
+    #                     'endIndex': title_end
+    #                 },
+    #                 'textStyle': {
+    #                     'bold': True,
+    #                 },
+    #                 'fields': 'bold,'
+    #             }
+    #         },
+    #         {
+    #             'updateParagraphStyle': {
+    #                 'range': {
+    #                     'startIndex': title_start,
+    #                     'endIndex': title_end
+    #                 },
+    #                 'paragraphStyle': {
+    #                     'alignment': 'CENTER'
+    #                 },
+    #                 'fields': 'alignment'
+    #             }
+    #         },
+    #
+    #         {
+    #             'deleteContentRange': {
+    #                 'range': {
+    #                     'startIndex': title_end,
+    #                     'endIndex': title_end + 1 + len('[Title]'),
+    #                 }
+    #             }},
+    #
+    #     ]
+    #
+    #     result = self.service.documents().batchUpdate(
+    #         documentId=resolution.document_id, body={'requests': requests}).execute()
+    #
+    #     return result

@@ -12,6 +12,8 @@ from ResolutionManager.DAO.DAO import MySqlDao
 # from ResolutionManager.Repositories.CommitteeRepository import CommitteeRepository
 # from ResolutionManager.Repositories.PlenaryRepository import PlenaryRepository
 from ResolutionManager.Repositories.ResolutionRepository import ResolutionRepository
+from ResolutionManager.Repositories.StylingRepository import StylingRepository
+
 
 def main():
     # if plenary_id is None:
@@ -23,12 +25,14 @@ def main():
     resolution_repo = ResolutionRepository(dao)
     doc_repo = DocumentRepository()
     # file_repo = FileRepository()
+    style_repo = StylingRepository()
 
     resolutions = resolution_repo.load_all_resolutions()
 
     for r in resolutions:
         try:
-            doc_repo.enforce_styling_on_resolution(r)
+            style_repo.enforce_styling_on_resolution(r)
+            # doc_repo.enforce_styling_on_resolution(r)
         except Exception as e:
             # todo make more specific
             # todo Add error logging

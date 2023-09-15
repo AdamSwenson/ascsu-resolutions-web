@@ -43,6 +43,9 @@ class Configuration(object):
         self.TEMPLATE_HEADER_ID = self.configuration['drive']['TEMPLATE_HEADER_ID']
 
         self.TITLE_RANGE_NAME = self.configuration['resolutions']['TITLE_RANGE_NAME']
+        self.GROUP_TITLE_RANGE_NAME = self.configuration['resolutions']['GROUP_TITLE_RANGE_NAME']
+        self.RATIONALE_RANGE_NAME = self.configuration['resolutions']['RATIONALE_RANGE_NAME']
+        self.DISTRIBUTION_LIST_RANGE_NAME = self.configuration['resolutions']['DISTRIBUTION_LIST_RANGE_NAME']
 
         # print(self.configuration)
 

@@ -4,12 +4,14 @@ URL_BASE = 'https://docs.google.com/document/d/'
 
 class Resolution(object):
 
-    def __init__(self, id=None, number=None, title=None, document_id=None, waiver=None, committee: Committee = None, cosponsors=[]):
+    def __init__(self, id=None, number=None, title=None, document_id=None, waiver=None, committee: Committee = None, cosponsors=[], document_obj=None):
         """
         :param number:
         :param title:
         :param document_id: Google Drive id
+        :param document_obj The dictionary representation of the document
         """
+        self.document_obj = document_obj
         self.waiver = waiver
         self.id = id
         self.committee = committee
@@ -17,6 +19,13 @@ class Resolution(object):
         self.document_id = document_id
         self.title = title
         self.number = number
+
+    @property
+    def end_index(self):
+        """Gets the endIndex from the document representation"""
+        if self.document_obj is not None:
+            body = self.document_obj.get('body').get('content')
+            return body[len(body) - 1]['endIndex']
 
     @property
     def name(self):
