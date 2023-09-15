@@ -63,18 +63,8 @@ class StylingRepository(object):
         requests = []
 
         for i in list_of_indicies:
-            requests.append({
-                'updateParagraphStyle': {
-                    'range': {
-                        'startIndex': i['startIndex'],
-                        'endIndex': i['endIndex']
-                    },
-                    'paragraphStyle': {
-                        'lineSpacing': 200
-                    },
-                    'fields': 'lineSpacing'
-                }
-            })
+            requests.append(self.make_double_space_request(i['startIndex'], i['endIndex']))
+
         body = {'requests': requests}
         if revision_id is not None:
             # Lock to ensure that hasn't change since we fetched
@@ -85,6 +75,49 @@ class StylingRepository(object):
             body=body
         ).execute()
 
+    def make_double_space_request(self, start_index, end_index):
+        """
+        Creates a request object for making the given indicies double spaced
+        :param document_id:
+        :param start_index:
+        :param end_index:
+        :return:
+        """
+        return {
+            'updateParagraphStyle': {
+                'range': {
+                    'startIndex': start_index,
+                    'endIndex': end_index
+                },
+                'paragraphStyle': {
+                    'lineSpacing': 200
+                },
+                'fields': 'lineSpacing'
+            }
+        }
+
+    def make_single_space_request(self, start_index, end_index):
+        """
+        Creates a request object for making the given indicies double spaced.
+        Used to create the objects used in a batch update
+        :param document_id:
+        :param start_index:
+        :param end_index:
+        :return:
+        """
+        return {
+            'updateParagraphStyle': {
+                'range': {
+                    'startIndex': start_index,
+                    'endIndex': end_index
+                },
+                'paragraphStyle': {
+                    'lineSpacing': 100
+                },
+                'fields': 'lineSpacing'
+            }
+        }
+
     def single_space(self, document_id, list_of_indicies, revision_id=None):
         """Given a list of dictionaries
             [{'startIndex': 93, 'endIndex': 1290}]
@@ -93,18 +126,8 @@ class StylingRepository(object):
         requests = []
 
         for i in list_of_indicies:
-            requests.append({
-                'updateParagraphStyle': {
-                    'range': {
-                        'startIndex': i['startIndex'],
-                        'endIndex': i['endIndex']
-                    },
-                    'paragraphStyle': {
-                        'lineSpacing': 100
-                    },
-                    'fields': 'lineSpacing'
-                }
-            })
+            requests.append(self.make_single_space_request(i['startIndex'], i['endIndex']))
+           
         body = {'requests': requests}
         if revision_id is not None:
             # Lock to ensure that hasn't change since we fetched
@@ -114,6 +137,23 @@ class StylingRepository(object):
             documentId=document_id,
             body={'requests': requests}
         ).execute()
+
+    def make_bold_request(self, start_index, end_index):
+        """Creates a request object for making the given indicies double spaced.
+        Used to create the objects used in a batch update
+        """
+        return {
+            'updateTextStyle': {
+                'range': {
+                    'startIndex': start_index,
+                    'endIndex': end_index
+                },
+                'textStyle': {
+                    'bold': True,
+                },
+                'fields': 'bold'
+            }
+        }
 
     def force_font(self, document_id, list_of_indicies, revision_id=None):
         """
@@ -245,16 +285,30 @@ class StylingRepository(object):
         self.style_repo.single_space_distribution_list(resolution)
         self.style_repo.single_space_group_name(resolution)
 
-    def enforce_styling_on_title(self, resolution, title):
+    def enforce_styling_on_title(self, resolution: Resolution, revision_id=None):
         """
         Ensures title is:
             Single spaced
             Bold
             Title cased
-        """
-        # todo
 
-        pass
+        todo It does not seem possible to force to title case
+        """
+        title_range = self.get_indicies_for_named_range(resolution, self.config.TITLE_RANGE_NAME)
+        requests = []
+        for i in title_range:
+            requests.append(self.make_single_space_request(i['startIndex'], i['endIndex']))
+            requests.append(self.make_bold_request(i['startIndex'], i['endIndex']))
+
+        body = {'requests': requests}
+        if revision_id is not None:
+            # Lock to ensure that hasn't change since we fetched
+            body['writeControl'] = {'requiredRevisionId': revision_id}
+
+        self.service.documents().batchUpdate(
+            documentId=resolution.document_id,
+            body=body
+        ).execute()
 
     def enforce_styling_on_resolution(self, resolution):
         self.enforce_styling_on_body(resolution)
