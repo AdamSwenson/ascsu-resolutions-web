@@ -1,5 +1,6 @@
 from ResolutionManager.Models.Committees import Committee
 
+
 class CommitteeRepository(object):
 
     def __init__(self, dao):
@@ -14,9 +15,10 @@ class CommitteeRepository(object):
         cosponsor_ids = self.dao.conn.execute(
             f"select committee_id from ascsu.committee_resolution cr where cr.resolution_id = {resolution_id} and cr.is_cosponsor = 1").fetchall()
         cosponsor_ids = [c[0] for c in cosponsor_ids]
-        return [self.load_committee( c) for c in cosponsor_ids]
+        return [self.load_committee(c) for c in cosponsor_ids]
 
     def load_sponsor(self, resolution_id):
-        sponsor_id = self.dao.conn.execute(f"select cr.committee_id from ascsu.committee_resolution cr where cr.resolution_id = {resolution_id} and cr.is_sponsor = 1").fetchone()
+        sponsor_id = self.dao.conn.execute(
+            f"select cr.committee_id from ascsu.committee_resolution cr where cr.resolution_id = {resolution_id} and cr.is_sponsor = 1").fetchone()
         return self.load_committee(sponsor_id.committee_id)
         # sponsor = Committee(full_name=sponsor.name, abbreviation=sponsor.abbreviation, id=sponsor.id)

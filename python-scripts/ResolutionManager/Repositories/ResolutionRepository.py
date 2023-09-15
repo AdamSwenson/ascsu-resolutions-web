@@ -15,7 +15,8 @@ class ResolutionRepository(object):
         # resolution_id = int(resolution_id)
         # resolution_id =11
         result = self.dao.conn.execute(f"select * from ascsu.resolutions where id = {resolution_id}").fetchone()
-        r = Resolution(id=result.id, number=result.number, document_id=result.document_id, title=result.title, waiver=result.waiver, committee=sponsor, cosponsors=cosponsors)
+        r = Resolution(id=result.id, number=result.number, document_id=result.document_id, title=result.title,
+                       waiver=result.waiver, committee=sponsor, cosponsors=cosponsors)
 
         # Load the object representation from drive
         if r.document_id is not None:
@@ -24,14 +25,12 @@ class ResolutionRepository(object):
 
         return r
 
-
     def set_google_document_id(self, resolution, document_id):
         query = f"update ascsu.resolutions r set r.document_id = '{document_id}' where r.id={resolution.id}"
         sys.stdout.write(query)
         result = self.dao.conn.execute(query)
 
-
-    def get_named_ranges(self, document ):
+    def get_named_ranges(self, document):
         """
         Uses the named title range to find the start and end indexes in the document object
         :param document:
@@ -102,7 +101,8 @@ class ResolutionRepository(object):
 
     def load_all_resolutions(self):
         """Loads all resolutions with the title as it exists in drive """
-        # For now not going to sync the database, just use title from drive if can be retrieved and default to db version
+        # For now not going to sync the database,
+        # just use title from drive if can be retrieved and default to db version
         committee_repo = CommitteeRepository(self.dao)
         resolutions = []
         query = f"select id from ascsu.resolutions"
@@ -123,6 +123,3 @@ class ResolutionRepository(object):
 
             resolutions.append(rez)
         return resolutions
-
-
-

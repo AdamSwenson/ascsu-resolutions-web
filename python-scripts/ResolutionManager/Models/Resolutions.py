@@ -1,10 +1,11 @@
 from ResolutionManager.Models.Committees import Committee
+from ResolutionManager.config.Templates import Templates
 
-URL_BASE = 'https://docs.google.com/document/d/'
 
 class Resolution(object):
 
-    def __init__(self, id=None, number=None, title=None, document_id=None, waiver=None, committee: Committee = None, cosponsors=[], document_obj=None):
+    def __init__(self, id=None, number=None, title=None, document_id=None, waiver=None, committee: Committee = None,
+                 cosponsors=[], document_obj=None):
         """
         :param number:
         :param title:
@@ -33,7 +34,7 @@ class Resolution(object):
 
     @property
     def url(self):
-        return URL_BASE + self.document_id
+        return Templates.URL_BASE + self.document_id
 
     @property
     def agenda_item(self):
@@ -47,5 +48,3 @@ class Resolution(object):
         if self.waiver == 1:
             t += " WAIVER "
         return t
-
-

@@ -26,17 +26,8 @@ def main(plenary_id=None):
     # if plenary_id is None:
     #     plenary_id = int(sys.argv[1])
 
-        # Load from database
     dao = MySqlDao()
-    # committee_repo = CommitteeRepository(dao)
     resolution_repo = ResolutionRepository(dao)
-    # plenary_repo = PlenaryRepository(dao)
-    # permission_repo = PermissionsRepository()
-    # document_repo = DocumentRepository()
-    # file_repo = FileRepository()
-    #
-    # plenary = plenary_repo.load_plenary(plenary_id)
-
     results = resolution_repo.load_all_resolutions()
 
 

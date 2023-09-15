@@ -5,14 +5,14 @@ from ResolutionManager.Repositories.FileRepository import FileRepository
 from ResolutionManager.Repositories.ResolutionRepository import ResolutionRepository
 from ResolutionManager.API.CredentialsManager import CredentialsManager
 from ResolutionManager.Repositories.CommitteeRepository import CommitteeRepository
+from ResolutionManager.Models.Resolutions import Resolution
+from ResolutionManager.config.Templates import Templates
+
 import sys
 from googleapiclient.discovery import build
 
-HEADER_TEMPLATE = "AS-{resolution_number}-{year}/{committee}"
 
-
-# TITLE_RANGE_NAME = "titleRange"
-
+# HEADER_TEMPLATE = "AS-{resolution_number}-{year}/{committee}"
 
 class ResolutionTemplateRepository(object):
 
@@ -118,10 +118,10 @@ class ResolutionTemplateRepository(object):
         }
         result = self.service.documents().batchUpdate(documentId=document_id, body=body).execute()
 
-    def update_title_new(self, resolution):
+    def update_title_new(self, resolution: Resolution):
         return self.replace_named_title_range(resolution.document_id, resolution.title)
 
-    def create_file_from_template(self, resolution, template_id=None):
+    def create_file_from_template(self, resolution: Resolution, template_id=None):
         if template_id is None:
             template_id = self.config.TEMPLATE_DOCUMENT_ID
         # def create_file_from_template(self, folder_id, resolution_number, resolution_name,
@@ -131,9 +131,9 @@ class ResolutionTemplateRepository(object):
         """Uses the template to make a new resolution in the first readings folder
         returns Resolution object with document id of created resolution set
         """
-        filename = self.config.RESOLUTION_FILENAME_TEMPLATE.format(resolution_number=resolution.number,
-                                                                   resolution_name=resolution.title,
-                                                                   committee_abbrev=sponsor.abbreviation)
+        filename = Templates.RESOLUTION_FILENAME_TEMPLATE.format(resolution_number=resolution.number,
+                                                                 resolution_name=resolution.title,
+                                                                 committee_abbrev=sponsor.abbreviation)
         sys.stdout.write(f"{resolution.__dict__}")
 
         resolution.document_id = self.file_repo.copy_file(template_id, filename)
@@ -142,14 +142,21 @@ class ResolutionTemplateRepository(object):
         self.file_repo.move_file_to_folder(resolution.document_id, self.plenary.first_reading_folder_id)
         return resolution
 
-    def make_header(self, resolution):
+    def make_header(self, resolution: Resolution):
+        """
+        Adds the resolution number and date to the document
+
+        :param resolution:
+        :return:
+        """
         # def make_header(self, resolution_number, year, committee, cosponsors=[]):
 
         # if self.plenary.year > 2000:
         #     self.plenary.year = self.plenary.year - 2000
 
-        v = HEADER_TEMPLATE.format(resolution_number=resolution.number, year=self.plenary.two_digit_year,
-                                   committee=resolution.committee.abbreviation)
+        v = Templates.HEADER_TEMPLATE.format(resolution_number=resolution.number,
+                                             year=self.plenary.two_digit_year,
+                                             committee=resolution.committee.abbreviation)
         if len(resolution.cosponsors) > 0:
             for c in resolution.cosponsors:
                 v += f"/{c.abbreviation}"

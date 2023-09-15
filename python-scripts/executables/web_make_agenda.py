@@ -1,10 +1,7 @@
 import sys
-import os
-
 sys.path.append("/Users/ars62917/Dropbox/ResolutionManagerWeb/python-scripts")
 sys.path.append("/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts/ResolutionManager")
 sys.path.append("/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts")
-
 
 from ResolutionManager.Repositories.DocumentRepository import DocumentRepository
 from ResolutionManager.Repositories.FileRepository import FileRepository
@@ -14,16 +11,14 @@ from ResolutionManager.Models.Committees import Committee
 from ResolutionManager.Models.Resolutions import Resolution
 from ResolutionManager.DAO.DAO import MySqlDao
 
-
 from ResolutionManager.Repositories.CommitteeRepository import CommitteeRepository
 from ResolutionManager.Repositories.PlenaryRepository import PlenaryRepository
 from ResolutionManager.Repositories.ResolutionRepository import ResolutionRepository
 from ResolutionManager.Repositories.PermissionsRepository import PermissionsRepository
-
+from ResolutionManager.config.Templates import Templates
 
 
 def main(plenary_id=None):
-    AGENDA_FILENAME_TEMPLATE = "{plenary_name} Resolution list"
     if plenary_id is None:
         plenary_id = int(sys.argv[1])
 
@@ -43,7 +38,7 @@ def main(plenary_id=None):
     resolutions = resolution_repo.load_all_resolutions()
 
     # Create an agenda document
-    fname = f"{plenary.plenary_folder_name} Resolution list"
+    fname = Templates.AGENDA_FILENAME_TEMPLATE.format(plenary_name=plenary.plenary_folder_name)
     agenda_id = document_repo.create_file(fname)
     file_repo.move_file_to_folder(agenda_id, plenary.plenary_folder_id)
 

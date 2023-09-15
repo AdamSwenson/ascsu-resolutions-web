@@ -3,10 +3,12 @@ from googleapiclient.errors import HttpError
 
 from ResolutionManager.API.CredentialsManager import CredentialsManager
 from ResolutionManager.config.Configuration import Configuration
+from ResolutionManager.config.Templates import Templates
+from ResolutionManager.Models.Resolutions import Resolution
 
 
-STANDARD_FONT = 'Atkinson Hyperlegible'
-STANDARD_FONT_SIZE = 12
+# STANDARD_FONT = 'Atkinson Hyperlegible'
+# STANDARD_FONT_SIZE = 12
 
 
 class StylingRepository(object):
@@ -15,7 +17,6 @@ class StylingRepository(object):
         self.cred_manager = CredentialsManager()
         self.service = build('docs', 'v1', credentials=self.cred_manager.creds)
         self.config = Configuration()
-
 
     # ======================== Utlities which make direct requests
     @staticmethod
@@ -77,7 +78,7 @@ class StylingRepository(object):
         body = {'requests': requests}
         if revision_id is not None:
             # Lock to ensure that hasn't change since we fetched
-            body['writeControl'] = { 'requiredRevisionId': revision_id}
+            body['writeControl'] = {'requiredRevisionId': revision_id}
 
         self.service.documents().batchUpdate(
             documentId=document_id,
@@ -131,11 +132,11 @@ class StylingRepository(object):
                     },
                     'textStyle': {
                         'weightedFontFamily': {
-                            'fontFamily': STANDARD_FONT
+                            'fontFamily': Templates.STANDARD_FONT
 
                         },
                         'fontSize': {
-                            'magnitude': STANDARD_FONT_SIZE,
+                            'magnitude': Templates.STANDARD_FONT_SIZE,
                             'unit': 'PT'
                         },
                     },
@@ -154,7 +155,7 @@ class StylingRepository(object):
             body={'requests': requests}
         ).execute()
 
-    def get_indicies_for_named_range(self, resolution, range_name):
+    def get_indicies_for_named_range(self, resolution: Resolution, range_name):
         """
         Returns a list of dictionaries of the start and end indicies for the
         named range
@@ -196,7 +197,7 @@ class StylingRepository(object):
 
     #  ======================== Requests covering parts of resolution
 
-    def single_space_group_name(self, resolution):
+    def single_space_group_name(self, resolution: Resolution):
         """Make the 'Academic senate of the the CSU' single spaced"""
         # Determine the length of the replacement text, as UTF-16 code units.
         # https://developers.google.com/docs/api/concepts/structure#start_and_end_index
@@ -204,28 +205,36 @@ class StylingRepository(object):
         ranges = self.get_indicies_for_named_range(resolution, range_name=self.config.GROUP_TITLE_RANGE_NAME)
         self.single_space(resolution.document_id, ranges)
 
-    def double_space_resolution(self, resolution):
+    def double_space_resolution(self, resolution: Resolution):
         """Forces resolution body to be double spaced"""
         title_range = self.get_indicies_for_named_range(resolution, self.config.TITLE_RANGE_NAME)
         distribution_range = self.get_indicies_for_named_range(resolution, self.config.DISTRIBUTION_LIST_RANGE_NAME)
         title_end = title_range[-1:][0]['endIndex'] + 1
         distribution_start = distribution_range[0]['startIndex'] - 1
-        rng = [{'startIndex' : title_end, 'endIndex' : distribution_start}]
+        rng = [{'startIndex': title_end, 'endIndex': distribution_start}]
         print("Double spacing range: ", rng)
 
         self.double_space(resolution.document_id, rng)
 
-    def force_font_on_resolution(self, resolution):
+    def force_font_on_resolution(self, resolution: Resolution):
         """Makes the whole resolution body have the standard font"""
-        idx = [{'startIndex' : 1, 'endIndex' : resolution.end_index}]
+        idx = [{'startIndex': 1, 'endIndex': resolution.end_index}]
         self.force_font(resolution.document_id, idx)
 
-    def single_space_distribution_list(self, resolution):
+    def single_space_distribution_list(self, resolution: Resolution):
         """Makes the resolution's distribution list single spaced"""
         ranges = self.get_indicies_for_named_range(resolution, range_name=self.config.DISTRIBUTION_LIST_RANGE_NAME)
         self.single_space(resolution.document_id, ranges)
 
-    def enforce_styling_on_body(self, resolution):
+    def enforce_styling_on_body(self, resolution: Resolution):
+        """
+        Main called method
+
+        Enforces: font on entire resolution, line spacing of document and componsnets
+
+        :param resolution: Resolution
+        :return:
+        """
         # document = self.get_document(resolution.document_id)
         # startIndex = 1
         # endIndex = self.get_end_index(document)

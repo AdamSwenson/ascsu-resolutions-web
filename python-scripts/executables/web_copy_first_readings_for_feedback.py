@@ -7,10 +7,11 @@ from ResolutionManager.Repositories.DocumentRepository import DocumentRepository
 from ResolutionManager.Repositories.FileRepository import FileRepository
 from ResolutionManager.Repositories.PlenaryRepository import PlenaryRepository
 from ResolutionManager.DAO.DAO import MySqlDao
+from ResolutionManager.config.Templates import Templates
 
-ORIGINAL_FOLDER_NAME = "First readings"
-PUBLIC_FOLDER_NAME = "For campus feedback"
-FILENAME_TEMPLATE = "{} FOR CAMPUS FEEDBACK"
+# ORIGINAL_FOLDER_NAME = "First readings"
+# PUBLIC_FOLDER_NAME = "For campus feedback"
+# FILENAME_TEMPLATE = "{} FOR CAMPUS FEEDBACK"
 
 def main(plenary_id=None):
     if plenary_id is None:
@@ -35,7 +36,7 @@ def main(plenary_id=None):
 
     # Create new folder for feedback versions
     # todo This needs to check that the folder doesn't already exist
-    feedback_folder_id = file_repo.create_folder(PUBLIC_FOLDER_NAME)
+    feedback_folder_id = file_repo.create_folder(Templates.PUBLIC_FOLDER_NAME)
     plenary = plenary_repo.update_feedback_folder(plenary, feedback_folder_id=feedback_folder_id)
     file_repo.move_file_to_folder(plenary.feedback_folder_id, plenary.plenary_folder_id)
 
@@ -46,7 +47,7 @@ def main(plenary_id=None):
     files = file_repo.list_files(folder_id=plenary.first_reading_folder_id)
 
     for f in files:
-        new_name = FILENAME_TEMPLATE.format(f['name'])
+        new_name = Templates.FILENAME_TEMPLATE.format(f['name'])
         copy_id = file_repo.copy_file(f['id'], new_name)
         file_repo.move_file_to_folder(copy_id, plenary.feedback_folder_id )
 
