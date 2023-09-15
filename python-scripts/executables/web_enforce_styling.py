@@ -1,30 +1,19 @@
 import sys
-import os
 
 sys.path.append("/Users/ars62917/Dropbox/ResolutionManagerWeb/python-scripts")
 sys.path.append("/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts/ResolutionManager")
 sys.path.append("/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts")
 
-from ResolutionManager.Repositories.DocumentRepository import DocumentRepository
-# from ResolutionManager.Repositories.FileRepository import FileRepository
-
 from ResolutionManager.DAO.DAO import MySqlDao
-# from ResolutionManager.Repositories.CommitteeRepository import CommitteeRepository
-# from ResolutionManager.Repositories.PlenaryRepository import PlenaryRepository
+
+from ResolutionManager.Repositories.DocumentRepository import DocumentRepository
 from ResolutionManager.Repositories.ResolutionRepository import ResolutionRepository
 from ResolutionManager.Repositories.StylingRepository import StylingRepository
 
 
 def main():
-    # if plenary_id is None:
-    #     plenary_id = int(sys.argv[1])
-
     dao = MySqlDao()
-    # committee_repo = CommitteeRepository(dao)
-    # plenary_repo = PlenaryRepository(dao)
     resolution_repo = ResolutionRepository(dao)
-    doc_repo = DocumentRepository()
-    # file_repo = FileRepository()
     style_repo = StylingRepository()
 
     resolutions = resolution_repo.load_all_resolutions()
@@ -32,11 +21,11 @@ def main():
     for r in resolutions:
         try:
             style_repo.enforce_styling_on_resolution(r)
-            # doc_repo.enforce_styling_on_resolution(r)
         except Exception as e:
             # todo make more specific
             # todo Add error logging
             print(e)
+
 
 if __name__ == '__main__':
     main()

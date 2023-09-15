@@ -5,10 +5,6 @@ sys.path.append("/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-script
 
 from ResolutionManager.Repositories.DocumentRepository import DocumentRepository
 from ResolutionManager.Repositories.FileRepository import FileRepository
-from ResolutionManager.Repositories.ResolutionTemplateRespository import ResolutionTemplateRepository
-from ResolutionManager.Models.Plenaries import Plenary
-from ResolutionManager.Models.Committees import Committee
-from ResolutionManager.Models.Resolutions import Resolution
 from ResolutionManager.DAO.DAO import MySqlDao
 
 from ResolutionManager.Repositories.CommitteeRepository import CommitteeRepository

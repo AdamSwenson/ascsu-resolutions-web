@@ -3,12 +3,11 @@ sys.path.append("/Users/ars62917/Dropbox/ResolutionManagerWeb/python-scripts")
 sys.path.append("/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts/ResolutionManager")
 sys.path.append("/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts")
 
-# sys.path.append("/Users/ars62917/Dropbox/ResolutionManager")
-
 from ResolutionManager.DAO.DAO import MySqlDao
 from ResolutionManager.Repositories.PermissionsRepository import PermissionsRepository
 from ResolutionManager.Repositories.PlenaryRepository import PlenaryRepository
 from ResolutionManager.Repositories.FileRepository import FileRepository
+
 
 def main(plenary_id=None):
     if plenary_id is None:
@@ -25,6 +24,7 @@ def main(plenary_id=None):
         permission_repo.make_world_writeable(f['id'])
 
     return plenary
+
 
 if __name__ == '__main__':
     main()
