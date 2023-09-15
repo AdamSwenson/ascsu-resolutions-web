@@ -16,7 +16,7 @@ def main(resolution_id=None):
     dao = MySqlDao()
     resolution_repo = ResolutionRepository(dao)
     permission_repo = PermissionsRepository()
-    # file_repo = FileRepository()
+
     resolution = resolution_repo.load_resolution(resolution_id)
 
     result = permission_repo.get_permission(resolution.document_id)

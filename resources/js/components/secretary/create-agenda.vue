@@ -1,11 +1,11 @@
 <template>
 <div class="create-agenda card ">
-        <h3 class="card-title text-light">Create agenda </h3>
+        <h3 class="card-title text-light">Create resolution list </h3>
 
     <div class="card-body">
         <working-spinner v-if="isWorking"></working-spinner>
 
-        <button v-else class="btn btn-primary" v-on:click="handleCreateAgenda">Create agenda</button>
+        <button v-else class="btn btn-primary" v-on:click="handleCreateAgenda">Create resolution list</button>
     </div>
 
 

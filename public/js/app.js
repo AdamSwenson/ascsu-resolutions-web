@@ -3827,14 +3827,14 @@ var render = function render() {
     staticClass: "create-agenda card"
   }, [_c("h3", {
     staticClass: "card-title text-light"
-  }, [_vm._v("Create agenda ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Create resolution list ")]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_vm.isWorking ? _c("working-spinner") : _c("button", {
     staticClass: "btn btn-primary",
     on: {
       click: _vm.handleCreateAgenda
     }
-  }, [_vm._v("Create agenda")])], 1)]);
+  }, [_vm._v("Create resolution list")])], 1)]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
