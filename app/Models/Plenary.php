@@ -37,6 +37,9 @@ protected $appends = ['publicUrl', 'plenaryUrl', 'plenaryName'];
     return $d->format('Y F');
     }
 
+    public function resolutions(){
+        return $this->hasMany(Resolution::class);
+    }
 
 //self.second_reading_folder_id = second_reading_folder_id
 //self.feedback_folder_id = feedback_folder_id

@@ -4,12 +4,12 @@
         <div class=" row top-spacer pt-5"></div>
 
         <div class="row pt-2">
-            <div class="col-lg-4">
+            <div class="col-lg-3">
             </div>
 
             <div class="col-lg-6">
                 <div class="mb-2">
-                    <h2 class="text-light text-center">{{plenaryName}} Plenary</h2>
+                    <h2 class="text-light text-center">{{ plenaryName }} Plenary</h2>
                 </div>
 
                 <div class=" mb-5">
@@ -42,7 +42,7 @@
 
 
             </div>
-            <div class="col-lg-4"></div>
+            <div class="col-lg-3"></div>
 
         </div>
         <page-footer></page-footer>
@@ -66,7 +66,8 @@ export default {
     components: {
         SyncTitles,
         EnforceStyling,
-        CreateAgenda, SelectPlenary, CreatePlenaries, ManagerPermissions, PublicFolderCreation, PageFooter},
+        CreateAgenda, SelectPlenary, CreatePlenaries, ManagerPermissions, PublicFolderCreation, PageFooter
+    },
     props: [],
     mixins: [plenaryMixin],
 
@@ -74,19 +75,15 @@ export default {
     data: function () {
         return {
             // plenaryId : 1,
-            publicUrl : null
+            publicUrl: null
         }
     },
 
-    asyncComputed: {
-
-    },
+    asyncComputed: {},
 
     computed: {},
 
-    methods: {
-
-    }
+    methods: {}
 
 }
 </script>

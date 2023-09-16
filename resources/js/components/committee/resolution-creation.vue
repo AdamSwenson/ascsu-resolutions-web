@@ -133,7 +133,7 @@ export default {
     methods: {
         createRezzie: function () {
             window.console.log('committee', 'createRezzie', 124, this.$data);
-            let url = window.routeRoot + '/committee'
+            let url = window.routeRoot + '/resolution/' + this.plenaryId;
             let me = this;
             this.isWorking = true;
             Vue.axios.post(url, this.$data)

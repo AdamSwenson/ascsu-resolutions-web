@@ -5,15 +5,18 @@ from ResolutionManager.config.Templates import Templates
 class Resolution(object):
 
     def __init__(self, id=None, number=None, title=None, document_id=None, waiver=None, committee: Committee = None,
-                 cosponsors=[], document_obj=None):
+                 cosponsors=[], document_obj=None, is_first_reading=None):
         """
+        :param is_first_reading: Whether the resolution is currently in first reading
+        :type is_first_reading: bool
         :param number:
         :param title:
         :param document_id: Google Drive id
         :param document_obj The dictionary representation of the document
         """
+        self.is_first_reading = bool(is_first_reading)
         self.document_obj = document_obj
-        self.waiver = waiver
+        self.waiver = bool(waiver)
         self.id = id
         self.committee = committee
         self.cosponsors = cosponsors

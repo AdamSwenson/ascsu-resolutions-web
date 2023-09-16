@@ -123,3 +123,36 @@ class ResolutionRepository(object):
 
             resolutions.append(rez)
         return resolutions
+
+    def load_all_resolutions_for_plenary(self, plenary):
+        """Loads all resolutions for plenary with the title
+        as it exists in drive """
+        # For now not going to sync the database,
+        # just use title from drive if can be retrieved and default to db version
+        committee_repo = CommitteeRepository(self.dao)
+        resolutions = []
+
+        query = f"select resolution_id, is_first_reading from ascsu.plenary_resolution where plenary_id = {plenary.id}"
+        results = self.dao.conn.execute(query)
+
+        # query = f"select id from ascsu.resolutions"
+        # results = self.dao.conn.execute(query)
+        for rid, first_reading in results:
+            # make sure casts correctly
+            first_reading = bool(first_reading)
+            # rid = r[0]
+            sponsor = committee_repo.load_sponsor(rid)
+            cosponsors = committee_repo.load_cosponsors(rid)
+            rez = self.load_resolution(rid, sponsor, cosponsors)
+            rez.is_first_reading = first_reading
+            try:
+                doc_title = self.get_current_title_from_drive(rez)
+                if len(doc_title) > 0:
+                    rez.title = doc_title
+            except Exception as e:
+                print(e)
+                # todo Catch appropriately
+                pass
+
+            resolutions.append(rez)
+        return resolutions

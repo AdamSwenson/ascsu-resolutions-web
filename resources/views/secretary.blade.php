@@ -1,5 +1,8 @@
 @extends('layout/app')
 
+@section('pageName') -- Secretary
+@endsection
+
     @section('content')
         <div class="container-fluid main-container main-page">
 

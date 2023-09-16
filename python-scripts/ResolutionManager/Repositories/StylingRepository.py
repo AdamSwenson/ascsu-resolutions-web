@@ -127,7 +127,7 @@ class StylingRepository(object):
 
         for i in list_of_indicies:
             requests.append(self.make_single_space_request(i['startIndex'], i['endIndex']))
-           
+
         body = {'requests': requests}
         if revision_id is not None:
             # Lock to ensure that hasn't change since we fetched

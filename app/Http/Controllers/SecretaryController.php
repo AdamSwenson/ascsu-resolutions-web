@@ -25,7 +25,8 @@ class SecretaryController extends Controller
 
     }
 
-    public function enforceStyling(){
+    public function enforceStyling()
+    {
         $command = config('app.pythonBin');
         $executablePath = config('app.pythonScript');
 
@@ -48,7 +49,7 @@ class SecretaryController extends Controller
 
         $plenary = Plenary::where('is_current', true)->first();
 
-        $plenaryId = ! is_null($plenary) ? $plenary->id  : null;
+        $plenaryId = !is_null($plenary) ? $plenary->id : null;
 
         // Return the page with student and activity data embedded
         $data = [
@@ -65,24 +66,25 @@ class SecretaryController extends Controller
 
     }
 
-public function createAgenda(Plenary $plenary){
-    $command = config('app.pythonBin');
-    $executablePath = config('app.pythonScript');
+    public function createAgenda(Plenary $plenary)
+    {
+        $command = config('app.pythonBin');
+        $executablePath = config('app.pythonScript');
 
-    $command .= " web_make_agenda.py " . $plenary->id;
+        $command .= " web_make_agenda.py " . $plenary->id;
 
-    $result = Process::path($executablePath)
-        ->run($command);
+        $result = Process::path($executablePath)
+            ->run($command);
 
 //    dd($result);
 
-    if ($result->successful()) {
-        return $result->output();
-    }
+        if ($result->successful()) {
+            return $result->output();
+        }
 //        dd($result->output());
-    return $result->errorOutput();
+        return $result->errorOutput();
 
-}
+    }
 
     public function createPublic(Plenary $plenary)
     {
@@ -134,7 +136,8 @@ public function createAgenda(Plenary $plenary){
      * Updates all titles in database from titles in resolution text
      * @return void
      */
-    public function syncTitles(){
+    public function syncTitles()
+    {
         $command = config('app.pythonBin');
         $executablePath = config('app.pythonScript');
 

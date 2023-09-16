@@ -36,16 +36,14 @@ class CommitteeController extends Controller
     {
         $plenary = Plenary::where('is_current', true)->first();
 
-        // Return the page with student and activity data embedded
+        // todo Add committee information
         $data = [
             'data' => [
                 'url' => url(),
                 'plenaryId' => $plenary->id,
                 'plenary' => $plenary
-//                'user' => $student,
-//                'activity' => $activity,
             ],
-//            'name' => $activity->name
+
         ];
 
         return view('committee', $data);
@@ -90,14 +88,25 @@ class CommitteeController extends Controller
     }
 
 
-    public function recordResolution(Request $request)
+    /**
+     * Creates a new resolution for first reading at the provided plenary
+     * @param Plenary $plenary
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|string
+     */
+    public function recordResolution(Plenary $plenary, Request $request)
     {
-        $plenary = Plenary::where('id', 1)->first();
         $request->merge(['number' => $this->getNextResolutionNumber()]);
         $resolution = Resolution::create($request->all());
+
+        //add committees
         $resolution = $this->addSponsor($resolution, $request);
         $resolution = $this->addCosponsors($resolution, $request);
 
+        //set as first reading for plenary
+        $resolution->plenaries()->attach($plenary, ['is_first_reading' => true]);
+
+        //Actually create the document in drive
         $result = $this->createResolutionInDriveNew($plenary, $resolution);
 
         if ($result->successful()) {

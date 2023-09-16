@@ -2320,7 +2320,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     createRezzie: function createRezzie() {
       window.console.log('committee', 'createRezzie', 124, this.$data);
-      var url = window.routeRoot + '/committee';
+      var url = window.routeRoot + '/resolution/' + this.plenaryId;
       var me = this;
       this.isWorking = true;
       Vue.axios.post(url, this.$data).then(function (response) {
@@ -4212,7 +4212,7 @@ var render = function render() {
   }), _vm._v(" "), _c("div", {
     staticClass: "row pt-2"
   }, [_c("div", {
-    staticClass: "col-lg-4"
+    staticClass: "col-lg-3"
   }), _vm._v(" "), _c("div", {
     staticClass: "col-lg-6"
   }, [_c("div", {
@@ -4248,7 +4248,7 @@ var render = function render() {
   })], 1), _vm._v(" "), _c("div", {
     staticClass: "mb-5"
   }, [_c("select-plenary")], 1), _vm._v(" "), _c("create-plenaries")], 1), _vm._v(" "), _c("div", {
-    staticClass: "col-lg-4"
+    staticClass: "col-lg-3"
   })]), _vm._v(" "), _c("page-footer")], 1);
 };
 var staticRenderFns = [];

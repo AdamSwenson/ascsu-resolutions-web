@@ -14,6 +14,7 @@ class Resolution extends Model
     protected $fillable = ['document_id', 'title', 'number', 'waiver'];
     protected $appends = ['url', 'formattedNumber'];
 
+
     public function getSponsorAttribute()
     {
         return $this->committees()->where('is_sponsor', true)->first();
@@ -34,14 +35,14 @@ class Resolution extends Model
         return self::URL_BASE . $this->document_id;
     }
 
-    //not sure if need since resolution will be in multiple plenaries
-    public function plenaries()
-    {
-    }
 
     public function committees()
     {
         return $this->belongsToMany(Committee::class)->withPivot('is_sponsor');
+    }
+
+    public function plenaries(){
+        return $this->belongsToMany(Plenary::class)->withPivot('is_first_reading');
     }
 
 //

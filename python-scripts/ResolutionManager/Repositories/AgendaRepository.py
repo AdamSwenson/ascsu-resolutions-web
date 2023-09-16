@@ -28,6 +28,8 @@ class AgendaRepository(object):
         self.document_repo = DocumentRepository()
         self.file_repo = FileRepository()
 
+        self.idx = 1
+
     def create_agenda_file(self, plenary: Plenary):
         # Create an agenda document
         fname = Templates.AGENDA_FILENAME_TEMPLATE.format(plenary_name=plenary.plenary_folder_name)
@@ -41,6 +43,104 @@ class AgendaRepository(object):
         self.permission_repo.make_world_writeable(agenda_id)
         return agenda_id
 
+    def make_first_readings_heading_requests(self):
+        text = "\nFirst Readings \n"
+        requests = []
+        requests.append({
+            'insertText': {
+                'location': {
+                    'index': self.idx,
+                },
+                'text': text,
+            }
+        })
+        requests.append({
+            'updateTextStyle': {
+                'range': {
+                    'startIndex': self.idx,
+                    'endIndex': self.idx + len(text)
+                },
+                'textStyle': {
+                    'bold': True,
+                },
+                'fields': 'bold'
+            }
+        })
+
+        self.idx += len(text)
+        return requests
+
+    def make_action_items_heading_requests(self):
+        text = "\nAction Items \n"
+        requests = []
+        requests.append({
+            'insertText': {
+                'location': {
+                    'index': self.idx,
+                },
+                'text': text,
+            }
+        })
+        requests.append({
+            'updateTextStyle': {
+                'range': {
+                    'startIndex': self.idx,
+                    'endIndex': self.idx + len(text)
+                },
+                'textStyle': {
+                    'bold': True,
+                },
+                'fields': 'bold'
+            }
+        })
+
+        self.idx += len(text)
+        return requests
+
+    def make_resolution_list_item_requests(self, resolution):
+        """Returns a list of request objects required to make the entry"""
+        requests = []
+        text = f"{resolution.agenda_item} \n"
+        requests.append({
+            'insertText': {
+                'location': {
+                    'index': self.idx,
+                },
+                'text': text,
+            }
+        })
+        self.idx += len(text)
+
+        url_text = f"{resolution.url} \n\n"
+        requests.append({
+            'insertText': {
+                'location': {
+                    'index': self.idx,
+                },
+                'text': url_text
+            }
+        })
+
+        requests.append(
+            {
+                "updateTextStyle": {
+                    "textStyle": {
+                        "link": {
+                            "url": resolution.url
+                        }
+                    },
+                    "range": {
+                        "startIndex": self.idx,
+                        "endIndex": self.idx + len(url_text)
+                    },
+                    "fields": "link"
+                }
+            })
+
+        self.idx += len(url_text)
+
+        return requests
+
     def make_resolution_list(self, plenary: Plenary):
         """
         Creates the Resolution list google doc for the plenary.
@@ -51,7 +151,12 @@ class AgendaRepository(object):
         """
         # Get all resolutions
         # For now not going to sync the database, just use title from drive if can be retrieved and default to db version
-        resolutions = self.resolution_repo.load_all_resolutions()
+        resolutions = self.resolution_repo.load_all_resolutions_for_plenary(plenary)
+        # resolutions = self.resolution_repo.load_all_resolutions()
+        first_readings = [r for r in resolutions if r.is_first_reading is True and r.waiver is False]
+        # todo Once figure out how committees indicate ready for second reading, remove waiver check
+        waivers = [r for r in resolutions if r.is_first_reading and r.waiver is True]
+        second_readings = [r for r in resolutions if r.is_first_reading is not True]
 
         self.create_agenda_file(plenary)
 
@@ -68,50 +173,82 @@ class AgendaRepository(object):
 
         print(plenary.agenda_id)
 
-        idx = 1
+        self.idx = 1
         requests = []
-        for r in resolutions:
+
+        # todo Make action items header and update index
+        aih = self.make_action_items_heading_requests()
+        requests.extend(aih)
+
+        for r in second_readings:
             try:
-                text = f"{r.agenda_item} \n"
-                requests.append({
-                    'insertText': {
-                        'location': {
-                            'index': idx,
-                        },
-                        'text': text,
-                    }
-                })
-                idx += len(text)
-
-                url_text = f"{r.url} \n\n"
-                requests.append({
-                    'insertText': {
-                        'location': {
-                            'index': idx,
-                        },
-                        'text': url_text
-                    }
-                })
-
-                requests.append(
-                    {
-                        "updateTextStyle": {
-                            "textStyle": {
-                                "link": {
-                                    "url": r.url
-                                }
-                            },
-                            "range": {
-                                "startIndex": idx,
-                                "endIndex": idx + len(url_text)
-                            },
-                            "fields": "link"
-                        }
-                    })
-                idx += len(url_text)
-
+                sr = self.make_resolution_list_item_requests(r)
+                requests.extend(sr)
             except Exception:
                 pass
+
+        for w in waivers:
+            try:
+                sr = self.make_resolution_list_item_requests(w)
+                requests.extend(sr)
+            except Exception:
+                pass
+
+
+        # todo Make first reading header and update index
+        frh = self.make_first_readings_heading_requests()
+        requests.extend(frh)
+
+        for f in first_readings:
+            try:
+                fr = self.make_resolution_list_item_requests(f)
+                requests.extend(fr)
+            except Exception:
+                pass
+
+        #
+        # for r in resolutions:
+        #     try:
+        #         text = f"{r.agenda_item} \n"
+        #         requests.append({
+        #             'insertText': {
+        #                 'location': {
+        #                     'index': idx,
+        #                 },
+        #                 'text': text,
+        #             }
+        #         })
+        #         idx += len(text)
+        #
+        #         url_text = f"{r.url} \n\n"
+        #         requests.append({
+        #             'insertText': {
+        #                 'location': {
+        #                     'index': idx,
+        #                 },
+        #                 'text': url_text
+        #             }
+        #         })
+        #
+        #         requests.append(
+        #             {
+        #                 "updateTextStyle": {
+        #                     "textStyle": {
+        #                         "link": {
+        #                             "url": r.url
+        #                         }
+        #                     },
+        #                     "range": {
+        #                         "startIndex": idx,
+        #                         "endIndex": idx + len(url_text)
+        #                     },
+        #                     "fields": "link"
+        #                 }
+        #             })
+        #         idx += len(url_text)
+        #
+        #     except Exception:
+        #         pass
 
         print(requests)
 
