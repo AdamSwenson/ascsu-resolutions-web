@@ -78,7 +78,7 @@
     <input type="hidden" id="routeRoot" data="{{ url('') }}"/>
     <input type="hidden" id="env" data="{{ config('app.env') }}"/>
     <input type="hidden" id="version" data="{{config('app.version')}}"/>
-<input type="hidden" id="plenaryId" data="{{$data['plenaryId']}}"/>
+    <input type="hidden" id="plenaryId" data="{{$data['plenaryId']}}"/>
     <input type="hidden" id="plenary" data="{{$data['plenary']}}"/>
 
 </div>
