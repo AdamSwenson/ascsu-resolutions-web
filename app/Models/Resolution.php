@@ -16,6 +16,10 @@ class Resolution extends Model
     protected $casts = ['is_approved' => 'boolean'];
 
 
+    /**
+     * Creates sponsor attribute which is the sponsoring committee
+     * @return mixed|null
+     */
     public function getSponsorAttribute()
     {
         return $this->committees()->where('is_sponsor', true)->first();
@@ -26,9 +30,40 @@ class Resolution extends Model
         return $this->committees()->where('is_sponsor', '!=', true)->get();
     }
 
-    public function getFormattedNumberAttribute(){
+    public function getFormattedNumberAttribute()
+    {
         //todo add year
-     return "AS-" . $this->number; // . '-';
+        return "AS-" . $this->number; // . '-';
+    }
+
+    /**
+     * Returns the plenary object for the plenary at which received
+     * first reading.
+     * There will be at most one first-reading plenary. Waiver items aren't
+     * first readings?
+     * @return mixed|null
+     */
+    public function getFirstReadingPlenaryAttribute()
+    {
+        return $this->belongsToMany(Plenary::class)
+            ->wherePivot('is_first_reading', 1)
+            ->first();
+    }
+
+    /**
+     * Returns a list of all plenaries that aren't marked as
+     * first reading.
+     *
+     * This needs to be a list in case a resolution gets referred back
+     * to committee
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getActionPlenariesAttribute()
+    {
+        return $this->belongsToMany(Plenary::class)
+            ->wherePivot('is_first_reading', 0)
+            ->get();
     }
 
     public function getUrlAttribute()
@@ -42,7 +77,8 @@ class Resolution extends Model
         return $this->belongsToMany(Committee::class)->withPivot('is_sponsor');
     }
 
-    public function plenaries(){
+    public function plenaries()
+    {
         return $this->belongsToMany(Plenary::class)->withPivot('is_first_reading');
     }
 
