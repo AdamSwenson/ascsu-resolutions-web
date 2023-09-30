@@ -3,13 +3,15 @@
         <div class="container py-5">
             <div class="row">
                 <div class="col-lg-3 mb-3">
-                    <ul class="list-unstyled small text-light">
 
+                    <ul class="list-unstyled small text-light">
 <!--                    <ul class="list-unstyled small text-muted">-->
                         <li class="mb-2">Designed and built by Adam Swenson</li>
                         <li class="mb-2">{{appVersion}}</li>
                     </ul>
+
                 </div>
+
                 <div class="col-6 col-lg-2 offset-lg-1 mb-3">
 
                 </div>
