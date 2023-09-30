@@ -10,14 +10,15 @@ use Illuminate\Support\Facades\Process;
 class ResolutionController extends Controller
 {
 
-    public function toggleApproval(Resolution $resolution){
+    public function toggleApproval(Resolution $resolution)
+    {
 
-        if(is_null($resolution->is_approved)){
+        if (is_null($resolution->is_approved)) {
             //If never been set, will be null
             $resolution->is_approved = true;
-        }else{
+        } else {
             //just toggle
-            $resolution->is_approved = ! $resolution->is_approved;
+            $resolution->is_approved = !$resolution->is_approved;
         }
 
         $resolution->save();
@@ -28,9 +29,9 @@ class ResolutionController extends Controller
 //        $command = config('app.pythonBin');
 //        $command .= " web_add_approved_to_doc.py $plenary->id $resolution->id ";
 
-        if($resolution->is_approved){
+        if ($resolution->is_approved) {
             $result = $this->runAddApprovedScript($resolution);
-        }else{
+        } else {
             $result = $this->runRemoveApprovedScript($resolution);
         }
 //        $result = Process::path($executablePath)
@@ -45,7 +46,8 @@ class ResolutionController extends Controller
     }
 
 
-    public function runAddApprovedScript(Resolution $resolution){
+    public function runAddApprovedScript(Resolution $resolution)
+    {
         $plenary = $resolution->plenaries()->where('is_current', true)->first();
 
         $executablePath = config('app.pythonScript');
@@ -58,7 +60,8 @@ class ResolutionController extends Controller
         return $result;
     }
 
-    public function runRemoveApprovedScript(Resolution $resolution){
+    public function runRemoveApprovedScript(Resolution $resolution)
+    {
         $plenary = $resolution->plenaries()->where('is_current', true)->first();
 
         $executablePath = config('app.pythonScript');
@@ -71,9 +74,15 @@ class ResolutionController extends Controller
         return $result;
     }
 
-public function forPlenary(Plenary $plenary){
+    /**
+     * Gets all the resolutions for a given plenary
+     * @param Plenary $plenary
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function forPlenary(Plenary $plenary)
+    {
         return response()->json($plenary->resolutions);
-}
+    }
 
     /**
      * Display a listing of the resource.
@@ -104,7 +113,7 @@ public function forPlenary(Plenary $plenary){
      */
     public function show(string $id)
     {
-        $resolution =Resolution::find($id);
+        $resolution = Resolution::find($id);
         return response()->json($resolution);
     }
 

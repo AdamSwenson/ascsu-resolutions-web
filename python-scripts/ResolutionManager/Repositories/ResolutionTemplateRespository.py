@@ -16,6 +16,9 @@ from googleapiclient.discovery import build
 
 class ResolutionTemplateRepository(object):
 
+    APPROVED_TEXT = "\nApproved"
+    """The text inserted into the header of approved resolutions"""
+
     def __init__(self, plenary=None, dao=None):
         self.config = Configuration()
         self.dao = dao
@@ -220,7 +223,7 @@ class ResolutionTemplateRepository(object):
         # print(result)
 
     def add_approved(self, resolution):
-        txt = "\nApproved"
+        # txt = "\nApproved"
         existing = self.make_header(resolution)
         insertStart = len(existing) +1
 
@@ -231,7 +234,7 @@ class ResolutionTemplateRepository(object):
                         "segmentId": self.config.TEMPLATE_HEADER_ID,
                         "index": insertStart
                     },
-                    "text": txt
+                    "text": self.APPROVED_TEXT
                 }
             },
 
@@ -242,7 +245,7 @@ class ResolutionTemplateRepository(object):
                     'range': {
                         'segmentId': self.config.TEMPLATE_HEADER_ID,
                         'startIndex': insertStart,
-                        'endIndex': insertStart + len(txt)
+                        'endIndex': insertStart + len(self.APPROVED_TEXT)
                     },
                     'textStyle': {
                         'weightedFontFamily': {
@@ -265,7 +268,7 @@ class ResolutionTemplateRepository(object):
         return result
 
     def remove_approved(self, resolution):
-        txt = "\nApproved"
+        # txt = "\nApproved"
         existing = self.make_header(resolution)
         deleteStart = len(existing) + 1
 
@@ -273,8 +276,9 @@ class ResolutionTemplateRepository(object):
             {
                 'deleteContentRange': {
                     'range': {
+                        'segmentId': self.config.TEMPLATE_HEADER_ID,
                         'startIndex': deleteStart,
-                        'endIndex': deleteStart + len(txt),
+                        'endIndex': deleteStart + len(self.APPROVED_TEXT),
                     }
 
                 }
