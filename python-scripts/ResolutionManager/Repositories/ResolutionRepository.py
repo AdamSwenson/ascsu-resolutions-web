@@ -15,8 +15,16 @@ class ResolutionRepository(object):
         # resolution_id = int(resolution_id)
         # resolution_id =11
         result = self.dao.conn.execute(f"select * from ascsu.resolutions where id = {resolution_id}").fetchone()
-        r = Resolution(id=result.id, number=result.number, document_id=result.document_id, title=result.title,
-                       waiver=result.waiver, committee=sponsor, cosponsors=cosponsors)
+        r = Resolution(id=result.id,
+                       number=result.number,
+                       document_id=result.document_id,
+                       title=result.title,
+                       waiver=result.waiver,
+                       committee=sponsor,
+                       cosponsors=cosponsors,
+                       # this has to come from junction table
+                       # is_first_reading=result.is_first_reading,
+                       is_approved=result.is_approved)
 
         # Load the object representation from drive
         if r.document_id is not None:

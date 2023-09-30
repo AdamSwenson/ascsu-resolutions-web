@@ -4,8 +4,16 @@ from ResolutionManager.config.Templates import Templates
 
 class Resolution(object):
 
-    def __init__(self, id=None, number=None, title=None, document_id=None, waiver=None, committee: Committee = None,
-                 cosponsors=[], document_obj=None, is_first_reading=None):
+    def __init__(self, id=None, number=None,
+                 title=None,
+                 document_id=None,
+                 waiver=None,
+                 committee: Committee = None,
+                 cosponsors=[],
+                 document_obj=None,
+                 is_first_reading=None,
+                 is_approved=None,
+                 year=23):
         """
         :param is_first_reading: Whether the resolution is currently in first reading
         :type is_first_reading: bool
@@ -14,6 +22,9 @@ class Resolution(object):
         :param document_id: Google Drive id
         :param document_obj The dictionary representation of the document
         """
+        # todo Add correct date --- year!
+        self.year = year
+        self.is_approved = bool(is_approved)
         self.is_first_reading = bool(is_first_reading)
         self.document_obj = document_obj
         self.waiver = bool(waiver)
@@ -42,8 +53,8 @@ class Resolution(object):
     @property
     def agenda_item(self):
         """Returns the text as it should appear in the agenda """
-        # todo Add correct date!
-        t = f"AS-{self.number}-23/{self.committee.abbreviation}"
+
+        t = f"AS-{self.number}-{self.year}/{self.committee.abbreviation}"
         if len(self.cosponsors) > 0:
             for c in self.cosponsors:
                 t += f"/{c.abbreviation}"

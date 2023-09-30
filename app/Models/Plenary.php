@@ -38,7 +38,9 @@ protected $appends = ['publicUrl', 'plenaryUrl', 'plenaryName'];
     }
 
     public function resolutions(){
-        return $this->hasMany(Resolution::class);
+        return $this->belongsToMany(Resolution::class)->withPivot('is_first_reading');
+
+//        return $this->hasMany(Resolution::class);
     }
 
 //self.second_reading_folder_id = second_reading_folder_id

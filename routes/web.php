@@ -46,6 +46,9 @@ Route::post('secretary/permissions/one/lock/{resolution}', [PermissionsControlle
 Route::post('secretary/permissions/one/unlock/{resolution}', [PermissionsController::class, 'unlockEditingOne']);
 Route::get('secretary/permissions/one/{resolution}', [PermissionsController::class, 'getPermissions']);
 
+Route::post('resolution/approval/{resolution}', [ResolutionController::class, 'toggleApproval']);
+Route::get('plenary/resolutions/{plenary}', [ResolutionController::class, 'forPlenary']);
+//Route::get('resolution/approval/{resolution}', [ResolutionController::class, 'getApproval']);
 Route::resource('resolutions', ResolutionController::class);
 
 Route::get('diagnosis', [DevController::class, 'diagnostics']);
