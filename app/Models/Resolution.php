@@ -13,6 +13,7 @@ class Resolution extends Model
 
     protected $fillable = ['document_id', 'title', 'number', 'waiver'];
     protected $appends = ['url', 'formattedNumber'];
+    protected $casts = ['is_approved' => 'boolean'];
 
 
     public function getSponsorAttribute()

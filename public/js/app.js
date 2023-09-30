@@ -2801,6 +2801,84 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/approved-toggle-button.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/approved-toggle-button.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../utilities/readiness.utilities */ "./resources/js/utilities/readiness.utilities.js");
+/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../routes */ "./resources/js/routes.js");
+/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_routes__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+/**
+ * This handles the approval status of the resolution
+ * It initially takes the value passed in as a prop but updates
+ * the value internally when clicked
+ */
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "approved-toggle-button",
+  props: ['resolutionId', 'isApproved'],
+  mixins: [],
+  data: function data() {
+    return {
+      approvalStatus: false,
+      unapprovedLabel: 'Mark approved',
+      approvedLabel: 'Mark unapproved',
+      approvedStyle: 'btn-primary',
+      unapprovedStyle: 'btn-outline-primary'
+    };
+  },
+  asyncComputed: {
+    label: function label() {
+      if (!(0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_0__.isReadyToRock)(this.resolutionId)) return this.unapprovedLabel;
+      if (this.approvalStatus) return this.approvedLabel;
+      return this.unapprovedLabel;
+    },
+    styling: function styling() {
+      if (!(0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_0__.isReadyToRock)(this.resolutionId)) return this.unapprovedStyle;
+      if (this.approvalStatus) return this.approvedStyle;
+      return this.unapprovedStyle;
+    }
+  },
+  watch: {
+    'isApproved': function isApproved() {
+      this.setDefaultApproval();
+    }
+  },
+  computed: {},
+  methods: {
+    handleClick: function handleClick() {
+      var url = _routes__WEBPACK_IMPORTED_MODULE_1__.secretary.resolutions.approvalStatus(this.resolutionId);
+      window.console.log('toggle approval', 'get', 124, url);
+      var me = this;
+      Vue.axios.post(url).then(function (response) {
+        me.approvalStatus = response.data.is_approved;
+        window.console.log('permissions', 'response', 126, response, me);
+      });
+    },
+    setDefaultApproval: function setDefaultApproval() {
+      if (_.isNull(this.isApproved)) {
+        this.approvalStatus = false;
+      } else {
+        this.approvalStatus = this.isApproved;
+      }
+    }
+  },
+  mounted: function mounted() {
+    this.setDefaultApproval();
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/manager-permissions.vue?vue&type=script&lang=js&":
 /*!************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/manager-permissions.vue?vue&type=script&lang=js& ***!
@@ -2816,7 +2894,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _toggle_all_resolution_permissions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./toggle-all-resolution-permissions */ "./resources/js/components/secretary/resolutions/toggle-all-resolution-permissions.vue");
 /* harmony import */ var _resolution_permission_button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./resolution-permission-button */ "./resources/js/components/secretary/resolutions/resolution-permission-button.vue");
-/* harmony import */ var _resolution_permission_item__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./resolution-permission-item */ "./resources/js/components/secretary/resolutions/resolution-permission-item.vue");
+/* harmony import */ var _resolution_item__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./resolution-item */ "./resources/js/components/secretary/resolutions/resolution-item.vue");
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../routes */ "./resources/js/routes.js");
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_routes__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../utilities/readiness.utilities */ "./resources/js/utilities/readiness.utilities.js");
@@ -2829,7 +2907,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "manager-permissions",
   components: {
-    ResolutionPermissionItem: _resolution_permission_item__WEBPACK_IMPORTED_MODULE_3__["default"],
+    ResolutionItem: _resolution_item__WEBPACK_IMPORTED_MODULE_3__["default"],
     ResolutionPermissionButton: _resolution_permission_button__WEBPACK_IMPORTED_MODULE_2__["default"],
     ToggleAllResolutionPermissions: _toggle_all_resolution_permissions__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
@@ -2877,6 +2955,189 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/resolution-card.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/resolution-card.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../routes */ "./resources/js/routes.js");
+/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_routes__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../mixins/plenaryMixin */ "./resources/js/mixins/plenaryMixin.js");
+/* harmony import */ var _mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _resolution_item__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./resolution-item */ "./resources/js/components/secretary/resolutions/resolution-item.vue");
+/* harmony import */ var _utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utilities/readiness.utilities */ "./resources/js/utilities/readiness.utilities.js");
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "resolution-card",
+  components: {
+    ResolutionItem: _resolution_item__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  props: [],
+  mixins: [(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_1___default())],
+  data: function data() {
+    return {
+      rez: []
+    };
+  },
+  asyncComputed: {
+    resolutions: {
+      get: function get() {
+        if (!(0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_3__.isReadyToRock)(this.rez) || this.rez.length === 0) return [];
+        return this.rez;
+      },
+      watch: ['rez']
+    }
+  },
+  watch: {
+    'plenaryId': function plenaryId() {
+      this.loadResolutions();
+    }
+  },
+  computed: {},
+  methods: {
+    loadResolutions: function loadResolutions() {
+      //todo Need some way to restrict these to active ones
+
+      var url = _routes__WEBPACK_IMPORTED_MODULE_0__.secretary.resolutions.loadForPlenary(this.plenaryId);
+      window.console.log('resolutions', 'get', 124, url);
+      var me = this;
+      Vue.axios.get(url).then(function (response) {
+        me.rez = response.data;
+      });
+    }
+  },
+  mounted: function mounted() {
+    if ((0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_3__.isReadyToRock)(this.plenaryId)) {
+      this.loadResolutions();
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/resolution-item.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/resolution-item.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../routes */ "./resources/js/routes.js");
+/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_routes__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _resolution_permission_button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./resolution-permission-button */ "./resources/js/components/secretary/resolutions/resolution-permission-button.vue");
+/* harmony import */ var _approved_toggle_button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./approved-toggle-button */ "./resources/js/components/secretary/resolutions/approved-toggle-button.vue");
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "resolution-item",
+  components: {
+    ApprovedToggleButton: _approved_toggle_button__WEBPACK_IMPORTED_MODULE_2__["default"],
+    ResolutionPermissionButton: _resolution_permission_button__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  props: ['resolutionId', 'title', 'number', 'isApproved'],
+  mixins: [],
+  data: function data() {
+    return {
+      // isEditable: false
+    };
+  },
+  asyncComputed: {
+    // buttonLabel: function () {
+    //     if (this.isEditable) {
+    //         return 'Lock editing'
+    //     }
+    //     return 'Allow editing';
+    //
+    // },
+    //
+    // styling: function () {
+    //     if (this.isEditable) {
+    //         return 'btn-primary'
+    //     }
+    //     return 'btn-outline-primary';
+    // }
+  },
+  computed: {},
+  methods: {
+    //
+    // getPermission: function () {
+    //     let url = routes.secretary.permissions.getPermission(this.resolutionId)
+    //
+    //     window.console.log('permissions', 'get', 124, url);
+    //     let me = this;
+    //     Vue.axios.get(url).then((response) => {
+    //         /*Will receive the following:
+    //         {
+    //             "id": "anyoneWithLink",
+    //             "type": "anyone",
+    //             "kind": "drive#permission",
+    //             "role": "reader",
+    //             "allowFileDiscovery": false
+    //         }*/
+    //         if (response.data.role === 'reader') {
+    //             me.isEditable = false;
+    //         } else if (response.data.role === 'writer') {
+    //             me.isEditable = true;
+    //         }
+    //         window.console.log('permissions', 'response', 126, response);
+    //     });
+    // },
+    //
+    // lockEditing: function () {
+    //     let url = routes.secretary.permissions.lockOne(this.resolutionId)
+    //
+    //     window.console.log('permissions', 'get', 124, url);
+    //     let me = this;
+    //     Vue.axios.post(url).then((response) => {
+    //         //todo check for success
+    //         me.isEditable = false;
+    //
+    //         window.console.log('permissions', 'response', 126, response);
+    //     });
+    // },
+    //
+    // unlockEditing: function () {
+    //     let url = routes.secretary.permissions.unlockOne(this.resolutionId)
+    //
+    //     window.console.log('permissions', 'get', 124, url);
+    //     let me = this;
+    //     Vue.axios.post(url).then((response) => {
+    //         //todo check for success
+    //         me.isEditable = true;
+    //
+    //         window.console.log('permissions', 'response', 126, response);
+    //     });
+    // },
+    //
+    // toggleEditing: function () {
+    //     if (this.isEditable) {
+    //         this.lockEditing();
+    //     } else {
+    //         this.unlockEditing();
+    //     }
+    // }
+  },
+  mounted: function mounted() {
+    // this.getPermission();
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/resolution-permission-button.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/resolution-permission-button.vue?vue&type=script&lang=js& ***!
@@ -2896,44 +3157,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "resolution-permission-button",
   props: ['resolutionId'],
-  mixins: [],
-  data: function data() {
-    return {};
-  },
-  asyncComputed: {},
-  computed: {},
-  methods: {
-    getPermission: function getPermission() {
-      var url = _routes__WEBPACK_IMPORTED_MODULE_0__.secretary.permissions.getPermission(this.resolutionId);
-      window.console.log('permissions', 'get', 124, url);
-      var me = this;
-      Vue.axios.get(url).then(function (response) {
-        window.console.log('permissions', 'response', 126, response);
-      });
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/resolution-permission-item.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/resolution-permission-item.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../routes */ "./resources/js/routes.js");
-/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_routes__WEBPACK_IMPORTED_MODULE_0__);
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "resolution-permission-item",
-  props: ['resolutionId', 'title', 'number'],
-  mixins: [],
   data: function data() {
     return {
       isEditable: false
@@ -3093,6 +3316,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _create_agenda__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./create-agenda */ "./resources/js/components/secretary/create-agenda.vue");
 /* harmony import */ var _enforce_styling__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./enforce-styling */ "./resources/js/components/secretary/enforce-styling.vue");
 /* harmony import */ var _sync_titles__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./sync-titles */ "./resources/js/components/secretary/sync-titles.vue");
+/* harmony import */ var _resolutions_resolution_card__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./resolutions/resolution-card */ "./resources/js/components/secretary/resolutions/resolution-card.vue");
+
 
 
 
@@ -3105,6 +3330,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "secretary",
   components: {
+    ResolutionCard: _resolutions_resolution_card__WEBPACK_IMPORTED_MODULE_9__["default"],
     SyncTitles: _sync_titles__WEBPACK_IMPORTED_MODULE_8__["default"],
     EnforceStyling: _enforce_styling__WEBPACK_IMPORTED_MODULE_7__["default"],
     CreateAgenda: _create_agenda__WEBPACK_IMPORTED_MODULE_6__["default"],
@@ -4039,6 +4265,38 @@ render._withStripped = true;
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/approved-toggle-button.vue?vue&type=template&id=ca295302&scoped=true&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/approved-toggle-button.vue?vue&type=template&id=ca295302&scoped=true& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("a", {
+    staticClass: "approved-toggle-button btn btn-sm",
+    "class": _vm.styling,
+    attrs: {
+      href: "#"
+    },
+    on: {
+      click: _vm.handleClick
+    }
+  }, [_vm._v(_vm._s(_vm.label))]);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/manager-permissions.vue?vue&type=template&id=1ad22d0a&scoped=true&":
 /*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/manager-permissions.vue?vue&type=template&id=1ad22d0a&scoped=true& ***!
@@ -4060,22 +4318,84 @@ var render = function render() {
     staticClass: "card-title text-light"
   }, [_vm._v("Bulk manage permissions")]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
-  }, [_c("toggle-all-resolution-permissions")], 1), _vm._v(" "), _c("h3", {
+  }, [_c("toggle-all-resolution-permissions")], 1)]);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/resolution-card.vue?vue&type=template&id=21c1bab7&scoped=true&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/resolution-card.vue?vue&type=template&id=21c1bab7&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "resolution-card card"
+  }, [_c("h3", {
     staticClass: "card-title text-light"
-  }, [_vm._v("Manage individual permissions")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Manage individual resolutions")]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("ul", {
     staticClass: "list-group list-group-flush"
   }, _vm._l(_vm.resolutions, function (r) {
-    return _c("resolution-permission-item", {
+    return _c("resolution-item", {
       key: r.resolutionId,
       attrs: {
         "resolution-id": r.id,
         title: r.title,
-        number: r.formattedNumber
+        number: r.formattedNumber,
+        "is-approved": r.is_approved
       }
     });
   }), 1)])]);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/resolution-item.vue?vue&type=template&id=686f013a&scoped=true&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/resolution-item.vue?vue&type=template&id=686f013a&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "resolution-item"
+  }, [_c("li", {
+    staticClass: "list-group-item"
+  }, [_c("resolution-permission-button", {
+    attrs: {
+      "resolution-id": _vm.resolutionId
+    }
+  }), _vm._v(" "), _c("approved-toggle-button", {
+    attrs: {
+      "resolution-id": _vm.resolutionId,
+      "is-approved": _vm.isApproved
+    }
+  }), _vm._v("  " + _vm._s(_vm.number) + " " + _vm._s(_vm.title) + "\n\n")], 1)]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -4098,42 +4418,8 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "resolution-permission-button"
-  }, [_c("button", {
-    staticClass: "btn btn-info",
-    on: {
-      click: _vm.getPermission
-    }
-  }, [_vm._v("Permission")])]);
-};
-var staticRenderFns = [];
-render._withStripped = true;
-
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/resolution-permission-item.vue?vue&type=template&id=1e693dfa&scoped=true&":
-/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/resolution-permission-item.vue?vue&type=template&id=1e693dfa&scoped=true& ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* binding */ render),
-/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
-/* harmony export */ });
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "resolution-permission-item"
-  }, [_c("li", {
-    staticClass: "list-group-item"
-  }, [_c("a", {
-    staticClass: "btn btn-sm",
+  return _c("a", {
+    staticClass: "resolution-permission-button btn btn-sm",
     "class": _vm.styling,
     attrs: {
       href: "#"
@@ -4141,7 +4427,7 @@ var render = function render() {
     on: {
       click: _vm.toggleEditing
     }
-  }, [_vm._v(_vm._s(_vm.buttonLabel))]), _vm._v(" " + _vm._s(_vm.number) + " " + _vm._s(_vm.title) + "\n    ")])]);
+  }, [_vm._v(_vm._s(_vm.buttonLabel))]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -4246,6 +4532,8 @@ var render = function render() {
       plenaryId: _vm.plenaryId
     }
   })], 1), _vm._v(" "), _c("div", {
+    staticClass: "mb-5"
+  }, [_c("resolution-card")], 1), _vm._v(" "), _c("div", {
     staticClass: "mb-5"
   }, [_c("select-plenary")], 1), _vm._v(" "), _c("create-plenaries")], 1), _vm._v(" "), _c("div", {
     staticClass: "col-lg-3"
@@ -4556,8 +4844,8 @@ module.exports = {
   secretary: {
     agenda: {
       createAgenda: function createAgenda(plenary) {
-        plenary_id = idify(plenary);
-        url = normalizedRouteRoot();
+        var plenary_id = idify(plenary);
+        var url = normalizedRouteRoot();
         url += 'secretary/agenda/';
         url += plenary_id;
         return url;
@@ -4565,36 +4853,36 @@ module.exports = {
     },
     permissions: {
       getPermission: function getPermission(resolution) {
-        resolution_id = idify(resolution);
-        url = normalizedRouteRoot();
+        var resolution_id = idify(resolution);
+        var url = normalizedRouteRoot();
         url += 'secretary/permissions/one/';
         url += resolution_id;
         return url;
       },
       lockAll: function lockAll(plenary) {
-        plenary_id = idify(plenary);
-        url = normalizedRouteRoot();
+        var plenary_id = idify(plenary);
+        var url = normalizedRouteRoot();
         url += 'secretary/permissions/all/lock/';
         url += plenary_id;
         return url;
       },
       unlockAll: function unlockAll(plenary) {
-        plenary_id = idify(plenary);
-        url = normalizedRouteRoot();
+        var plenary_id = idify(plenary);
+        var url = normalizedRouteRoot();
         url += 'secretary/permissions/all/unlock/';
         url += plenary_id;
         return url;
       },
       lockOne: function lockOne(resolution) {
-        resolution_id = idify(resolution);
-        url = normalizedRouteRoot();
+        var resolution_id = idify(resolution);
+        var url = normalizedRouteRoot();
         url += 'secretary/permissions/one/lock/';
         url += resolution_id;
         return url;
       },
       unlockOne: function unlockOne(resolution) {
-        resolution_id = idify(resolution);
-        url = normalizedRouteRoot();
+        var resolution_id = idify(resolution);
+        var url = normalizedRouteRoot();
         url += 'secretary/permissions/one/unlock/';
         url += resolution_id;
         return url;
@@ -4602,18 +4890,32 @@ module.exports = {
     },
     resolutions: {
       loadAll: function loadAll() {
-        url = normalizedRouteRoot();
+        var url = normalizedRouteRoot();
         url += 'resolutions';
         return url;
       },
+      loadForPlenary: function loadForPlenary(plenary) {
+        var plenaryId = idify(plenary);
+        var url = normalizedRouteRoot();
+        url += 'plenary/resolutions/';
+        url += plenaryId;
+        return url;
+      },
       enforceStyle: function enforceStyle() {
-        url = normalizedRouteRoot();
+        var url = normalizedRouteRoot();
         url += 'secretary/styling';
         return url;
       },
       syncTitles: function syncTitles() {
-        url = normalizedRouteRoot();
+        var url = normalizedRouteRoot();
         url += 'secretary/sync';
+        return url;
+      },
+      approvalStatus: function approvalStatus(resolution) {
+        var resolution_id = idify(resolution);
+        var url = normalizedRouteRoot();
+        url += 'resolution/approval/';
+        url += resolution_id;
         return url;
       }
     }
@@ -23492,6 +23794,45 @@ component.options.__file = "resources/js/components/secretary/public-folder-crea
 
 /***/ }),
 
+/***/ "./resources/js/components/secretary/resolutions/approved-toggle-button.vue":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/secretary/resolutions/approved-toggle-button.vue ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _approved_toggle_button_vue_vue_type_template_id_ca295302_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./approved-toggle-button.vue?vue&type=template&id=ca295302&scoped=true& */ "./resources/js/components/secretary/resolutions/approved-toggle-button.vue?vue&type=template&id=ca295302&scoped=true&");
+/* harmony import */ var _approved_toggle_button_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./approved-toggle-button.vue?vue&type=script&lang=js& */ "./resources/js/components/secretary/resolutions/approved-toggle-button.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _approved_toggle_button_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _approved_toggle_button_vue_vue_type_template_id_ca295302_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _approved_toggle_button_vue_vue_type_template_id_ca295302_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "ca295302",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/secretary/resolutions/approved-toggle-button.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/secretary/resolutions/manager-permissions.vue":
 /*!*******************************************************************************!*\
   !*** ./resources/js/components/secretary/resolutions/manager-permissions.vue ***!
@@ -23531,6 +23872,84 @@ component.options.__file = "resources/js/components/secretary/resolutions/manage
 
 /***/ }),
 
+/***/ "./resources/js/components/secretary/resolutions/resolution-card.vue":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/secretary/resolutions/resolution-card.vue ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _resolution_card_vue_vue_type_template_id_21c1bab7_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./resolution-card.vue?vue&type=template&id=21c1bab7&scoped=true& */ "./resources/js/components/secretary/resolutions/resolution-card.vue?vue&type=template&id=21c1bab7&scoped=true&");
+/* harmony import */ var _resolution_card_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./resolution-card.vue?vue&type=script&lang=js& */ "./resources/js/components/secretary/resolutions/resolution-card.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _resolution_card_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _resolution_card_vue_vue_type_template_id_21c1bab7_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _resolution_card_vue_vue_type_template_id_21c1bab7_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "21c1bab7",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/secretary/resolutions/resolution-card.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/secretary/resolutions/resolution-item.vue":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/secretary/resolutions/resolution-item.vue ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _resolution_item_vue_vue_type_template_id_686f013a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./resolution-item.vue?vue&type=template&id=686f013a&scoped=true& */ "./resources/js/components/secretary/resolutions/resolution-item.vue?vue&type=template&id=686f013a&scoped=true&");
+/* harmony import */ var _resolution_item_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./resolution-item.vue?vue&type=script&lang=js& */ "./resources/js/components/secretary/resolutions/resolution-item.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _resolution_item_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _resolution_item_vue_vue_type_template_id_686f013a_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _resolution_item_vue_vue_type_template_id_686f013a_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "686f013a",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/secretary/resolutions/resolution-item.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/secretary/resolutions/resolution-permission-button.vue":
 /*!****************************************************************************************!*\
   !*** ./resources/js/components/secretary/resolutions/resolution-permission-button.vue ***!
@@ -23566,45 +23985,6 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 /* hot reload */
 if (false) { var api; }
 component.options.__file = "resources/js/components/secretary/resolutions/resolution-permission-button.vue"
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/components/secretary/resolutions/resolution-permission-item.vue":
-/*!**************************************************************************************!*\
-  !*** ./resources/js/components/secretary/resolutions/resolution-permission-item.vue ***!
-  \**************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _resolution_permission_item_vue_vue_type_template_id_1e693dfa_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./resolution-permission-item.vue?vue&type=template&id=1e693dfa&scoped=true& */ "./resources/js/components/secretary/resolutions/resolution-permission-item.vue?vue&type=template&id=1e693dfa&scoped=true&");
-/* harmony import */ var _resolution_permission_item_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./resolution-permission-item.vue?vue&type=script&lang=js& */ "./resources/js/components/secretary/resolutions/resolution-permission-item.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _resolution_permission_item_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _resolution_permission_item_vue_vue_type_template_id_1e693dfa_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
-  _resolution_permission_item_vue_vue_type_template_id_1e693dfa_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
-  false,
-  null,
-  "1e693dfa",
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/components/secretary/resolutions/resolution-permission-item.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
@@ -24007,6 +24387,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/secretary/resolutions/approved-toggle-button.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************!*\
+  !*** ./resources/js/components/secretary/resolutions/approved-toggle-button.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_approved_toggle_button_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./approved-toggle-button.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/approved-toggle-button.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_approved_toggle_button_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/secretary/resolutions/manager-permissions.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************!*\
   !*** ./resources/js/components/secretary/resolutions/manager-permissions.vue?vue&type=script&lang=js& ***!
@@ -24023,6 +24419,38 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/secretary/resolutions/resolution-card.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/components/secretary/resolutions/resolution-card.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_resolution_card_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./resolution-card.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/resolution-card.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_resolution_card_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/secretary/resolutions/resolution-item.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/components/secretary/resolutions/resolution-item.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_resolution_item_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./resolution-item.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/resolution-item.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_resolution_item_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/secretary/resolutions/resolution-permission-button.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************!*\
   !*** ./resources/js/components/secretary/resolutions/resolution-permission-button.vue?vue&type=script&lang=js& ***!
@@ -24036,22 +24464,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_resolution_permission_button_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./resolution-permission-button.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/resolution-permission-button.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_resolution_permission_button_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/components/secretary/resolutions/resolution-permission-item.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************!*\
-  !*** ./resources/js/components/secretary/resolutions/resolution-permission-item.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_resolution_permission_item_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./resolution-permission-item.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/resolution-permission-item.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_resolution_permission_item_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -24374,6 +24786,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/secretary/resolutions/approved-toggle-button.vue?vue&type=template&id=ca295302&scoped=true&":
+/*!*****************************************************************************************************************************!*\
+  !*** ./resources/js/components/secretary/resolutions/approved-toggle-button.vue?vue&type=template&id=ca295302&scoped=true& ***!
+  \*****************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_approved_toggle_button_vue_vue_type_template_id_ca295302_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_approved_toggle_button_vue_vue_type_template_id_ca295302_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_approved_toggle_button_vue_vue_type_template_id_ca295302_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./approved-toggle-button.vue?vue&type=template&id=ca295302&scoped=true& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/approved-toggle-button.vue?vue&type=template&id=ca295302&scoped=true&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/secretary/resolutions/manager-permissions.vue?vue&type=template&id=1ad22d0a&scoped=true&":
 /*!**************************************************************************************************************************!*\
   !*** ./resources/js/components/secretary/resolutions/manager-permissions.vue?vue&type=template&id=1ad22d0a&scoped=true& ***!
@@ -24391,6 +24820,40 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/secretary/resolutions/resolution-card.vue?vue&type=template&id=21c1bab7&scoped=true&":
+/*!**********************************************************************************************************************!*\
+  !*** ./resources/js/components/secretary/resolutions/resolution-card.vue?vue&type=template&id=21c1bab7&scoped=true& ***!
+  \**********************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_resolution_card_vue_vue_type_template_id_21c1bab7_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_resolution_card_vue_vue_type_template_id_21c1bab7_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_resolution_card_vue_vue_type_template_id_21c1bab7_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./resolution-card.vue?vue&type=template&id=21c1bab7&scoped=true& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/resolution-card.vue?vue&type=template&id=21c1bab7&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/secretary/resolutions/resolution-item.vue?vue&type=template&id=686f013a&scoped=true&":
+/*!**********************************************************************************************************************!*\
+  !*** ./resources/js/components/secretary/resolutions/resolution-item.vue?vue&type=template&id=686f013a&scoped=true& ***!
+  \**********************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_resolution_item_vue_vue_type_template_id_686f013a_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_resolution_item_vue_vue_type_template_id_686f013a_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_resolution_item_vue_vue_type_template_id_686f013a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./resolution-item.vue?vue&type=template&id=686f013a&scoped=true& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/resolution-item.vue?vue&type=template&id=686f013a&scoped=true&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/secretary/resolutions/resolution-permission-button.vue?vue&type=template&id=062b8ad9&scoped=true&":
 /*!***********************************************************************************************************************************!*\
   !*** ./resources/js/components/secretary/resolutions/resolution-permission-button.vue?vue&type=template&id=062b8ad9&scoped=true& ***!
@@ -24404,23 +24867,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_resolution_permission_button_vue_vue_type_template_id_062b8ad9_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_resolution_permission_button_vue_vue_type_template_id_062b8ad9_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./resolution-permission-button.vue?vue&type=template&id=062b8ad9&scoped=true& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/resolution-permission-button.vue?vue&type=template&id=062b8ad9&scoped=true&");
-
-
-/***/ }),
-
-/***/ "./resources/js/components/secretary/resolutions/resolution-permission-item.vue?vue&type=template&id=1e693dfa&scoped=true&":
-/*!*********************************************************************************************************************************!*\
-  !*** ./resources/js/components/secretary/resolutions/resolution-permission-item.vue?vue&type=template&id=1e693dfa&scoped=true& ***!
-  \*********************************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_resolution_permission_item_vue_vue_type_template_id_1e693dfa_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_resolution_permission_item_vue_vue_type_template_id_1e693dfa_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_resolution_permission_item_vue_vue_type_template_id_1e693dfa_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./resolution-permission-item.vue?vue&type=template&id=1e693dfa&scoped=true& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/resolution-permission-item.vue?vue&type=template&id=1e693dfa&scoped=true&");
 
 
 /***/ }),

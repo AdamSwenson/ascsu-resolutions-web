@@ -36,6 +36,10 @@
                 </div>
 
                 <div class="mb-5">
+                    <resolution-card></resolution-card>
+                </div>
+
+                <div class="mb-5">
                     <select-plenary></select-plenary>
                 </div>
                 <create-plenaries></create-plenaries>
@@ -60,10 +64,12 @@ import SelectPlenary from "./select-plenary";
 import CreateAgenda from "./create-agenda";
 import EnforceStyling from "./enforce-styling";
 import SyncTitles from "./sync-titles";
+import ResolutionCard from "./resolutions/resolution-card";
 
 export default {
     name: "secretary",
     components: {
+        ResolutionCard,
         SyncTitles,
         EnforceStyling,
         CreateAgenda, SelectPlenary, CreatePlenaries, ManagerPermissions, PublicFolderCreation, PageFooter

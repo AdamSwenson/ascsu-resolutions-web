@@ -144,7 +144,10 @@ class ResolutionTemplateRepository(object):
 
     def make_header(self, resolution: Resolution):
         """
-        Adds the resolution number and date to the document
+        Makes the string to be added to the document header
+            AS-xxxx-yy
+            1-2 September 2023
+            Approved [if approved]
 
         :param resolution:
         :return:
@@ -160,12 +163,20 @@ class ResolutionTemplateRepository(object):
         if len(resolution.cosponsors) > 0:
             for c in resolution.cosponsors:
                 v += f"/{c.abbreviation}"
+
+        v += f"\n{self.plenary.formatted_plenary_date}"
+
         return v
 
     def update_header(self, resolution):
+        """Adds the header text with proper formatting to the document"""
         # def update_header(self, document_id, resolution_number, committee, cosponsors=[]):
-        txt = f"{self.make_header(resolution)}\n{self.plenary.formatted_plenary_date}"
+        # txt = f"{self.make_header(resolution)}\n{self.plenary.formatted_plenary_date}"
         # txt = f"{self.make_header(resolution.number, self.plenary.year, resolution.committee, resolution.cosponsors)}\n{self.plenary.formatted_plenary_date()}"
+
+        txt = self.make_header(resolution)
+        # sys.stdout.write(f"{resolution.__dict__}")
+        # sys.stdout.write(f"{txt}")
 
         requests = [
             {
@@ -202,23 +213,79 @@ class ResolutionTemplateRepository(object):
             },
 
         ]
-        # requests = [
-        #     {
-        #         "createHeader": {
-        #             "sectionBreakLocation": {
-        #                 "index": 0
-        #             },
-        #             "type": "DEFAULT"
-        #         }
-        #     },
-        # ]
 
         result = self.service.documents().batchUpdate(
             documentId=resolution.document_id, body={'requests': requests}).execute()
 
-        print(result)
+        # print(result)
 
-    # def update_title(self, resolution):
+    def add_approved(self, resolution):
+        txt = "\nApproved"
+        existing = self.make_header(resolution)
+        insertStart = len(existing) +1
+
+        requests = [
+            {
+                "insertText": {
+                    "location": {
+                        "segmentId": self.config.TEMPLATE_HEADER_ID,
+                        "index": insertStart
+                    },
+                    "text": txt
+                }
+            },
+
+            # Force header to correct format
+            {
+                'updateTextStyle': {
+
+                    'range': {
+                        'segmentId': self.config.TEMPLATE_HEADER_ID,
+                        'startIndex': insertStart,
+                        'endIndex': insertStart + len(txt)
+                    },
+                    'textStyle': {
+                        'weightedFontFamily': {
+                            'fontFamily': 'Atkinson Hyperlegible'
+
+                        },
+                        'fontSize': {
+                            'magnitude': 12,
+                            'unit': 'PT'
+                        },
+                    },
+                    'fields': 'weightedFontFamily,fontSize'
+                }
+            },
+
+        ]
+        result = self.service.documents().batchUpdate(
+            documentId=resolution.document_id, body={'requests': requests}).execute()
+
+        return result
+
+    def remove_approved(self, resolution):
+        txt = "\nApproved"
+        existing = self.make_header(resolution)
+        deleteStart = len(existing) + 1
+
+        requests = [
+            {
+                'deleteContentRange': {
+                    'range': {
+                        'startIndex': deleteStart,
+                        'endIndex': deleteStart + len(txt),
+                    }
+
+                }
+            },
+        ]
+
+        result = self.service.documents().batchUpdate(
+            documentId=resolution.document_id, body={'requests': requests}).execute()
+        return result
+
+        # def update_title(self, resolution):
     #     # def update_title(self, document_id, title):
     #     title_idxs = {'start_index': 54, 'end_index': 62}
     #     rez_number = {'start_index': 54, 'end_index': 62}
