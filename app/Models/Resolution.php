@@ -12,7 +12,7 @@ class Resolution extends Model
     use HasFactory;
 
     protected $fillable = ['document_id', 'title', 'number', 'waiver'];
-    protected $appends = ['url', 'formattedNumber'];
+    protected $appends = ['url', 'formattedNumber', 'firstReadingPlenary', 'actionPlenaries'];
     protected $casts = ['is_approved' => 'boolean'];
 
 

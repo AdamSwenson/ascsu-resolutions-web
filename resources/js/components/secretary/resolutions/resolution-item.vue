@@ -24,7 +24,7 @@ import ApprovedToggleButton from "./approved-toggle-button";
 export default {
     name: "resolution-item",
     components: {ApprovedToggleButton, ResolutionPermissionButton},
-    props: ['resolutionId', 'title', 'number', 'isApproved'],
+    props: ['resolutionId', 'title', 'number', 'isApproved', 'firstReadingPlenary', 'actionPlenaries'],
 
     mixins: [],
 

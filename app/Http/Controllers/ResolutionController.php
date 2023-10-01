@@ -74,6 +74,18 @@ class ResolutionController extends Controller
         return $result;
     }
 
+
+    public function setAction(Plenary $plenary, Resolution $resolution)
+    {
+        $resolution
+            ->plenaries()
+            ->attach($plenary, ['is_first_reading' => 0]);
+        $resolution->save();
+        $resolution->refresh();
+        return response()->json($resolution);
+
+    }
+
     /**
      * Gets all the resolutions for a given plenary
      * @param Plenary $plenary
