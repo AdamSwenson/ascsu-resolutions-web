@@ -43,7 +43,7 @@ class ResolutionController extends Controller
         }
 
     }
-    
+
 
     /**
      * Makes the resolution an action item in the indicated plenary

@@ -34,6 +34,7 @@ def main(plenary_id=None, resolution_id=None):
     resolution_template_repo = ResolutionTemplateRepository(plenary=plenary, dao=dao)
 
     resolution = resolution_repo.load_resolution(resolution_id=resolution_id, sponsor=sponsor, cosponsors=cosponsors)
+
     # try:
     resolution_template_repo.add_approved(resolution)
     # except Exception as e:
