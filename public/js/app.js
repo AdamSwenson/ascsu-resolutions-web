@@ -4758,48 +4758,56 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticClass: "secretary"
+    staticClass: "secretary p-5"
   }, [_c("div", {
     staticClass: "row top-spacer pt-5"
   }), _vm._v(" "), _c("div", {
-    staticClass: "row pt-2"
-  }, [_c("div", {
-    staticClass: "col-lg-3"
-  }), _vm._v(" "), _c("div", {
-    staticClass: "col-lg-6"
-  }, [_c("div", {
     staticClass: "mb-2"
-  }, [_c("h2", {
+  }, [_c("h1", {
     staticClass: "text-light text-center"
   }, [_vm._v(_vm._s(_vm.plenaryName) + " Plenary")])]), _vm._v(" "), _c("div", {
-    staticClass: "mb-5"
+    staticClass: "row row-cols-1 row-cols-md-3 g-4 mb-5 mt-5"
+  }, [_c("div", {
+    staticClass: "col"
   }, [_c("public-folder-creation", {
     attrs: {
       plenaryId: _vm.plenaryId
     }
   })], 1), _vm._v(" "), _c("div", {
-    staticClass: "mb-5"
+    staticClass: "col"
   }, [_c("enforce-styling")], 1), _vm._v(" "), _c("div", {
-    staticClass: "mb-5"
+    staticClass: "col"
   }, [_c("sync-titles", {
     attrs: {
       "plenary-id": _vm.plenaryId
     }
   })], 1), _vm._v(" "), _c("div", {
-    staticClass: "mb-5"
+    staticClass: "col"
   }, [_c("create-agenda", {
     attrs: {
       plenaryId: _vm.plenaryId
     }
   })], 1), _vm._v(" "), _c("div", {
-    staticClass: "mb-5"
+    staticClass: "col"
   }, [_c("manager-permissions", {
     attrs: {
       plenaryId: _vm.plenaryId
     }
-  })], 1), _vm._v(" "), _c("div", {
-    staticClass: "mb-5"
-  }, [_c("resolutions-card")], 1), _vm._v(" "), _c("div", {
+  })], 1)]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c("div", {
+    staticClass: "row mb-5"
+  }, [_c("div", {
+    staticClass: "col-lg-3"
+  }), _vm._v(" "), _c("div", {
+    staticClass: "col-lg-6"
+  }, [_c("div", {}, [_c("resolutions-card")], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "col-lg-3"
+  })]), _vm._v(" "), _vm._m(1), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-lg-3"
+  }), _vm._v(" "), _c("div", {
+    staticClass: "col-lg-6"
+  }, [_c("div", {
     staticClass: "mb-5"
   }, [_c("select-plenary")], 1), _vm._v(" "), _c("div", {
     staticClass: "mb-5"
@@ -4807,7 +4815,23 @@ var render = function render() {
     staticClass: "col-lg-3"
   })]), _vm._v(" "), _c("page-footer")], 1);
 };
-var staticRenderFns = [];
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "mb-4"
+  }, [_c("h2", {
+    staticClass: "text-light text-center"
+  }, [_vm._v("Resolutions")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "mb-4"
+  }, [_c("h2", {
+    staticClass: "text-light text-center"
+  }, [_vm._v("Plenaries")])]);
+}];
 render._withStripped = true;
 
 
