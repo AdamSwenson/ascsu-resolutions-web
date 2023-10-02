@@ -21,16 +21,14 @@ class DevController extends Controller
     public function runScript()
     {
         $executablePath = config('app.pythonScript');
-//        $executablePath = config('app.pythonBin');
-
         $command = config('app.pythonBin');
-        $command .= " test_directories.py ";
+        $command .= " test1.py ";
+
 //        $command = " pip install --upgrade mysql-connector-python google SQLAlchemy==1.4.0 google-api-python-client google-auth-httplib2 google-auth-oauthlib
 //";
 
-        $result = Process::path($executablePath)
+        return Process::path($executablePath)
             ->run($command);
-        return $result;
 
 //        $result = Process::run('pwd');
 //        $result = Process::path('../../ResolutionManager/ResolutionManager/executables')

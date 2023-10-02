@@ -1,12 +1,12 @@
 {
     "private": true,
     "scripts": {
-        "development": "NODE_OPTIONS=\"--max-old-space-size=8000\" mix",
-        "watch": "NODE_OPTIONS=\"--max-old-space-size=8000\" mix watch",
+        "development": "mix",
+        "watch": "mix watch",
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
-        "prod": "NODE_OPTIONS=\"--max-old-space-size=8000\" npm run production",
-        "production":  "NODE_OPTIONS=\"--max-old-space-size=8000\" mix --production",
+        "prod": "npm run production",
+        "production":  "mix --production",
         "test": "jest NODE_OPTIONS=--experimental-vm-modules npx jest",
         "dev": "npm run development",
         "build": "vite build"

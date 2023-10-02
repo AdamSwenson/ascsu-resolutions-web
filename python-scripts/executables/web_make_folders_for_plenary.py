@@ -13,6 +13,7 @@ from ResolutionManager.config.Templates import Templates
 
 
 def main(plenary_id=None):
+    # try:
     if plenary_id is None:
         plenary_id = int(sys.argv[1])
 
@@ -49,6 +50,8 @@ def main(plenary_id=None):
     print("created folders ")
     print(f"Plenary folder id : {plenary.plenary_folder_id} \n First readings folder id : {plenary.first_reading_folder_id} \n Second reading folder id : {plenary.second_reading_folder_id}")
     return plenary
+    # except Exception as e:
+    #     sys.stdout(e)
 
 if __name__ == '__main__':
     main()

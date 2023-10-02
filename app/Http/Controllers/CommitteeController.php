@@ -28,8 +28,6 @@ class CommitteeController extends Controller
 //        $this->middleware('auth');
         $this->command = config('app.pythonBin');
         $this->executablePath = config('app.pythonScript');
-
-
     }
 
     public function getCommitteePage()
@@ -125,7 +123,11 @@ class CommitteeController extends Controller
         $command .= " web_create_resolution_from_template.py " . $plenary->id . " " . $resolution->id;
          $result = Process::path($executablePath)
             ->run($command);
-        return $result;
+
+        if ($result->successful()) {
+            return $result;
+        }
+        return $result->errorOutput();
     }
 
 //    public function runScript()

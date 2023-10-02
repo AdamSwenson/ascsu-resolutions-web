@@ -1,12 +1,8 @@
 import sys
 
-
-# https://stackoverflow.com/questions/55102788/module-not-found-running-on-command-line
-# sys.path.append("/Users/ars62917/Dropbox/ResolutionManager/ResolutionManager")
-sys.path.append("/Users/ars62917/Dropbox/ResolutionManagerWeb/python")
-# sys.path.append("/Users/ars62917/Dropbox/ResolutionManager")
-
-# sys.path.append("/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts")
+sys.path.append("/Users/ars62917/Dropbox/ResolutionManagerWeb/python-scripts")
+sys.path.append("/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts/ResolutionManager")
+sys.path.append("/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts")
 
 from ResolutionManager.config.Templates import Templates
 
@@ -28,7 +24,7 @@ def main():
     #
     #
     # print('taco' + n)
-    # sys.stdout.write("Hello")
+    sys.stdout.write("Hello")
     # return 'taco ' + n
 
 if __name__ == '__main__':

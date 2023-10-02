@@ -22,7 +22,6 @@ class SecretaryController extends Controller
         $result = $this->runCreatePlenaryFoldersScript($plenary);
         $plenary->refresh();
         return response()->json($plenary);
-
     }
 
     public function enforceStyling()
@@ -63,7 +62,6 @@ class SecretaryController extends Controller
 
         return view('secretary', $data);
 
-
     }
 
     public function createAgenda(Plenary $plenary)
@@ -76,7 +74,6 @@ class SecretaryController extends Controller
         $result = Process::path($executablePath)
             ->run($command);
 
-//    dd($result);
 
         if ($result->successful()) {
             return $result->output();
@@ -91,8 +88,6 @@ class SecretaryController extends Controller
         $result = $this->runCreatePublicScript($plenary);
         $plenary->refresh();
         return response()->json($plenary);
-
-        return response()->json($plenary);
     }
 
     public function runCreatePlenaryFoldersScript(Plenary $plenary)
@@ -106,9 +101,9 @@ class SecretaryController extends Controller
             ->run($command);
 
         if ($result->successful()) {
+
             return $result->output();
         }
-//        dd($result->output());
         return $result->errorOutput();
 
 

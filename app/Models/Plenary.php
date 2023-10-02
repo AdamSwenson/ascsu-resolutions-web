@@ -15,6 +15,7 @@ class Plenary extends Model
         'agenda_id',
         'first_reading_folder_id',
         'feedback_folder_id',
+        'is_current',
         'plenary_folder_id',
         'second_reading_folder_id',
         'thursday_date'];
