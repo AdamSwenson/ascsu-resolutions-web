@@ -28,7 +28,7 @@
                 :first-reading-plenary="r.firstReadingPlenary"
                 :action-plenaries="r.actionPlenaries"
                 :waiver="r.waiver"
-                :key="r.formattedNumber"
+                :key="r.id"
                 v-for="r in resolutions"
             ></resolution-item-card>
 

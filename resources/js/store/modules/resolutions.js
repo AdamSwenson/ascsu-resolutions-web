@@ -14,7 +14,9 @@ const mutations = {
     },
 
     addCurrentResolutionId: (state, resolutionId) => {
-        state.currentPlenaryResolutionIds.push(resolutionId);
+        if(state.currentPlenaryResolutionIds.indexOf(resolutionId) === -1){
+            state.currentPlenaryResolutionIds.push(resolutionId);
+        }
     }
     /*
     *   addThing: (state, thing) => {
@@ -97,8 +99,7 @@ const getters = {
         _.forEach(state.currentPlenaryResolutionIds, (rid) => {
             let r = getById(resolutions, rid)
             if(isReadyToRock(r)){
-                window.console.log('resolutions', 'rid', 98, rid, r);
-
+                // window.console.log('resolutions', 'rid', 98, rid, r);
                 rez.push(r);
             }
 
@@ -111,13 +112,15 @@ const getters = {
         let resolutions = getters.getResolutions;
         _.forEach(resolutions, (r) => {
             if(r.is_approved !== 1){
-                window.console.log('resolutions', 'rid', 98, rid, r);
                 rez.push(r);
             }
 
         })
         return rez;
+    },
 
+    getResolution : (state, getters) => (resolutionId) => {
+        return getById(state.resolutions, resolutionId);
     }
 
 };

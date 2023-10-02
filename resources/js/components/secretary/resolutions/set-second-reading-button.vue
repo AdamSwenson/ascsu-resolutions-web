@@ -1,6 +1,6 @@
 <template>
     <button class="btn btn-sm btn-outline-warning set-second-reading-button"
-    >Set second reading</button>
+    v-on:click="handleClick">Set second reading</button>
 </template>
 
 <script>
@@ -28,9 +28,11 @@ export default {
         handleClick: function () {
             let url = routes.secretary.resolutions.setAction(this.plenaryId, this.resolutionId)
 
-            window.console.log('set action ', 'post', 32, url);
             let me = this;
             Vue.axios.post(url).then((response) => {
+                window.console.log('set action ', 'post', 32, response.data);
+                location.reload();
+
                 // me.approvalStatus = response.data.is_approved;
                 window.console.log('permissions', 'response', 126, response, me);
             });

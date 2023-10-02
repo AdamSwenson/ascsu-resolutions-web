@@ -10,6 +10,7 @@
 
                 <p class="card-text text-light"
                    v-for="p in secondReadingNames"
+                   :key="p"
                 >Action item: {{ p }}</p>
 
                 <p class="card-text text-light" v-if="isApproved || showWaiverIndicator"
@@ -62,7 +63,12 @@ export default {
 
         },
         secondReadingNames: function () {
-
+            if(!isReadyToRock(this.actionPlenaries)) return [];
+            let n = [];
+            _.forEach(this.actionPlenaries, (p) => {
+                n.push(p.plenaryName)
+            });
+            return n;
         },
 
         showWaiverIndicator: function () {
