@@ -75,6 +75,13 @@ class ResolutionController extends Controller
     }
 
 
+    /**
+     * Makes the resolution an action item in the indicated plenary
+     *
+     * @param Plenary $plenary
+     * @param Resolution $resolution
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function setAction(Plenary $plenary, Resolution $resolution)
     {
         $resolution
