@@ -4793,7 +4793,9 @@ var render = function render() {
     attrs: {
       plenaryId: _vm.plenaryId
     }
-  })], 1)]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c("div", {
+  })], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "resolutions"
+  }, [_vm._m(0), _vm._v(" "), _c("div", {
     staticClass: "row mb-5"
   }, [_c("div", {
     staticClass: "col-lg-3"
@@ -4801,7 +4803,9 @@ var render = function render() {
     staticClass: "col-lg-6"
   }, [_c("div", {}, [_c("resolutions-card")], 1)]), _vm._v(" "), _c("div", {
     staticClass: "col-lg-3"
-  })]), _vm._v(" "), _vm._m(1), _vm._v(" "), _c("div", {
+  })])]), _vm._v(" "), _c("div", {
+    staticClass: "plenaries"
+  }, [_vm._m(1), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("div", {
     staticClass: "col-lg-3"
@@ -4813,7 +4817,7 @@ var render = function render() {
     staticClass: "mb-5"
   }, [_c("create-plenaries")], 1)]), _vm._v(" "), _c("div", {
     staticClass: "col-lg-3"
-  })]), _vm._v(" "), _c("page-footer")], 1);
+  })])]), _vm._v(" "), _c("page-footer")], 1);
 };
 var staticRenderFns = [function () {
   var _vm = this,
