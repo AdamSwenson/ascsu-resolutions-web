@@ -27,19 +27,13 @@ class ResolutionController extends Controller
         //todo AR-46: This should be the most recent plenary the resolution belongs to
         $plenary = $resolution->plenaries()->where('is_current', true)->first();
 
-//        $executablePath = config('app.pythonScript');
-//        $command = config('app.pythonBin');
-//        $command .= " web_add_approved_to_doc.py $plenary->id $resolution->id ";
+        $scriptfile = $resolution->is_approved ? 'web_add_approved_to_doc.py' :'web_remove_approved_from_doc.py';
+//        if ($resolution->is_approved) {
+//            $scriptfile = $resolution->is_approved ? 'web_add_approved_to_doc.py' :'web_remove_approved_from_doc.py';
+//        } else {
+//            $scriptfile = 'web_remove_approved_from_doc.py';
+//        }
 
-        if ($resolution->is_approved) {
-            $scriptfile = 'web_add_approved_to_doc.py';
-//            $result = $this->runAddApprovedScript($resolution);
-        } else {
-            $scriptfile = 'web_remove_approved_from_doc.py';
-//            $result = $this->runRemoveApprovedScript($resolution);
-        }
-//        $result = Process::path($executablePath)
-//            ->run($command);
         try{
             $this->handleScript($scriptfile, [$plenary->id, $resolution->id]);
             return response()->json($resolution);
@@ -48,43 +42,8 @@ class ResolutionController extends Controller
             return $error->getMessage();
         }
 
-//        if ($result->successful()) {
-//            return response()->json($resolution);
-//        }
-//        //todo error handling
-//        return $result->errorOutput();
-
     }
-
-
-//    public function runAddApprovedScript(Resolution $resolution)
-//    {
-//        $plenary = $resolution->plenaries()->where('is_current', true)->first();
-//
-//        $executablePath = config('app.pythonScript');
-//        $command = config('app.pythonBin');
-//        $command .= " web_add_approved_to_doc.py $plenary->id $resolution->id ";
-//
-//        $result = Process::path($executablePath)
-//            ->run($command);
-//
-//        return $result;
-//    }
-//
-//    public function runRemoveApprovedScript(Resolution $resolution)
-//    {
-//        $plenary = $resolution->plenaries()->where('is_current', true)->first();
-//
-//        $executablePath = config('app.pythonScript');
-//        $command = config('app.pythonBin');
-//        $command .= " web_remove_approved_from_doc.py $plenary->id $resolution->id ";
-//
-//        $result = Process::path($executablePath)
-//            ->run($command);
-//
-//        return $result;
-//    }
-
+    
 
     /**
      * Makes the resolution an action item in the indicated plenary

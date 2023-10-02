@@ -30,9 +30,6 @@ class SecretaryController extends Controller
             return $error->getMessage();
         }
 
-//        $result = $this->runCreatePlenaryFoldersScript($plenary);
-//        $plenary->refresh();
-//        return response()->json($plenary);
     }
 
     public function enforceStyling()
@@ -44,22 +41,6 @@ class SecretaryController extends Controller
         }catch (PythonScriptError $error){
             return $error->getMessage();
         }
-
-//        $command = config('app.pythonBin');
-//        $executablePath = config('app.pythonScript');
-//
-//        $command .= " web_enforce_styling.py ";
-//
-//        $result = Process::path($executablePath)
-//            ->run($command);
-//
-////    dd($result);
-//
-//        if ($result->successful()) {
-//            return $result->output();
-//        }
-////        dd($result->output());
-//        return $result->errorOutput();
     }
 
     public function getSecretaryPage()
@@ -93,30 +74,10 @@ class SecretaryController extends Controller
             return $error->getMessage();
         }
 
-//        $command = config('app.pythonBin');
-//        $executablePath = config('app.pythonScript');
-//
-//        $command .= " web_make_agenda.py " . $plenary->id;
-//
-//        $result = Process::path($executablePath)
-//            ->run($command);
-//
-//
-//        if ($result->successful()) {
-//            return $result->output();
-//        }
-////        dd($result->output());
-//        return $result->errorOutput();
-
     }
 
     public function createPublic(Plenary $plenary)
     {
-//
-//        $command = config('app.pythonBin');
-//        $executablePath = config('app.pythonScript');
-
-  //      $command .= " web_copy_first_readings_for_feedback.py " . $plenary->id;
 
         try{
             $scriptfile = 'web_copy_first_readings_for_feedback.py';
@@ -129,25 +90,6 @@ class SecretaryController extends Controller
         }
 
     }
-
-//    public function runCreatePlenaryFoldersScript(Plenary $plenary)
-//    {
-//        $command = config('app.pythonBin');
-//        $executablePath = config('app.pythonScript');
-//
-//        $command .= " web_make_folders_for_plenary.py " . $plenary->id;
-//
-//        $result = Process::path($executablePath)
-//            ->run($command);
-//
-//        if ($result->successful()) {
-//
-//            return $result->output();
-//        }
-//        return $result->errorOutput();
-//
-//
-//    }
 
 
     /**
@@ -163,20 +105,6 @@ class SecretaryController extends Controller
         }catch (PythonScriptError $error){
             return $error->getMessage();
         }
-
-//        $command = config('app.pythonBin');
-//        $executablePath = config('app.pythonScript');
-//
-//        $command .= " web_sync_titles.py ";
-//
-//        $result = Process::path($executablePath)
-//            ->run($command);
-//
-//        if ($result->successful()) {
-//
-//        }
-////        dd($result->output());
-//        return $result->errorOutput();
 
     }
 
