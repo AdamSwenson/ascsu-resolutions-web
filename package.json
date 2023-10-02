@@ -8,7 +8,7 @@
         "prod": "NODE_OPTIONS=\"--max-old-space-size=8000\" npm run production",
         "production":  "NODE_OPTIONS=\"--max-old-space-size=8000\" mix --production",
         "test": "jest NODE_OPTIONS=--experimental-vm-modules npx jest",
-        "dev": "vite",
+        "dev": "npm run development",
         "build": "vite build"
     },
     "devDependencies": {
