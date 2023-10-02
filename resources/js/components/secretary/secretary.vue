@@ -95,7 +95,7 @@ export default {
     methods: {},
     mounted() {
         window.console.log('secretary', 'mounted', 97, 'beep');
-        // this.$store.dispatch('secretaryStartup');
+        this.$store.dispatch('secretaryStartup');
     }
 
 }

@@ -1,5 +1,6 @@
 import * as routes from "../../routes";
-import {getById} from "../../../../public/js/app";
+import {getById} from "../../utilities/object.utilities";
+import {isReadyToRock} from "../../utilities/readiness.utilities";
 
 const state = {
     resolutions: [],
@@ -25,6 +26,7 @@ const mutations = {
 
 
 const actions = {
+
 
     loadCurrentPlenaryResolutions({dispatch, commit, getters}) {
         return new Promise(((resolve, reject) => {
@@ -52,17 +54,17 @@ const actions = {
         }));
     },
 
-    // initializeResolutions({dispatch, commit, getters}) {
-    //     return new Promise(((resolve, reject) => {
-    //         dispatch('loadAllResolutions').then(() => {
-    //             dispatch('loadCurrentPlenaryResolutions').then(() => {
-    //                 return resolve();
-    //             });
-    //         })
-    //
-    //     }));
-    //
-    // },
+    initializeResolutions({dispatch, commit, getters}) {
+        return new Promise(((resolve, reject) => {
+            dispatch('loadAllResolutions').then(() => {
+                dispatch('loadCurrentPlenaryResolutions').then(() => {
+                    return resolve();
+                });
+            })
+
+        }));
+
+    },
 
 
     /*
@@ -91,10 +93,31 @@ const getters = {
 
     getCurrentPlenaryResolutions: (state, getters) => {
         let rez = [];
+        let resolutions = getters.getResolutions;
         _.forEach(state.currentPlenaryResolutionIds, (rid) => {
-            rez.push(getById(state.resolutions, rid));
+            let r = getById(resolutions, rid)
+            if(isReadyToRock(r)){
+                window.console.log('resolutions', 'rid', 98, rid, r);
+
+                rez.push(r);
+            }
+
         })
         return rez;
+    },
+
+    getUnapprovedResolutions : (state, getters) => {
+        let rez = [];
+        let resolutions = getters.getResolutions;
+        _.forEach(resolutions, (r) => {
+            if(r.is_approved !== 1){
+                window.console.log('resolutions', 'rid', 98, rid, r);
+                rez.push(r);
+            }
+
+        })
+        return rez;
+
     }
 
 };

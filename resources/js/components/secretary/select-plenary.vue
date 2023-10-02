@@ -33,8 +33,8 @@ export default {
     asyncComputed: {
         plenaries : function(){
             //
-            // let p = this.store.getters.getPlenaries;
-            // if(isReadyToRock(p)) return p;
+            let p = this.$store.getters.getPlenaries;
+            if(isReadyToRock(p)) return p;
             return []
         }
     },

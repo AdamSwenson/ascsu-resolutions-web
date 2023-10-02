@@ -1,33 +1,51 @@
-<template>
-<div class="resolution-card card">
-    <h3 class="card-title text-light">Manage individual resolutions</h3>
+<template xmlns="http://www.w3.org/1999/html">
+    <div class="resolution-card card">
+        <h3 class="card-title text-light">Manage individual resolutions</h3>
 
-    <div class="card-body">
-        <resolution-item-card :resolution-id="r.id"
-                         :title="r.title"
-                         :number="r.formattedNumber"
-                         :is-approved="r.is_approved"
-                         :first-reading-plenary="r.firstReadingPlenary"
-                         :action-plenaries="r.actionPlenaries"
-                              :waiver="r.waiver"
-                         :key="r.resolutionId"
-                         v-for="r in resolutions"
-        ></resolution-item-card>
+        <div class="card-body text-center">
+            <button class="btn btn-small "
+                    v-bind:class="allButtonStyle"
+                    v-on:click="setSelected('all')"
+            >All</button>
+            <button class="btn btn-small "
+                    v-bind:class="currentButtonStyle"
+                    v-on:click="setSelected('current')"
+            >Current plenary</button>
 
-<!--        <ul class="list-group list-group-flush">-->
-<!--            <resolution-item :resolution-id="r.id"-->
-<!--                             :title="r.title"-->
-<!--                             :number="r.formattedNumber"-->
-<!--                             :is-approved="r.is_approved"-->
-<!--                             :first-reading-plenary="r.firstReadingPlenary"-->
-<!--                             :action-plenaries="r.actionPlenaries"-->
-<!--                             :key="r.resolutionId"-->
-<!--                             v-for="r in resolutions"-->
-<!--            ></resolution-item>-->
-<!--        </ul>-->
+            <button class="btn btn-small "
+                    v-bind:class="unapprovedButtonStyle"
+                    v-on:click="setSelected('unapproved')"
+            >Unapproved</button>
+
+        </div>
+
+        <div class="card-body">
+            <resolution-item-card
+                :resolution-id="r.id"
+                :title="r.title"
+                :number="r.formattedNumber"
+                :is-approved="r.is_approved"
+                :first-reading-plenary="r.firstReadingPlenary"
+                :action-plenaries="r.actionPlenaries"
+                :waiver="r.waiver"
+                :key="r.formattedNumber"
+                v-for="r in resolutions"
+            ></resolution-item-card>
+
+            <!--        <ul class="list-group list-group-flush">-->
+            <!--            <resolution-item :resolution-id="r.id"-->
+            <!--                             :title="r.title"-->
+            <!--                             :number="r.formattedNumber"-->
+            <!--                             :is-approved="r.is_approved"-->
+            <!--                             :first-reading-plenary="r.firstReadingPlenary"-->
+            <!--                             :action-plenaries="r.actionPlenaries"-->
+            <!--                             :key="r.resolutionId"-->
+            <!--                             v-for="r in resolutions"-->
+            <!--            ></resolution-item>-->
+            <!--        </ul>-->
+        </div>
+
     </div>
-
-</div>
 
 </template>
 
@@ -49,20 +67,61 @@ export default {
 
     data: function () {
         return {
-            rez: []
+            selected: 'current',
+
+            styles: {
+                unselected: 'btn-outline-primary',
+                selected: 'btn-primary'
+            }
         }
     },
 
     asyncComputed: {
+        allButtonStyle: function () {
+            if (this.selected === 'all') {
+                return this.styles.selected;
+            }
+            return this.styles.unselected;
+
+        },
+        currentButtonStyle: function () {
+            if (this.selected === 'current') {
+                return this.styles.selected;
+            }
+            return this.styles.unselected;
+        },
+        unapprovedButtonStyle: function () {
+            if (this.selected === 'unapproved') {
+                return this.styles.selected;
+            }
+            return this.styles.unselected;
+        },
+
+        // isReady : function(){
+        //   return this.$store.getters.getIsReady;
+        // },
+
         resolutions: {
             get: function () {
-                // let r = this.$store.getters.getCurrentPlenaryResolutions;
-                // if(!isReadyToRock(r)) return [];
-                // return r;
-                // // if (!isReadyToRock(this.rez) || this.rez.length === 0) return []
-                // return this.rez;
+                let r;
+
+                switch (this.selected){
+                    case "all":
+                        r =this.$store.getters.getResolutions;
+                        break;
+                    case "current":
+                        r = this.$store.getters.getCurrentPlenaryResolutions;
+                        break;
+                    case "unapproved":
+                        r = this.$store.getters.getUnapprovedResolutions;
+                        break;
+                }
+
+                if (isReadyToRock(r)) return r;
+                return [];
+
             },
-            // watch: ['rez']
+            // watch: ['isReady']
         }
     },
 
@@ -73,6 +132,11 @@ export default {
     computed: {},
 
     methods: {
+        setSelected: function (v) {
+            this.selected = v;
+        }
+
+
         //
         // loadResolutions: function () {
         //     //todo Need some way to restrict these to active ones
@@ -88,9 +152,9 @@ export default {
         // }
 
     }, mounted() {
-        if(isReadyToRock(this.plenaryId)){
-            // this.loadResolutions();
-        }
+        // if (isReadyToRock(this.plenaryId)) {
+        //     // this.loadResolutions();
+        // }
     }
 
 }

@@ -1,6 +1,16 @@
-const state = {};
-const mutations = {};
-const getters = {};
+const state = {
+    isReady : false
+};
+const mutations = {
+    toggleIsReady: (state) => {
+        state.isReady = ! state.isReady;
+    }
+};
+const getters = {
+    getIsReady: (state) => {
+        return state.isReady;
+    }
+};
 
 const actions = {
 
@@ -8,8 +18,12 @@ const actions = {
         return new Promise(((resolve, reject)=>{
             dispatch('setCurrentPlenaryId').then(() => {
                 dispatch('loadPlenaries');
-                dispatch('loadCurrentPlenaryResolutions')
-                dispatch('loadAllResolutions');
+                dispatch('loadAllResolutions').then(() => {
+                    dispatch('loadCurrentPlenaryResolutions').then(() => {
+                        commit('toggleIsReady');
+                        return resolve();
+                    });
+                });
             });
 
         }));
