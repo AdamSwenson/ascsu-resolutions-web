@@ -25,7 +25,11 @@ Route::get('/', function () {
 
 
 Route::get('/committee', [CommitteeController::class, 'getCommitteePage']);
+Route::post('/resolution/action/{plenary}/{resolution}', [ResolutionController::class, 'setAction']);
 Route::post('/resolution/{plenary}', [CommitteeController::class, 'recordResolution']);
+
+
+
 
 Route::get('/secretary', [SecretaryController::class, 'getSecretaryPage']);
 Route::post('/secretary/folders', [SecretaryController::class, 'createPlenary']);

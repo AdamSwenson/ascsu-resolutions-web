@@ -90,6 +90,14 @@ module.exports = {
 
         },
 
+        plenaries: {
+            loadAll : () => {
+            let url = normalizedRouteRoot();
+            url += 'plenaries';
+            return url;
+            }
+        },
+
         resolutions: {
             loadAll: () => {
                 let url = normalizedRouteRoot()
@@ -124,6 +132,16 @@ module.exports = {
                 url += resolution_id;
                 return url;
 
+            },
+
+            setAction : (plenary, resolution) => {
+                let plenary_id = idify(plenary);
+                let resolution_id = idify(resolution);
+                let url = normalizedRouteRoot();
+                url += 'resolution/action/';
+                url += plenary_id + '/'
+                url += resolution_id;
+                return url;
             }
         }
 

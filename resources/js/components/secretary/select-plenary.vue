@@ -16,6 +16,7 @@
 
 <script>
 import PlenaryListItem from "./plenary-list-item";
+import {isReadyToRock} from "../../utilities/readiness.utilities";
 export default {
     name: "select-plenary",
     components: {PlenaryListItem},
@@ -31,7 +32,10 @@ export default {
 
     asyncComputed: {
         plenaries : function(){
-return this.loadPlenaries();
+            //
+            let p = this.$store.getters.getPlenaries;
+            if(isReadyToRock(p)) return p;
+            return []
         }
     },
 
@@ -42,19 +46,19 @@ return this.loadPlenaries();
         setPlenaryAsCurrent : function(plenaryId){
 
         },
-        loadPlenaries : function(){
-            let me = this;
-            let url = window.routeRoot + '/plenaries';
-            return Vue.axios.get(url).then((response) => {
-                me._plenaries = response.data;
-                return response.data;
-            });
-        }
+        // loadPlenaries : function(){
+        //     let me = this;
+        //     let url = window.routeRoot + '/plenaries';
+        //     return Vue.axios.get(url).then((response) => {
+        //         me._plenaries = response.data;
+        //         return response.data;
+        //     });
+        // }
 
     },
 
-    mounted() {this.loadPlenaries();
-    }
+    // mounted() {this.loadPlenaries();
+    // }
 
 }
 </script>

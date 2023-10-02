@@ -4,7 +4,7 @@
         <div class=" row top-spacer pt-5"></div>
 
         <div class="row pt-2">
-            
+
             <div class="col-lg-3">
             </div>
 
@@ -37,14 +37,16 @@
                 </div>
 
                 <div class="mb-5">
-                    <resolution-card></resolution-card>
+                    <resolutions-card></resolutions-card>
                 </div>
 
                 <div class="mb-5">
                     <select-plenary></select-plenary>
                 </div>
-                <create-plenaries></create-plenaries>
 
+                <div class="mb-5">
+                    <create-plenaries></create-plenaries>
+                </div>
 
             </div>
             <div class="col-lg-3"></div>
@@ -65,12 +67,12 @@ import SelectPlenary from "./select-plenary";
 import CreateAgenda from "./create-agenda";
 import EnforceStyling from "./enforce-styling";
 import SyncTitles from "./sync-titles";
-import ResolutionCard from "./resolutions/resolution-card";
+import ResolutionsCard from "./resolutions/resolutions-card";
 
 export default {
     name: "secretary",
     components: {
-        ResolutionCard,
+        ResolutionsCard,
         SyncTitles,
         EnforceStyling,
         CreateAgenda, SelectPlenary, CreatePlenaries, ManagerPermissions, PublicFolderCreation, PageFooter
@@ -90,7 +92,11 @@ export default {
 
     computed: {},
 
-    methods: {}
+    methods: {},
+    mounted() {
+        window.console.log('secretary', 'mounted', 97, 'beep');
+        this.$store.dispatch('secretaryStartup');
+    }
 
 }
 </script>
