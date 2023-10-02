@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\PythonScriptError;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Process;
 
@@ -9,13 +10,26 @@ class DevController extends Controller
 {
     //
 
-    public function diagnostics(){
-        $result = $this->runScript();
+    public function testException(){
+        throw new PythonScriptError("bad thing 2");
 
-        if ($result->successful()) {
-            return $result->output();
+    }
+
+    public function diagnostics(){
+        try{
+            $this->testException();
+
+
+        }catch(PythonScriptError $result){
+            return $result->getMessage();
         }
-        return $result->errorOutput();
+
+        //        $result = $this->runScript();
+//
+//        if ($result->successful()) {
+//            return $result->output();
+//        }
+//        return $result->errorOutput();
     }
 
     public function runScript()

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\PythonScriptError;
 use App\Models\Committee;
 use App\Models\Plenary;
 use App\Models\Resolution;
@@ -104,31 +105,50 @@ class CommitteeController extends Controller
         //set as first reading for plenary
         $resolution->plenaries()->attach($plenary, ['is_first_reading' => true]);
 
-        //Actually create the document in drive
-        $result = $this->createResolutionInDriveNew($plenary, $resolution);
+//        $result = $this->createResolutionInDriveNew($plenary, $resolution);
 
-        if ($result->successful()) {
+        try{
+            //Actually create the document in drive
+            $scriptfile = 'web_create_resolution_from_template.py';
+            $this->handleScript($scriptfile, [$plenary->id, $resolution->id]);
             $resolution->refresh();
             return response()->json($resolution);
+        }catch (PythonScriptError $error){
+            return $error->getMessage();
         }
-        return $result->errorOutput();
+
+//        if ($result->successful()) {
+//            $resolution->refresh();
+//            return response()->json($resolution);
+//        }
+//        return $result->errorOutput();
 
     }
 
-    public function createResolutionInDriveNew(Plenary $plenary, Resolution $resolution)
-    {
-        $command = config('app.pythonBin');
-        $executablePath = config('app.pythonScript');
+//    public function createResolutionInDriveNew(Plenary $plenary, Resolution $resolution)
+//    {
+//
+//        try{
+//            $scriptfile = 'web_create_resolution_from_template.py';
+//            $result = $this->handleScript($scriptfile, $plenary->id);
+//            return response()->json($result);
+//
+//        }catch (PythonScriptError $error){
+//            return $error->getMessage();
+//        }
 
-        $command .= " web_create_resolution_from_template.py " . $plenary->id . " " . $resolution->id;
-         $result = Process::path($executablePath)
-            ->run($command);
-
-        if ($result->successful()) {
-            return $result;
-        }
-        return $result->errorOutput();
-    }
+//        $command = config('app.pythonBin');
+//        $executablePath = config('app.pythonScript');
+//
+//        $command .= " web_create_resolution_from_template.py " . $plenary->id . " " . $resolution->id;
+//         $result = Process::path($executablePath)
+//            ->run($command);
+//
+//        if ($result->successful()) {
+//            return $result;
+//        }
+//        return $result->errorOutput();
+//    }
 
 //    public function runScript()
 //    {

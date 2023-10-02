@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\PythonScriptError;
 use App\Models\Plenary;
 use App\Models\Resolution;
 use Illuminate\Http\Request;
@@ -23,56 +24,66 @@ class ResolutionController extends Controller
 
         $resolution->save();
 
-//        $plenary = $resolution->plenaries()->where('is_current', true)->first();
+        //todo AR-46: This should be the most recent plenary the resolution belongs to
+        $plenary = $resolution->plenaries()->where('is_current', true)->first();
 
 //        $executablePath = config('app.pythonScript');
 //        $command = config('app.pythonBin');
 //        $command .= " web_add_approved_to_doc.py $plenary->id $resolution->id ";
 
         if ($resolution->is_approved) {
-            $result = $this->runAddApprovedScript($resolution);
+            $scriptfile = 'web_add_approved_to_doc.py';
+//            $result = $this->runAddApprovedScript($resolution);
         } else {
-            $result = $this->runRemoveApprovedScript($resolution);
+            $scriptfile = 'web_remove_approved_from_doc.py';
+//            $result = $this->runRemoveApprovedScript($resolution);
         }
 //        $result = Process::path($executablePath)
 //            ->run($command);
-
-        if ($result->successful()) {
+        try{
+            $this->handleScript($scriptfile, [$plenary->id, $resolution->id]);
             return response()->json($resolution);
+
+        }catch (PythonScriptError $error){
+            return $error->getMessage();
         }
-        //todo error handling
-        return $result->errorOutput();
+
+//        if ($result->successful()) {
+//            return response()->json($resolution);
+//        }
+//        //todo error handling
+//        return $result->errorOutput();
 
     }
 
 
-    public function runAddApprovedScript(Resolution $resolution)
-    {
-        $plenary = $resolution->plenaries()->where('is_current', true)->first();
-
-        $executablePath = config('app.pythonScript');
-        $command = config('app.pythonBin');
-        $command .= " web_add_approved_to_doc.py $plenary->id $resolution->id ";
-
-        $result = Process::path($executablePath)
-            ->run($command);
-
-        return $result;
-    }
-
-    public function runRemoveApprovedScript(Resolution $resolution)
-    {
-        $plenary = $resolution->plenaries()->where('is_current', true)->first();
-
-        $executablePath = config('app.pythonScript');
-        $command = config('app.pythonBin');
-        $command .= " web_remove_approved_from_doc.py $plenary->id $resolution->id ";
-
-        $result = Process::path($executablePath)
-            ->run($command);
-
-        return $result;
-    }
+//    public function runAddApprovedScript(Resolution $resolution)
+//    {
+//        $plenary = $resolution->plenaries()->where('is_current', true)->first();
+//
+//        $executablePath = config('app.pythonScript');
+//        $command = config('app.pythonBin');
+//        $command .= " web_add_approved_to_doc.py $plenary->id $resolution->id ";
+//
+//        $result = Process::path($executablePath)
+//            ->run($command);
+//
+//        return $result;
+//    }
+//
+//    public function runRemoveApprovedScript(Resolution $resolution)
+//    {
+//        $plenary = $resolution->plenaries()->where('is_current', true)->first();
+//
+//        $executablePath = config('app.pythonScript');
+//        $command = config('app.pythonBin');
+//        $command .= " web_remove_approved_from_doc.py $plenary->id $resolution->id ";
+//
+//        $result = Process::path($executablePath)
+//            ->run($command);
+//
+//        return $result;
+//    }
 
 
     /**
