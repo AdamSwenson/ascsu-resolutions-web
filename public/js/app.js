@@ -2987,6 +2987,9 @@ __webpack_require__.r(__webpack_exports__);
     return {};
   },
   asyncComputed: {
+    resolution: function resolution() {
+      return this.$store.getters.getResolution(this.resolutionId);
+    },
     firstReadingName: function firstReadingName() {
       if (!(0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_2__.isReadyToRock)(this.firstReadingPlenary)) return '';
       return this.firstReadingPlenary.plenaryName;

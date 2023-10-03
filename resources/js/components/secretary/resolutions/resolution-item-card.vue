@@ -56,6 +56,10 @@ export default {
     },
 
     asyncComputed: {
+        resolution : function(){
+           return this.$store.getters.getResolution(this.resolutionId);
+        },
+
         firstReadingName: function () {
             if (!isReadyToRock(this.firstReadingPlenary)) return '';
 

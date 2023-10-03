@@ -11,9 +11,46 @@ class Resolution extends Model
 
     use HasFactory;
 
-    protected $fillable = ['document_id', 'title', 'number', 'waiver'];
+    //acceptable statuses: first, action, approved, failed
+
+    protected $fillable = ['document_id', 'title', 'number', 'waiver', 'status'];
     protected $appends = ['url', 'formattedNumber', 'firstReadingPlenary', 'actionPlenaries'];
     protected $casts = ['is_approved' => 'boolean'];
+
+
+    public function setApproved(){
+        $this->is_approved = true;
+        $this->status = 'approved';
+        $this->save();
+    }
+
+    public function setFailed(){
+        $this->is_approved = false;
+        $this->status = 'failed';
+        $this->save();
+    }
+
+    public function setFirstReading(Plenary $plenary){
+        $this->status = 'first';
+        //change plenary
+        $this->plenaries()->updateExistingPivot($plenary->id, [
+            'is_first_reading' => true,
+        ]);
+        $this->save();
+    }
+
+    public function setAction(Plenary $plenary){
+        $this->status = 'action';
+
+        //change plenary
+        $this->plenaries()
+            ->attach($plenary, ['is_first_reading' => false]);
+//        $this->plenaries()->updateExistingPivot($plenary->id, [
+//            'is_first_reading' => false,
+//        ]);
+        $this->save();
+    }
+
 
 
     /**

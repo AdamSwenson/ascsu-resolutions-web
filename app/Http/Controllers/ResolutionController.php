@@ -16,9 +16,13 @@ class ResolutionController extends Controller
 
         if (is_null($resolution->is_approved)) {
             //If never been set, will be null
-            $resolution->is_approved = true;
+            $resolution->setApproved();
+//            $resolution->is_approved = true;
+//            //AR-58
+//            $resolution->status = 'approved';
         } else {
             //just toggle
+            //todo AR-58 WTF to do about this?
             $resolution->is_approved = !$resolution->is_approved;
         }
 
@@ -26,6 +30,7 @@ class ResolutionController extends Controller
 
         //todo AR-46: This should be the most recent plenary the resolution belongs to
         $plenary = $resolution->plenaries()->where('is_current', true)->first();
+//todo AR-58 WTF to do about this?
 
         $scriptfile = $resolution->is_approved ? 'web_add_approved_to_doc.py' :'web_remove_approved_from_doc.py';
 //        if ($resolution->is_approved) {
@@ -54,13 +59,20 @@ class ResolutionController extends Controller
      */
     public function setAction(Plenary $plenary, Resolution $resolution)
     {
-        $resolution
-            ->plenaries()
-            ->attach($plenary, ['is_first_reading' => 0]);
+//        $resolution
+//            ->plenaries()
+//            ->attach($plenary, ['is_first_reading' => 0]);
+        $resolution->setAction($plenary);
         $resolution->save();
         $resolution->refresh();
         return response()->json($resolution);
 
+    }
+
+    public function setFailed(Resolution $resolution){
+        $resolution->setFailed();
+        $resolution->refresh();
+        return response()->json($resolution);
     }
 
     /**

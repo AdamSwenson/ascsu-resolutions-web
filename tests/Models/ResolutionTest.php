@@ -75,4 +75,82 @@ class ResolutionTest extends TestCase
 
 
     }
+
+
+    // ============
+    /** @test */
+    public function setFirstReading(){
+        $resolution = Resolution::factory()->create();
+        $resolution->plenaries()->attach($this->plenary, ['is_first_reading' => 0]);
+        $resolution->save();
+        $resolution->push();
+        $resolution->refresh();
+
+        $this->assertEmpty($resolution->firstReadingPlenary, 'Check no first reading exists yet');
+
+        //call
+        $resolution->setFirstReading($this->plenary);
+        $resolution->refresh();
+
+        //check
+        $this->assertEquals('first', $resolution->status);
+        $this->assertNotEmpty($resolution->firstReadingPlenary);
+    }
+
+    /** @test */
+    public function setApproved(){
+        $resolution = Resolution::factory()->create();
+
+        //call
+        $resolution->setApproved();
+        $resolution->refresh();
+
+        //check
+        $this->assertEquals('approved', $resolution->status);
+        $this->assertTrue($resolution->is_approved);
+    }
+
+    /** @test */
+    public function setFailed(){
+        $resolution = Resolution::factory()->create();
+
+        //call
+        $resolution->setFailed();
+        $resolution->refresh();
+
+        //check
+        $this->assertEquals('failed', $resolution->status);
+        $this->assertFalse($resolution->is_approved);
+    }
+
+    /** @test */
+    public function setActionWithoutPreexistingPlenary(){
+        $resolution = Resolution::factory()->create();
+
+        //call
+        $resolution->setAction($this->plenary);
+        $resolution->refresh();
+
+        //check
+        $this->assertEquals('action', $resolution->status);
+        $this->assertNotEmpty($resolution->actionPlenaries);
+
+    }
+
+    /** @test */
+    public function setActionWithPreexistingPlenary(){
+        $resolution = Resolution::factory()->create();
+        $resolution->plenaries()->attach($this->plenary, ['is_first_reading' => false]);
+$resolution->save();
+
+        //call
+        $resolution->setAction($this->plenary);
+        $resolution->refresh();
+
+        //check
+        $this->assertEquals('action', $resolution->status);
+        $this->assertNotEmpty($resolution->actionPlenaries);
+
+    }
+
 }
