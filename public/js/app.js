@@ -2815,6 +2815,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../utilities/readiness.utilities */ "./resources/js/utilities/readiness.utilities.js");
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../routes */ "./resources/js/routes.js");
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_routes__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _mixins_resolutionMixin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../mixins/resolutionMixin */ "./resources/js/mixins/resolutionMixin.js");
+/* harmony import */ var _mixins_resolutionMixin__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_mixins_resolutionMixin__WEBPACK_IMPORTED_MODULE_2__);
 
 
 
@@ -2825,55 +2827,67 @@ __webpack_require__.r(__webpack_exports__);
  */
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "approved-toggle-button",
-  props: ['resolutionId', 'isApproved'],
-  mixins: [],
+  props: ['resolutionId'],
+  mixins: [(_mixins_resolutionMixin__WEBPACK_IMPORTED_MODULE_2___default())],
   data: function data() {
     return {
       approvalStatus: false,
       unapprovedLabel: 'Mark approved',
-      approvedLabel: 'Mark unapproved',
+      approvedLabel: 'Remove approved',
       approvedStyle: 'btn-primary',
       unapprovedStyle: 'btn-outline-primary'
     };
   },
   asyncComputed: {
     label: function label() {
-      if (!(0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_0__.isReadyToRock)(this.resolutionId)) return this.unapprovedLabel;
-      if (this.approvalStatus) return this.approvedLabel;
+      if (!(0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_0__.isReadyToRock)(this.resolution)) return this.unapprovedLabel;
+      if (this.isApproved) return this.approvedLabel;
+
+      // if (this.resolution.status === 'approved') return this.approvedLabel;
+
+      // if (!isReadyToRock(this.resolutionId)) return this.unapprovedLabel;
+
+      // if (this.approvalStatus) return this.approvedLabel;
+
       return this.unapprovedLabel;
     },
     styling: function styling() {
-      if (!(0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_0__.isReadyToRock)(this.resolutionId)) return this.unapprovedStyle;
-      if (this.approvalStatus) return this.approvedStyle;
+      if (!(0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_0__.isReadyToRock)(this.resolution)) return this.unapprovedLabel;
+      if (this.isApproved) return this.approvedStyle;
       return this.unapprovedStyle;
-    }
-  },
-  watch: {
-    'isApproved': function isApproved() {
-      this.setDefaultApproval();
     }
   },
   computed: {},
   methods: {
     handleClick: function handleClick() {
-      var url = _routes__WEBPACK_IMPORTED_MODULE_1__.secretary.resolutions.approvalStatus(this.resolutionId);
-      window.console.log('toggle approval', 'get', 124, url);
-      var me = this;
-      Vue.axios.post(url).then(function (response) {
-        me.approvalStatus = response.data.is_approved;
-        window.console.log('permissions', 'response', 126, response, me);
-      });
-    },
-    setDefaultApproval: function setDefaultApproval() {
-      if (_.isNull(this.isApproved)) {
-        this.approvalStatus = false;
-      } else {
-        this.approvalStatus = this.isApproved;
+      //Click when approved so un mark
+      if (this.isApproved) {
+        this.$store.dispatch('markResolutionUnvoted', this.resolution);
       }
+      if (!this.isApproved) {
+        this.$store.dispatch('markResolutionApproved', this.resolution);
+      }
+      //
+      // let url = routes.secretary.resolutions.approvalStatus(this.resolutionId)
+      //
+      // window.console.log('toggle approval', 'get', 124, url);
+      // let me = this;
+      // Vue.axios.post(url).then((response) => {
+      //     me.approvalStatus = response.data.is_approved;
+      //     window.console.log('permissions', 'response', 126, response, me);
+      // });
     }
+    //
+    // setDefaultApproval: function () {
+    //     if (_.isNull(this.isApproved)) {
+    //         this.approvalStatus = false;
+    //     } else {
+    //         this.approvalStatus = this.isApproved;
+    //     }
+    // }
   },
   mounted: function mounted() {
-    this.setDefaultApproval();
+    // this.setDefaultApproval();
   }
 });
 
@@ -5190,6 +5204,37 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./resources/js/mixins/resolutionMixin.js":
+/*!************************************************!*\
+  !*** ./resources/js/mixins/resolutionMixin.js ***!
+  \************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+/**
+ *
+ */
+var _require = __webpack_require__(/*! ../utilities/readiness.utilities */ "./resources/js/utilities/readiness.utilities.js"),
+  isReadyToRock = _require.isReadyToRock;
+module.exports = {
+  asyncComputed: {
+    isApproved: function isApproved() {
+      if (!isReadyToRock(this.resolution)) return false;
+      return this.resolution.status === 'approved';
+    },
+    isFailed: function isFailed() {
+      if (!isReadyToRock(this.resolution)) return false;
+      return this.resolution.status === 'failed';
+    },
+    resolution: function resolution() {
+      return this.$store.getters.getResolution(this.resolutionId);
+    }
+  },
+  computed: {},
+  methods: {}
+};
+
+/***/ }),
+
 /***/ "./resources/js/routes.js":
 /*!********************************!*\
   !*** ./resources/js/routes.js ***!
@@ -5609,10 +5654,62 @@ var actions = {
       });
     });
   },
-  initializeResolutions: function initializeResolutions(_ref3) {
+  markResolutionApproved: function markResolutionApproved(_ref3, resolution) {
     var dispatch = _ref3.dispatch,
       commit = _ref3.commit,
       getters = _ref3.getters;
+    var resolutionId = (0,_utilities_object_utilities__WEBPACK_IMPORTED_MODULE_1__.idify)(resolution);
+    var url = _routes__WEBPACK_IMPORTED_MODULE_0__.secretary.resolutions.approvalStatus(resolutionId);
+    window.console.log('set approvad', 'post', 63, url);
+    var me = this;
+    var data = {
+      status: 'approved'
+    };
+    Vue.axios.post(url, data).then(function (response) {
+      //todo Actually update the object
+      dispatch('forceReload');
+      // me.approvalStatus = response.data.is_approved;
+      // window.console.log('permissions', 'response', 126, response, me);
+    });
+  },
+  markResolutionFailed: function markResolutionFailed(_ref4, resolution) {
+    var dispatch = _ref4.dispatch,
+      commit = _ref4.commit,
+      getters = _ref4.getters;
+    var resolutionId = (0,_utilities_object_utilities__WEBPACK_IMPORTED_MODULE_1__.idify)(resolution);
+    var url = _routes__WEBPACK_IMPORTED_MODULE_0__.secretary.resolutions.approvalStatus(resolutionId);
+    window.console.log('set failed', 'post', 63, url);
+    var me = this;
+    var data = {
+      status: 'failed'
+    };
+    Vue.axios.post(url, data).then(function (response) {
+      //todo Actually update the object
+      dispatch('forceReload');
+      // me.approvalStatus = response.data.is_approved;
+      // window.console.log('permissions', 'response', 126, response, me);
+    });
+  },
+  markResolutionUnvoted: function markResolutionUnvoted(_ref5, resolution) {
+    var dispatch = _ref5.dispatch,
+      commit = _ref5.commit,
+      getters = _ref5.getters;
+    var resolutionId = (0,_utilities_object_utilities__WEBPACK_IMPORTED_MODULE_1__.idify)(resolution);
+    var url = _routes__WEBPACK_IMPORTED_MODULE_0__.secretary.resolutions.approvalStatus(resolutionId);
+    window.console.log('set unvoted', 'post', url);
+    var me = this;
+    var data = {
+      status: null
+    };
+    Vue.axios.post(url, data).then(function (response) {
+      //todo Actually update the object
+      dispatch('forceReload');
+    });
+  },
+  initializeResolutions: function initializeResolutions(_ref6) {
+    var dispatch = _ref6.dispatch,
+      commit = _ref6.commit,
+      getters = _ref6.getters;
     return new Promise(function (resolve, reject) {
       dispatch('loadAllResolutions').then(function () {
         dispatch('loadCurrentPlenaryResolutions').then(function () {
@@ -5706,10 +5803,16 @@ var getters = {
   }
 };
 var actions = {
-  secretaryStartup: function secretaryStartup(_ref) {
+  forceReload: function forceReload(_ref) {
     var dispatch = _ref.dispatch,
       commit = _ref.commit,
       getters = _ref.getters;
+    location.reload();
+  },
+  secretaryStartup: function secretaryStartup(_ref2) {
+    var dispatch = _ref2.dispatch,
+      commit = _ref2.commit,
+      getters = _ref2.getters;
     return new Promise(function (resolve, reject) {
       dispatch('setCurrentPlenaryId').then(function () {
         dispatch('loadPlenaries');

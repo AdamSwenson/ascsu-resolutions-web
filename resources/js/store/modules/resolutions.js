@@ -1,5 +1,5 @@
 import * as routes from "../../routes";
-import {getById} from "../../utilities/object.utilities";
+import {getById, idify} from "../../utilities/object.utilities";
 import {isReadyToRock} from "../../utilities/readiness.utilities";
 
 const state = {
@@ -55,6 +55,52 @@ const actions = {
             });
         }));
     },
+
+    markResolutionApproved({dispatch, commit, getters}, resolution){
+        let resolutionId = idify(resolution);
+        let url = routes.secretary.resolutions.approvalStatus(resolutionId)
+
+        window.console.log('set approvad', 'post', 63, url);
+        let me = this;
+        let data = {status : 'approved'};
+        Vue.axios.post(url, data).then((response) => {
+            //todo Actually update the object
+            dispatch('forceReload');
+            // me.approvalStatus = response.data.is_approved;
+            // window.console.log('permissions', 'response', 126, response, me);
+        });
+    },
+
+    markResolutionFailed({dispatch, commit, getters}, resolution){
+        let resolutionId = idify(resolution);
+        let url = routes.secretary.resolutions.approvalStatus(resolutionId)
+
+        window.console.log('set failed', 'post', 63, url);
+        let me = this;
+        let data = {status : 'failed'};
+        Vue.axios.post(url, data).then((response) => {
+            //todo Actually update the object
+            dispatch('forceReload');
+            // me.approvalStatus = response.data.is_approved;
+            // window.console.log('permissions', 'response', 126, response, me);
+        });
+
+    },
+
+    markResolutionUnvoted({dispatch, commit, getters}, resolution){
+        let resolutionId = idify(resolution);
+        let url = routes.secretary.resolutions.approvalStatus(resolutionId)
+
+        window.console.log('set unvoted', 'post', url);
+        let me = this;
+        let data = {status : null};
+        Vue.axios.post(url, data).then((response) => {
+            //todo Actually update the object
+            dispatch('forceReload');
+        });
+
+    },
+
 
     initializeResolutions({dispatch, commit, getters}) {
         return new Promise(((resolve, reject) => {

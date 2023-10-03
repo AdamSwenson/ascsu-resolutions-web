@@ -153,4 +153,14 @@ $resolution->save();
 
     }
 
+    /** @test */
+    public function approvalstatus(){
+        $r = Resolution::factory()->create();
+        $r->status = 'failed';
+        $r->save();
+        $og = $r->status;
+        $r->status = 'approved';
+        $r->save();
+        $this->assertEquals('failed', $og);
+    }
 }

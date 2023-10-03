@@ -14,6 +14,11 @@ const getters = {
 
 const actions = {
 
+
+    forceReload({dispatch, commit, getters}){
+        location.reload();
+    },
+
     secretaryStartup({dispatch, commit, getters}){
         return new Promise(((resolve, reject)=>{
             dispatch('setCurrentPlenaryId').then(() => {

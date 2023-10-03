@@ -10,7 +10,7 @@
 
 import {isReadyToRock} from "../../../utilities/readiness.utilities";
 import * as routes from "../../../routes";
-
+import ResolutionMixin from "../../../mixins/resolutionMixin";
 /**
  * This handles the approval status of the resolution
  * It initially takes the value passed in as a prop but updates
@@ -19,15 +19,15 @@ import * as routes from "../../../routes";
 export default {
     name: "approved-toggle-button",
 
-    props: ['resolutionId', 'isApproved'],
+    props: ['resolutionId'],
 
-    mixins: [],
+    mixins: [ResolutionMixin],
 
     data: function () {
         return {
             approvalStatus: false,
             unapprovedLabel: 'Mark approved',
-            approvedLabel: 'Mark unapproved',
+            approvedLabel: 'Remove approved',
             approvedStyle: 'btn-primary',
             unapprovedStyle: 'btn-outline-primary'
         }
@@ -35,53 +35,62 @@ export default {
 
     asyncComputed: {
         label: function () {
-            if (!isReadyToRock(this.resolutionId)) return this.unapprovedLabel;
+            if (!isReadyToRock(this.resolution)) return this.unapprovedLabel;
+            if (this.isApproved) return this.approvedLabel;
 
-            if (this.approvalStatus) return this.approvedLabel;
+            // if (this.resolution.status === 'approved') return this.approvedLabel;
+
+            // if (!isReadyToRock(this.resolutionId)) return this.unapprovedLabel;
+
+            // if (this.approvalStatus) return this.approvedLabel;
 
             return this.unapprovedLabel;
         },
 
         styling: function () {
-            if (!isReadyToRock(this.resolutionId)) return this.unapprovedStyle;
-            if (this.approvalStatus) return this.approvedStyle;
+            if (!isReadyToRock(this.resolution)) return this.unapprovedLabel;
+            if (this.isApproved) return this.approvedStyle;
             return this.unapprovedStyle;
         }
     },
 
-    watch: {
-        'isApproved': function () {
-            this.setDefaultApproval();
-        }
-    },
 
     computed: {},
 
     methods: {
 
         handleClick: function () {
-            let url = routes.secretary.resolutions.approvalStatus(this.resolutionId)
+            //Click when approved so un mark
+            if(this.isApproved){
+                this.$store.dispatch('markResolutionUnvoted', this.resolution)
+            }
 
-            window.console.log('toggle approval', 'get', 124, url);
-            let me = this;
-            Vue.axios.post(url).then((response) => {
-                me.approvalStatus = response.data.is_approved;
-                window.console.log('permissions', 'response', 126, response, me);
-            });
+            if(! this.isApproved){
+                this.$store.dispatch('markResolutionApproved', this.resolution);
+            }
+            //
+            // let url = routes.secretary.resolutions.approvalStatus(this.resolutionId)
+            //
+            // window.console.log('toggle approval', 'get', 124, url);
+            // let me = this;
+            // Vue.axios.post(url).then((response) => {
+            //     me.approvalStatus = response.data.is_approved;
+            //     window.console.log('permissions', 'response', 126, response, me);
+            // });
 
         },
-
-        setDefaultApproval: function () {
-            if (_.isNull(this.isApproved)) {
-                this.approvalStatus = false;
-            } else {
-                this.approvalStatus = this.isApproved;
-            }
-        }
+        //
+        // setDefaultApproval: function () {
+        //     if (_.isNull(this.isApproved)) {
+        //         this.approvalStatus = false;
+        //     } else {
+        //         this.approvalStatus = this.isApproved;
+        //     }
+        // }
     },
 
     mounted() {
-        this.setDefaultApproval();
+        // this.setDefaultApproval();
     }
 
 

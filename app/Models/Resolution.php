@@ -5,15 +5,30 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Resolution representation.
+ *
+ * Status: Approved, Failed, null (when has not received a vote)
+ *     NB, Whether resolution has a waiver is a property of the plenary-resolution
+ *     junction table, since it only applies in the first-reading plenary
+ *
+ *
+ */
 class Resolution extends Model
 {
     const URL_BASE = 'https://docs.google.com/document/d/';
 
     use HasFactory;
 
-    //acceptable statuses: first, action, approved, failed
+    //acceptable statuses: null, approved, failed
 
-    protected $fillable = ['document_id', 'title', 'number', 'waiver', 'status'];
+    protected $fillable = ['document_id',
+        'title',
+        'number',
+        'waiver',
+        'status'
+    ];
+
     protected $appends = ['url', 'formattedNumber', 'firstReadingPlenary', 'actionPlenaries'];
     protected $casts = ['is_approved' => 'boolean'];
 
@@ -102,6 +117,32 @@ class Resolution extends Model
             ->wherePivot('is_first_reading', 0)
             ->get();
     }
+
+    /**
+     * Whether the resolution was approved
+     * @return bool
+     */
+    public function getIsApprovedAttribute(){
+        return $this->status === 'approved';
+    }
+
+    /**
+     * Whether the resolution failed to pass
+     * @return bool
+     */
+    public function getIsFailedAttribute(){
+        return $this->status === 'failed';
+    }
+
+    /**
+     * Whether the resolution has not been voted upon
+     * @return bool
+     */
+    public function getIsUnvotedAttribute(){
+        return is_null($this->status);
+    }
+
+
 
     public function getUrlAttribute()
     {
