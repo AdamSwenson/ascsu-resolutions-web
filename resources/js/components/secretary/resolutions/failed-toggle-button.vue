@@ -1,6 +1,6 @@
 <template>
     <a href="#"
-       class="approved-toggle-button  btn btn-sm"
+       class="failed-toggle-button  btn btn-sm"
        v-bind:class="styling"
        v-on:click="handleClick"
     >{{ label }}</a>
@@ -13,11 +13,11 @@ import * as routes from "../../../routes";
 import ResolutionMixin from "../../../mixins/resolutionMixin";
 
 /**
- * This handles the approval status of the resolution.
+ * This handles the failed status of the resolution.
  * Todo Currently refreshes the page. Should update property
  */
 export default {
-    name: "approved-toggle-button",
+    name: "failed-toggle-button",
 
     props: ['resolutionId'],
 
@@ -25,8 +25,8 @@ export default {
 
     data: function () {
         return {
-            unapprovedLabel: 'Mark approved',
-            approvedLabel: 'Remove approved',
+            unapprovedLabel: 'Mark failed',
+            approvedLabel: 'Remove failed',
             approvedStyle: 'btn-primary',
             unapprovedStyle: 'btn-outline-primary'
         }
@@ -35,13 +35,13 @@ export default {
     asyncComputed: {
         label: function () {
             if (!isReadyToRock(this.resolution)) return this.unapprovedLabel;
-            if (this.isApproved) return this.approvedLabel;
+            if (this.isFailed) return this.approvedLabel;
             return this.unapprovedLabel;
         },
 
         styling: function () {
             if (!isReadyToRock(this.resolution)) return this.unapprovedStyle;
-            if (this.isApproved) return this.approvedStyle;
+            if (this.isFailed) return this.approvedStyle;
             return this.unapprovedStyle;
         }
     },
@@ -53,12 +53,12 @@ export default {
 
         handleClick: function () {
             //Click when approved so un mark
-            if(this.isApproved){
+            if(this.isFailed){
                 this.$store.dispatch('markResolutionUnvoted', this.resolution)
             }
 
-            if(! this.isApproved){
-                this.$store.dispatch('markResolutionApproved', this.resolution);
+            if(! this.isFailed){
+                this.$store.dispatch('markResolutionFailed', this.resolution);
             }
 
         },

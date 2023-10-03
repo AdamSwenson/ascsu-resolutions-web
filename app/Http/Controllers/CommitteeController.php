@@ -103,7 +103,10 @@ class CommitteeController extends Controller
         $resolution = $this->addCosponsors($resolution, $request);
 
         //set as first reading for plenary
-        $resolution->plenaries()->attach($plenary, ['is_first_reading' => true]);
+        $resolution->plenaries()->attach($plenary,
+            ['is_first_reading' => true,
+                'is_waiver' => $request->waiver
+            ]);
 
 //        $result = $this->createResolutionInDriveNew($plenary, $resolution);
 

@@ -1,29 +1,22 @@
 <template>
-    <span class="status-badge badge rounded-pill "
+    <span class="status-badge badge rounded-pill text-dark"
           v-if="show"
           v-bind:class="styling"
     >{{ displayText }}</span>
-
-    <!--    ><span-->
-    <!--        class="bg-success"-->
-    <!--        v-if="isApproved"-->
-    <!--    >Approved</span> <span-->
-    <!--        class="badge rounded-pill bg-warning"-->
-    <!--        v-if="showWaiverIndicator"-->
-    <!--    >Waiver</span>-->
 
 </template>
 
 <script>
 
 import {isReadyToRock} from "../../../utilities/readiness.utilities";
+import ResolutionMixin from "../../../mixins/resolutionMixin";
 
 export default {
     name: "status-badge",
 
-    props: ['status'],
+    props: ['resolutionId'],
 
-    mixins: [],
+    mixins: [ResolutionMixin],
 
     data: function () {
         return {
@@ -36,41 +29,30 @@ export default {
                     text: 'Failed',
                     style: 'bg-danger'
                 },
-                first: {
-                    text: 'First reading',
-                    style: 'bg-primary'
-                },
-                action: {
-                    text: 'Action item',
-                    style: 'bg-warning'
-                }
             }
         }
     },
 
     asyncComputed: {
         show: function () {
-            return isReadyToRock(this.status);
+            return isReadyToRock(this.isApproved) || isReadyToRock(this.isFailed);
         },
+
         styling : function(){
-            return this.statuses[this.status]['style'];
+            if(this.isApproved){
+                return this.statuses.approved.style;
+            }else if(this.isFailed){
+                return this.statuses.failed.style;
+            }
         },
         displayText: function () {
-            return this.statuses[this.status]['text'];
-            // switch (this.status) {
-            //     case 'approved':
-            //         return 'Approved';
-            //         break;
-            //     case 'failed':
-            //         return 'Failed';
-            //         break;
-            //     case 'first':
-            //         return 'First reading';
-            //         break
-            //     case 'action':
-            //         return 'Action';
-            //         break;
-            // }
+            if(this.isApproved){
+                return this.statuses.approved.text;
+            }else if(this.isFailed){
+                return this.statuses.failed.text;
+            }
+
+
         }
     },
 

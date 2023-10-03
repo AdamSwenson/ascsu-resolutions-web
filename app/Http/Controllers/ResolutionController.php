@@ -17,6 +17,7 @@ class ResolutionController extends Controller
         //whether we need to alter the document
         $originalStatus = $resolution->status;
 
+        //Update the object and save
         $resolution->status = $request->status;
         $resolution->save();
 
@@ -51,7 +52,6 @@ class ResolutionController extends Controller
 
         //todo AR-46: This should be the most recent plenary the resolution belongs to
         $plenary = $resolution->plenaries()->where('is_current', true)->first();
-
 
         try{
             $this->handleScript($scriptfile, [$plenary->id, $resolution->id]);

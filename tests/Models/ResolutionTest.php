@@ -93,7 +93,7 @@ class ResolutionTest extends TestCase
         $resolution->refresh();
 
         //check
-        $this->assertEquals('first', $resolution->status);
+        $this->assertEquals('first', $resolution->readingType);
         $this->assertNotEmpty($resolution->firstReadingPlenary);
     }
 
@@ -107,7 +107,7 @@ class ResolutionTest extends TestCase
 
         //check
         $this->assertEquals('approved', $resolution->status);
-        $this->assertTrue($resolution->is_approved);
+//        $this->assertTrue($resolution->is_approved);
     }
 
     /** @test */
@@ -120,11 +120,13 @@ class ResolutionTest extends TestCase
 
         //check
         $this->assertEquals('failed', $resolution->status);
-        $this->assertFalse($resolution->is_approved);
+//        $this->assertFalse($resolution->is_approved);
     }
 
     /** @test */
     public function setActionWithoutPreexistingPlenary(){
+        //simulates setting as action when there's no second
+        //reading plenary already associated
         $resolution = Resolution::factory()->create();
 
         //call
@@ -132,25 +134,29 @@ class ResolutionTest extends TestCase
         $resolution->refresh();
 
         //check
-        $this->assertEquals('action', $resolution->status);
+        $this->assertEquals('action', $resolution->readingType);
         $this->assertNotEmpty($resolution->actionPlenaries);
-
     }
 
     /** @test */
     public function setActionWithPreexistingPlenary(){
+        //Simulates the case where an item may have been referred back
+        //thus there is already a second reading plenary present. Still should
+        //associate it with the passed in one.
         $resolution = Resolution::factory()->create();
-        $resolution->plenaries()->attach($this->plenary, ['is_first_reading' => false]);
-$resolution->save();
+        $resolution->plenaries()->attach($this->plenary, ['is_first_reading' => 0]);
+        $resolution->save();
+
 
         //call
-        $resolution->setAction($this->plenary);
+        $plenary2 = Plenary::factory()->create();
+        $resolution->setAction($plenary2);
         $resolution->refresh();
 
         //check
-        $this->assertEquals('action', $resolution->status);
+        $this->assertEquals('action', $resolution->readingType);
         $this->assertNotEmpty($resolution->actionPlenaries);
-
+    $this->assertEquals(2, sizeof($resolution->actionPlenaries));
     }
 
     /** @test */
@@ -162,5 +168,43 @@ $resolution->save();
         $r->status = 'approved';
         $r->save();
         $this->assertEquals('failed', $og);
+    }
+
+
+    /** @test  */
+    public function readingTypeFirst(){
+        $resolution = Resolution::factory()->create();
+        $resolution->plenaries()->attach($this->plenary, ['is_first_reading' => 1]);
+        $resolution->save();
+        $resolution->push();
+        $resolution->refresh();
+
+        //check
+        $this->assertEquals('first', $resolution->readingType);
+    }
+
+    /** @test  */
+    public function readingTypeFirstWaiver(){
+        $resolution = Resolution::factory()->create();
+        $resolution->plenaries()->attach($this->plenary,
+            ['is_first_reading' => 1,
+                'is_waiver' => 1]);
+        $resolution->save();
+        $resolution->push();
+        $resolution->refresh();
+
+        $this->assertEquals('waiver', $resolution->readingType);
+    }
+
+    /** @test  */
+    public function readingTypeAction(){
+        $resolution = Resolution::factory()->create();
+        $resolution->plenaries()->attach($this->plenary,
+            ['is_first_reading' => 0]);
+        $resolution->save();
+        $resolution->push();
+        $resolution->refresh();
+
+        $this->assertEquals('action', $resolution->readingType);
     }
 }

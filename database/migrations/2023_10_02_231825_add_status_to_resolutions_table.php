@@ -12,7 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('resolutions', function (Blueprint $table) {
-            $table->boolean('is_approved')->nullable();
+
+            //acceptable statuses: null, approved, failed
+            $table->string('status')->nullable();
+            //AR-58 Replace is approved with less ambiguous column
+//            $table->dropColumn('is_approved');
         });
     }
 
@@ -22,7 +26,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('resolutions', function (Blueprint $table) {
-            $table->dropColumn('is_approved');
+            $table->dropColumn('status');
         });
     }
 };

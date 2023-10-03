@@ -29,24 +29,37 @@ class Resolution extends Model
         'status'
     ];
 
-    protected $appends = ['url', 'formattedNumber', 'firstReadingPlenary', 'actionPlenaries'];
+    protected $appends = [
+//        'is_first_reading', 'is_waiver',
+    'readingType',
+        'url', 'formattedNumber', 'firstReadingPlenary', 'actionPlenaries'];
     protected $casts = ['is_approved' => 'boolean'];
 
 
     public function setApproved(){
-        $this->is_approved = true;
+//        $this->is_approved = true;
         $this->status = 'approved';
         $this->save();
     }
 
     public function setFailed(){
-        $this->is_approved = false;
+//        $this->is_approved = false;
         $this->status = 'failed';
         $this->save();
     }
 
+    public function setUnvoted(){
+        $this->status = null;
+        $this->save();
+    }
+
+    /**
+     * Makes the resolution a first reading in the given plenary
+     * @param Plenary $plenary
+     * @return void
+     */
     public function setFirstReading(Plenary $plenary){
-        $this->status = 'first';
+//        $this->status = 'first';
         //change plenary
         $this->plenaries()->updateExistingPivot($plenary->id, [
             'is_first_reading' => true,
@@ -54,9 +67,13 @@ class Resolution extends Model
         $this->save();
     }
 
+    /**
+     * Adds a plenary to the list of action plenaries
+     *
+     * @param Plenary $plenary
+     * @return void
+     */
     public function setAction(Plenary $plenary){
-        $this->status = 'action';
-
         //change plenary
         $this->plenaries()
             ->attach($plenary, ['is_first_reading' => false]);
@@ -87,6 +104,36 @@ class Resolution extends Model
         //todo add year
         return "AS-" . $this->number; // . '-';
     }
+
+    public function getReadingTypeAttribute(){
+        if(sizeof($this->actionPlenaries) > 0) return 'action';
+
+        if($this->isWaiver) return 'waiver';
+
+        return 'first';
+    }
+
+//    public function getisFirstReadingAttribute()
+//    {
+//        $p = $this->belongsToMany(Plenary::class)
+//            ->wherePivot('is_first_reading', 1)
+//            ->first();
+//
+//    }
+
+    public function getisWaiverAttribute()
+    {
+        $p = $this->belongsToMany(Plenary::class)
+            ->wherePivot('is_first_reading', 1)
+            ->wherePivot('is_waiver', 1)
+            ->first();
+        return ! is_null($p);
+        return false;
+//        return $this->belongsToMany(Plenary::class)
+//            ->wherePivot('is_first_reading', 1)
+//            ->first();
+    }
+
 
     /**
      * Returns the plenary object for the plenary at which received
@@ -157,7 +204,7 @@ class Resolution extends Model
 
     public function plenaries()
     {
-        return $this->belongsToMany(Plenary::class)->withPivot('is_first_reading');
+        return $this->belongsToMany(Plenary::class)->withPivot(['is_first_reading', 'is_waiver']);
     }
 
 //

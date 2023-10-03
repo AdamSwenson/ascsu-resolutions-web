@@ -39,7 +39,7 @@ protected $appends = ['publicUrl', 'plenaryUrl', 'plenaryName'];
     }
 
     public function resolutions(){
-        return $this->belongsToMany(Resolution::class)->withPivot('is_first_reading');
+        return $this->belongsToMany(Resolution::class)->withPivot(['is_first_reading', 'is_waiver']);
 
 //        return $this->hasMany(Resolution::class);
     }
