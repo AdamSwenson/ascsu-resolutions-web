@@ -19,13 +19,14 @@ class ResolutionRepository(object):
                        number=result.number,
                        document_id=result.document_id,
                        title=result.title,
-                       waiver=result.waiver,
+                       # waiver=result.waiver,
                        committee=sponsor,
                        cosponsors=cosponsors,
+                       status=result.status,
                        # this has to come from junction table
                        # is_first_reading=result.is_first_reading,
-                       is_approved=result.is_approved)
-
+                       # is_approved=result.is_approved)
+                       )
         # Load the object representation from drive
         if r.document_id is not None:
             doc_repo = DocumentRepository()
@@ -140,19 +141,25 @@ class ResolutionRepository(object):
         committee_repo = CommitteeRepository(self.dao)
         resolutions = []
 
-        query = f"select resolution_id, is_first_reading from ascsu.plenary_resolution where plenary_id = {plenary.id}"
+        query = f"select resolution_id, is_first_reading, is_waiver from ascsu.plenary_resolution where plenary_id = {plenary.id}"
         results = self.dao.conn.execute(query)
 
         # query = f"select id from ascsu.resolutions"
         # results = self.dao.conn.execute(query)
-        for rid, first_reading in results:
+        for rid, first_reading, is_waiver in results:
             # make sure casts correctly
             first_reading = bool(first_reading)
+            # added AR-58
+            is_waiver = bool(first_reading)
+
+            # sys.stderr.write(f"{rid} {first_reading} {is_waiver}" )
+
             # rid = r[0]
             sponsor = committee_repo.load_sponsor(rid)
             cosponsors = committee_repo.load_cosponsors(rid)
             rez = self.load_resolution(rid, sponsor, cosponsors)
             rez.is_first_reading = first_reading
+            rez.is_waiver = is_waiver
             try:
                 doc_title = self.get_current_title_from_drive(rez)
                 if len(doc_title) > 0:

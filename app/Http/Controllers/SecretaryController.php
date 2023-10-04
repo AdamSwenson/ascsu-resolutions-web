@@ -17,20 +17,6 @@ class SecretaryController extends Controller
 //        $this->middleware('auth');
     }
 
-    public function createPlenary(Request $request)
-    {
-        $plenary = Plenary::create(['thursday_date' => $request->thursday_date, 'is_current' => true]);
-
-        try{
-            $scriptfile = 'web_make_folders_for_plenary.py';
-            $this->handleScript($scriptfile, $plenary->id);
-            $plenary->refresh();
-            return response()->json($plenary);
-        }catch (PythonScriptError $error){
-            return $error->getMessage();
-        }
-
-    }
 
     public function enforceStyling()
     {

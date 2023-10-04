@@ -1,3 +1,5 @@
+import sys
+
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
@@ -152,10 +154,11 @@ class AgendaRepository(object):
         # Get all resolutions
         # For now not going to sync the database, just use title from drive if can be retrieved and default to db version
         resolutions = self.resolution_repo.load_all_resolutions_for_plenary(plenary)
+
         # resolutions = self.resolution_repo.load_all_resolutions()
-        first_readings = [r for r in resolutions if r.is_first_reading is True and r.waiver is False]
+        first_readings = [r for r in resolutions if r.is_first_reading is True and r.is_waiver is False]
         # todo Once figure out how committees indicate ready for second reading, remove waiver check
-        waivers = [r for r in resolutions if r.is_first_reading and r.waiver is True]
+        waivers = [r for r in resolutions if r.is_first_reading is True and r.is_waiver is True]
         second_readings = [r for r in resolutions if r.is_first_reading is not True]
 
         self.create_agenda_file(plenary)

@@ -32,7 +32,7 @@ Route::post('/resolution/{plenary}', [CommitteeController::class, 'recordResolut
 
 
 Route::get('/secretary', [SecretaryController::class, 'getSecretaryPage']);
-Route::post('/secretary/folders', [SecretaryController::class, 'createPlenary']);
+Route::post('/secretary/folders', [PlenaryController::class, 'createPlenary']);
 Route::post('secretary/public/{plenary}', [SecretaryController::class, 'createPublic']);
 
 Route::post('plenary/current/{plenary}', [PlenaryController::class, 'setCurrent']);

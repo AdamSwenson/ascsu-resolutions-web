@@ -2,12 +2,41 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\PythonScriptError;
 use App\Models\Plenary;
+use App\Repositories\PlenaryRepository;
 use Illuminate\Http\Request;
 
 class PlenaryController extends Controller
 {
-    //
+    public PlenaryRepository $plenaryRepo;
+
+    public function __construct()
+    {
+        $this->plenaryRepo = new PlenaryRepository();
+    }
+
+
+    public function createPlenary(Request $request)
+    {
+        $this->plenaryRepo->resetAllCurrentPlenaries();
+
+        $plenary = Plenary::create(
+            ['thursday_date' => $request->thursday_date,
+                'is_current' => true
+            ]);
+
+        try{
+            $scriptfile = 'web_make_folders_for_plenary.py';
+            $this->handleScript($scriptfile, $plenary->id);
+            $plenary->refresh();
+            return response()->json($plenary);
+        }catch (PythonScriptError $error){
+            return $error->getMessage();
+        }
+
+    }
+
 
     public function index()
     {
@@ -32,15 +61,18 @@ class PlenaryController extends Controller
 
     public function setCurrent(Plenary $plenary)
     {
-        $og = Plenary::where('is_current', true)->get();
-        if (!is_null($og)) {
-            foreach ($og as $o)
-                $o->is_current = false;
-            $o->save();
-        }
-
-        $plenary->is_current = true;
-        $plenary->save();
+        $this->plenaryRepo->resetAllCurrentPlenaries();
+        $plenary = $this->plenaryRepo->setCurrentPlenary($plenary);
+//        $og = Plenary::where('is_current', 1)->get();
+//        if (!is_null($og)) {
+//            foreach ($og as $o) {
+//                $o->is_current = false;
+//                $o->save();
+//            }
+//        }
+//
+//        $plenary->is_current = true;
+//        $plenary->save();
         response()->json($plenary);
     }
 

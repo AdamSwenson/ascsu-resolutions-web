@@ -7,12 +7,13 @@ class Resolution(object):
     def __init__(self, id=None, number=None,
                  title=None,
                  document_id=None,
-                 waiver=None,
+                 is_waiver=None,
                  committee: Committee = None,
                  cosponsors=[],
                  document_obj=None,
                  is_first_reading=None,
                  is_approved=None,
+                 status=None,
                  year=23):
         """
         :param is_first_reading: Whether the resolution is currently in first reading
@@ -23,11 +24,12 @@ class Resolution(object):
         :param document_obj The dictionary representation of the document
         """
         # todo Add correct date --- year!
+        self.status = status
         self.year = year
         self.is_approved = bool(is_approved)
         self.is_first_reading = bool(is_first_reading)
         self.document_obj = document_obj
-        self.waiver = bool(waiver)
+        self.is_waiver = bool(is_waiver)
         self.id = id
         self.committee = committee
         self.cosponsors = cosponsors
@@ -41,6 +43,10 @@ class Resolution(object):
         if self.document_obj is not None:
             body = self.document_obj.get('body').get('content')
             return body[len(body) - 1]['endIndex']
+
+    @property
+    def waiver(self):
+        return self.is_waiver == 1 or self.is_waiver is True
 
     @property
     def name(self):
@@ -59,6 +65,6 @@ class Resolution(object):
             for c in self.cosponsors:
                 t += f"/{c.abbreviation}"
         t += f" {self.title}"
-        if self.waiver == 1:
+        if self.is_waiver == 1:
             t += " WAIVER "
         return t
