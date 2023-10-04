@@ -157,7 +157,7 @@ const getters = {
         let rez = [];
         let resolutions = getters.getResolutions;
         _.forEach(resolutions, (r) => {
-            if(r.is_approved !== 1){
+            if(r.status !== 'approved'){
                 rez.push(r);
             }
 

@@ -6058,7 +6058,7 @@ var getters = {
     var rez = [];
     var resolutions = getters.getResolutions;
     _.forEach(resolutions, function (r) {
-      if (r.is_approved !== 1) {
+      if (r.status !== 'approved') {
         rez.push(r);
       }
     });
