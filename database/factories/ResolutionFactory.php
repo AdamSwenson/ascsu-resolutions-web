@@ -20,7 +20,7 @@ class ResolutionFactory extends Factory
             'document_id' => fake()->sha1,
             'title' => fake()->sentence,
             'number' => fake()->numberBetween(3000, 10000),
-            'waiver' => false
+            'status' => fake()->randomElement(['approved', 'failed', null])
         ];
     }
 }

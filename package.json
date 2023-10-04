@@ -6,9 +6,9 @@
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
         "prod": "npm run production",
-        "production": "mix --production",
+        "production":  "mix --production",
         "test": "jest NODE_OPTIONS=--experimental-vm-modules npx jest",
-        "dev": "vite",
+        "dev": "npm run development",
         "build": "vite build"
     },
     "devDependencies": {
@@ -30,9 +30,7 @@
         "sass": "^1.20.1",
         "sass-loader": "^8.0.0",
         "sinon": "^15.2.0",
-        "vue-jest": "^3.0.7",
-        "vue-loader": "^15.9.7",
-        "vue-template-compiler": "^2.6.10"
+        "vue-jest": "^3.0.7"
     },
     "dependencies": {
         "axios": "^0.21.1",

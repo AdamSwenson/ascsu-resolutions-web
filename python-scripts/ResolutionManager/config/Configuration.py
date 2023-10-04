@@ -3,18 +3,7 @@ import os
 
 
 class Configuration(object):
-    # BASE = '/Users/ars62917/Dropbox/ResolutionManagerWeb/python-scripts'
-    # # BASE = "/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts"
-    #
-    # CREDENTIALS_FOLDER = f"{BASE}/private"
-    # CREDENTIALS_FILEPATH = f"{CREDENTIALS_FOLDER}/credentials.json"
-    # TOKEN_FILEPATH = f"{CREDENTIALS_FOLDER}/token.json"
 
-    # GOOGLE_DRIVE_ROOT_FOLDER_ID = '1p0nw_jsf8nfFIrCDLF6IejKLyngtcYtg'
-
-    # TEMPLATE_DOCUMENT_ID = '1ipZ_SrSdh_wBHEqc92Oji-k8FxC8irp_yGMxeUZrpYU'
-
-    # TEMPLATE_HEADER_ID = 'kix.ykwloztnzf1q'
     RESOLUTION_FILENAME_TEMPLATE = "{resolution_number} {committee_abbrev} {resolution_name}"
 
     SCOPES = ['https://www.googleapis.com/auth/documents',
@@ -36,13 +25,19 @@ class Configuration(object):
 
         # self.config_path = "../../private/config.ini";
         self.configuration = configparser.ConfigParser()
-        self.configuration.read( self.config_path )
+        self.configuration.read(self.config_path)
 
         self.GOOGLE_DRIVE_ROOT_FOLDER_ID = self.configuration['drive']['GOOGLE_DRIVE_ROOT_FOLDER_ID']
+
+        # Template
         self.TEMPLATE_DOCUMENT_ID = self.configuration['drive']['TEMPLATE_DOCUMENT_ID']
         self.TEMPLATE_HEADER_ID = self.configuration['drive']['TEMPLATE_HEADER_ID']
 
+        # Named ranges in document
         self.TITLE_RANGE_NAME = self.configuration['resolutions']['TITLE_RANGE_NAME']
+        self.GROUP_TITLE_RANGE_NAME = self.configuration['resolutions']['GROUP_TITLE_RANGE_NAME']
+        self.RATIONALE_RANGE_NAME = self.configuration['resolutions']['RATIONALE_RANGE_NAME']
+        self.DISTRIBUTION_LIST_RANGE_NAME = self.configuration['resolutions']['DISTRIBUTION_LIST_RANGE_NAME']
 
         # print(self.configuration)
 
@@ -54,7 +49,6 @@ class Configuration(object):
         else:
             self.env = 'production'
 
-
     def base(self):
         # return 'wag'
         b = os.getcwd()
@@ -63,7 +57,6 @@ class Configuration(object):
     @property
     def dsn(self):
         return f"mysql+mysqlconnector://{self.configuration['mysql']['user']}:{self.configuration['mysql']['password']}@{self.configuration['mysql']['ip']}/{self.configuration['mysql']['db']}"
-        # return "mysql+mysqlconnector://root:@127.0.0.1:3306/ascsu"
 
     #
     # @classmethod
@@ -83,4 +76,3 @@ class Configuration(object):
     #     cls.configuration = configparser.ConfigParser()
     #     cls.configuration.read( cls.file_path )
     #     print( "Reading credentials and settings from %s" % cls.file_path )
-

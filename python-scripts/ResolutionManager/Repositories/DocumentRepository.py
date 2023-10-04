@@ -1,15 +1,8 @@
-from __future__ import print_function
-
-# import google.auth
-# from googleapiclient.http import MediaFileUpload
-#
-# from google.auth.transport.requests import Request
-# from google.oauth2.credentials import Credentials
-# from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 from ResolutionManager.API.CredentialsManager import CredentialsManager
+from ResolutionManager.Repositories.StylingRepository import StylingRepository
 
 # The ID of a sample document.
 DOCUMENT_ID = '195j9eDD3ccgjQRttHhJPymLJUCOUjs-jmwTrekvdjFE'
@@ -20,6 +13,7 @@ class DocumentRepository(object):
     def __init__(self):
         self.cred_manager = CredentialsManager()
         self.service = build('docs', 'v1', credentials=self.cred_manager.creds)
+        self.style_repo = StylingRepository()
 
     def create_file(self, filename):
         """Shows basic usage of the Docs API.
@@ -85,37 +79,76 @@ class DocumentRepository(object):
             print(err)
 
     def get_end_index(self, document):
+        """
+        :deprecated This can be handled directly on the resolution object
+        :param document:
+        :return:
+        """
         body = document.get('body').get('content')
         return body[len(body) - 1]['endIndex']
 
-    def enforce_styling_on_resolution(self, resolution):
-        document = self.get_document(resolution.document_id)
-        startIndex = 1
-        endIndex = self.get_end_index(document)
-        requests = [{
-            'updateTextStyle': {
-                'range': {
-                    'startIndex': startIndex,
-                    'endIndex': endIndex
-                },
-                'textStyle': {
-                    'weightedFontFamily': {
-                        'fontFamily': 'Atkinson Hyperlegible'
 
-                    },
-                    'fontSize': {
-                        'magnitude': 12,
-                        'unit': 'PT'
-                    },
-                },
-                'fields': 'weightedFontFamily,fontSize'
+        # requests = [
+        #     # Set body to Atkinson Hyperlegible
+        #     {
+        #     'updateTextStyle': {
+        #         'range': {
+        #             'startIndex': startIndex,
+        #             'endIndex': endIndex
+        #         },
+        #         'textStyle': {
+        #             'weightedFontFamily': {
+        #                 'fontFamily': 'Atkinson Hyperlegible'
+        #
+        #             },
+        #             'fontSize': {
+        #                 'magnitude': 12,
+        #                 'unit': 'PT'
+        #             },
+        #         },
+        #         'fields': 'weightedFontFamily,fontSize'
+        #
+        #     }
+        # },
+        #
+        # ]
+        #
+        # self.service.documents().batchUpdate(
+        #     documentId=resolution.document_id, body={'requests': requests}).execute()
 
-            }
-        }
-        ]
 
-        self.service.documents().batchUpdate(
-            documentId=resolution.document_id, body={'requests': requests}).execute()
+        #
+        # document = self.get_document(resolution.document_id)
+        # startIndex = 1
+        # endIndex = self.get_end_index(document)
+        # requests = [
+        #     # Set body to Atkinson Hyperlegible
+        #     {
+        #     'updateTextStyle': {
+        #         'range': {
+        #             'startIndex': startIndex,
+        #             'endIndex': endIndex
+        #         },
+        #         'textStyle': {
+        #             'weightedFontFamily': {
+        #                 'fontFamily': 'Atkinson Hyperlegible'
+        #
+        #             },
+        #             'fontSize': {
+        #                 'magnitude': 12,
+        #                 'unit': 'PT'
+        #             },
+        #         },
+        #         'fields': 'weightedFontFamily,fontSize'
+        #
+        #     }
+        # },
+        #
+        #     #
+        # ]
+        #
+        # self.service.documents().batchUpdate(
+        #     documentId=resolution.document_id, body={'requests': requests}).execute()
 
 
 if __name__ == '__main__':

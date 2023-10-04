@@ -5,14 +5,19 @@ from ResolutionManager.Repositories.FileRepository import FileRepository
 from ResolutionManager.Repositories.ResolutionRepository import ResolutionRepository
 from ResolutionManager.API.CredentialsManager import CredentialsManager
 from ResolutionManager.Repositories.CommitteeRepository import CommitteeRepository
+from ResolutionManager.Models.Resolutions import Resolution
+from ResolutionManager.config.Templates import Templates
+
 import sys
 from googleapiclient.discovery import build
 
-HEADER_TEMPLATE = "AS-{resolution_number}-{year}/{committee}"
-# TITLE_RANGE_NAME = "titleRange"
 
+# HEADER_TEMPLATE = "AS-{resolution_number}-{year}/{committee}"
 
 class ResolutionTemplateRepository(object):
+
+    APPROVED_TEXT = "\nApproved"
+    """The text inserted into the header of approved resolutions"""
 
     def __init__(self, plenary=None, dao=None):
         self.config = Configuration()
@@ -94,17 +99,17 @@ class ResolutionTemplateRepository(object):
                 # Center again
                 requests.append(
                     {
-                    'updateParagraphStyle': {
-                        'range': {
-                            'startIndex': start,
-                            'endIndex': start + new_text_len
-                        },
-                        'paragraphStyle': {
-                            'alignment': 'CENTER'
-                        },
-                        'fields': 'alignment'
-                    }
-                })
+                        'updateParagraphStyle': {
+                            'range': {
+                                'startIndex': start,
+                                'endIndex': start + new_text_len
+                            },
+                            'paragraphStyle': {
+                                'alignment': 'CENTER'
+                            },
+                            'fields': 'alignment'
+                        }
+                    })
 
         # Make a batchUpdate request to apply the changes, ensuring the document
         # hasn't changed since we fetched it.
@@ -116,71 +121,10 @@ class ResolutionTemplateRepository(object):
         }
         result = self.service.documents().batchUpdate(documentId=document_id, body=body).execute()
 
-    def update_title_new(self, resolution):
+    def update_title_new(self, resolution: Resolution):
         return self.replace_named_title_range(resolution.document_id, resolution.title)
 
-    def update_title(self, resolution ):
-        # def update_title(self, document_id, title):
-        title_idxs = {'start_index': 54, 'end_index': 62}
-        rez_number = {'start_index': 54, 'end_index': 62}
-
-        title_start = title_idxs['start_index'] - 1
-        title_end = title_idxs['start_index'] + len(resolution.title)
-
-
-        # Make sure to order backwards so offsets don't change
-        requests = [
-            {
-                'insertText': {
-                    'location': {
-                        'index': title_start,
-                    },
-                    'text': resolution.title
-
-                }
-            },
-
-            {
-                'updateTextStyle': {
-                    'range': {
-                        'startIndex': title_start,
-                        'endIndex': title_end
-                    },
-                    'textStyle': {
-                        'bold': True,
-                    },
-                    'fields': 'bold,'
-                }
-            },
-            {
-                'updateParagraphStyle': {
-                    'range': {
-                        'startIndex': title_start,
-                        'endIndex': title_end
-                    },
-                    'paragraphStyle': {
-                        'alignment': 'CENTER'
-                    },
-                    'fields': 'alignment'
-                }
-            },
-
-            {
-                'deleteContentRange': {
-                    'range': {
-                        'startIndex': title_end,
-                        'endIndex': title_end + 1 + len('[Title]'),
-                    }
-                }},
-
-        ]
-
-        result = self.service.documents().batchUpdate(
-            documentId=resolution.document_id, body={'requests': requests}).execute()
-
-        return result
-
-    def create_file_from_template(self, resolution, template_id=None):
+    def create_file_from_template(self, resolution: Resolution, template_id=None):
         if template_id is None:
             template_id = self.config.TEMPLATE_DOCUMENT_ID
         # def create_file_from_template(self, folder_id, resolution_number, resolution_name,
@@ -190,9 +134,9 @@ class ResolutionTemplateRepository(object):
         """Uses the template to make a new resolution in the first readings folder
         returns Resolution object with document id of created resolution set
         """
-        filename = self.config.RESOLUTION_FILENAME_TEMPLATE.format(resolution_number=resolution.number,
-                                                           resolution_name=resolution.title,
-                                                                   committee_abbrev=sponsor.abbreviation)
+        filename = Templates.RESOLUTION_FILENAME_TEMPLATE.format(resolution_number=resolution.number,
+                                                                 resolution_name=resolution.title,
+                                                                 committee_abbrev=sponsor.abbreviation)
         sys.stdout.write(f"{resolution.__dict__}")
 
         resolution.document_id = self.file_repo.copy_file(template_id, filename)
@@ -201,49 +145,205 @@ class ResolutionTemplateRepository(object):
         self.file_repo.move_file_to_folder(resolution.document_id, self.plenary.first_reading_folder_id)
         return resolution
 
+    def make_header(self, resolution: Resolution):
+        """
+        Makes the string to be added to the document header
+            AS-xxxx-yy
+            1-2 September 2023
+            Approved [if approved]
 
-    def make_header(self, resolution):
+        :param resolution:
+        :return:
+        """
         # def make_header(self, resolution_number, year, committee, cosponsors=[]):
 
         # if self.plenary.year > 2000:
         #     self.plenary.year = self.plenary.year - 2000
 
-        v = HEADER_TEMPLATE.format(resolution_number=resolution.number, year=self.plenary.two_digit_year, committee=resolution.committee.abbreviation)
+        v = Templates.HEADER_TEMPLATE.format(resolution_number=resolution.number,
+                                             year=self.plenary.two_digit_year,
+                                             committee=resolution.committee.abbreviation)
         if len(resolution.cosponsors) > 0:
             for c in resolution.cosponsors:
                 v += f"/{c.abbreviation}"
+
+        v += f"\n{self.plenary.formatted_plenary_date}"
+
         return v
 
-
-
     def update_header(self, resolution):
+        """Adds the header text with proper formatting to the document"""
         # def update_header(self, document_id, resolution_number, committee, cosponsors=[]):
-        txt = f"{self.make_header(resolution)}\n{self.plenary.formatted_plenary_date}"
+        # txt = f"{self.make_header(resolution)}\n{self.plenary.formatted_plenary_date}"
         # txt = f"{self.make_header(resolution.number, self.plenary.year, resolution.committee, resolution.cosponsors)}\n{self.plenary.formatted_plenary_date()}"
 
-        requests = [{
-            "insertText": {
-                "location": {
-                 "segmentId": self.config.TEMPLATE_HEADER_ID,
-                "index": 0
+        txt = self.make_header(resolution)
+        # sys.stdout.write(f"{resolution.__dict__}")
+        # sys.stdout.write(f"{txt}")
+
+        requests = [
+            {
+                "insertText": {
+                    "location": {
+                        "segmentId": self.config.TEMPLATE_HEADER_ID,
+                        "index": 0
+                    },
+                    "text": txt
+                }
             },
-            "text": txt
-        }
-        }]
-        # requests = [
-        #     {
-        #         "createHeader": {
-        #             "sectionBreakLocation": {
-        #                 "index": 0
-        #             },
-        #             "type": "DEFAULT"
-        #         }
-        #     },
-        # ]
+
+            # Force header to correct format
+            {
+                'updateTextStyle': {
+
+                    'range': {
+                        'segmentId': self.config.TEMPLATE_HEADER_ID,
+                        'startIndex': 0,
+                        'endIndex': len(txt)
+                    },
+                    'textStyle': {
+                        'weightedFontFamily': {
+                            'fontFamily': 'Atkinson Hyperlegible'
+
+                        },
+                        'fontSize': {
+                            'magnitude': 12,
+                            'unit': 'PT'
+                        },
+                    },
+                    'fields': 'weightedFontFamily,fontSize'
+                }
+            },
+
+        ]
 
         result = self.service.documents().batchUpdate(
             documentId=resolution.document_id, body={'requests': requests}).execute()
 
-        print(result)
+        # print(result)
 
+    def add_approved(self, resolution):
+        # txt = "\nApproved"
+        existing = self.make_header(resolution)
+        insertStart = len(existing) +1
 
+        requests = [
+            {
+                "insertText": {
+                    "location": {
+                        "segmentId": self.config.TEMPLATE_HEADER_ID,
+                        "index": insertStart
+                    },
+                    "text": self.APPROVED_TEXT
+                }
+            },
+
+            # Force header to correct format
+            {
+                'updateTextStyle': {
+
+                    'range': {
+                        'segmentId': self.config.TEMPLATE_HEADER_ID,
+                        'startIndex': insertStart,
+                        'endIndex': insertStart + len(self.APPROVED_TEXT)
+                    },
+                    'textStyle': {
+                        'weightedFontFamily': {
+                            'fontFamily': 'Atkinson Hyperlegible'
+
+                        },
+                        'fontSize': {
+                            'magnitude': 12,
+                            'unit': 'PT'
+                        },
+                    },
+                    'fields': 'weightedFontFamily,fontSize'
+                }
+            },
+
+        ]
+        result = self.service.documents().batchUpdate(
+            documentId=resolution.document_id, body={'requests': requests}).execute()
+
+        return result
+
+    def remove_approved(self, resolution):
+        # txt = "\nApproved"
+        existing = self.make_header(resolution)
+        deleteStart = len(existing) + 1
+
+        requests = [
+            {
+                'deleteContentRange': {
+                    'range': {
+                        'segmentId': self.config.TEMPLATE_HEADER_ID,
+                        'startIndex': deleteStart,
+                        'endIndex': deleteStart + len(self.APPROVED_TEXT),
+                    }
+
+                }
+            },
+        ]
+
+        result = self.service.documents().batchUpdate(
+            documentId=resolution.document_id, body={'requests': requests}).execute()
+        return result
+
+        # def update_title(self, resolution):
+    #     # def update_title(self, document_id, title):
+    #     title_idxs = {'start_index': 54, 'end_index': 62}
+    #     rez_number = {'start_index': 54, 'end_index': 62}
+    #
+    #     title_start = title_idxs['start_index'] - 1
+    #     title_end = title_idxs['start_index'] + len(resolution.title)
+    #
+    #     # Make sure to order backwards so offsets don't change
+    #     requests = [
+    #         {
+    #             'insertText': {
+    #                 'location': {
+    #                     'index': title_start,
+    #                 },
+    #                 'text': resolution.title
+    #             }
+    #         },
+    #
+    #         {
+    #             'updateTextStyle': {
+    #                 'range': {
+    #                     'startIndex': title_start,
+    #                     'endIndex': title_end
+    #                 },
+    #                 'textStyle': {
+    #                     'bold': True,
+    #                 },
+    #                 'fields': 'bold,'
+    #             }
+    #         },
+    #         {
+    #             'updateParagraphStyle': {
+    #                 'range': {
+    #                     'startIndex': title_start,
+    #                     'endIndex': title_end
+    #                 },
+    #                 'paragraphStyle': {
+    #                     'alignment': 'CENTER'
+    #                 },
+    #                 'fields': 'alignment'
+    #             }
+    #         },
+    #
+    #         {
+    #             'deleteContentRange': {
+    #                 'range': {
+    #                     'startIndex': title_end,
+    #                     'endIndex': title_end + 1 + len('[Title]'),
+    #                 }
+    #             }},
+    #
+    #     ]
+    #
+    #     result = self.service.documents().batchUpdate(
+    #         documentId=resolution.document_id, body={'requests': requests}).execute()
+    #
+    #     return result

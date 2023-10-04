@@ -5,19 +5,19 @@
             <toggle-all-resolution-permissions></toggle-all-resolution-permissions>
         </div>
 
-        <h3 class="card-title text-light">Manage individual permissions</h3>
-        <div class="card-body">
+        <!--        <h3 class="card-title text-light">Manage individual permissions</h3>-->
+        <!--        <div class="card-body">-->
 
-<!--            <resolution-permission-button :resolution-id="1"></resolution-permission-button>-->
 
-            <ul class="list-group list-group-flush">
-                <resolution-permission-item :resolution-id="r.id"
-                                            :title="r.title"
-                                            :number="r.formattedNumber"
-                                            :key="r.resolutionId"
-                                            v-for="r in resolutions"></resolution-permission-item>
-            </ul>
-        </div>
+        <!--            <ul class="list-group list-group-flush">-->
+        <!--                <resolution-item :resolution-id="r.id"-->
+        <!--                                 :title="r.title"-->
+        <!--                                 :number="r.formattedNumber"-->
+        <!--                                 :is-approved="r.is_approved"-->
+        <!--                                 :key="r.resolutionId"-->
+        <!--                                 v-for="r in resolutions"></resolution-item>-->
+        <!--            </ul>-->
+        <!--        </div>-->
 
     </div>
 </template>
@@ -26,25 +26,25 @@
 import plenaryMixin from "../../../mixins/plenaryMixin";
 import ToggleAllResolutionPermissions from "./toggle-all-resolution-permissions";
 import ResolutionPermissionButton from "./resolution-permission-button";
-import ResolutionPermissionItem from "./resolution-permission-item";
+import ResolutionItem from "./resolution-item";
 import * as routes from "../../../routes";
 import {isReadyToRock} from "../../../utilities/readiness.utilities";
 
 export default {
     name: "manager-permissions",
-    components: {ResolutionPermissionItem, ResolutionPermissionButton, ToggleAllResolutionPermissions},
+    components: {ResolutionItem, ResolutionPermissionButton, ToggleAllResolutionPermissions},
     props: [],
 
     mixins: [plenaryMixin],
 
     data: function () {
         return {
-            rez : []
+            rez: []
         }
     },
 
     asyncComputed: {
-        resolutions : {
+        resolutions: {
             get: function () {
                 if (!isReadyToRock(this.rez) || this.rez.length === 0) return []
                 return this.rez;
@@ -60,11 +60,11 @@ export default {
     computed: {},
 
     methods: {
-        handleToggleWritable : function(){
+        handleToggleWritable: function () {
             window.console.log('manager-permissions', 'handleToggleWritable', 29,);
         },
 
-        loadResolutions : function(){
+        loadResolutions: function () {
             //todo Need some way to restrict these to active ones
 
             let url = routes.secretary.resolutions.loadAll();
@@ -72,8 +72,8 @@ export default {
             window.console.log('resolutions', 'get', 124, url);
             let me = this;
             Vue.axios.get(url).then((response) => {
-             me.rez = response.data;
-              });
+                me.rez = response.data;
+            });
 
         }
 

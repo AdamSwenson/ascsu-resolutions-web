@@ -39,8 +39,8 @@ module.exports = {
     secretary: {
         agenda: {
             createAgenda: (plenary) => {
-                plenary_id = idify(plenary);
-                url = normalizedRouteRoot()
+                let plenary_id = idify(plenary);
+                let url = normalizedRouteRoot()
                 url += 'secretary/agenda/'
                 url += plenary_id;
                 return url
@@ -49,40 +49,40 @@ module.exports = {
 
         permissions: {
             getPermission: (resolution) => {
-                resolution_id = idify(resolution);
-                url = normalizedRouteRoot()
+                let resolution_id = idify(resolution);
+                let url = normalizedRouteRoot()
                 url += 'secretary/permissions/one/'
                 url += resolution_id;
                 return url
             },
 
             lockAll: (plenary) => {
-                plenary_id = idify(plenary);
-                url = normalizedRouteRoot()
+                let plenary_id = idify(plenary);
+                let url = normalizedRouteRoot()
                 url += 'secretary/permissions/all/lock/'
                 url += plenary_id;
                 return url
             },
 
             unlockAll: (plenary) => {
-                plenary_id = idify(plenary);
-                url = normalizedRouteRoot()
+                let plenary_id = idify(plenary);
+                let url = normalizedRouteRoot()
                 url += 'secretary/permissions/all/unlock/'
                 url += plenary_id;
                 return url
             },
 
             lockOne: (resolution) => {
-                resolution_id = idify(resolution);
-                url = normalizedRouteRoot()
+                let resolution_id = idify(resolution);
+                let url = normalizedRouteRoot()
                 url += 'secretary/permissions/one/lock/'
                 url += resolution_id;
                 return url
             },
 
             unlockOne: (resolution) => {
-                resolution_id = idify(resolution);
-                url = normalizedRouteRoot()
+                let resolution_id = idify(resolution);
+                let url = normalizedRouteRoot()
                 url += 'secretary/permissions/one/unlock/'
                 url += resolution_id;
                 return url
@@ -90,22 +90,57 @@ module.exports = {
 
         },
 
+        plenaries: {
+            loadAll : () => {
+            let url = normalizedRouteRoot();
+            url += 'plenaries';
+            return url;
+            }
+        },
+
         resolutions: {
             loadAll: () => {
-                url = normalizedRouteRoot()
+                let url = normalizedRouteRoot()
                 url += 'resolutions'
                 return url
             },
 
+            loadForPlenary : (plenary) => {
+            let plenaryId = idify(plenary);
+            let url = normalizedRouteRoot();
+            url += 'plenary/resolutions/';
+            url += plenaryId;
+            return url;
+            },
+
             enforceStyle: () => {
-                url = normalizedRouteRoot()
+                let url = normalizedRouteRoot()
                 url += 'secretary/styling'
                 return url
             },
 
             syncTitles: () => {
-                url = normalizedRouteRoot();
+                let url = normalizedRouteRoot();
                 url += 'secretary/sync';
+                return url;
+            },
+
+            approvalStatus : (resolution) => {
+                let resolution_id = idify(resolution);
+                let url = normalizedRouteRoot();
+                url += 'resolution/approval/';
+                url += resolution_id;
+                return url;
+
+            },
+
+            setAction : (plenary, resolution) => {
+                let plenary_id = idify(plenary);
+                let resolution_id = idify(resolution);
+                let url = normalizedRouteRoot();
+                url += 'resolution/action/';
+                url += plenary_id + '/'
+                url += resolution_id;
                 return url;
             }
         }

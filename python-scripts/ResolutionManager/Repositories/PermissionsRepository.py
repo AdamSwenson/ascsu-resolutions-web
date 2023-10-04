@@ -1,5 +1,3 @@
-
-
 from ResolutionManager.API.CredentialsManager import CredentialsManager
 
 from googleapiclient.discovery import build
@@ -12,12 +10,11 @@ class PermissionsRepository(object):
         self.cred_manager = CredentialsManager()
         self.service = build('drive', 'v3', credentials=self.cred_manager.creds)
 
-
     def make_all_in_folder_readonly(self, folder_id, reason='restricted during plenary'):
         content_restriction = {'readOnly': True, 'reason': reason}
 
-        response = self.service.files()\
-            .update(fileId=folder_id, body={'contentRestrictions': [content_restriction]}, fields="contentRestrictions")\
+        response = self.service.files() \
+            .update(fileId=folder_id, body={'contentRestrictions': [content_restriction]}, fields="contentRestrictions") \
             .execute()
         return response
 

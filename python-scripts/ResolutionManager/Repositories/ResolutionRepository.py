@@ -5,6 +5,7 @@ from ResolutionManager.Repositories.CommitteeRepository import CommitteeReposito
 
 import sys
 
+
 class ResolutionRepository(object):
     def __init__(self, dao):
         self.dao = dao
@@ -14,19 +15,31 @@ class ResolutionRepository(object):
         # resolution_id = int(resolution_id)
         # resolution_id =11
         result = self.dao.conn.execute(f"select * from ascsu.resolutions where id = {resolution_id}").fetchone()
+        r = Resolution(id=result.id,
+                       number=result.number,
+                       document_id=result.document_id,
+                       title=result.title,
+                       # waiver=result.waiver,
+                       committee=sponsor,
+                       cosponsors=cosponsors,
+                       status=result.status,
+                       # this has to come from junction table
+                       # is_first_reading=result.is_first_reading,
+                       # is_approved=result.is_approved)
+                       )
+        # Load the object representation from drive
+        if r.document_id is not None:
+            doc_repo = DocumentRepository()
+            r.document_obj = doc_repo.get_document(r.document_id)
 
-        # sys.stdout.write(str(resolution_id))
-
-        return Resolution(id=result.id, number=result.number, document_id=result.document_id, title=result.title, waiver=result.waiver, committee=sponsor, cosponsors=cosponsors)
-
+        return r
 
     def set_google_document_id(self, resolution, document_id):
         query = f"update ascsu.resolutions r set r.document_id = '{document_id}' where r.id={resolution.id}"
         sys.stdout.write(query)
         result = self.dao.conn.execute(query)
 
-
-    def get_named_ranges(self, document ):
+    def get_named_ranges(self, document):
         """
         Uses the named title range to find the start and end indexes in the document object
         :param document:
@@ -97,7 +110,8 @@ class ResolutionRepository(object):
 
     def load_all_resolutions(self):
         """Loads all resolutions with the title as it exists in drive """
-        # For now not going to sync the database, just use title from drive if can be retrieved and default to db version
+        # For now not going to sync the database,
+        # just use title from drive if can be retrieved and default to db version
         committee_repo = CommitteeRepository(self.dao)
         resolutions = []
         query = f"select id from ascsu.resolutions"
@@ -119,5 +133,44 @@ class ResolutionRepository(object):
             resolutions.append(rez)
         return resolutions
 
+    def load_all_resolutions_for_plenary(self, plenary):
+        """Loads all resolutions for plenary with the title
+        as it exists in drive """
+        # For now not going to sync the database,
+        # just use title from drive if can be retrieved and default to db version
+        committee_repo = CommitteeRepository(self.dao)
+        resolutions = []
+
+        query = f"select resolution_id, is_first_reading, is_waiver from ascsu.plenary_resolution where plenary_id = {plenary.id}"
+        results = self.dao.conn.execute(query)
 
 
+        # query = f"select id from ascsu.resolutions"
+        # results = self.dao.conn.execute(query)
+        for rid, first_reading, is_waiver in results:
+             # make sure casts correctly
+            first_reading = bool(first_reading)
+            # added AR-58
+            is_waiver = bool(is_waiver)
+
+            print((rid, is_waiver, first_reading))
+
+        # sys.stderr.write(f"{rid} {first_reading} {is_waiver}" )
+
+            # rid = r[0]
+            sponsor = committee_repo.load_sponsor(rid)
+            cosponsors = committee_repo.load_cosponsors(rid)
+            rez = self.load_resolution(rid, sponsor, cosponsors)
+            rez.is_first_reading = first_reading
+            rez.is_waiver = is_waiver
+            try:
+                doc_title = self.get_current_title_from_drive(rez)
+                if len(doc_title) > 0:
+                    rez.title = doc_title
+            except Exception as e:
+                print(e)
+                # todo Catch appropriately
+                pass
+
+            resolutions.append(rez)
+        return resolutions

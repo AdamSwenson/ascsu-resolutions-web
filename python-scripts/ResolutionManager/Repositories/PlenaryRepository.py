@@ -1,5 +1,6 @@
 from ResolutionManager.Models.Plenaries import Plenary
 
+
 class PlenaryRepository(object):
     def __init__(self, dao):
         self.dao = dao
@@ -27,22 +28,25 @@ class PlenaryRepository(object):
         return plenary
 
     def update_plenary_folder(self, plenary, plenary_folder_id):
-        self.dao.conn.execute(f"update ascsu.plenaries p set p.plenary_folder_id = '{plenary_folder_id}' where p.id = {plenary.id}")
+        self.dao.conn.execute(
+            f"update ascsu.plenaries p set p.plenary_folder_id = '{plenary_folder_id}' where p.id = {plenary.id}")
         plenary.plenary_folder_id = plenary_folder_id
         return plenary
 
-
     def update_plenary_first_reading_folder(self, plenary, first_reading_folder_id):
-        self.dao.conn.execute(f"update ascsu.plenaries p set p.first_reading_folder_id = '{first_reading_folder_id}' where p.id = {plenary.id}")
+        self.dao.conn.execute(
+            f"update ascsu.plenaries p set p.first_reading_folder_id = '{first_reading_folder_id}' where p.id = {plenary.id}")
         plenary.first_reading_folder_id = first_reading_folder_id
         return plenary
 
     def update_plenary_second_reading_folder(self, plenary, second_reading_folder_id):
-        self.dao.conn.execute(f"update ascsu.plenaries p set p.second_reading_folder_id = '{second_reading_folder_id}' where p.id = {plenary.id}")
+        self.dao.conn.execute(
+            f"update ascsu.plenaries p set p.second_reading_folder_id = '{second_reading_folder_id}' where p.id = {plenary.id}")
         plenary.second_reading_folder_id = second_reading_folder_id
         return plenary
 
     def update_feedback_folder(self, plenary, feedback_folder_id):
-        self.dao.conn.execute(f"update ascsu.plenaries p set p.feedback_folder_id = '{feedback_folder_id}' where p.id = {plenary.id}")
+        self.dao.conn.execute(
+            f"update ascsu.plenaries p set p.feedback_folder_id = '{feedback_folder_id}' where p.id = {plenary.id}")
         plenary.feedback_folder_id = feedback_folder_id
         return plenary
