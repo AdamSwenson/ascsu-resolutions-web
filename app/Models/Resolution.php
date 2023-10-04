@@ -20,35 +20,38 @@ class Resolution extends Model
 
     use HasFactory;
 
-    //acceptable statuses: null, approved, failed
 
-    protected $fillable = ['document_id',
+    //acceptable statuses: null, approved, failed
+    protected $fillable = [
+        'document_id',
         'title',
         'number',
-        'waiver',
         'status'
     ];
 
     protected $appends = [
 //        'is_first_reading', 'is_waiver',
-    'readingType',
+        'readingType',
         'url', 'formattedNumber', 'firstReadingPlenary', 'actionPlenaries'];
     protected $casts = ['is_approved' => 'boolean'];
 
 
-    public function setApproved(){
+    public function setApproved()
+    {
 //        $this->is_approved = true;
         $this->status = 'approved';
         $this->save();
     }
 
-    public function setFailed(){
+    public function setFailed()
+    {
 //        $this->is_approved = false;
         $this->status = 'failed';
         $this->save();
     }
 
-    public function setUnvoted(){
+    public function setUnvoted()
+    {
         $this->status = null;
         $this->save();
     }
@@ -58,7 +61,8 @@ class Resolution extends Model
      * @param Plenary $plenary
      * @return void
      */
-    public function setFirstReading(Plenary $plenary){
+    public function setFirstReading(Plenary $plenary)
+    {
 //        $this->status = 'first';
         //change plenary
         $this->plenaries()->updateExistingPivot($plenary->id, [
@@ -73,7 +77,8 @@ class Resolution extends Model
      * @param Plenary $plenary
      * @return void
      */
-    public function setAction(Plenary $plenary){
+    public function setAction(Plenary $plenary)
+    {
         //change plenary
         $this->plenaries()
             ->attach($plenary, ['is_first_reading' => false]);
@@ -82,7 +87,6 @@ class Resolution extends Model
 //        ]);
         $this->save();
     }
-
 
 
     /**
@@ -105,10 +109,11 @@ class Resolution extends Model
         return "AS-" . $this->number; // . '-';
     }
 
-    public function getReadingTypeAttribute(){
-        if(sizeof($this->actionPlenaries) > 0) return 'action';
+    public function getReadingTypeAttribute()
+    {
+        if (sizeof($this->actionPlenaries) > 0) return 'action';
 
-        if($this->isWaiver) return 'waiver';
+        if ($this->isWaiver) return 'waiver';
 
         return 'first';
     }
@@ -127,7 +132,7 @@ class Resolution extends Model
             ->wherePivot('is_first_reading', 1)
             ->wherePivot('is_waiver', 1)
             ->first();
-        return ! is_null($p);
+        return !is_null($p);
         return false;
 //        return $this->belongsToMany(Plenary::class)
 //            ->wherePivot('is_first_reading', 1)
@@ -169,7 +174,8 @@ class Resolution extends Model
      * Whether the resolution was approved
      * @return bool
      */
-    public function getIsApprovedAttribute(){
+    public function getIsApprovedAttribute()
+    {
         return $this->status === 'approved';
     }
 
@@ -177,7 +183,8 @@ class Resolution extends Model
      * Whether the resolution failed to pass
      * @return bool
      */
-    public function getIsFailedAttribute(){
+    public function getIsFailedAttribute()
+    {
         return $this->status === 'failed';
     }
 
@@ -185,10 +192,10 @@ class Resolution extends Model
      * Whether the resolution has not been voted upon
      * @return bool
      */
-    public function getIsUnvotedAttribute(){
+    public function getIsUnvotedAttribute()
+    {
         return is_null($this->status);
     }
-
 
 
     public function getUrlAttribute()

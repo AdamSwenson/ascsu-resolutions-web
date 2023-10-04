@@ -155,6 +155,8 @@ class AgendaRepository(object):
         # For now not going to sync the database, just use title from drive if can be retrieved and default to db version
         resolutions = self.resolution_repo.load_all_resolutions_for_plenary(plenary)
 
+        # print([(r.is_first_reading, r.is_waiver) for r in resolutions])
+
         # resolutions = self.resolution_repo.load_all_resolutions()
         first_readings = [r for r in resolutions if r.is_first_reading is True and r.is_waiver is False]
         # todo Once figure out how committees indicate ready for second reading, remove waiver check
@@ -253,7 +255,7 @@ class AgendaRepository(object):
         #     except Exception:
         #         pass
 
-        print(requests)
+        # print(requests)
 
         result = self.service.documents().batchUpdate(documentId=plenary.agenda_id,
                                                       body={'requests': requests}).execute()

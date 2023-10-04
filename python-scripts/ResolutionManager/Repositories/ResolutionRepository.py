@@ -144,15 +144,18 @@ class ResolutionRepository(object):
         query = f"select resolution_id, is_first_reading, is_waiver from ascsu.plenary_resolution where plenary_id = {plenary.id}"
         results = self.dao.conn.execute(query)
 
+
         # query = f"select id from ascsu.resolutions"
         # results = self.dao.conn.execute(query)
         for rid, first_reading, is_waiver in results:
-            # make sure casts correctly
+             # make sure casts correctly
             first_reading = bool(first_reading)
             # added AR-58
-            is_waiver = bool(first_reading)
+            is_waiver = bool(is_waiver)
 
-            # sys.stderr.write(f"{rid} {first_reading} {is_waiver}" )
+            print((rid, is_waiver, first_reading))
+
+        # sys.stderr.write(f"{rid} {first_reading} {is_waiver}" )
 
             # rid = r[0]
             sponsor = committee_repo.load_sponsor(rid)
