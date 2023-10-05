@@ -4,7 +4,9 @@
 
 
         <div class="card-body">
-            <button class="btn btn-primary" v-on:click="handleCreatePublic">Create public version</button>
+            <working-spinner v-if="isWorking"></working-spinner>
+            <button v-else
+                    class="btn btn-primary" v-on:click="handleCreatePublic">Create public version</button>
 
         </div>
         <div class="card-body " v-show="showUrl">
@@ -19,9 +21,10 @@
 </template>
 
 <script>
+import WorkingSpinner from "../common/working-spinner";
 export default {
     name: "public-folder-creation",
-
+    components: {WorkingSpinner},
     props: ['plenaryId'],
 
     mixins: [],
@@ -29,7 +32,8 @@ export default {
     data: function () {
         return {
             // plenary_id: 1,
-            publicUrl: null
+            publicUrl: null,
+            isWorking : false
         }
     },
 
@@ -47,9 +51,11 @@ export default {
             let url = window.routeRoot + '/secretary/public/' + this.plenaryId;
             window.console.log('committee', 'createPlenaries', 124, url);
             let me = this;
+            this.isWorking = true;
             Vue.axios.post(url).then((response) => {
                 window.console.log('committee', 'response', 126, response);
                 me.url = response.data.publicUrl;
+                me.isWorking = false;
             });
 
 

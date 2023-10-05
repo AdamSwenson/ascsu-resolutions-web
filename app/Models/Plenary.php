@@ -11,8 +11,11 @@ class Plenary extends Model
     const URL_BASE = 'https://drive.google.com/drive/folders/';
     use HasFactory;
 
-    protected $fillable = ['first_reading_folder_id',
+    protected $fillable = [
+        'agenda_id',
+        'first_reading_folder_id',
         'feedback_folder_id',
+        'is_current',
         'plenary_folder_id',
         'second_reading_folder_id',
         'thursday_date'];
@@ -35,6 +38,11 @@ protected $appends = ['publicUrl', 'plenaryUrl', 'plenaryName'];
     return $d->format('Y F');
     }
 
+    public function resolutions(){
+        return $this->belongsToMany(Resolution::class)->withPivot(['is_first_reading', 'is_waiver']);
+
+//        return $this->hasMany(Resolution::class);
+    }
 
 //self.second_reading_folder_id = second_reading_folder_id
 //self.feedback_folder_id = feedback_folder_id

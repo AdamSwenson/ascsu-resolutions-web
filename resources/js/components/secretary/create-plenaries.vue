@@ -11,7 +11,9 @@
 
     <div class="card-body">
         <p class="card-text text-info">This will create a new plenary meeting with the appropriate folders in the drive</p>
-            <button class="btn btn-danger" v-on:click="handleCreateFolders">Create folders</button>
+        <working-spinner v-if="isWorking"></working-spinner>
+        <button v-else
+                class="btn btn-danger" v-on:click="handleCreateFolders">Create folders</button>
         </div>
 
     <div class="card-body " v-show="showUrl">
@@ -27,10 +29,11 @@
 
 <script>
 import plenaryMixin from '../../mixins/plenaryMixin'
+import WorkingSpinner from "../common/working-spinner";
 
 export default {
     name: "create-plenaries",
-
+    components: {WorkingSpinner},
     props: [],
 
     mixins: [plenaryMixin],
@@ -38,7 +41,8 @@ export default {
     data: function () {
         return {
             thursdayDate: null,
-            url : null
+            url : null,
+            isWorking : false
         }
     },
 
@@ -55,10 +59,12 @@ export default {
             window.console.log('committee', 'createPlenaries', 124, this.$data);
             let url = window.routeRoot + '/secretary/folders'
             let me = this;
+            this.isWorking = true;
             let data = {'thursday_date' : this.thursdayDate};
             Vue.axios.post(url, data).then((response) => {
                 window.console.log('committee', 'response', 126, response);
                 me.url = response.data.plenaryUrl;
+                me.isWorking = false;
             });
 
         },

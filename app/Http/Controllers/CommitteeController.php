@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ResolutionRequest;
+use App\Exceptions\PythonScriptError;
 use App\Models\Committee;
 use App\Models\Plenary;
 use App\Models\Resolution;
@@ -29,29 +30,34 @@ class CommitteeController extends Controller
 //        $this->middleware('auth');
         $this->command = config('app.pythonBin');
         $this->executablePath = config('app.pythonScript');
-
-
     }
 
     public function getCommitteePage()
     {
         $plenary = Plenary::where('is_current', true)->first();
 
-        // Return the page with student and activity data embedded
+        // todo Add committee information
         $data = [
             'data' => [
                 'url' => url(),
                 'plenaryId' => $plenary->id,
                 'plenary' => $plenary
-//                'user' => $student,
-//                'activity' => $activity,
             ],
-//            'name' => $activity->name
+
         ];
 
         return view('committee', $data);
 
+    }
 
+    public function diagnostics()
+    {
+        $result = $this->runScript();
+
+        if ($result->successful()) {
+            return $result->output();
+        }
+        return $result->errorOutput();
     }
 
     public function addSponsor(Resolution $resolution, Request $request)
@@ -66,8 +72,10 @@ class CommitteeController extends Controller
     public function addCosponsors(Resolution $resolution, Request $request)
     {
         foreach ($request->cosponsors as $cosponsor) {
-            $c = Committee::where('name', $cosponsor)->first();
-            $resolution->committees()->attach($c, ['is_cosponsor' => true]);
+            if ($resolution->sponsor->name !== $cosponsor) {
+                $c = Committee::where('name', $cosponsor)->first();
+                $resolution->committees()->attach($c, ['is_cosponsor' => true]);
+            }
         }
         $resolution->save();
         return $resolution;
@@ -81,75 +89,107 @@ class CommitteeController extends Controller
 
 
     public function recordResolution(ResolutionRequest $request)
+    /**
+     * Creates a new resolution for first reading at the provided plenary
+     * @param Plenary $plenary
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|string
+     */
+    public function recordResolution(Plenary $plenary, Request $request)
     {
-        $plenary = Plenary::where('id', 1)->first();
         $request->merge(['number' => $this->getNextResolutionNumber()]);
         $resolution = Resolution::create($request->all());
+
+        //add committees
         $resolution = $this->addSponsor($resolution, $request);
         $resolution = $this->addCosponsors($resolution, $request);
 
-        $result = $this->createResolutionInDriveNew($plenary, $resolution);
-//        dd($result);
-//        $result = $this->createResolutionInDrive($plenary, $resolution);
+        //set as first reading for plenary
+        $resolution->plenaries()->attach($plenary,
+            ['is_first_reading' => true,
+                'is_waiver' => $request->waiver
+            ]);
 
-//        $result = $this->runScript();
-        //dd($result);
-        $resolution->refresh();
-        return response()->json($resolution);
-    }
+//        $result = $this->createResolutionInDriveNew($plenary, $resolution);
 
-    public function createResolutionInDriveNew(Plenary $plenary, Resolution $resolution)
-    {
-        $command = config('app.pythonBin');
-        $command .= " web_create_resolution_from_template.py " . $plenary->id . " " . $resolution->id;
-        $executablePath = config('app.pythonScript');
-        $result = Process::path($executablePath)
-            ->run($command);
-
-        if ($result->successful()) {
-            return $result->output();
+        try{
+            //Actually create the document in drive
+            $scriptfile = 'web_create_resolution_from_template.py';
+            $this->handleScript($scriptfile, [$plenary->id, $resolution->id]);
+            $resolution->refresh();
+            return response()->json($resolution);
+        }catch (PythonScriptError $error){
+            return $error->getMessage();
         }
-        return $result->errorOutput();
+
+//        if ($result->successful()) {
+//            $resolution->refresh();
+//            return response()->json($resolution);
+//        }
+//        return $result->errorOutput();
+
     }
 
-    public function runScript()
-    {
-//        $result = Process::run('pwd');
-//        $result = Process::path('../../ResolutionManager/ResolutionManager/executables')
+//    public function createResolutionInDriveNew(Plenary $plenary, Resolution $resolution)
+//    {
+//
+//        try{
+//            $scriptfile = 'web_create_resolution_from_template.py';
+//            $result = $this->handleScript($scriptfile, $plenary->id);
+//            return response()->json($result);
+//
+//        }catch (PythonScriptError $error){
+//            return $error->getMessage();
+//        }
+
+//        $command = config('app.pythonBin');
+//        $executablePath = config('app.pythonScript');
+//
+//        $command .= " web_create_resolution_from_template.py " . $plenary->id . " " . $resolution->id;
+//         $result = Process::path($executablePath)
+//            ->run($command);
+//
+//        if ($result->successful()) {
+//            return $result;
+//        }
+//        return $result->errorOutput();
+//    }
+
+//    public function runScript()
+//    {
+////        $executablePath = config('app.pythonScript');
+//        $executablePath = config('app.pythonBin');
+//
+//
+////        $result = Process::run('pwd');
+////        $result = Process::path('../../ResolutionManager/ResolutionManager/executables')
+////            ->run('ls');
+//        $result = Process::path($executablePath)
+////            ->run('ls');
 //            ->run('ls');
-        $result = Process::path('../python/executables')
-//            ->run('ls');
-            ->run('ls');
-//return $result->errorOutput();
-//        ->run('PYTHONPATH=/Users/ars62917/Dropbox/ResolutionManager/ResolutionManager python3 test.py 2');
-//            ->run('PYTHONPATH=/Users/ars62917/Dropbox/ResolutionManager/ResolutionManager python3 test.py 2');
-        return $result->output();
-    }
-
-
-
-
-    public function createResolutionInDrive(Plenary $plenary, Resolution $resolution){
-//        $command = "PYTHONPATH=$(../../ResolutionManager/ResolutionManager) python3 test.py " . $plenary->id . " " . $resolution->id;
-        $command = "../../ResolutionManager/rezzies/bin/python";
-
-        $command .= " web_create_resolution_from_template.py " . $plenary->id . " " . $resolution->id;
-//        $command = "python3 web_create_resolution_from_template.py " . $plenary->id . " " . $resolution->id;
-//        $command = "python3 test.py " . $plenary->id;
-        $executablePath = '../../ResolutionManager/executables';
-
-//        $executablePath = '../../ResolutionManager/ResolutionManager/executables';
-
-//        $executablePath = '../../ResolutionManager/ResolutionManager/executables';
-        $result = Process::path($executablePath)
-            ->run($command);
-
-        if($result->successful()){
-            return $result->output();
-        }
-//        dd($result->output());
-        return $result->errorOutput();
-
-    }
+////return $result->errorOutput();
+////        ->run('PYTHONPATH=/Users/ars62917/Dropbox/ResolutionManager/ResolutionManager python3 test.py 2');
+////            ->run('PYTHONPATH=/Users/ars62917/Dropbox/ResolutionManager/ResolutionManager python3 test.py 2');
+//        return $result;
+//    }
+//
+//
+//    public function createResolutionInDrive(Plenary $plenary, Resolution $resolution)
+//    {
+//        $command = config('app.pythonBin');
+//        $executablePath = config('app.pythonScript');
+//
+//        $command .= " web_create_resolution_from_template.py " . $plenary->id . " " . $resolution->id;
+//
+//        $result = Process::path($executablePath)
+//            ->run($command);
+//
+//        if ($result->successful()) {
+//            return $result->output();
+//        }
+////        dd($result->output());
+//        return $result->errorOutput();
+//
+//    }
 
 }

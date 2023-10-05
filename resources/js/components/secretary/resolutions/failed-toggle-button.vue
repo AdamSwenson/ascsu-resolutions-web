@@ -1,0 +1,75 @@
+<template>
+    <a href="#"
+       class="failed-toggle-button  btn btn-sm"
+       v-bind:class="styling"
+       v-on:click="handleClick"
+    >{{ label }}</a>
+</template>
+
+<script>
+
+import {isReadyToRock} from "../../../utilities/readiness.utilities";
+import * as routes from "../../../routes";
+import ResolutionMixin from "../../../mixins/resolutionMixin";
+
+/**
+ * This handles the failed status of the resolution.
+ * Todo Currently refreshes the page. Should update property
+ */
+export default {
+    name: "failed-toggle-button",
+
+    props: ['resolutionId'],
+
+    mixins: [ResolutionMixin],
+
+    data: function () {
+        return {
+            unapprovedLabel: 'Mark failed',
+            approvedLabel: 'Remove failed',
+            approvedStyle: 'btn-primary',
+            unapprovedStyle: 'btn-outline-primary'
+        }
+    },
+
+    asyncComputed: {
+        label: function () {
+            if (!isReadyToRock(this.resolution)) return this.unapprovedLabel;
+            if (this.isFailed) return this.approvedLabel;
+            return this.unapprovedLabel;
+        },
+
+        styling: function () {
+            if (!isReadyToRock(this.resolution)) return this.unapprovedStyle;
+            if (this.isFailed) return this.approvedStyle;
+            return this.unapprovedStyle;
+        }
+    },
+
+
+    computed: {},
+
+    methods: {
+
+        handleClick: function () {
+            //Click when approved so un mark
+            if(this.isFailed){
+                this.$store.dispatch('markResolutionUnvoted', this.resolution)
+            }
+
+            if(! this.isFailed){
+                this.$store.dispatch('markResolutionFailed', this.resolution);
+            }
+
+        },
+
+    },
+
+
+
+}
+</script>
+
+<style scoped>
+
+</style>
