@@ -7,6 +7,7 @@ use App\Exceptions\PythonScriptError;
 use App\Models\Committee;
 use App\Models\Plenary;
 use App\Models\Resolution;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Process;
@@ -88,14 +89,13 @@ class CommitteeController extends Controller
     }
 
 
-    public function recordResolution(ResolutionRequest $request)
     /**
      * Creates a new resolution for first reading at the provided plenary
      * @param Plenary $plenary
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse|string
+     * @param ResolutionRequest $request
+     * @return JsonResponse|string
      */
-    public function recordResolution(Plenary $plenary, Request $request)
+    public function recordResolution(Plenary $plenary, ResolutionRequest $request)
     {
         $request->merge(['number' => $this->getNextResolutionNumber()]);
         $resolution = Resolution::create($request->all());

@@ -2324,38 +2324,59 @@ __webpack_require__.r(__webpack_exports__);
       var me = this;
       this.isWorking = true;
       Vue.axios.post(url, this.$data).then(function (response) {
-        me.handleError(response);
+        window.console.log('committee', 'response', 126, response);
+        //This is needed in case we set error previously
+        me.$store.commit('resetError');
         me.showResult = true;
         me.isWorking = false;
-        window.console.log('committee', 'response', 126, response);
+        me.showError = false;
         me.url = response.data.url;
-      })["catch"](function (err) {
-        //todo this is a very dumb and brittle way to do it
-        var r = {
-          data: {
-            document_id: null
-          }
-        };
-        me.handleError(r);
-        me.showResult = true;
+      })["catch"](function (error) {
+        // error handling
+        if (error.response) {
+          me.showError = true;
+          me.isWorking = false;
+          //don't show the result so that can still retry
+          me.showResult = false;
+          me.$store.dispatch('showError', error.response.data);
+        }
       });
+
+      //     .catch((err) => {
+      //     // window.console.log('resolution-creation', 'err', 147, err);
+      //     //todo this is a very dumb and brittle way to do it
+      //     let r = {
+      //         data: {
+      //             document_id: null
+      //         }
+      //     };
+      //     // me.handleError(r);
+      //     me.showResult = true;
+      //
+      // });
     },
+
     handleSponsor: function handleSponsor(v) {
       window.console.log('committee', 'handleSponsor', 220, v);
       this.sponsor = v;
     },
-    /**
-     * Both validates the server response and shows the error
-     * @param response
-     */
-    handleError: function handleError(response) {
-      if (!_.isNull(response.errors)) {
-        window.console.log('resolution-creation', 'handleError', 170);
-      }
-      if (_.isNull(response.data.document_id)) {
-        this.showError = true;
-      }
-    },
+    // /**
+    //  * Both validates the server response and shows the error
+    //  * @param response
+    //  */
+    // handleError: function (response) {
+    //     window.console.log('resolution-creation', 'handleError', 171, response);
+    //     // if(!_.isNull(response.error)){
+    //     this.$store.dispatch('showError', response.message);
+    //     this.showError = true;
+    //
+    //     window.console.log('resolution-creation', 'handleError', 170,);
+    //     // }
+    //     // if (_.isNull(response.data.document_id)) {
+    //     //     this.showError = true;
+    //     // }
+    // },
+
     handleCosponsor: function handleCosponsor(v) {
       //if already in, remove
       var idx = this.cosponsors.indexOf(v);
@@ -2466,14 +2487,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utilities/readiness.utilities */ "./resources/js/utilities/readiness.utilities.js");
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "error-alert",
   props: [],
   mixins: [],
   data: function data() {
-    return {};
+    return {
+      defaultMessage: 'Something has gone wrong. Please try again.'
+    };
   },
-  asyncComputed: {},
+  asyncComputed: {
+    showError: function showError() {
+      return (0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_0__.isReadyToRock)(this.currentError);
+    },
+    currentError: function currentError() {
+      return this.$store.getters.getCurrentError;
+    },
+    errorMessage: function errorMessage() {
+      if (!this.showError || !(0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_0__.isReadyToRock)(this.currentError)) return this.defaultMessage;
+      return this.currentError.message;
+    }
+  },
   computed: {},
   methods: {}
 });
@@ -4036,7 +4072,7 @@ var render = function render() {
     staticClass: "resolution-creation"
   }, [_c("div", {
     staticClass: "row top-spacer"
-  }), _vm._v(" "), _vm.showError ? _c("error-alert") : _vm._e(), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _c("error-alert"), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("div", {
     staticClass: "col-lg-2"
@@ -4269,7 +4305,7 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", {
+  return _vm.showError ? _c("div", {
     staticClass: "error-alert alert alert-danger d-flex align-items-center",
     attrs: {
       role: "alert"
@@ -4286,7 +4322,7 @@ var render = function render() {
     attrs: {
       "xlink:href": "#exclamation-triangle-fill"
     }
-  })]), _vm._v(" "), _c("div", [_vm._v("\n            Something has gone wrong. Please try again.\n        ")])]);
+  })]), _vm._v(" "), _c("div", [_vm._v("\n        " + _vm._s(_vm.errorMessage) + "\n    ")])]) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -5721,8 +5757,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./resources/js/store/actions.js");
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_actions__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getters */ "./resources/js/store/getters.js");
@@ -5731,9 +5767,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mutations__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_mutations__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _state__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./state */ "./resources/js/store/state.js");
 /* harmony import */ var _state__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_state__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _modules_plenaries__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/plenaries */ "./resources/js/store/modules/plenaries.js");
-/* harmony import */ var _modules_resolutions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/resolutions */ "./resources/js/store/modules/resolutions.js");
-/* harmony import */ var _modules_startup__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/startup */ "./resources/js/store/modules/startup.js");
+/* harmony import */ var _modules_errors__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/errors */ "./resources/js/store/modules/errors.js");
+/* harmony import */ var _modules_plenaries__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/plenaries */ "./resources/js/store/modules/plenaries.js");
+/* harmony import */ var _modules_resolutions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/resolutions */ "./resources/js/store/modules/resolutions.js");
+/* harmony import */ var _modules_startup__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/startup */ "./resources/js/store/modules/startup.js");
 /**
  * Created by adam on 2020-07-13.
  */
@@ -5751,7 +5788,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_7__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_8__["default"]);
+
+vue__WEBPACK_IMPORTED_MODULE_8__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_9__["default"]);
 
 /**
  * This subscribes the api package which
@@ -5763,7 +5801,7 @@ vue__WEBPACK_IMPORTED_MODULE_7__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_8_
 
 // const debug = process.env.NODE_ENV !== 'production';
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_8__["default"].Store({
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_9__["default"].Store({
   // strict: debug, //letting check determine whether to turn on or off. should be off for production to avoid performance hit
 
   /**
@@ -5779,13 +5817,88 @@ vue__WEBPACK_IMPORTED_MODULE_7__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_8_
   //[ apiPlugin, websocketPlugin ],
 
   modules: {
-    plenaries: _modules_plenaries__WEBPACK_IMPORTED_MODULE_4__["default"],
-    resolutions: _modules_resolutions__WEBPACK_IMPORTED_MODULE_5__["default"],
-    startup: _modules_startup__WEBPACK_IMPORTED_MODULE_6__["default"]
+    errors: _modules_errors__WEBPACK_IMPORTED_MODULE_4__["default"],
+    plenaries: _modules_plenaries__WEBPACK_IMPORTED_MODULE_5__["default"],
+    resolutions: _modules_resolutions__WEBPACK_IMPORTED_MODULE_6__["default"],
+    startup: _modules_startup__WEBPACK_IMPORTED_MODULE_7__["default"]
   }
 
   // plugins: debug ? [createLogger()] : []
 }));
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/errors.js":
+/*!**********************************************!*\
+  !*** ./resources/js/store/modules/errors.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+var state = {
+  currentError: null
+  //things: []
+};
+
+var mutations = {
+  addError: function addError(state, error) {
+    state.currentError = error;
+  },
+  resetError: function resetError(state) {
+    state.currentError = null;
+  }
+  /*
+  *   addThing: (state, thing) => {
+  *        state.things.push(thing);
+  *    }
+  */
+};
+
+var actions = {
+  /*
+  *    doThing({dispatch, commit, getters}, thingParam) {
+  *        return new Promise(((resolve, reject) => {
+  *        }));
+  *    },
+  */
+  showError: function showError(_ref, error) {
+    var dispatch = _ref.dispatch,
+      commit = _ref.commit,
+      getters = _ref.getters;
+    return new Promise(function (resolve, reject) {
+      window.console.log('errors', 'error', 31, error);
+      commit('addError', error);
+      return resolve();
+    });
+  }
+};
+
+/**
+ *
+ *    getThingViaId: (state) => (thingId) => {
+ *        return state.things.filter(function (c) {
+ *            return c.thing_id === thingId;
+ *        })
+ *    },
+ *
+ *
+ *    getThing: (state, getters) => {}
+ */
+var getters = {
+  getCurrentError: function getCurrentError(state) {
+    return state.currentError;
+  }
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  actions: actions,
+  getters: getters,
+  mutations: mutations,
+  state: state
+});
 
 /***/ }),
 
