@@ -115,20 +115,9 @@ export default {
     },
 
     asyncComputed: {
-        // showResult: function () {
-        //     return !_.isNull(this.title) && !_.isNull(this.url)
-        // }
     },
 
     computed: {
-        // wavier: {
-        //     get: function () {
-        //         return this.waiver_requested;
-        //     },
-        //     set: function (v) {
-        //         this.waiver_requested = v;
-        //     }
-        // }
     },
 
     methods: {
@@ -158,41 +147,12 @@ export default {
                 }
             });
 
-            //     .catch((err) => {
-            //     // window.console.log('resolution-creation', 'err', 147, err);
-            //     //todo this is a very dumb and brittle way to do it
-            //     let r = {
-            //         data: {
-            //             document_id: null
-            //         }
-            //     };
-            //     // me.handleError(r);
-            //     me.showResult = true;
-            //
-            // });
         },
 
         handleSponsor: function (v) {
             window.console.log('committee', 'handleSponsor', 220, v);
             this.sponsor = v;
         },
-
-        // /**
-        //  * Both validates the server response and shows the error
-        //  * @param response
-        //  */
-        // handleError: function (response) {
-        //     window.console.log('resolution-creation', 'handleError', 171, response);
-        //     // if(!_.isNull(response.error)){
-        //     this.$store.dispatch('showError', response.message);
-        //     this.showError = true;
-        //
-        //     window.console.log('resolution-creation', 'handleError', 170,);
-        //     // }
-        //     // if (_.isNull(response.data.document_id)) {
-        //     //     this.showError = true;
-        //     // }
-        // },
 
         handleCosponsor: function (v) {
             //if already in, remove
