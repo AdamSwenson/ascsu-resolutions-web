@@ -7,3 +7,5 @@ This application is for internal use by the Academic Senate of the California St
 ## What data is collected
 
 This application does not collect any data about its users.
+
+
