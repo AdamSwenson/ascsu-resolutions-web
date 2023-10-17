@@ -22,7 +22,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome')->with(['data' => ['plenaryId' => null, 'plenary' => null]]);
 });
-
+Route::get('/privacy', function(){
+   return view('privacy')->with(['data' => ['plenaryId' => null, 'plenary' => null]]);
+});
 
 Route::get('/committee', [CommitteeController::class, 'getCommitteePage']);
 Route::post('/resolution/action/{plenary}/{resolution}', [ResolutionController::class, 'setAction']);
