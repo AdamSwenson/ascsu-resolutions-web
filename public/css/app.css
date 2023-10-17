@@ -11986,6 +11986,14 @@ textarea.form-control-lg {
   margin-top: 500px;
 }
 
+.home-top-spacer {
+  padding-top: 300px;
+}
+
+.home-bottom-spacer {
+  padding-bottom: 1000px;
+}
+
 .top-spacer {
   margin-top: 20px;
 }

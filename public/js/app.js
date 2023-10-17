@@ -2302,21 +2302,8 @@ __webpack_require__.r(__webpack_exports__);
       url: null
     };
   },
-  asyncComputed: {
-    // showResult: function () {
-    //     return !_.isNull(this.title) && !_.isNull(this.url)
-    // }
-  },
-  computed: {
-    // wavier: {
-    //     get: function () {
-    //         return this.waiver_requested;
-    //     },
-    //     set: function (v) {
-    //         this.waiver_requested = v;
-    //     }
-    // }
-  },
+  asyncComputed: {},
+  computed: {},
   methods: {
     createRezzie: function createRezzie() {
       window.console.log('committee', 'createRezzie', 124, this.$data);
@@ -2341,42 +2328,11 @@ __webpack_require__.r(__webpack_exports__);
           me.$store.dispatch('showError', error.response.data);
         }
       });
-
-      //     .catch((err) => {
-      //     // window.console.log('resolution-creation', 'err', 147, err);
-      //     //todo this is a very dumb and brittle way to do it
-      //     let r = {
-      //         data: {
-      //             document_id: null
-      //         }
-      //     };
-      //     // me.handleError(r);
-      //     me.showResult = true;
-      //
-      // });
     },
-
     handleSponsor: function handleSponsor(v) {
       window.console.log('committee', 'handleSponsor', 220, v);
       this.sponsor = v;
     },
-    // /**
-    //  * Both validates the server response and shows the error
-    //  * @param response
-    //  */
-    // handleError: function (response) {
-    //     window.console.log('resolution-creation', 'handleError', 171, response);
-    //     // if(!_.isNull(response.error)){
-    //     this.$store.dispatch('showError', response.message);
-    //     this.showError = true;
-    //
-    //     window.console.log('resolution-creation', 'handleError', 170,);
-    //     // }
-    //     // if (_.isNull(response.data.document_id)) {
-    //     //     this.showError = true;
-    //     // }
-    // },
-
     handleCosponsor: function handleCosponsor(v) {
       //if already in, remove
       var idx = this.cosponsors.indexOf(v);
@@ -5342,6 +5298,9 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('multiselect', (vue_multis
 // Top level components
 vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('secretary', (__webpack_require__(/*! ./components/secretary/secretary.vue */ "./resources/js/components/secretary/secretary.vue")["default"]));
 vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('commitee', (__webpack_require__(/*! ./components/committee/committee.vue */ "./resources/js/components/committee/committee.vue")["default"]));
+
+// Vue.component('home-page-footer', require('./components/layout/page-footer.vue').default);
+
 // Vue.component('page-navbar', require('./components/layout/navbar').default);
 
 /**
