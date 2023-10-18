@@ -3,7 +3,8 @@
 
         <div class="row top-spacer"></div>
 
-        <error-alert v-if="showError"></error-alert>
+        <error-alert></error-alert>
+
         <div class="row">
             <div class="col-lg-2">
             </div>
@@ -114,20 +115,9 @@ export default {
     },
 
     asyncComputed: {
-        // showResult: function () {
-        //     return !_.isNull(this.title) && !_.isNull(this.url)
-        // }
     },
 
     computed: {
-        // wavier: {
-        //     get: function () {
-        //         return this.waiver_requested;
-        //     },
-        //     set: function (v) {
-        //         this.waiver_requested = v;
-        //     }
-        // }
     },
 
     methods: {
@@ -138,37 +128,30 @@ export default {
             this.isWorking = true;
             Vue.axios.post(url, this.$data)
                 .then((response) => {
-                    me.handleError(response);
+                    window.console.log('committee', 'response', 126, response);
+                    //This is needed in case we set error previously
+                    me.$store.commit('resetError');
                     me.showResult = true;
                     me.isWorking = false;
-                    window.console.log('committee', 'response', 126, response);
+                    me.showError = false;
                     me.url = response.data.url;
-                }).catch((err) => {
-                //todo this is a very dumb and brittle way to do it
-                let r = {
-                    data: {
-                        document_id: null
-                    }
-                };
-                me.handleError(r);
-                me.showResult = true;
+                }).catch(function (error) {
+                // error handling
+                if (error.response) {
+                    me.showError = true;
+                    me.isWorking = false;
+                    //don't show the result so that can still retry
+                    me.showResult = false;
 
+                    me.$store.dispatch('showError', error.response.data);
+                }
             });
+
         },
 
         handleSponsor: function (v) {
             window.console.log('committee', 'handleSponsor', 220, v);
             this.sponsor = v;
-        },
-
-        /**
-         * Both validates the server response and shows the error
-         * @param response
-         */
-        handleError: function (response) {
-            if (_.isNull(response.data.document_id)) {
-                this.showError = true;
-            }
         },
 
         handleCosponsor: function (v) {
