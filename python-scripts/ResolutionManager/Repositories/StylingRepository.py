@@ -280,17 +280,19 @@ class StylingRepository(object):
         # endIndex = self.get_end_index(document)
 
         # self.style_repo.force_font(resolution, startIndex, endIndex)
-        self.style_repo.force_font_on_resolution(resolution)
-        self.style_repo.double_space_resolution(resolution)
-        self.style_repo.single_space_distribution_list(resolution)
-        self.style_repo.single_space_group_name(resolution)
+        self.force_font_on_resolution(resolution)
+        self.double_space_resolution(resolution)
+        self.single_space_distribution_list(resolution)
+        self.single_space_group_name(resolution)
 
     def enforce_styling_on_title(self, resolution: Resolution, revision_id=None):
         """
         Ensures title is:
             Single spaced
             Bold
-            Title cased
+            todo Title cased
+
+        @ticket: AR-38
 
         todo It does not seem possible to force to title case
         """
