@@ -29,14 +29,14 @@
         </div>
 
         <div class="home-bottom-spacer"></div>
-        {{--<home-page-footer></home-page-footer>--}}
+{{--        <page-footer></page-footer>--}}
     </div>
 
 
     <script>
-        import PageFooter from "../js/components/layout/page-footer";
-
-        export default {
-            components: {PageFooter}
-        }
+        // import PageFooter from "../js/components/layout/page-footer";
+        //
+        // export default {
+        //     components: {PageFooter}
+        // }
     </script>

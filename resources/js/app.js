@@ -78,8 +78,7 @@ Vue.component('multiselect', Multiselect)
 // Top level components
 Vue.component('secretary', require('./components/secretary/secretary.vue').default);
 Vue.component('commitee', require('./components/committee/committee.vue').default);
-
-// Vue.component('home-page-footer', require('./components/layout/page-footer.vue').default);
+// Vue.component('page-footer', require('./components/layout/page-footer.vue').default);
 
 // Vue.component('page-navbar', require('./components/layout/navbar').default);
 

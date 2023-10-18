@@ -5298,8 +5298,7 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('multiselect', (vue_multis
 // Top level components
 vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('secretary', (__webpack_require__(/*! ./components/secretary/secretary.vue */ "./resources/js/components/secretary/secretary.vue")["default"]));
 vue__WEBPACK_IMPORTED_MODULE_0__["default"].component('commitee', (__webpack_require__(/*! ./components/committee/committee.vue */ "./resources/js/components/committee/committee.vue")["default"]));
-
-// Vue.component('home-page-footer', require('./components/layout/page-footer.vue').default);
+// Vue.component('page-footer', require('./components/layout/page-footer.vue').default);
 
 // Vue.component('page-navbar', require('./components/layout/navbar').default);
 
