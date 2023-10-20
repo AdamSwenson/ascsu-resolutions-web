@@ -45,6 +45,11 @@ class Resolution(object):
             return body[len(body) - 1]['endIndex']
 
     @property
+    def is_action(self):
+        """Returns the inverse of is_first_reading """
+        return not self.is_first_reading
+
+    @property
     def waiver(self):
         return self.is_waiver == 1 or self.is_waiver is True
 
