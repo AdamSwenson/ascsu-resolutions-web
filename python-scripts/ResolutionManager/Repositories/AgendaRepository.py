@@ -207,55 +207,15 @@ class AgendaRepository(object):
         for f in first_readings:
             try:
                 fr = self.make_resolution_list_item_requests(f)
-                requests.extend(fr)
+
+                # todo hotfix
+                # problem is here with the first readings
+
+                # requests.extend(fr)
             except Exception:
                 pass
 
-        #
-        # for r in resolutions:
-        #     try:
-        #         text = f"{r.agenda_item} \n"
-        #         requests.append({
-        #             'insertText': {
-        #                 'location': {
-        #                     'index': idx,
-        #                 },
-        #                 'text': text,
-        #             }
-        #         })
-        #         idx += len(text)
-        #
-        #         url_text = f"{r.url} \n\n"
-        #         requests.append({
-        #             'insertText': {
-        #                 'location': {
-        #                     'index': idx,
-        #                 },
-        #                 'text': url_text
-        #             }
-        #         })
-        #
-        #         requests.append(
-        #             {
-        #                 "updateTextStyle": {
-        #                     "textStyle": {
-        #                         "link": {
-        #                             "url": r.url
-        #                         }
-        #                     },
-        #                     "range": {
-        #                         "startIndex": idx,
-        #                         "endIndex": idx + len(url_text)
-        #                     },
-        #                     "fields": "link"
-        #                 }
-        #             })
-        #         idx += len(url_text)
-        #
-        #     except Exception:
-        #         pass
-
-        # print(requests)
+        print(requests)
 
         result = self.service.documents().batchUpdate(documentId=plenary.agenda_id,
                                                       body={'requests': requests}).execute()

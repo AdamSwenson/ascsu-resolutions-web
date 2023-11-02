@@ -1,3 +1,4 @@
+from ResolutionManager.Models.Plenaries import Plenary
 from ResolutionManager.Models.Resolutions import Resolution
 from ResolutionManager.Repositories.DocumentRepository import DocumentRepository
 from ResolutionManager.config.Configuration import Configuration
@@ -34,7 +35,13 @@ class ResolutionRepository(object):
 
         return r
 
-    def set_google_document_id(self, resolution, document_id):
+    def set_google_document_id(self, resolution: Resolution, document_id):
+        """
+        Adds the Google drive id to the resolution
+
+        :param document_id: Google drive id of the resolution document
+        :type resolution: Resolution
+        """
         query = f"update ascsu.resolutions r set r.document_id = '{document_id}' where r.id={resolution.id}"
         sys.stdout.write(query)
         result = self.dao.conn.execute(query)
@@ -83,7 +90,7 @@ class ResolutionRepository(object):
             try:
                 if i['startIndex'] == startIndex:
                     for e in i['paragraph']['elements']:
-                        print(e['textRun']['content'])
+                        # print(e['textRun']['content'])
                         title += e['textRun']['content']
 
             except KeyError:
@@ -91,16 +98,19 @@ class ResolutionRepository(object):
         title = title.strip().replace('\n', '')
         return title
 
-    def get_current_title_from_drive(self, resolution):
-        """ Looks up the title from the file in drive and returns the text """
+    def get_current_title_from_drive(self, resolution: Resolution):
+        """ Looks up the title from the file in drive and returns the text
+        :type resolution: Resolution
+        """
         doc_repo = DocumentRepository()
         newdoc = doc_repo.get_document(resolution.document_id)
         startIndex = self.get_named_ranges(newdoc)[0]['startIndex']
         return self.get_title(newdoc, startIndex)
 
-    def update_title_from_drive_version(self, resolution):
+    def update_title_from_drive_version(self, resolution: Resolution):
         """Updates the title in the db from the text in the resolution
         todo this should report when a title can't be found
+        :type resolution: Resolution
         """
         title = self.get_current_title_from_drive(resolution)
         title = title.strip()
@@ -133,9 +143,10 @@ class ResolutionRepository(object):
             resolutions.append(rez)
         return resolutions
 
-    def load_all_resolutions_for_plenary(self, plenary):
+    def load_all_resolutions_for_plenary(self, plenary: Plenary):
         """Loads all resolutions for plenary with the title
-        as it exists in drive """
+        as it exists in drive
+        :type plenary: Plenary"""
         # For now not going to sync the database,
         # just use title from drive if can be retrieved and default to db version
         committee_repo = CommitteeRepository(self.dao)
@@ -153,7 +164,7 @@ class ResolutionRepository(object):
             # added AR-58
             is_waiver = bool(is_waiver)
 
-            print((rid, is_waiver, first_reading))
+            # print((rid, is_waiver, first_reading))
 
         # sys.stderr.write(f"{rid} {first_reading} {is_waiver}" )
 
@@ -174,3 +185,47 @@ class ResolutionRepository(object):
 
             resolutions.append(rez)
         return resolutions
+
+
+    def set_as_action_item(self, plenary: Plenary, resolution: Resolution):
+        """Marks the resolution as an action item for the plenary
+        :type resolution: Resolution
+        :type plenary: Plenary
+        """
+        # NB, doesn't alter the waiver flag in case something that was supposed to be a first reading
+        # accidentally got moved into the action folder and then moved back out. Agenda creation doesn't
+        # use the waiver flag so shouldn't be a problem
+
+        query = f"""UPDATE ascsu.plenary_resolution AS pr
+        INNER JOIN
+        (SELECT * FROM ascsu.plenary_resolution p WHERE p.plenary_id = {plenary.id} AND p.resolution_id = {resolution.id}) AS b
+        ON pr.id = b.id
+        SET pr.is_first_reading = 0
+        WHERE pr.id = b.id"""
+        self.dao.conn.execute(query)
+        # Update the model object just in case it is needed
+        resolution.is_first_reading = False
+        return resolution
+
+    def set_as_first_reading_item(self, plenary: Plenary, resolution: Resolution):
+        """Marks the resolution as a first reading item  for the plenary.
+        This is generally used to fix errors, e.g., a first reading item gets accidentally
+        moved into the action items folder and then moved back
+
+        :type resolution: Resolution
+        :type plenary: Plenary
+
+        NB, will set the waiver to the value on the resolution object.
+        """
+        waiver = 1 if resolution.is_waiver is True else 0
+
+        query = f"""UPDATE ascsu.plenary_resolution AS pr
+        INNER JOIN
+        (SELECT * FROM ascsu.plenary_resolution p WHERE p.plenary_id = {plenary.id} AND p.resolution_id = {resolution.id}) AS b
+        ON pr.id = b.id
+        SET pr.is_first_reading = 1, pr.is_waiver = {waiver}
+        WHERE pr.id = b.id"""
+        self.dao.conn.execute(query)
+        # Update the model object just in case it is needed
+        resolution.is_first_reading = True
+        return resolution

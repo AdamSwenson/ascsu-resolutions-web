@@ -24,7 +24,7 @@ def main():
         except Exception as e:
             # todo make more specific
             # todo Add error logging
-            print(e)
+            print(r, e)
 
 
 if __name__ == '__main__':

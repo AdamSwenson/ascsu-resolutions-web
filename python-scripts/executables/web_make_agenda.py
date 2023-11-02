@@ -8,10 +8,13 @@ from ResolutionManager.DAO.DAO import MySqlDao
 from ResolutionManager.Repositories.PlenaryRepository import PlenaryRepository
 from ResolutionManager.Repositories.AgendaRepository import AgendaRepository
 
+import web_sync_action_item_status as action_sync
 
 def main(plenary_id=None):
     if plenary_id is None:
         plenary_id = int(sys.argv[1])
+
+    action_sync.main(plenary_id)
 
     dao = MySqlDao()
     agenda_repo = AgendaRepository(dao)

@@ -11,6 +11,7 @@ class PlenaryRepository(object):
     #     return Plenary(thursday_date=result.thursday_date)
 
     def load_plenary(self, plenary_id):
+        print(plenary_id)
         result = self.dao.conn.execute(f"select * from plenaries where id = {plenary_id}").fetchone()
 
         return Plenary(id=result.id,
