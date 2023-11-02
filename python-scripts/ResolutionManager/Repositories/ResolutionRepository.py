@@ -90,7 +90,7 @@ class ResolutionRepository(object):
             try:
                 if i['startIndex'] == startIndex:
                     for e in i['paragraph']['elements']:
-                        print(e['textRun']['content'])
+                        # print(e['textRun']['content'])
                         title += e['textRun']['content']
 
             except KeyError:
