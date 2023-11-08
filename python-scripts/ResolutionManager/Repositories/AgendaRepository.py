@@ -196,7 +196,8 @@ class AgendaRepository(object):
             try:
                 sr = self.make_resolution_list_item_requests(w)
                 requests.extend(sr)
-            except Exception:
+            except Exception as e:
+                print(e)
                 pass
 
 
@@ -208,11 +209,10 @@ class AgendaRepository(object):
             try:
                 fr = self.make_resolution_list_item_requests(f)
 
-                # todo hotfix
-                # problem is here with the first readings
-
-                # requests.extend(fr)
-            except Exception:
+                # todo AR-69 problem was here with the first readings
+                requests.extend(fr)
+            except Exception as e:
+                print(e)
                 pass
 
         print(requests)

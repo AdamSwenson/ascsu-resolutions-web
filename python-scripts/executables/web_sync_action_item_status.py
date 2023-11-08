@@ -27,18 +27,31 @@ def main(plenary_id=None):
     # Load models
     rez = resolution_repo.load_all_resolutions_for_plenary(plenary)
 
-    # identify action items based on if in action items folder
-    action_item_ids = [f['id'] for f in files]
-    action_items = [r for r in rez if r.document_id in action_item_ids]
-    # need these in case something got moved from action items folder
-    non_action_items = [r for r in rez if r not in action_items]
+    # Initialize so won't get non-initialized errors
+    action_items = []
+    non_action_items = []
+    try:
+        # identify action items based on if in action items folder
+        action_item_ids = [f['id'] for f in files]
+        action_items = [r for r in rez if r.document_id in action_item_ids]
+        for r in action_items:
+            resolution_repo.set_as_action_item(plenary, r)
+    except Exception as e:
+        # Added in AR-69 to catch problem if no action items
+        print(e)
+        # todo Better exception catching
+        pass
 
-    for r in action_items:
-        resolution_repo.set_as_action_item(plenary, r)
-
-    for r in non_action_items:
-        resolution_repo.set_as_first_reading_item(plenary, r)
-
+    try:
+        # need these in case something got moved from action items folder
+        non_action_items = [r for r in rez if r not in action_items]
+        for r in non_action_items:
+            resolution_repo.set_as_first_reading_item(plenary, r)
+    except Exception as e:
+        # Added in AR-69 to catch problem if no action items
+        print(e)
+        # todo Better exception catching
+        pass
 
 if __name__ == '__main__':
     main()
