@@ -59,6 +59,8 @@ class Resolution(object):
 
     @property
     def url(self):
+        # In AR-69 changed to handling None in the document id
+        if self.document_id is None: return "---None---"
         return Templates.URL_BASE + self.document_id
 
     @property
