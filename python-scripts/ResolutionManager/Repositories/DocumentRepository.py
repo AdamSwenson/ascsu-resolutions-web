@@ -12,7 +12,10 @@ class DocumentRepository(object):
 
     def __init__(self):
         self.cred_manager = CredentialsManager()
-        self.service = build('docs', 'v1', credentials=self.cred_manager.creds)
+        try:
+            self.service = build('docs', 'v1', credentials=self.cred_manager.creds)
+        except Exception as e:
+            print(e)
         self.style_repo = StylingRepository()
 
     def create_file(self, filename):

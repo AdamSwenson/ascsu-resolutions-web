@@ -23,14 +23,6 @@ def main():
 
     # Delete old token file
     error_repo.delete_old_token()
-    # try:
-    #     path = f"{os.getcwd()}/private/token.json"
-    #     if os.path.isfile(path):
-    #         os.remove(path)
-    #
-    # except OSError as e:
-    #     # If it fails, inform the user.
-    #     print(f"Error: {e.filename} - {e.strerror}")
 
     # Trigger the new oauth request to generate a new token
     dao = MySqlDao()

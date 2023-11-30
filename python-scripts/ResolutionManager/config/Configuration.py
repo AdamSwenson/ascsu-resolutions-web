@@ -23,6 +23,8 @@ class Configuration(object):
         self.CREDENTIALS_FILEPATH = f"{self.CREDENTIALS_FOLDER}/credentials.json"
         self.TOKEN_FILEPATH = f"{self.CREDENTIALS_FOLDER}/token.json"
 
+        self.SERVICE_ACCOUNT_FILEPATH = f"{self.CREDENTIALS_FOLDER}/resolutionmanager-service.json"
+
         # self.config_path = "../../private/config.ini";
         self.configuration = configparser.ConfigParser()
         self.configuration.read(self.config_path)

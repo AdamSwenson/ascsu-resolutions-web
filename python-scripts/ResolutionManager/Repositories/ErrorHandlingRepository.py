@@ -1,5 +1,7 @@
 import os
 
+from ResolutionManager.config.Configuration import Configuration
+
 
 class ErrorHandlingRepository(object):
     """
@@ -8,11 +10,13 @@ class ErrorHandlingRepository(object):
     """
 
     def __init__(self):
+        self.config = Configuration()
         pass
 
     @property
     def token_path(self):
-        return f"{os.getcwd()}/private/token.json"
+        return self.config.TOKEN_FILEPATH
+        # return f"{os.getcwd()}/private/token.json"
 
     def delete_old_token(self):
         """
