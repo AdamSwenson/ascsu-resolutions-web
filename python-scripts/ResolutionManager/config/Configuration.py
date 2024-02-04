@@ -29,9 +29,10 @@ class Configuration(object):
 
         self.GOOGLE_DRIVE_ROOT_FOLDER_ID = self.configuration['drive']['GOOGLE_DRIVE_ROOT_FOLDER_ID']
 
-        # Template
+        # Templates
         self.TEMPLATE_DOCUMENT_ID = self.configuration['drive']['TEMPLATE_DOCUMENT_ID']
         self.TEMPLATE_HEADER_ID = self.configuration['drive']['TEMPLATE_HEADER_ID']
+        self.AGENDA_TEMPLATE_ID = self.configuration['drive']['AGENDA_TEMPLATE_ID']
 
         # Named ranges in document
         self.TITLE_RANGE_NAME = self.configuration['resolutions']['TITLE_RANGE_NAME']

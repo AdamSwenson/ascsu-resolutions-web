@@ -9,6 +9,11 @@ class Plenary(object):
 
     def __init__(self, id=None, thursday_date=None, first_reading_folder_id=None,
                  plenary_folder_id=None, feedback_folder_id=None, second_reading_folder_id=None, agenda_id=None):
+        """
+
+        :type agenda_id: str
+        :type plenary_folder_id: object
+        """
         self.agenda_id = agenda_id
         self.id = id
         self.second_reading_folder_id = second_reading_folder_id

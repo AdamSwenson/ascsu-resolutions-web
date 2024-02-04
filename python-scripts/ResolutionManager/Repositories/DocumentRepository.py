@@ -16,8 +16,8 @@ class DocumentRepository(object):
         self.style_repo = StylingRepository()
 
     def create_file(self, filename):
-        """Shows basic usage of the Docs API.
-        Prints the title of a sample document.
+        """Creates a new file.
+        Prints the title and the doc id.
         """
 
         try:
