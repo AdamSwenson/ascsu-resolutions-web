@@ -34,6 +34,10 @@ class AgendaRepository(object):
 
         self.idx = 1
 
+        self.first_readings = []
+        self.second_readings = []
+        self.waivers = []
+
     def clear_body_content(self, plenary):
         """
         Deletes all content from the body of the document
@@ -284,6 +288,19 @@ class AgendaRepository(object):
 
         return requests
 
+    def sort_resolutions(self, plenary: Plenary):
+        """
+        Populates the second_items, waivers, and first_readings lists
+        :param plenary:
+        :return:
+        """
+        resolutions = self.resolution_repo.load_all_resolutions_for_plenary(plenary)
+
+        self.first_readings = [r for r in resolutions if r.is_first_reading is True and r.is_waiver is False]
+        self.waivers = [r for r in resolutions if r.is_first_reading is True and r.is_waiver is True]
+        self.second_readings = [r for r in resolutions if r.is_first_reading is not True]
+
+
     def make_resolution_list(self, plenary: Plenary):
         """
         MAIN CALLED METHOD
@@ -293,15 +310,8 @@ class AgendaRepository(object):
         :param plenary: Plenary
         :return:
         """
-        # Get all resolutions
-        # For now not going to sync the database, just use title from drive if can be retrieved and default to db version
-        resolutions = self.resolution_repo.load_all_resolutions_for_plenary(plenary)
-
-        # resolutions = self.resolution_repo.load_all_resolutions()
-        first_readings = [r for r in resolutions if r.is_first_reading is True and r.is_waiver is False]
-        # todo Once figure out how committees indicate ready for second reading, remove waiver check
-        waivers = [r for r in resolutions if r.is_first_reading is True and r.is_waiver is True]
-        second_readings = [r for r in resolutions if r.is_first_reading is not True]
+        # Populate the resolution lists
+        self.sort_resolutions(plenary)
 
         # Creates a new agenda file or clears the content from the existing one
         self.create_agenda_file(plenary)
@@ -318,14 +328,15 @@ class AgendaRepository(object):
         aih = self.make_action_items_heading_requests()
         requests.extend(aih)
 
-        for r in second_readings:
+        for r in self.second_readings:
             try:
                 sr = self.make_resolution_list_item_requests(r)
                 requests.extend(sr)
-            except Exception:
+            except Exception as e:
+                print(e)
                 pass
 
-        for w in waivers:
+        for w in self.waivers:
             try:
                 sr = self.make_resolution_list_item_requests(w)
                 requests.extend(sr)
@@ -337,7 +348,7 @@ class AgendaRepository(object):
         frh = self.make_first_readings_heading_requests()
         requests.extend(frh)
 
-        for f in first_readings:
+        for f in self.first_readings:
             try:
                 fr = self.make_resolution_list_item_requests(f)
 
