@@ -1,4 +1,5 @@
 import configparser
+import logging
 import os
 
 
@@ -40,6 +41,9 @@ class Configuration(object):
         self.RATIONALE_RANGE_NAME = self.configuration['resolutions']['RATIONALE_RANGE_NAME']
         self.DISTRIBUTION_LIST_RANGE_NAME = self.configuration['resolutions']['DISTRIBUTION_LIST_RANGE_NAME']
 
+        self.LOG_PATH = f"{self.BASE}/rez.log"
+
+        self.initialize_logging()
         # print(self.configuration)
 
     def set_environment(self):
@@ -58,6 +62,12 @@ class Configuration(object):
     @property
     def dsn(self):
         return f"mysql+mysqlconnector://{self.configuration['mysql']['user']}:{self.configuration['mysql']['password']}@{self.configuration['mysql']['ip']}/{self.configuration['mysql']['db']}"
+
+    def initialize_logging(self):
+        logging.basicConfig(filename=self.LOG_PATH, encoding='utf-8',
+                            level=logging.WARNING,
+                            format='%(asctime)s %(levelname)s %(module)s: %(message)s')
+
 
     #
     # @classmethod

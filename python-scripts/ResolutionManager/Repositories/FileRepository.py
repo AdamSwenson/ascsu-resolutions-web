@@ -1,3 +1,5 @@
+import logging
+
 from ResolutionManager.API.CredentialsManager import CredentialsManager
 
 from googleapiclient.discovery import build
@@ -9,6 +11,9 @@ class FileRepository(object):
     def __init__(self):
         self.cred_manager = CredentialsManager()
         self.service = build('drive', 'v3', credentials=self.cred_manager.creds)
+
+        self.logger = logging.getLogger(__name__)
+
 
     def create_folder(self, folder_name):
         """ Create a folder and prints the folder ID
@@ -36,6 +41,7 @@ class FileRepository(object):
             return file.get('id')
 
         except HttpError as error:
+            self.logger.warning(error)
             print(F'An error occurred: {error}')
             return None
 
@@ -82,9 +88,8 @@ class FileRepository(object):
             return items
 
         except HttpError as error:
-            # TODO(developer) - Handle errors from drive API.
+            self.logger.warning(error)
             print(f'An error occurred: {error}')
-
 
 
     def copy_file(self, document_id, copy_name):
@@ -98,7 +103,7 @@ class FileRepository(object):
             print(f"\n Copied document \n    New doc id : {document_copy_id} \n    New doc name : {copy_name} \n")
             return document_copy_id;
         except HttpError as error:
-            # TODO(developer) - Handle errors from drive API.
+            self.logger.warning(error)
             print(f'An error occurred: {error}')
 
     def move_file_to_folder(self, file_id, folder_id):
@@ -122,6 +127,7 @@ class FileRepository(object):
             return file.get('parents')
 
         except HttpError as error:
+            self.logger.warning(error)
             print(F'An error occurred: {error}')
             return None
 

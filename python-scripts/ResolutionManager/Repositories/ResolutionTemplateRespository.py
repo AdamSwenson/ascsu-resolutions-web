@@ -1,4 +1,6 @@
 # import ResolutionManager.environment as env
+import logging
+
 from ResolutionManager.config.Configuration import Configuration
 from ResolutionManager.Repositories.DocumentRepository import DocumentRepository
 from ResolutionManager.Repositories.FileRepository import FileRepository
@@ -30,96 +32,101 @@ class ResolutionTemplateRepository(object):
         self.committee_repo = CommitteeRepository(dao)
 
         self.service = build('docs', 'v1', credentials=self.cred_manager.creds)
+        self.logger = logging.getLogger(__name__)
+
 
     def replace_named_title_range(self, document_id, new_text):
         """Replaces the text in existing named ranges."""
+        try:
 
-        # Determine the length of the replacement text, as UTF-16 code units.
-        # https://developers.google.com/docs/api/concepts/structure#start_and_end_index
-        new_text_len = len(new_text.encode('utf-16-le')) / 2
+            # Determine the length of the replacement text, as UTF-16 code units.
+            # https://developers.google.com/docs/api/concepts/structure#start_and_end_index
+            new_text_len = len(new_text.encode('utf-16-le')) / 2
 
-        # Fetch the document to determine the current indexes of the named ranges.
-        document = self.service.documents().get(documentId=document_id).execute()
+            # Fetch the document to determine the current indexes of the named ranges.
+            document = self.service.documents().get(documentId=document_id).execute()
 
-        # Find the matching named ranges.
-        named_range_list = document.get('namedRanges', {}).get(self.config.TITLE_RANGE_NAME)
-        if not named_range_list:
-            raise Exception('The named range is no longer present in the document.')
+            # Find the matching named ranges.
+            named_range_list = document.get('namedRanges', {}).get(self.config.TITLE_RANGE_NAME)
+            if not named_range_list:
+                raise Exception('The named range is no longer present in the document.')
 
-        # Determine all the ranges of text to be removed, and at which indices the
-        # replacement text should be inserted.
-        all_ranges = []
-        insert_at = {}
-        for named_range in named_range_list.get('namedRanges'):
-            ranges = named_range.get('ranges')
-            all_ranges.extend(ranges)
-            # Most named ranges only contain one range of text, but it's possible
-            # for it to be split into multiple ranges by user edits in the document.
-            # The replacement text should only be inserted at the start of the first
-            # range.
-            insert_at[ranges[0].get('startIndex')] = True
+            # Determine all the ranges of text to be removed, and at which indices the
+            # replacement text should be inserted.
+            all_ranges = []
+            insert_at = {}
+            for named_range in named_range_list.get('namedRanges'):
+                ranges = named_range.get('ranges')
+                all_ranges.extend(ranges)
+                # Most named ranges only contain one range of text, but it's possible
+                # for it to be split into multiple ranges by user edits in the document.
+                # The replacement text should only be inserted at the start of the first
+                # range.
+                insert_at[ranges[0].get('startIndex')] = True
 
-        # Sort the list of ranges by startIndex, in descending order.
-        all_ranges.sort(key=lambda r: r.get('startIndex'), reverse=True)
+            # Sort the list of ranges by startIndex, in descending order.
+            all_ranges.sort(key=lambda r: r.get('startIndex'), reverse=True)
 
-        # Create a sequence of requests for each range.
-        requests = []
-        for r in all_ranges:
-            # Delete all the content in the existing range.
-            requests.append({
-                'deleteContentRange': {
-                    'range': r
-                }
-            })
-
-            segment_id = r.get('segmentId')
-            start = r.get('startIndex')
-            if insert_at[start]:
-                # Insert the replacement text.
+            # Create a sequence of requests for each range.
+            requests = []
+            for r in all_ranges:
+                # Delete all the content in the existing range.
                 requests.append({
-                    'insertText': {
-                        'location': {
-                            'segmentId': segment_id,
-                            'index': start
-                        },
-                        'text': new_text
+                    'deleteContentRange': {
+                        'range': r
                     }
                 })
-                # Re-create the named range on the new text.
-                requests.append({
-                    'createNamedRange': {
-                        'name': self.config.TITLE_RANGE_NAME,
-                        'range': {
-                            'segmentId': segment_id,
-                            'startIndex': start,
-                            'endIndex': start + new_text_len
-                        }
-                    }
-                })
-                # Center again
-                requests.append(
-                    {
-                        'updateParagraphStyle': {
-                            'range': {
-                                'startIndex': start,
-                                'endIndex': start + new_text_len
+
+                segment_id = r.get('segmentId')
+                start = r.get('startIndex')
+                if insert_at[start]:
+                    # Insert the replacement text.
+                    requests.append({
+                        'insertText': {
+                            'location': {
+                                'segmentId': segment_id,
+                                'index': start
                             },
-                            'paragraphStyle': {
-                                'alignment': 'CENTER'
-                            },
-                            'fields': 'alignment'
+                            'text': new_text
                         }
                     })
+                    # Re-create the named range on the new text.
+                    requests.append({
+                        'createNamedRange': {
+                            'name': self.config.TITLE_RANGE_NAME,
+                            'range': {
+                                'segmentId': segment_id,
+                                'startIndex': start,
+                                'endIndex': start + new_text_len
+                            }
+                        }
+                    })
+                    # Center again
+                    requests.append(
+                        {
+                            'updateParagraphStyle': {
+                                'range': {
+                                    'startIndex': start,
+                                    'endIndex': start + new_text_len
+                                },
+                                'paragraphStyle': {
+                                    'alignment': 'CENTER'
+                                },
+                                'fields': 'alignment'
+                            }
+                        })
 
-        # Make a batchUpdate request to apply the changes, ensuring the document
-        # hasn't changed since we fetched it.
-        body = {
-            'requests': requests,
-            'writeControl': {
-                'requiredRevisionId': document.get('revisionId')
+            # Make a batchUpdate request to apply the changes, ensuring the document
+            # hasn't changed since we fetched it.
+            body = {
+                'requests': requests,
+                'writeControl': {
+                    'requiredRevisionId': document.get('revisionId')
+                }
             }
-        }
-        result = self.service.documents().batchUpdate(documentId=document_id, body=body).execute()
+            result = self.service.documents().batchUpdate(documentId=document_id, body=body).execute()
+        except Exception as e:
+            self.logger.warning(e)
 
     def update_title_new(self, resolution: Resolution):
         return self.replace_named_title_range(resolution.document_id, resolution.title)

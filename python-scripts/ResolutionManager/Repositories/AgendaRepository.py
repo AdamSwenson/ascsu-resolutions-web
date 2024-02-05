@@ -1,3 +1,4 @@
+import logging
 import sys
 
 from googleapiclient.discovery import build
@@ -38,6 +39,8 @@ class AgendaRepository(object):
         self.second_readings = []
         self.waivers = []
 
+        self.logger = logging.getLogger(__name__)
+
     def clear_body_content(self, plenary):
         """
         Deletes all content from the body of the document
@@ -61,6 +64,7 @@ class AgendaRepository(object):
             result = self.service.documents().batchUpdate(documentId=plenary.agenda_id,
                                                           body={'requests': requests}).execute()
         except HttpError as e:
+            self.logger.warning(e)
             sys.stdout.write("{e}")
             print(e)
 
@@ -130,24 +134,26 @@ class AgendaRepository(object):
         # text = template.format({'month': plenary.month, 'year': plenary.year})
         # text = "ASCSU Resolutions\n"
 
-        requests = [{
-            'insertText': {
-                'location': {
-                    'index': self.idx,
-                },
-                'text': text,
-            }
-        },
-        {'updateParagraphStyle': {
-                'range': {
-                    'startIndex': self.idx,
-                    'endIndex': self.idx + len(text)
-                },
-                'paragraphStyle': {
-                    'namedStyleType': 'TITLE'
-                },
-                'fields': 'namedStyleType'
-            }
+        requests = [
+            {
+                'insertText': {
+                    'location': {
+                        'index': self.idx,
+                    },
+                    'text': text,
+                }
+            },
+            {
+                'updateParagraphStyle': {
+                    'range': {
+                        'startIndex': self.idx,
+                        'endIndex': self.idx + len(text)
+                    },
+                    'paragraphStyle': {
+                        'namedStyleType': 'TITLE'
+                    },
+                    'fields': 'namedStyleType'
+                }
             },
             # {
             #     'updateTextStyle': {
@@ -300,7 +306,6 @@ class AgendaRepository(object):
         self.waivers = [r for r in resolutions if r.is_first_reading is True and r.is_waiver is True]
         self.second_readings = [r for r in resolutions if r.is_first_reading is not True]
 
-
     def make_resolution_list(self, plenary: Plenary):
         """
         MAIN CALLED METHOD
@@ -310,13 +315,14 @@ class AgendaRepository(object):
         :param plenary: Plenary
         :return:
         """
+        logging.warning('make resolution list')
         # Populate the resolution lists
         self.sort_resolutions(plenary)
 
         # Creates a new agenda file or clears the content from the existing one
         self.create_agenda_file(plenary)
 
-        print(plenary.agenda_id)
+        # print(plenary.agenda_id)
 
         self.idx = 1
         requests = []
@@ -333,16 +339,14 @@ class AgendaRepository(object):
                 sr = self.make_resolution_list_item_requests(r)
                 requests.extend(sr)
             except Exception as e:
-                print(e)
-                pass
+                self.logger.warning(e)
 
         for w in self.waivers:
             try:
                 sr = self.make_resolution_list_item_requests(w)
                 requests.extend(sr)
             except Exception as e:
-                print(e)
-                pass
+                self.logger.warning(e)
 
         # Make first reading header and update index
         frh = self.make_first_readings_heading_requests()
@@ -355,10 +359,9 @@ class AgendaRepository(object):
                 # todo AR-69 problem was here with the first readings
                 requests.extend(fr)
             except Exception as e:
-                print(e)
-                pass
+                self.logger.warning(e)
 
-        print(requests)
+        # print(requests)
 
         result = self.service.documents().batchUpdate(documentId=plenary.agenda_id,
                                                       body={'requests': requests}).execute()
