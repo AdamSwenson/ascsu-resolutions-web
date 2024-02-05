@@ -9,7 +9,7 @@ from helpers.Factories import plenary_factory, resolution_factory, waiver_factor
     second_reading_factory
 
 
-class TestAgendaRepository(TestCase):
+class AgendaRepositoryTest(TestCase):
     def setUp(self):
         self.waivers = [waiver_factory() for i in range(1, 10)]
         self.first_readings = [first_reading_factory() for i in range(1, 10)]

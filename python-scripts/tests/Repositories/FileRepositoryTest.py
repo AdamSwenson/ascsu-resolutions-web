@@ -2,7 +2,7 @@ import sys
 
 sys.path.append("/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts/ResolutionManager")
 sys.path.append("/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts")
-sys.path.append("/Users/ars62917/Dropbox/ResolutionManagerWeb/python-scripts")
+sys.path.append("/")
 import unittest
 from googleapiclient.discovery import build
 from googleapiclient.http import HttpMock
@@ -20,7 +20,7 @@ class FileRepositoryTest(unittest.TestCase):
 
     def test_create_folder(self):
         frepo = FileRepository()
-        http = HttpMock('mock-responses/mock-file-response.json', {'status': '200'})
+        http = HttpMock('../mock-responses/mock-file-response.json', {'status': '200'})
         api_key = 'your_api_key'
         frepo.service = build('drive', 'v3', http=http, developerKey=api_key)
 
