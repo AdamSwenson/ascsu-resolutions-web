@@ -11,18 +11,22 @@ from helpers.Factories import plenary_factory, resolution_factory, waiver_factor
 
 class AgendaRepositoryTest(TestCase):
     def setUp(self):
+        self.dao = {}
+        self.agenda_repo = AgendaRepository(self.dao)
+        self.plenary = plenary_factory()
+
+
+    def prep_complete_lists(self):
+        """Populates resolution repo with first, second, and waiver resolutions"""
         self.waivers = [waiver_factory() for i in range(1, 10)]
         self.first_readings = [first_reading_factory() for i in range(1, 10)]
         self.second_readings = [second_reading_factory() for i in range(1, 10)]
         self.resolutions = self.waivers + self.first_readings + self.second_readings
         shuffle(self.resolutions)
-        self.dao = {}
+
         resolution_repo = ResolutionRepository(dao=self.dao)
         resolution_repo.load_all_resolutions_for_plenary = MagicMock(return_value=self.resolutions)
-
-        self.agenda_repo = AgendaRepository(self.dao)
         self.agenda_repo.resolution_repo = resolution_repo
-        self.plenary = plenary_factory()
 
     def test_check_setup(self):
         self.assertIsInstance(self.agenda_repo, AgendaRepository)
@@ -53,6 +57,7 @@ class AgendaRepositoryTest(TestCase):
         self.fail()
 
     def test_sort_resolutions(self):
+        self.prep_complete_lists()
         rs = self.agenda_repo.sort_resolutions(self.plenary)
         [self.assertIsInstance(r, Resolution) for r in self.agenda_repo.waivers]
         [self.assertIsInstance(r, Resolution) for r in self.agenda_repo.first_readings]
@@ -75,6 +80,34 @@ class AgendaRepositoryTest(TestCase):
             self.assertIs(r.is_waiver, False)
             self.assertIs(r.is_first_reading, False)
             self.assertIs(r.is_action, True)
+
+    def test_sort_resolutions_if_no_second_readings_AR85(self):
+        self.waivers = [waiver_factory() for i in range(1, 10)]
+        self.second_readings = []
+        self.first_readings = [first_reading_factory() for i in range(1, 10)]
+        self.resolutions = self.waivers + self.first_readings + self.second_readings
+        shuffle(self.resolutions)
+
+        resolution_repo = ResolutionRepository(dao=self.dao)
+        resolution_repo.load_all_resolutions_for_plenary = MagicMock(return_value=self.resolutions)
+        self.agenda_repo.resolution_repo = resolution_repo
+
+        rs = self.agenda_repo.sort_resolutions(self.plenary)
+        self.assertEqual(len(self.agenda_repo.second_readings), 0, "second readings are empty")
+        [self.assertIsInstance(r, Resolution) for r in self.agenda_repo.waivers]
+        [self.assertIsInstance(r, Resolution) for r in self.agenda_repo.first_readings]
+
+        for r in self.agenda_repo.waivers:
+            self.assertIsInstance(r, Resolution)
+            self.assertIs(r.is_waiver, True)
+            self.assertIs(r.is_first_reading, True)
+            self.assertIs(r.is_action, False)
+
+        for r in self.agenda_repo.first_readings:
+            self.assertIsInstance(r, Resolution)
+            self.assertIs(r.is_waiver, False)
+            self.assertIs(r.is_first_reading, True)
+            self.assertIs(r.is_action, False)
 
 
     def test_make_resolution_list(self):
