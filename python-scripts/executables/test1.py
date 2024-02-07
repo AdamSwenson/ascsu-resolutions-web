@@ -21,7 +21,7 @@ from ResolutionManager.Repositories.CommitteeRepository import CommitteeReposito
 from ResolutionManager.Repositories.AgendaRepository import AgendaRepository
 
 def main():
-    plenary_id = 6
+    plenary_id = 1
 
     # Load from database
     dao = MySqlDao()
@@ -33,7 +33,8 @@ def main():
     # template_repo = ResolutionTemplateRepository(plenary=plenary, dao=dao)
 
     try:
-        resolution_repo.load_all_resolutions()
+        r = resolution_repo.load_all_resolutions()
+        print(r)
 
         # resolution_file = template_repo.create_file_from_template(resolution=resolution)
     except (Exception,  google.auth.exceptions.RefreshError) as e:
