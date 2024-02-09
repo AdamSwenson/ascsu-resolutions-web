@@ -144,12 +144,14 @@ class ResolutionTemplateRepository(object):
         filename = Templates.RESOLUTION_FILENAME_TEMPLATE.format(resolution_number=resolution.number,
                                                                  resolution_name=resolution.title,
                                                                  committee_abbrev=sponsor.abbreviation)
-        sys.stdout.write(f"{resolution.__dict__}")
 
         resolution.document_id = self.file_repo.copy_file(template_id, filename)
         self.resolution_repo.set_google_document_id(resolution, resolution.document_id)
 
         self.file_repo.move_file_to_folder(resolution.document_id, self.plenary.first_reading_folder_id)
+
+        # sys.stdout.write(f"{resolution.__dict__}")
+
         return resolution
 
     def make_header(self, resolution: Resolution):

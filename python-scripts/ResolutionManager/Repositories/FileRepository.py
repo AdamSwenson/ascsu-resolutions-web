@@ -37,10 +37,11 @@ class FileRepository(object):
             # pylint: disable=maybe-no-member
             file = self.service.files().create(body=file_metadata, fields='id'
                                           ).execute()
-            print(F'Folder ID: "{file.get("id")}".')
+            print(f'Folder ID: "{file.get("id")}".')
             return file.get('id')
 
         except HttpError as error:
+            print(f'An error occurred: {error}')
             self.logger.warning(error)
             print(F'An error occurred: {error}')
             return None
@@ -129,6 +130,7 @@ class FileRepository(object):
         except HttpError as error:
             self.logger.warning(error)
             print(F'An error occurred: {error}')
+            print(f'An error occurred: {error}')
             return None
 
 

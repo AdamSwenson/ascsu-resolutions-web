@@ -1,11 +1,14 @@
 import sys
 import os
+
+
 sys.path.append("/Users/ars62917/Dropbox/ResolutionManagerWeb/python-scripts")
 sys.path.append("/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts/ResolutionManager")
 sys.path.append("/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts")
 
 from ResolutionManager.DAO.DAO import MySqlDao
 from ResolutionManager.Repositories.ResolutionRepository import ResolutionRepository
+from ResolutionManager.Repositories.ErrorHandlingRepository import ErrorHandlingRepository
 
 
 def main():
@@ -16,16 +19,10 @@ def main():
 
     :return:
     """
+    error_repo = ErrorHandlingRepository()
 
     # Delete old token file
-    try:
-        path = f"{os.getcwd()}/private/token.json"
-        if os.path.isfile(path):
-            os.remove(path)
-
-    except OSError as e:
-        # If it fails, inform the user.
-        print(f"Error: {e.filename} - {e.strerror}")
+    error_repo.delete_old_token()
 
     # Trigger the new oauth request to generate a new token
     dao = MySqlDao()
