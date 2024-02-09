@@ -4,6 +4,7 @@ from random import shuffle
 from ResolutionManager.Models.Plenaries import Plenary
 from ResolutionManager.Models.Resolutions import Resolution
 from ResolutionManager.Repositories.AgendaRepository import AgendaRepository
+from ResolutionManager.Repositories.RequestRepository import RequestRepository
 from ResolutionManager.Repositories.ResolutionRepository import ResolutionRepository
 from helpers.Factories import plenary_factory, resolution_factory, waiver_factory, first_reading_factory, \
     second_reading_factory
@@ -14,7 +15,6 @@ class AgendaRepositoryTest(TestCase):
         self.dao = {}
         self.agenda_repo = AgendaRepository(self.dao)
         self.plenary = plenary_factory()
-
 
     def prep_complete_lists(self):
         """Populates resolution repo with first, second, and waiver resolutions"""
@@ -51,7 +51,14 @@ class AgendaRepositoryTest(TestCase):
         self.fail()
 
     def test_make_action_items_heading_requests(self):
-        self.fail()
+        """This is brittle and only helpful for making sure the request repo behaves as expected"""
+        text = "\nAction Items \n"
+        expect = [
+            RequestRepository.make_insert_text_request(1, text),
+            RequestRepository.make_bold_text_request(1, 1 + len(text))
+        ]
+        result = self.agenda_repo.make_action_items_heading_requests()
+        self.assertEquals(expect, result)
 
     def test_make_resolution_list_item_requests(self):
         self.fail()
@@ -108,7 +115,6 @@ class AgendaRepositoryTest(TestCase):
             self.assertIs(r.is_waiver, False)
             self.assertIs(r.is_first_reading, True)
             self.assertIs(r.is_action, False)
-
 
     def test_make_resolution_list(self):
         self.fail()

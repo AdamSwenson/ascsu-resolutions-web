@@ -10,6 +10,7 @@ from ResolutionManager.Repositories.DocumentRepository import DocumentRepository
 from ResolutionManager.Repositories.FileRepository import FileRepository
 from ResolutionManager.Repositories.PermissionsRepository import PermissionsRepository
 from ResolutionManager.Repositories.PlenaryRepository import PlenaryRepository
+from ResolutionManager.Repositories.RequestRepository import RequestRepository
 from ResolutionManager.Repositories.ResolutionRepository import ResolutionRepository
 from ResolutionManager.Repositories.StylingRepository import StylingRepository
 from ResolutionManager.config.Configuration import Configuration
@@ -53,12 +54,16 @@ class AgendaRepository(object):
         final_index = document_obj['body']['content'][len(document_obj['body']['content']) - 2]['endIndex']
 
         requests = [
-            {
-                'deleteContentRange': {
-                    'range': {'startIndex': 1, 'endIndex': final_index}
-                }
-            }
+            RequestRepository.make_delete_content_request(1, final_index)
         ]
+
+        # requests = [
+        #     {
+        #         'deleteContentRange': {
+        #             'range': {'startIndex': 1, 'endIndex': final_index}
+        #         }
+        #     }
+        # ]
         try:
 
             result = self.service.documents().batchUpdate(documentId=plenary.agenda_id,
@@ -102,27 +107,32 @@ class AgendaRepository(object):
 
     def make_first_readings_heading_requests(self):
         text = "\nFirst Readings \n"
-        requests = []
-        requests.append({
-            'insertText': {
-                'location': {
-                    'index': self.idx,
-                },
-                'text': text,
-            }
-        })
-        requests.append({
-            'updateTextStyle': {
-                'range': {
-                    'startIndex': self.idx,
-                    'endIndex': self.idx + len(text)
-                },
-                'textStyle': {
-                    'bold': True,
-                },
-                'fields': 'bold'
-            }
-        })
+
+        requests = [
+            RequestRepository.make_insert_text_request(self.idx, text),
+            RequestRepository.make_bold_text_request(self.idx, self.idx + len(text))
+        ]
+        # requests = []
+        # requests.append({
+        #     'insertText': {
+        #         'location': {
+        #             'index': self.idx,
+        #         },
+        #         'text': text,
+        #     }
+        # })
+        # requests.append({
+        #     'updateTextStyle': {
+        #         'range': {
+        #             'startIndex': self.idx,
+        #             'endIndex': self.idx + len(text)
+        #         },
+        #         'textStyle': {
+        #             'bold': True,
+        #         },
+        #         'fields': 'bold'
+        #     }
+        # })
 
         self.idx += len(text)
         return requests
@@ -135,78 +145,91 @@ class AgendaRepository(object):
         # text = "ASCSU Resolutions\n"
 
         requests = [
-            {
-                'insertText': {
-                    'location': {
-                        'index': self.idx,
-                    },
-                    'text': text,
-                }
-            },
-            {
-                'updateParagraphStyle': {
-                    'range': {
-                        'startIndex': self.idx,
-                        'endIndex': self.idx + len(text)
-                    },
-                    'paragraphStyle': {
-                        'namedStyleType': 'TITLE'
-                    },
-                    'fields': 'namedStyleType'
-                }
-            },
-            # {
-            #     'updateTextStyle': {
-            #         'range': {
-            #             'startIndex': self.idx,
-            #             'endIndex': self.idx + len(text)
-            #         },
-            #         'textStyle': {
-            #             'bold': True,
-            #         },
-            #         'fields': 'bold'
-            #     }
-            # },
-            # {
-            #     'updateParagraphStyle': {
-            #         'range': {
-            #             'startIndex': self.idx,
-            #             'endIndex': self.idx + len(text)
-            #         },
-            #         'paragraphStyle': {
-            #             'alignment': 'CENTER'
-            #         },
-            #         'fields': 'alignment'
-            #     }
-            # }
+            RequestRepository.make_insert_text_request(self.idx, text),
+            RequestRepository.make_title_style_request(self.idx, self.idx + len(text))
         ]
+
+        # requests = [
+        #     {
+        #         'insertText': {
+        #             'location': {
+        #                 'index': self.idx,
+        #             },
+        #             'text': text,
+        #         }
+        #     },
+        #     {
+        #         'updateParagraphStyle': {
+        #             'range': {
+        #                 'startIndex': self.idx,
+        #                 'endIndex': self.idx + len(text)
+        #             },
+        #             'paragraphStyle': {
+        #                 'namedStyleType': 'TITLE'
+        #             },
+        #             'fields': 'namedStyleType'
+        #         }
+        #     },
+        # {
+        #     'updateTextStyle': {
+        #         'range': {
+        #             'startIndex': self.idx,
+        #             'endIndex': self.idx + len(text)
+        #         },
+        #         'textStyle': {
+        #             'bold': True,
+        #         },
+        #         'fields': 'bold'
+        #     }
+        # },
+        # {
+        #     'updateParagraphStyle': {
+        #         'range': {
+        #             'startIndex': self.idx,
+        #             'endIndex': self.idx + len(text)
+        #         },
+        #         'paragraphStyle': {
+        #             'alignment': 'CENTER'
+        #         },
+        #         'fields': 'alignment'
+        #     }
+        # }
+        # ]
 
         self.idx += len(text)
         return requests
 
     def make_action_items_heading_requests(self):
         text = "\nAction Items \n"
-        requests = []
-        requests.append({
-            'insertText': {
-                'location': {
-                    'index': self.idx,
-                },
-                'text': text,
-            }
-        })
-        requests.append({
-            'updateTextStyle': {
-                'range': {
-                    'startIndex': self.idx,
-                    'endIndex': self.idx + len(text)
-                },
-                'textStyle': {
-                    'bold': True,
-                },
-                'fields': 'bold'
-            }
-        })
+
+        requests = [
+            RequestRepository.make_insert_text_request(self.idx, text),
+            RequestRepository.make_bold_text_request(self.idx, self.idx + len(text))
+        ]
+
+        # requests = []
+        #
+        #
+        # requests.append({
+        #     'insertText': {
+        #         'location': {
+        #             'index': self.idx,
+        #         },
+        #         'text': text,
+        #     }
+        # })
+        # requests.append({
+        #     'updateTextStyle': {
+        #         'range': {
+        #             'startIndex': self.idx,
+        #             'endIndex': self.idx + len(text)
+        #         },
+        #         'textStyle': {
+        #             'bold': True,
+        #         },
+        #         'fields': 'bold'
+        #     }
+        # })
 
         # requests.append({'updateParagraphStyle': {
         #     'range': {
@@ -228,69 +251,83 @@ class AgendaRepository(object):
         starting_idx = self.idx
 
         requests = []
-        text = f"{resolution.agenda_item} \n"
-        requests.append({
-            'insertText': {
-                'location': {
-                    'index': self.idx,
-                },
-                'text': text,
-            }
-        })
 
-        requests.append({'updateParagraphStyle': {
-            'range': {
-                'startIndex': self.idx,
-                'endIndex': self.idx + len(text)
-            },
-            'paragraphStyle': {
-                'alignment': 'START'
-            },
-            'fields': 'alignment'
-        }
-        })
+        # Add the resolution name and number
+        text = f"{resolution.agenda_item} \n"
+
+        requests.append(RequestRepository.make_insert_text_request(self.idx, text))
+        requests.append(RequestRepository.make_left_align_request(self.idx, self.idx + len(text)))
+
+        # requests.append({
+        #     'insertText': {
+        #         'location': {
+        #             'index': self.idx,
+        #         },
+        #         'text': text,
+        #     }
+        # })
+        #
+        # requests.append({'updateParagraphStyle': {
+        #     'range': {
+        #         'startIndex': self.idx,
+        #         'endIndex': self.idx + len(text)
+        #     },
+        #     'paragraphStyle': {
+        #         'alignment': 'START'
+        #     },
+        #     'fields': 'alignment'
+        # }
+        # })
 
         self.idx += len(text)
 
+        # Add url
         url_text = f"{resolution.url} \n\n"
-        requests.append({
-            'insertText': {
-                'location': {
-                    'index': self.idx,
-                },
-                'text': url_text
-            }
-        })
+        requests.append(RequestRepository.make_insert_text_request(self.idx, url_text))
+        requests.append(RequestRepository.make_url_request(self.idx, self.idx + len(url_text), resolution.url))
 
-        requests.append(
-            {
-                "updateTextStyle": {
-                    "textStyle": {
-                        "link": {
-                            "url": resolution.url
-                        }
-                    },
-                    "range": {
-                        "startIndex": self.idx,
-                        "endIndex": self.idx + len(url_text)
-                    },
-                    "fields": "link"
-                }
-            })
+        #
+        # requests.append({
+        #     'insertText': {
+        #         'location': {
+        #             'index': self.idx,
+        #         },
+        #         'text': url_text
+        #     }
+        # })
+        #
+        # requests.append(
+        #     {
+        #         "updateTextStyle": {
+        #             "textStyle": {
+        #                 "link": {
+        #                     "url": resolution.url
+        #                 }
+        #             },
+        #             "range": {
+        #                 "startIndex": self.idx,
+        #                 "endIndex": self.idx + len(url_text)
+        #             },
+        #             "fields": "link"
+        #         }
+        #     })
 
         self.idx += len(url_text)
 
-        requests.append({'updateParagraphStyle': {
-            'range': {
-                'startIndex': starting_idx,
-                'endIndex': self.idx
-            },
-            'paragraphStyle': {
-                'namedStyleType': 'NORMAL_TEXT'
-            },
-            'fields': 'namedStyleType'
-        }
-        })
+        # Make sure it has the correct styling
+        requests.append(RequestRepository.make_normal_text_style_request(starting_idx, self.idx))
+
+        # requests.append({'updateParagraphStyle': {
+        #     'range': {
+        #         'startIndex': starting_idx,
+        #         'endIndex': self.idx
+        #     },
+        #     'paragraphStyle': {
+        #         'namedStyleType': 'NORMAL_TEXT'
+        #     },
+        #     'fields': 'namedStyleType'
+        # }
+        # })
 
         return requests
 

@@ -43,7 +43,8 @@ class Configuration(object):
         self.RATIONALE_RANGE_NAME = self.configuration['resolutions']['RATIONALE_RANGE_NAME']
         self.DISTRIBUTION_LIST_RANGE_NAME = self.configuration['resolutions']['DISTRIBUTION_LIST_RANGE_NAME']
 
-        self.LOG_PATH = f"{self.BASE}/rez.log"
+        self.LOG_FOLDER = f"{self.BASE}/logs"
+        self.LOG_PATH = f"{self.LOG_FOLDER}/rez.log"
 
         self.initialize_logging()
         # print(self.configuration)
