@@ -1,6 +1,7 @@
 # import ResolutionManager.environment as env
 import logging
 
+from ResolutionManager.Repositories.RequestRepository import RequestRepository
 from ResolutionManager.config.Configuration import Configuration
 from ResolutionManager.Repositories.DocumentRepository import DocumentRepository
 from ResolutionManager.Repositories.FileRepository import FileRepository
@@ -102,19 +103,20 @@ class ResolutionTemplateRepository(object):
                         }
                     })
                     # Center again
-                    requests.append(
-                        {
-                            'updateParagraphStyle': {
-                                'range': {
-                                    'startIndex': start,
-                                    'endIndex': start + new_text_len
-                                },
-                                'paragraphStyle': {
-                                    'alignment': 'CENTER'
-                                },
-                                'fields': 'alignment'
-                            }
-                        })
+                    requests.append(RequestRepository.make_align_center_request(start, start + new_text_len ))
+                    # requests.append(
+                    #     {
+                    #         'updateParagraphStyle': {
+                    #             'range': {
+                    #                 'startIndex': start,
+                    #                 'endIndex': start + new_text_len
+                    #             },
+                    #             'paragraphStyle': {
+                    #                 'alignment': 'CENTER'
+                    #             },
+                    #             'fields': 'alignment'
+                    #         }
+                    #     })
 
             # Make a batchUpdate request to apply the changes, ensuring the document
             # hasn't changed since we fetched it.
@@ -262,7 +264,7 @@ class ResolutionTemplateRepository(object):
 
                         },
                         'fontSize': {
-                            'magnitude': 12,
+                            'magnitude': 11,
                             'unit': 'PT'
                         },
                     },

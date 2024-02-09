@@ -129,7 +129,6 @@ class FileRepository(object):
 
         except HttpError as error:
             self.logger.warning(error)
-            print(F'An error occurred: {error}')
             print(f'An error occurred: {error}')
             return None
 

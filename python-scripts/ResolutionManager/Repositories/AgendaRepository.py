@@ -256,7 +256,7 @@ class AgendaRepository(object):
         text = f"{resolution.agenda_item} \n"
 
         requests.append(RequestRepository.make_insert_text_request(self.idx, text))
-        requests.append(RequestRepository.make_left_align_request(self.idx, self.idx + len(text)))
+        requests.append(RequestRepository.make_align_left_request(self.idx, self.idx + len(text)))
 
         # requests.append({
         #     'insertText': {

@@ -1,9 +1,9 @@
 import logging
 
 from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
 
 from ResolutionManager.API.CredentialsManager import CredentialsManager
+from ResolutionManager.Repositories.RequestRepository import RequestRepository
 from ResolutionManager.config.Configuration import Configuration
 from ResolutionManager.config.Templates import Templates
 from ResolutionManager.Models.Resolutions import Resolution
@@ -20,7 +20,6 @@ class StylingRepository(object):
         self.service = build('docs', 'v1', credentials=self.cred_manager.creds)
         self.config = Configuration()
         self.logger = logging.getLogger(__name__)
-
 
     # ======================== Utlities which make direct requests
     @staticmethod
@@ -67,7 +66,7 @@ class StylingRepository(object):
         requests = []
 
         for i in list_of_indicies:
-            requests.append(self.make_double_space_request(i['startIndex'], i['endIndex']))
+            requests.append(RequestRepository.make_double_space_request(i['startIndex'], i['endIndex']))
 
         body = {'requests': requests}
         if revision_id is not None:
@@ -79,49 +78,6 @@ class StylingRepository(object):
             body=body
         ).execute()
 
-    def make_double_space_request(self, start_index, end_index):
-        """
-        Creates a request object for making the given indicies double spaced
-        :param document_id:
-        :param start_index:
-        :param end_index:
-        :return:
-        """
-        return {
-            'updateParagraphStyle': {
-                'range': {
-                    'startIndex': start_index,
-                    'endIndex': end_index
-                },
-                'paragraphStyle': {
-                    'lineSpacing': 200
-                },
-                'fields': 'lineSpacing'
-            }
-        }
-
-    def make_single_space_request(self, start_index, end_index):
-        """
-        Creates a request object for making the given indicies double spaced.
-        Used to create the objects used in a batch update
-        :param document_id:
-        :param start_index:
-        :param end_index:
-        :return:
-        """
-        return {
-            'updateParagraphStyle': {
-                'range': {
-                    'startIndex': start_index,
-                    'endIndex': end_index
-                },
-                'paragraphStyle': {
-                    'lineSpacing': 100
-                },
-                'fields': 'lineSpacing'
-            }
-        }
-
     def single_space(self, document_id, list_of_indicies, revision_id=None):
         """Given a list of dictionaries
             [{'startIndex': 93, 'endIndex': 1290}]
@@ -130,7 +86,7 @@ class StylingRepository(object):
         requests = []
 
         for i in list_of_indicies:
-            requests.append(self.make_single_space_request(i['startIndex'], i['endIndex']))
+            requests.append(RequestRepository.make_single_space_request(i['startIndex'], i['endIndex']))
 
         body = {'requests': requests}
         if revision_id is not None:
@@ -141,23 +97,6 @@ class StylingRepository(object):
             documentId=document_id,
             body={'requests': requests}
         ).execute()
-
-    def make_bold_request(self, start_index, end_index):
-        """Creates a request object for making the given indicies double spaced.
-        Used to create the objects used in a batch update
-        """
-        return {
-            'updateTextStyle': {
-                'range': {
-                    'startIndex': start_index,
-                    'endIndex': end_index
-                },
-                'textStyle': {
-                    'bold': True,
-                },
-                'fields': 'bold'
-            }
-        }
 
     def force_font(self, document_id, list_of_indicies, revision_id=None):
         """
@@ -306,8 +245,8 @@ class StylingRepository(object):
         title_range = self.get_indicies_for_named_range(resolution, self.config.TITLE_RANGE_NAME)
         requests = []
         for i in title_range:
-            requests.append(self.make_single_space_request(i['startIndex'], i['endIndex']))
-            requests.append(self.make_bold_request(i['startIndex'], i['endIndex']))
+            requests.append(RequestRepository.make_single_space_request(i['startIndex'], i['endIndex']))
+            requests.append(RequestRepository.make_bold_text_request(i['startIndex'], i['endIndex']))
 
         body = {'requests': requests}
         if revision_id is not None:

@@ -26,6 +26,38 @@ class RequestRepository(object):
         }
 
     @classmethod
+    def make_align_center_request(cls, start_index, end_index):
+        return {
+            'updateParagraphStyle': {
+                'range': {
+                    'startIndex': start_index,
+                    'endIndex': end_index
+                },
+                'paragraphStyle': {
+                    'alignment': 'CENTER'
+                },
+                'fields': 'alignment'
+            }
+        }
+
+
+    @classmethod
+    def make_align_left_request(cls, start_index, end_index):
+        return {
+            'updateParagraphStyle': {
+                'range': {
+                    'startIndex': start_index,
+                    'endIndex': end_index
+                },
+                'paragraphStyle': {
+                    'alignment': 'START'
+                },
+                'fields': 'alignment'
+            }
+        }
+
+
+    @classmethod
     def make_delete_content_request(cls, start_index, end_index):
         return {
             'deleteContentRange': {
@@ -47,21 +79,7 @@ class RequestRepository(object):
             }
         }
 
-    @classmethod
-    def make_left_align_request(cls, start_index, end_index):
-        return {
-            'updateParagraphStyle': {
-                'range': {
-                    'startIndex': start_index,
-                    'endIndex': end_index
-                },
-                'paragraphStyle': {
-                    'alignment': 'START'
-                },
-                'fields': 'alignment'
-            }
-        }
-
+    # ------------------------- Named styles
     @classmethod
     def make_normal_text_style_request(cls, start_index, end_index):
         return {
@@ -114,3 +132,49 @@ class RequestRepository(object):
                     "fields": "link"
                 }
             }
+
+    # ---------------------------- Spacing
+    @classmethod
+    def make_single_space_request(cls, start_index, end_index):
+        """
+        Creates a request object for making the given indicies double spaced.
+        Used to create the objects used in a batch update
+        :param document_id:
+        :param start_index:
+        :param end_index:
+        :return:
+        """
+        return {
+            'updateParagraphStyle': {
+                'range': {
+                    'startIndex': start_index,
+                    'endIndex': end_index
+                },
+                'paragraphStyle': {
+                    'lineSpacing': 100
+                },
+                'fields': 'lineSpacing'
+            }
+        }
+
+    @classmethod
+    def make_double_space_request(cls, start_index, end_index):
+        """
+        Creates a request object for making the given indicies double spaced
+        :param document_id:
+        :param start_index:
+        :param end_index:
+        :return:
+        """
+        return {
+            'updateParagraphStyle': {
+                'range': {
+                    'startIndex': start_index,
+                    'endIndex': end_index
+                },
+                'paragraphStyle': {
+                    'lineSpacing': 200
+                },
+                'fields': 'lineSpacing'
+            }
+        }
