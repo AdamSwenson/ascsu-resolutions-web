@@ -1,3 +1,5 @@
+import logging
+
 from ResolutionManager.API.CredentialsManager import CredentialsManager
 
 from googleapiclient.discovery import build
@@ -9,6 +11,8 @@ class PermissionsRepository(object):
     def __init__(self):
         self.cred_manager = CredentialsManager()
         self.service = build('drive', 'v3', credentials=self.cred_manager.creds)
+        self.logger = logging.getLogger(__name__)
+
 
     def make_all_in_folder_readonly(self, folder_id, reason='restricted during plenary'):
         content_restriction = {'readOnly': True, 'reason': reason}

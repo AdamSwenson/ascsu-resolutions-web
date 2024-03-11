@@ -1,4 +1,6 @@
+import logging
 import sys
+
 
 sys.path.append("/Users/ars62917/Dropbox/ResolutionManagerWeb/python-scripts")
 sys.path.append("/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts/ResolutionManager")
@@ -7,22 +9,28 @@ sys.path.append("/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-script
 from ResolutionManager.DAO.DAO import MySqlDao
 from ResolutionManager.Repositories.PermissionsRepository import PermissionsRepository
 from ResolutionManager.Repositories.ResolutionRepository import ResolutionRepository
+from ResolutionManager.config.Configuration import Configuration
 
 
 def main(resolution_id=None):
-    if resolution_id is None:
-        resolution_id = int(sys.argv[1])
+    config = Configuration()
+    logger = logging.getLogger(__name__)
 
-    dao = MySqlDao()
-    resolution_repo = ResolutionRepository(dao)
-    permission_repo = PermissionsRepository()
+    try:
+        if resolution_id is None:
+            resolution_id = int(sys.argv[1])
 
-    resolution = resolution_repo.load_resolution(resolution_id)
+        dao = MySqlDao()
+        resolution_repo = ResolutionRepository(dao)
+        permission_repo = PermissionsRepository()
 
-    permission_repo.make_world_readable(resolution.document_id)
+        resolution = resolution_repo.load_resolution(resolution_id)
 
-    return resolution
+        permission_repo.make_world_readable(resolution.document_id)
 
+        return resolution
+    except Exception as e:
+        logger.warning(e)
 
 if __name__ == '__main__':
     main()

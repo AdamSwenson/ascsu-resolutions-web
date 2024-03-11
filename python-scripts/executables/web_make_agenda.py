@@ -1,3 +1,4 @@
+import logging
 import sys
 
 sys.path.append("/Users/ars62917/Dropbox/ResolutionManagerWeb/python-scripts")
@@ -7,23 +8,30 @@ sys.path.append("/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-script
 from ResolutionManager.DAO.DAO import MySqlDao
 from ResolutionManager.Repositories.PlenaryRepository import PlenaryRepository
 from ResolutionManager.Repositories.AgendaRepository import AgendaRepository
+from ResolutionManager.config.Configuration import Configuration
 
 import web_sync_action_item_status as action_sync
 
 def main(plenary_id=None):
-    if plenary_id is None:
-        plenary_id = int(sys.argv[1])
+    config = Configuration()
+    logger = logging.getLogger(__name__)
 
-    action_sync.main(plenary_id)
+    try:
 
-    dao = MySqlDao()
-    agenda_repo = AgendaRepository(dao)
-    plenary_repo = PlenaryRepository(dao)
+        if plenary_id is None:
+            plenary_id = int(sys.argv[1])
 
-    plenary = plenary_repo.load_plenary(plenary_id)
+        action_sync.main(plenary_id)
 
-    agenda_repo.make_resolution_list(plenary)
+        dao = MySqlDao()
+        agenda_repo = AgendaRepository(dao)
+        plenary_repo = PlenaryRepository(dao)
 
+        plenary = plenary_repo.load_plenary(plenary_id)
+
+        agenda_repo.make_resolution_list(plenary)
+    except Exception as e:
+        logger.warning(e)
 
 if __name__ == '__main__':
     main()

@@ -1,3 +1,5 @@
+import logging
+
 from ResolutionManager.Models.Plenaries import Plenary
 from ResolutionManager.Models.Resolutions import Resolution
 from ResolutionManager.Repositories.DocumentRepository import DocumentRepository
@@ -11,6 +13,8 @@ class ResolutionRepository(object):
     def __init__(self, dao):
         self.dao = dao
         self.config = Configuration()
+        self.logger = logging.getLogger(__name__)
+
 
     def load_resolution(self, resolution_id, sponsor=None, cosponsors=[]):
         # resolution_id = int(resolution_id)
@@ -52,29 +56,32 @@ class ResolutionRepository(object):
         :param document:
         :return:
         """
-        titleRangeName = self.config.TITLE_RANGE_NAME
-        # print(self.config.TITLE_RANGE_NAME)
-        # titleRangeName = 'titleRange'
-        # Find the matching named ranges.
-        named_range_list = document.get('namedRanges', {}).get(titleRangeName)
-        if not named_range_list:
-            raise Exception('The named range is no longer present in the document.')
+        try:
+            titleRangeName = self.config.TITLE_RANGE_NAME
+            # print(self.config.TITLE_RANGE_NAME)
+            # titleRangeName = 'titleRange'
+            # Find the matching named ranges.
+            named_range_list = document.get('namedRanges', {}).get(titleRangeName)
+            if not named_range_list:
+                raise Exception('The named range is no longer present in the document.')
 
-        # Determine all the ranges of text to be removed, and at which indices the
-        # replacement text should be inserted.
-        all_ranges = []
-        insert_at = {}
-        for named_range in named_range_list.get('namedRanges'):
-            ranges = named_range.get('ranges')
+            # Determine all the ranges of text to be removed, and at which indices the
+            # replacement text should be inserted.
+            all_ranges = []
+            insert_at = {}
+            for named_range in named_range_list.get('namedRanges'):
+                ranges = named_range.get('ranges')
 
-            all_ranges.extend(ranges)
-            # Most named ranges only contain one range of text, but it's possible
-            # for it to be split into multiple ranges by user edits in the document.
-            # The replacement text should only be inserted at the start of the first
-            # range.
-            insert_at[ranges[0].get('startIndex')] = True
+                all_ranges.extend(ranges)
+                # Most named ranges only contain one range of text, but it's possible
+                # for it to be split into multiple ranges by user edits in the document.
+                # The replacement text should only be inserted at the start of the first
+                # range.
+                insert_at[ranges[0].get('startIndex')] = True
 
-        return all_ranges
+            return all_ranges
+        except Exception as e:
+            self.logger.warning(e)
 
     def get_title(self, document, startIndex):
         """
@@ -136,9 +143,7 @@ class ResolutionRepository(object):
                 if len(doc_title) > 0:
                     rez.title = doc_title
             except Exception as e:
-                print(e)
-                # todo Catch appropriately
-                pass
+                self.logger.warning(e)
 
             resolutions.append(rez)
         return resolutions
@@ -179,9 +184,7 @@ class ResolutionRepository(object):
                 if len(doc_title) > 0:
                     rez.title = doc_title
             except Exception as e:
-                print(e)
-                # todo Catch appropriately
-                pass
+                self.logger.warning(e)
 
             resolutions.append(rez)
         return resolutions

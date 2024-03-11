@@ -1,7 +1,9 @@
+import logging
+
 from googleapiclient.discovery import build
-from googleapiclient.errors import HttpError
 
 from ResolutionManager.API.CredentialsManager import CredentialsManager
+from ResolutionManager.Repositories.RequestRepository import RequestRepository
 from ResolutionManager.config.Configuration import Configuration
 from ResolutionManager.config.Templates import Templates
 from ResolutionManager.Models.Resolutions import Resolution
@@ -17,6 +19,7 @@ class StylingRepository(object):
         self.cred_manager = CredentialsManager()
         self.service = build('docs', 'v1', credentials=self.cred_manager.creds)
         self.config = Configuration()
+        self.logger = logging.getLogger(__name__)
 
     # ======================== Utlities which make direct requests
     @staticmethod
@@ -63,7 +66,7 @@ class StylingRepository(object):
         requests = []
 
         for i in list_of_indicies:
-            requests.append(self.make_double_space_request(i['startIndex'], i['endIndex']))
+            requests.append(RequestRepository.make_double_space_request(i['startIndex'], i['endIndex']))
 
         body = {'requests': requests}
         if revision_id is not None:
@@ -75,49 +78,6 @@ class StylingRepository(object):
             body=body
         ).execute()
 
-    def make_double_space_request(self, start_index, end_index):
-        """
-        Creates a request object for making the given indicies double spaced
-        :param document_id:
-        :param start_index:
-        :param end_index:
-        :return:
-        """
-        return {
-            'updateParagraphStyle': {
-                'range': {
-                    'startIndex': start_index,
-                    'endIndex': end_index
-                },
-                'paragraphStyle': {
-                    'lineSpacing': 200
-                },
-                'fields': 'lineSpacing'
-            }
-        }
-
-    def make_single_space_request(self, start_index, end_index):
-        """
-        Creates a request object for making the given indicies double spaced.
-        Used to create the objects used in a batch update
-        :param document_id:
-        :param start_index:
-        :param end_index:
-        :return:
-        """
-        return {
-            'updateParagraphStyle': {
-                'range': {
-                    'startIndex': start_index,
-                    'endIndex': end_index
-                },
-                'paragraphStyle': {
-                    'lineSpacing': 100
-                },
-                'fields': 'lineSpacing'
-            }
-        }
-
     def single_space(self, document_id, list_of_indicies, revision_id=None):
         """Given a list of dictionaries
             [{'startIndex': 93, 'endIndex': 1290}]
@@ -126,7 +86,7 @@ class StylingRepository(object):
         requests = []
 
         for i in list_of_indicies:
-            requests.append(self.make_single_space_request(i['startIndex'], i['endIndex']))
+            requests.append(RequestRepository.make_single_space_request(i['startIndex'], i['endIndex']))
 
         body = {'requests': requests}
         if revision_id is not None:
@@ -137,23 +97,6 @@ class StylingRepository(object):
             documentId=document_id,
             body={'requests': requests}
         ).execute()
-
-    def make_bold_request(self, start_index, end_index):
-        """Creates a request object for making the given indicies double spaced.
-        Used to create the objects used in a batch update
-        """
-        return {
-            'updateTextStyle': {
-                'range': {
-                    'startIndex': start_index,
-                    'endIndex': end_index
-                },
-                'textStyle': {
-                    'bold': True,
-                },
-                'fields': 'bold'
-            }
-        }
 
     def force_font(self, document_id, list_of_indicies, revision_id=None):
         """
@@ -204,36 +147,39 @@ class StylingRepository(object):
         :param range_name: string Name of range
         :return: list
         """
-        # Determine the length of the replacement text, as UTF-16 code units.
-        # https://developers.google.com/docs/api/concepts/structure#start_and_end_index
+        try:
+            # Determine the length of the replacement text, as UTF-16 code units.
+            # https://developers.google.com/docs/api/concepts/structure#start_and_end_index
 
-        # Fetch the document to determine the current indexes of the named ranges.
-        # We're going to do this de novo in case the resolution object may be out of date
-        document = self.service.documents().get(documentId=resolution.document_id).execute()
-        # Set it on the resolution just in case
-        resolution.document_obj = document
+            # Fetch the document to determine the current indexes of the named ranges.
+            # We're going to do this de novo in case the resolution object may be out of date
+            document = self.service.documents().get(documentId=resolution.document_id).execute()
+            # Set it on the resolution just in case
+            resolution.document_obj = document
 
-        # Find the matching named ranges.
-        named_range_list = document.get('namedRanges', {}).get(range_name)
-        if not named_range_list:
-            raise Exception('The named range is no longer present in the document.')
+            # Find the matching named ranges.
+            named_range_list = document.get('namedRanges', {}).get(range_name)
+            if not named_range_list:
+                raise Exception('The named range is no longer present in the document.')
 
-        # Determine all the ranges of text to be removed, and at which indices the
-        # replacement text should be inserted.
-        all_ranges = []
-        # insert_at = {}
-        for named_range in named_range_list.get('namedRanges'):
-            ranges = named_range.get('ranges')
-            all_ranges.extend(ranges)
-            # Most named ranges only contain one range of text, but it's possible
-            # for it to be split into multiple ranges by user edits in the document.
-            # The replacement text should only be inserted at the start of the first
-            # range.
-            # insert_at[ranges[0].get('startIndex')] = True
+            # Determine all the ranges of text to be removed, and at which indices the
+            # replacement text should be inserted.
+            all_ranges = []
+            # insert_at = {}
+            for named_range in named_range_list.get('namedRanges'):
+                ranges = named_range.get('ranges')
+                all_ranges.extend(ranges)
+                # Most named ranges only contain one range of text, but it's possible
+                # for it to be split into multiple ranges by user edits in the document.
+                # The replacement text should only be inserted at the start of the first
+                # range.
+                # insert_at[ranges[0].get('startIndex')] = True
 
-        # Sort the list of ranges by startIndex, in descending order.
-        all_ranges.sort(key=lambda r: r.get('startIndex'), reverse=True)
-        return all_ranges
+            # Sort the list of ranges by startIndex, in descending order.
+            all_ranges.sort(key=lambda r: r.get('startIndex'), reverse=True)
+            return all_ranges
+        except Exception as e:
+            self.logger.warning(e)
 
     #  ======================== Requests covering parts of resolution
 
@@ -299,8 +245,8 @@ class StylingRepository(object):
         title_range = self.get_indicies_for_named_range(resolution, self.config.TITLE_RANGE_NAME)
         requests = []
         for i in title_range:
-            requests.append(self.make_single_space_request(i['startIndex'], i['endIndex']))
-            requests.append(self.make_bold_request(i['startIndex'], i['endIndex']))
+            requests.append(RequestRepository.make_single_space_request(i['startIndex'], i['endIndex']))
+            requests.append(RequestRepository.make_bold_text_request(i['startIndex'], i['endIndex']))
 
         body = {'requests': requests}
         if revision_id is not None:

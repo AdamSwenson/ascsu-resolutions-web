@@ -1,4 +1,5 @@
 import configparser
+import logging
 import os
 
 
@@ -23,15 +24,18 @@ class Configuration(object):
         self.CREDENTIALS_FILEPATH = f"{self.CREDENTIALS_FOLDER}/credentials.json"
         self.TOKEN_FILEPATH = f"{self.CREDENTIALS_FOLDER}/token.json"
 
+        self.SERVICE_ACCOUNT_FILEPATH = f"{self.CREDENTIALS_FOLDER}/resolutionmanager-service.json"
+
         # self.config_path = "../../private/config.ini";
         self.configuration = configparser.ConfigParser()
         self.configuration.read(self.config_path)
 
         self.GOOGLE_DRIVE_ROOT_FOLDER_ID = self.configuration['drive']['GOOGLE_DRIVE_ROOT_FOLDER_ID']
 
-        # Template
+        # Templates
         self.TEMPLATE_DOCUMENT_ID = self.configuration['drive']['TEMPLATE_DOCUMENT_ID']
         self.TEMPLATE_HEADER_ID = self.configuration['drive']['TEMPLATE_HEADER_ID']
+        self.AGENDA_TEMPLATE_ID = self.configuration['drive']['AGENDA_TEMPLATE_ID']
 
         # Named ranges in document
         self.TITLE_RANGE_NAME = self.configuration['resolutions']['TITLE_RANGE_NAME']
@@ -39,6 +43,10 @@ class Configuration(object):
         self.RATIONALE_RANGE_NAME = self.configuration['resolutions']['RATIONALE_RANGE_NAME']
         self.DISTRIBUTION_LIST_RANGE_NAME = self.configuration['resolutions']['DISTRIBUTION_LIST_RANGE_NAME']
 
+        self.LOG_FOLDER = f"{self.BASE}/logs"
+        self.LOG_PATH = f"{self.LOG_FOLDER}/rez.log"
+
+        self.initialize_logging()
         # print(self.configuration)
 
     def set_environment(self):
@@ -57,6 +65,12 @@ class Configuration(object):
     @property
     def dsn(self):
         return f"mysql+mysqlconnector://{self.configuration['mysql']['user']}:{self.configuration['mysql']['password']}@{self.configuration['mysql']['ip']}/{self.configuration['mysql']['db']}"
+
+    def initialize_logging(self):
+        logging.basicConfig(filename=self.LOG_PATH, encoding='utf-8',
+                            level=logging.WARNING,
+                            format='%(asctime)s %(levelname)s %(module)s: %(message)s')
+
 
     #
     # @classmethod

@@ -1,3 +1,5 @@
+import logging
+
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
@@ -12,14 +14,18 @@ class DocumentRepository(object):
 
     def __init__(self):
         self.cred_manager = CredentialsManager()
-        self.service = build('docs', 'v1', credentials=self.cred_manager.creds)
+        try:
+            self.service = build('docs', 'v1', credentials=self.cred_manager.creds)
+        except Exception as e:
+            print(e)
         self.style_repo = StylingRepository()
 
-    def create_file(self, filename):
-        """Shows basic usage of the Docs API.
-        Prints the title of a sample document.
-        """
+        self.logger = logging.getLogger(__name__)
 
+    def create_file(self, filename):
+        """Creates a new file.
+        Prints the title and the doc id.
+        """
         try:
             # service = build('docs', 'v1', credentials=self.cred_manager.creds)
 
@@ -43,8 +49,8 @@ class DocumentRepository(object):
             return doc_id
 
         except HttpError as err:
+            self.logger.warning(err)
             print(err)
-
 
     def create_file_in_folder(self, folder_id, filename):
         """Upload a file to the specified folder and prints file ID, folder ID
@@ -67,6 +73,7 @@ class DocumentRepository(object):
             return file.get('id')
 
         except HttpError as error:
+            self.logger.warning(error)
             print(F'An error occurred: {error}')
             return None
 
@@ -76,6 +83,7 @@ class DocumentRepository(object):
             document = self.service.documents().get(documentId=document_id).execute()
             return document
         except HttpError as err:
+            self.logger.warning(err)
             print(err)
 
     def get_end_index(self, document):
@@ -86,7 +94,6 @@ class DocumentRepository(object):
         """
         body = document.get('body').get('content')
         return body[len(body) - 1]['endIndex']
-
 
         # requests = [
         #     # Set body to Atkinson Hyperlegible
@@ -115,7 +122,6 @@ class DocumentRepository(object):
         #
         # self.service.documents().batchUpdate(
         #     documentId=resolution.document_id, body={'requests': requests}).execute()
-
 
         #
         # document = self.get_document(resolution.document_id)

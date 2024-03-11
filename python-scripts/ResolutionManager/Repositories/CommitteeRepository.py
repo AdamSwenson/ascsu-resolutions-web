@@ -1,3 +1,5 @@
+import logging
+
 from ResolutionManager.Models.Committees import Committee
 
 
@@ -6,6 +8,8 @@ class CommitteeRepository(object):
     def __init__(self, dao):
         self.dao = dao
         # self.conn = self.dao.engine.connect()
+        self.logger = logging.getLogger(__name__)
+
 
     def load_committee(self, committee_id):
         c = self.dao.conn.execute(f"select * from ascsu.committees where id = {committee_id}").fetchone()

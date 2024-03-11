@@ -1,9 +1,13 @@
+import logging
+
 from ResolutionManager.Models.Plenaries import Plenary
 
 
 class PlenaryRepository(object):
     def __init__(self, dao):
         self.dao = dao
+        self.logger = logging.getLogger(__name__)
+
 
     # def create_plenary(self, thursday_date):
     #     result = self.dao.execute("Insert into ascsu.plenaries (thursday_date) values ({thursday_date})")
