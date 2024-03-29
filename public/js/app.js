@@ -3109,6 +3109,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _failed_toggle_button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./failed-toggle-button */ "./resources/js/components/secretary/resolutions/failed-toggle-button.vue");
 /* harmony import */ var _status_badge__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./status-badge */ "./resources/js/components/secretary/resolutions/status-badge.vue");
 /* harmony import */ var _reading_type_badge__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./reading-type-badge */ "./resources/js/components/secretary/resolutions/reading-type-badge.vue");
+/* harmony import */ var _waiver_toggle_button__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./waiver-toggle-button */ "./resources/js/components/secretary/resolutions/waiver-toggle-button.vue");
+
 
 
 
@@ -3119,6 +3121,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "resolution-item-card",
   components: {
+    WaiverToggleButton: _waiver_toggle_button__WEBPACK_IMPORTED_MODULE_7__["default"],
     ReadingTypeBadge: _reading_type_badge__WEBPACK_IMPORTED_MODULE_6__["default"],
     StatusBadge: _status_badge__WEBPACK_IMPORTED_MODULE_5__["default"],
     FailedToggleButton: _failed_toggle_button__WEBPACK_IMPORTED_MODULE_4__["default"],
@@ -3641,6 +3644,73 @@ __webpack_require__.r(__webpack_exports__);
         window.console.log('permissions', 'response', 126, response);
         _this.isUnlockWorking = false;
       });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/waiver-toggle-button.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/waiver-toggle-button.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../utilities/readiness.utilities */ "./resources/js/utilities/readiness.utilities.js");
+/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../routes */ "./resources/js/routes.js");
+/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_routes__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _mixins_resolutionMixin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../mixins/resolutionMixin */ "./resources/js/mixins/resolutionMixin.js");
+/* harmony import */ var _mixins_resolutionMixin__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_mixins_resolutionMixin__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+
+/**
+ * This handles the approval status of the resolution.
+ * Todo Currently refreshes the page. Should update property
+ */
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "waiver-toggle-button",
+  props: ['resolutionId'],
+  mixins: [(_mixins_resolutionMixin__WEBPACK_IMPORTED_MODULE_2___default())],
+  data: function data() {
+    return {
+      unwaiverLabel: 'Set waiver',
+      waiverLabel: 'Remove waiver',
+      waiverStyle: 'btn-warning',
+      unwaiverStyle: 'btn-outline-warning'
+    };
+  },
+  asyncComputed: {
+    /**
+     * Should not show the button on action items
+     * @returns {boolean|(function(): boolean)|*}
+     */
+    isVisible: function isVisible() {
+      // return true;
+      if (!(0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_0__.isReadyToRock)(this.resolution)) return false;
+      return this.isFirstReading || this.isWaiver;
+    },
+    label: function label() {
+      if (!(0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_0__.isReadyToRock)(this.resolution)) return this.unwaiverLabel;
+      if (this.isWaiver) return this.waiverLabel;
+      return this.unwaiverLabel;
+    },
+    styling: function styling() {
+      if (!(0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_0__.isReadyToRock)(this.resolution)) return this.unwaiverStyle;
+      if (this.isWaiver) return this.waiverStyle;
+      return this.unwaiverStyle;
+    }
+  },
+  computed: {},
+  methods: {
+    handleClick: function handleClick() {
+      this.$store.dispatch('toggleIsWaiver', this.resolution);
     }
   }
 });
@@ -4801,6 +4871,10 @@ var render = function render() {
     attrs: {
       "resolution-id": _vm.resolutionId
     }
+  }), _vm._v(" "), _c("waiver-toggle-button", {
+    attrs: {
+      "resolution-id": _vm.resolutionId
+    }
   })], 1)]);
 };
 var staticRenderFns = [];
@@ -5033,6 +5107,38 @@ var render = function render() {
       click: _vm.handleLockAll
     }
   }, [_vm._v("Lock editing")])], 1)])]);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/waiver-toggle-button.vue?vue&type=template&id=49c60128&scoped=true&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/waiver-toggle-button.vue?vue&type=template&id=49c60128&scoped=true& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _vm.isVisible ? _c("a", {
+    staticClass: "waiver-toggle-button btn btn-sm",
+    "class": _vm.styling,
+    attrs: {
+      href: "#"
+    },
+    on: {
+      click: _vm.handleClick
+    }
+  }, [_vm._v(_vm._s(_vm.label))]) : _vm._e();
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -5665,6 +5771,13 @@ module.exports = {
         url += plenary_id + '/';
         url += resolution_id;
         return url;
+      },
+      toggleWaiver: function toggleWaiver(resolution) {
+        var resolution_id = idify(resolution);
+        var url = normalizedRouteRoot();
+        url += 'resolution/waiver/toggle/';
+        url += resolution_id;
+        return url;
       }
     }
   }
@@ -6090,6 +6203,24 @@ var actions = {
         dispatch('loadCurrentPlenaryResolutions').then(function () {
           return resolve();
         });
+      });
+    });
+  },
+  toggleIsWaiver: function toggleIsWaiver(_ref7, resolution) {
+    var _this = this;
+    var dispatch = _ref7.dispatch,
+      commit = _ref7.commit,
+      getters = _ref7.getters;
+    return new Promise(function (resolve, reject) {
+      var url = _routes__WEBPACK_IMPORTED_MODULE_0__.secretary.resolutions.toggleWaiver(resolution);
+      window.console.log('toggle waiver', 'post', url);
+      var me = _this;
+      var data = {
+        status: null
+      };
+      Vue.axios.post(url, data).then(function (response) {
+        //todo Actually update the object
+        dispatch('forceReload');
       });
     });
   }
@@ -25590,6 +25721,45 @@ component.options.__file = "resources/js/components/secretary/resolutions/toggle
 
 /***/ }),
 
+/***/ "./resources/js/components/secretary/resolutions/waiver-toggle-button.vue":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/secretary/resolutions/waiver-toggle-button.vue ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _waiver_toggle_button_vue_vue_type_template_id_49c60128_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./waiver-toggle-button.vue?vue&type=template&id=49c60128&scoped=true& */ "./resources/js/components/secretary/resolutions/waiver-toggle-button.vue?vue&type=template&id=49c60128&scoped=true&");
+/* harmony import */ var _waiver_toggle_button_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./waiver-toggle-button.vue?vue&type=script&lang=js& */ "./resources/js/components/secretary/resolutions/waiver-toggle-button.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _waiver_toggle_button_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _waiver_toggle_button_vue_vue_type_template_id_49c60128_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _waiver_toggle_button_vue_vue_type_template_id_49c60128_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "49c60128",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/secretary/resolutions/waiver-toggle-button.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/secretary/secretary.vue":
 /*!*********************************************************!*\
   !*** ./resources/js/components/secretary/secretary.vue ***!
@@ -26125,6 +26295,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/secretary/resolutions/waiver-toggle-button.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************!*\
+  !*** ./resources/js/components/secretary/resolutions/waiver-toggle-button.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_waiver_toggle_button_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./waiver-toggle-button.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/waiver-toggle-button.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_waiver_toggle_button_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/secretary/secretary.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************!*\
   !*** ./resources/js/components/secretary/secretary.vue?vue&type=script&lang=js& ***!
@@ -26611,6 +26797,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_toggle_all_resolution_permissions_vue_vue_type_template_id_021190ce_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_toggle_all_resolution_permissions_vue_vue_type_template_id_021190ce_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./toggle-all-resolution-permissions.vue?vue&type=template&id=021190ce&scoped=true& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/toggle-all-resolution-permissions.vue?vue&type=template&id=021190ce&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/secretary/resolutions/waiver-toggle-button.vue?vue&type=template&id=49c60128&scoped=true&":
+/*!***************************************************************************************************************************!*\
+  !*** ./resources/js/components/secretary/resolutions/waiver-toggle-button.vue?vue&type=template&id=49c60128&scoped=true& ***!
+  \***************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_waiver_toggle_button_vue_vue_type_template_id_49c60128_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_waiver_toggle_button_vue_vue_type_template_id_49c60128_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_waiver_toggle_button_vue_vue_type_template_id_49c60128_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./waiver-toggle-button.vue?vue&type=template&id=49c60128&scoped=true& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/waiver-toggle-button.vue?vue&type=template&id=49c60128&scoped=true&");
 
 
 /***/ }),

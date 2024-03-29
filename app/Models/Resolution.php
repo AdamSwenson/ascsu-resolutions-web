@@ -139,6 +139,24 @@ class Resolution extends Model
 //            ->first();
     }
 
+    /**
+     * Sets or unsets resolution as a waiver item
+     * Added in AR-81
+     */
+    public function toggleIsWaiver()
+    {
+        $newValue = !$this->isWaiver;
+
+        $plenary = $this->belongsToMany(Plenary::class)
+            ->wherePivot('is_first_reading', 1)
+            ->firstOrFail();
+
+        $this->plenaries()->updateExistingPivot($plenary->id, [
+            'is_waiver' => $newValue,
+        ]);
+        $this->save();
+    }
+
 
     /**
      * Returns the plenary object for the plenary at which received
