@@ -31,8 +31,6 @@ Route::post('/resolution/action/{plenary}/{resolution}', [ResolutionController::
 Route::post('/resolution/{plenary}', [CommitteeController::class, 'recordResolution']);
 Route::post('/resolution/waiver/toggle/{resolution}', [ResolutionController::class, 'toggleWaiver']);
 
-
-
 Route::get('/secretary', [SecretaryController::class, 'getSecretaryPage']);
 Route::post('/secretary/folders', [PlenaryController::class, 'createPlenary']);
 Route::post('secretary/public/{plenary}', [SecretaryController::class, 'createPublic']);
