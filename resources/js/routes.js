@@ -142,6 +142,14 @@ module.exports = {
                 url += plenary_id + '/'
                 url += resolution_id;
                 return url;
+            },
+
+            toggleWaiver : (resolution) => {
+                let resolution_id = idify(resolution);
+                let url = normalizedRouteRoot();
+                url += 'resolution/waiver/toggle/';
+                url += resolution_id;
+                return url;
             }
         }
 

@@ -115,6 +115,24 @@ const actions = {
     },
 
 
+    toggleIsWaiver({dispatch, commit, getters}, resolution) {
+        return new Promise(((resolve, reject) => {
+            let url = routes.secretary.resolutions.toggleWaiver(resolution)
+
+            window.console.log('toggle waiver', 'post', url);
+            let me = this;
+            let data = {status : null};
+            Vue.axios.post(url, data).then((response) => {
+                //todo Actually update the object
+                dispatch('forceReload');
+            });
+
+        }));
+
+    },
+
+
+
     /*
     *    doThing({dispatch, commit, getters}, thingParam) {
     *        return new Promise(((resolve, reject) => {

@@ -23,41 +23,40 @@ class ResolutionController extends Controller
 
         //Was failed; reset to null
         //Not marking document with failed, so nothing else need to do
-        if($originalStatus === 'failed' && $resolution->isUnvoted){
+        if ($originalStatus === 'failed' && $resolution->isUnvoted) {
             return response()->json($resolution);
         }
 
         //Was null; set to failed
-        if(is_null($originalStatus) && $resolution->isFailed){
+        if (is_null($originalStatus) && $resolution->isFailed) {
             return response()->json($resolution);
         }
 
         //==== Was null, failed, or approved
         //If it was already approved, do nothing.
         //This allows us to assume that it was originally unvoted or failed
-        if($originalStatus === 'approved' && $resolution->isApproved){
+        if ($originalStatus === 'approved' && $resolution->isApproved) {
             return response()->json($resolution);
         }
 
         $scriptfile = null;
 
         //Case 1: was null or failed; now approved
-        if($resolution->isApproved){
+        if ($resolution->isApproved) {
             $scriptfile = 'web_add_approved_to_doc.py';
-        }
-        //Case 2: was approved, now failed or unvoted
-        elseif ($resolution->isFailed || $resolution->isUnvotedstatus){
-          $scriptfile = 'web_remove_approved_from_doc.py';
+        } //Case 2: was approved, now failed or unvoted
+        elseif ($resolution->isFailed || $resolution->isUnvotedstatus) {
+            $scriptfile = 'web_remove_approved_from_doc.py';
         }
 
         //todo AR-46: This should be the most recent plenary the resolution belongs to
         $plenary = $resolution->plenaries()->where('is_current', true)->first();
 
-        try{
+        try {
             $this->handleScript($scriptfile, [$plenary->id, $resolution->id]);
             return response()->json($resolution);
 
-        }catch (PythonScriptError $error){
+        } catch (PythonScriptError $error) {
             return $error->getMessage();
         }
 
@@ -104,7 +103,8 @@ class ResolutionController extends Controller
 
     }
 
-    public function setFailed(Resolution $resolution){
+    public function setFailed(Resolution $resolution)
+    {
         $resolution->setFailed();
         $resolution->refresh();
         return response()->json($resolution);
@@ -119,6 +119,21 @@ class ResolutionController extends Controller
     {
         return response()->json($plenary->resolutions);
     }
+
+
+    /**
+     * Sets or unsets resolution as a waiver item
+     * Added in AR-81
+     * @return void
+     */
+    public function toggleWaiver(Resolution $resolution)
+    {
+        $resolution->toggleIsWaiver();
+        $resolution->refresh();
+        return response()->json($resolution);
+    }
+
+    // ******************************** CRUD
 
     /**
      * Display a listing of the resource.

@@ -35,7 +35,7 @@
             <approved-toggle-button :resolution-id="resolutionId"></approved-toggle-button>&nbsp;
             <failed-toggle-button :resolution-id="resolutionId"></failed-toggle-button>&nbsp;&nbsp;&nbsp;&nbsp;
             <set-second-reading-button :resolution-id="resolutionId"></set-second-reading-button>
-
+<waiver-toggle-button :resolution-id="resolutionId"></waiver-toggle-button>
         </div>
     </div>
 </template>
@@ -48,10 +48,12 @@ import SetSecondReadingButton from "./set-second-reading-button";
 import FailedToggleButton from "./failed-toggle-button";
 import StatusBadge from "./status-badge";
 import ReadingTypeBadge from "./reading-type-badge";
+import WaiverToggleButton from "./waiver-toggle-button";
 
 export default {
     name: "resolution-item-card",
     components: {
+        WaiverToggleButton,
         ReadingTypeBadge,
         StatusBadge,
         FailedToggleButton, SetSecondReadingButton, ApprovedToggleButton, ResolutionPermissionButton},
