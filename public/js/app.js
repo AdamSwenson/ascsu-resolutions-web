@@ -3105,11 +3105,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _resolution_permission_button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./resolution-permission-button */ "./resources/js/components/secretary/resolutions/resolution-permission-button.vue");
 /* harmony import */ var _approved_toggle_button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./approved-toggle-button */ "./resources/js/components/secretary/resolutions/approved-toggle-button.vue");
 /* harmony import */ var _utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utilities/readiness.utilities */ "./resources/js/utilities/readiness.utilities.js");
-/* harmony import */ var _set_second_reading_button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./set-second-reading-button */ "./resources/js/components/secretary/resolutions/set-second-reading-button.vue");
-/* harmony import */ var _failed_toggle_button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./failed-toggle-button */ "./resources/js/components/secretary/resolutions/failed-toggle-button.vue");
-/* harmony import */ var _status_badge__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./status-badge */ "./resources/js/components/secretary/resolutions/status-badge.vue");
-/* harmony import */ var _reading_type_badge__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./reading-type-badge */ "./resources/js/components/secretary/resolutions/reading-type-badge.vue");
-/* harmony import */ var _waiver_toggle_button__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./waiver-toggle-button */ "./resources/js/components/secretary/resolutions/waiver-toggle-button.vue");
+/* harmony import */ var _failed_toggle_button__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./failed-toggle-button */ "./resources/js/components/secretary/resolutions/failed-toggle-button.vue");
+/* harmony import */ var _status_badge__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./status-badge */ "./resources/js/components/secretary/resolutions/status-badge.vue");
+/* harmony import */ var _reading_type_badge__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./reading-type-badge */ "./resources/js/components/secretary/resolutions/reading-type-badge.vue");
+/* harmony import */ var _waiver_toggle_button__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./waiver-toggle-button */ "./resources/js/components/secretary/resolutions/waiver-toggle-button.vue");
+/* harmony import */ var _second_reading_toggle_button__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./second-reading-toggle-button */ "./resources/js/components/secretary/resolutions/second-reading-toggle-button.vue");
 
 
 
@@ -3121,11 +3121,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "resolution-item-card",
   components: {
-    WaiverToggleButton: _waiver_toggle_button__WEBPACK_IMPORTED_MODULE_7__["default"],
-    ReadingTypeBadge: _reading_type_badge__WEBPACK_IMPORTED_MODULE_6__["default"],
-    StatusBadge: _status_badge__WEBPACK_IMPORTED_MODULE_5__["default"],
-    FailedToggleButton: _failed_toggle_button__WEBPACK_IMPORTED_MODULE_4__["default"],
-    SetSecondReadingButton: _set_second_reading_button__WEBPACK_IMPORTED_MODULE_3__["default"],
+    SecondReadingToggleButton: _second_reading_toggle_button__WEBPACK_IMPORTED_MODULE_7__["default"],
+    WaiverToggleButton: _waiver_toggle_button__WEBPACK_IMPORTED_MODULE_6__["default"],
+    ReadingTypeBadge: _reading_type_badge__WEBPACK_IMPORTED_MODULE_5__["default"],
+    StatusBadge: _status_badge__WEBPACK_IMPORTED_MODULE_4__["default"],
+    FailedToggleButton: _failed_toggle_button__WEBPACK_IMPORTED_MODULE_3__["default"],
     ApprovedToggleButton: _approved_toggle_button__WEBPACK_IMPORTED_MODULE_1__["default"],
     ResolutionPermissionButton: _resolution_permission_button__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -3487,10 +3487,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/set-second-reading-button.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/set-second-reading-button.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/second-reading-toggle-button.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/second-reading-toggle-button.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -3502,16 +3502,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_routes__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../mixins/plenaryMixin */ "./resources/js/mixins/plenaryMixin.js");
 /* harmony import */ var _mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utilities/readiness.utilities */ "./resources/js/utilities/readiness.utilities.js");
+/* harmony import */ var _mixins_resolutionMixin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../mixins/resolutionMixin */ "./resources/js/mixins/resolutionMixin.js");
+/* harmony import */ var _mixins_resolutionMixin__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_mixins_resolutionMixin__WEBPACK_IMPORTED_MODULE_3__);
+
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "set-second-reading-button",
+  name: "second-reading-toggle-button",
   props: ['resolutionId'],
-  mixins: [(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_1___default())],
+  mixins: [(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_1___default()), (_mixins_resolutionMixin__WEBPACK_IMPORTED_MODULE_3___default())],
   data: function data() {
-    return {};
+    return {
+      unactionLabel: 'Set action',
+      actionLabel: 'Set first reading',
+      actionStyle: ' btn-warning ',
+      unactionStyle: ' btn-outline-warning '
+    };
   },
-  asyncComputed: {},
+  asyncComputed: {
+    label: function label() {
+      if (!(0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_2__.isReadyToRock)(this.resolution)) return this.unactionLabel;
+      if (this.isActionItem) return this.actionLabel;
+      return this.unactionLabel;
+    },
+    styling: function styling() {
+      if (!(0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_2__.isReadyToRock)(this.resolution)) return this.unactionStyle;
+      if (this.isActionItem) return this.actionStyle;
+      return this.unactionStyle;
+    }
+  },
   computed: {},
   methods: {
     handleClick: function handleClick() {
@@ -4834,7 +4855,7 @@ var render = function render() {
     staticClass: "resolution-item-card card mb-3"
   }, [_c("div", {
     staticClass: "card-header h3 text-light"
-  }, [_vm._v("\n            " + _vm._s(_vm.number) + " " + _vm._s(_vm.title) + "\n        ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n        " + _vm._s(_vm.number) + " " + _vm._s(_vm.title) + "\n    ")]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("p", {
     staticClass: "card-text text-light"
@@ -4849,7 +4870,7 @@ var render = function render() {
     attrs: {
       "resolution-id": _vm.resolutionId
     }
-  }), _vm._v("  \n                "), _c("reading-type-badge", {
+  }), _vm._v("  \n            "), _c("reading-type-badge", {
     attrs: {
       "resolution-id": _vm.resolutionId
     }
@@ -4859,15 +4880,15 @@ var render = function render() {
     attrs: {
       "resolution-id": _vm.resolutionId
     }
-  }), _vm._v("    \n            "), _c("approved-toggle-button", {
+  }), _vm._v("    \n        "), _c("approved-toggle-button", {
     attrs: {
       "resolution-id": _vm.resolutionId
     }
-  }), _vm._v(" \n            "), _c("failed-toggle-button", {
+  }), _vm._v(" \n        "), _c("failed-toggle-button", {
     attrs: {
       "resolution-id": _vm.resolutionId
     }
-  }), _vm._v("    \n            "), _c("set-second-reading-button", {
+  }), _vm._v("    \n        "), _c("second-reading-toggle-button", {
     attrs: {
       "resolution-id": _vm.resolutionId
     }
@@ -5019,10 +5040,10 @@ render._withStripped = true;
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/set-second-reading-button.vue?vue&type=template&id=ba96c2f2&scoped=true&":
-/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/set-second-reading-button.vue?vue&type=template&id=ba96c2f2&scoped=true& ***!
-  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/second-reading-toggle-button.vue?vue&type=template&id=8957c50a&scoped=true&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/second-reading-toggle-button.vue?vue&type=template&id=8957c50a&scoped=true& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -5035,11 +5056,12 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("button", {
-    staticClass: "btn btn-sm btn-outline-warning set-second-reading-button",
+    staticClass: "btn btn-sm second-reading-toggle-button",
+    "class": _vm.styling,
     on: {
       click: _vm.handleClick
     }
-  }, [_vm._v("Set second reading")]);
+  }, [_vm._v(_vm._s(_vm.label))]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -25604,10 +25626,10 @@ component.options.__file = "resources/js/components/secretary/resolutions/resolu
 
 /***/ }),
 
-/***/ "./resources/js/components/secretary/resolutions/set-second-reading-button.vue":
-/*!*************************************************************************************!*\
-  !*** ./resources/js/components/secretary/resolutions/set-second-reading-button.vue ***!
-  \*************************************************************************************/
+/***/ "./resources/js/components/secretary/resolutions/second-reading-toggle-button.vue":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/secretary/resolutions/second-reading-toggle-button.vue ***!
+  \****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -25615,8 +25637,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _set_second_reading_button_vue_vue_type_template_id_ba96c2f2_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./set-second-reading-button.vue?vue&type=template&id=ba96c2f2&scoped=true& */ "./resources/js/components/secretary/resolutions/set-second-reading-button.vue?vue&type=template&id=ba96c2f2&scoped=true&");
-/* harmony import */ var _set_second_reading_button_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./set-second-reading-button.vue?vue&type=script&lang=js& */ "./resources/js/components/secretary/resolutions/set-second-reading-button.vue?vue&type=script&lang=js&");
+/* harmony import */ var _second_reading_toggle_button_vue_vue_type_template_id_8957c50a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./second-reading-toggle-button.vue?vue&type=template&id=8957c50a&scoped=true& */ "./resources/js/components/secretary/resolutions/second-reading-toggle-button.vue?vue&type=template&id=8957c50a&scoped=true&");
+/* harmony import */ var _second_reading_toggle_button_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./second-reading-toggle-button.vue?vue&type=script&lang=js& */ "./resources/js/components/secretary/resolutions/second-reading-toggle-button.vue?vue&type=script&lang=js&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -25626,19 +25648,19 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 ;
 var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _set_second_reading_button_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _set_second_reading_button_vue_vue_type_template_id_ba96c2f2_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
-  _set_second_reading_button_vue_vue_type_template_id_ba96c2f2_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _second_reading_toggle_button_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _second_reading_toggle_button_vue_vue_type_template_id_8957c50a_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _second_reading_toggle_button_vue_vue_type_template_id_8957c50a_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
-  "ba96c2f2",
+  "8957c50a",
   null
   
 )
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/secretary/resolutions/set-second-reading-button.vue"
+component.options.__file = "resources/js/components/secretary/resolutions/second-reading-toggle-button.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
@@ -26247,10 +26269,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/secretary/resolutions/set-second-reading-button.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************************!*\
-  !*** ./resources/js/components/secretary/resolutions/set-second-reading-button.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************/
+/***/ "./resources/js/components/secretary/resolutions/second-reading-toggle-button.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************!*\
+  !*** ./resources/js/components/secretary/resolutions/second-reading-toggle-button.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -26258,8 +26280,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_set_second_reading_button_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./set-second-reading-button.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/set-second-reading-button.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_set_second_reading_button_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_second_reading_toggle_button_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./second-reading-toggle-button.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/second-reading-toggle-button.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_second_reading_toggle_button_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -26750,19 +26772,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/secretary/resolutions/set-second-reading-button.vue?vue&type=template&id=ba96c2f2&scoped=true&":
-/*!********************************************************************************************************************************!*\
-  !*** ./resources/js/components/secretary/resolutions/set-second-reading-button.vue?vue&type=template&id=ba96c2f2&scoped=true& ***!
-  \********************************************************************************************************************************/
+/***/ "./resources/js/components/secretary/resolutions/second-reading-toggle-button.vue?vue&type=template&id=8957c50a&scoped=true&":
+/*!***********************************************************************************************************************************!*\
+  !*** ./resources/js/components/secretary/resolutions/second-reading-toggle-button.vue?vue&type=template&id=8957c50a&scoped=true& ***!
+  \***********************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_set_second_reading_button_vue_vue_type_template_id_ba96c2f2_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_set_second_reading_button_vue_vue_type_template_id_ba96c2f2_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_second_reading_toggle_button_vue_vue_type_template_id_8957c50a_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_second_reading_toggle_button_vue_vue_type_template_id_8957c50a_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_set_second_reading_button_vue_vue_type_template_id_ba96c2f2_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./set-second-reading-button.vue?vue&type=template&id=ba96c2f2&scoped=true& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/set-second-reading-button.vue?vue&type=template&id=ba96c2f2&scoped=true&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_second_reading_toggle_button_vue_vue_type_template_id_8957c50a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./second-reading-toggle-button.vue?vue&type=template&id=8957c50a&scoped=true& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/second-reading-toggle-button.vue?vue&type=template&id=8957c50a&scoped=true&");
 
 
 /***/ }),

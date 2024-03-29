@@ -86,6 +86,7 @@ class ResolutionController extends Controller
 
     /**
      * Makes the resolution an action item in the indicated plenary
+     * Changed this to a toggle in AR-87
      *
      * @param Plenary $plenary
      * @param Resolution $resolution
@@ -93,10 +94,14 @@ class ResolutionController extends Controller
      */
     public function setAction(Plenary $plenary, Resolution $resolution)
     {
-//        $resolution
-//            ->plenaries()
-//            ->attach($plenary, ['is_first_reading' => 0]);
-        $resolution->setAction($plenary);
+
+        if($resolution->readingType === 'action'){
+            //toggle it back to a first reading
+            $resolution->setFirstReading($plenary);
+        }else{
+            //make it an action item
+            $resolution->setAction($plenary);
+        }
         $resolution->save();
         $resolution->refresh();
         return response()->json($resolution);
