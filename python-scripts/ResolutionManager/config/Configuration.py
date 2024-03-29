@@ -67,6 +67,7 @@ class Configuration(object):
         return f"mysql+mysqlconnector://{self.configuration['mysql']['user']}:{self.configuration['mysql']['password']}@{self.configuration['mysql']['ip']}/{self.configuration['mysql']['db']}"
 
     def initialize_logging(self):
+        # dev Had to hotfix remove the encoding param since the server is using python 3.8 and that's not defined.
         logging.basicConfig(filename=self.LOG_PATH,
                             level=logging.WARNING,
                             format='%(asctime)s %(levelname)s %(module)s: %(message)s')
