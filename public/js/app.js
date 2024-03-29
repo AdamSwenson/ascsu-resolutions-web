@@ -3833,6 +3833,9 @@ __webpack_require__.r(__webpack_exports__);
     plenaries: function plenaries() {
       //
       var p = this.$store.getters.getPlenaries;
+      p = _.sortBy(p, function (o) {
+        return o.thursday_date;
+      });
       if ((0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_1__.isReadyToRock)(p)) return p;
       return [];
     }
