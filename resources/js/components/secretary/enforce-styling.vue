@@ -18,13 +18,14 @@
 <script>
 import * as routes from "../../routes";
 import WorkingSpinner from "../common/working-spinner";
+import plenaryMixin from "../../mixins/plenaryMixin";
 
 export default {
     name: "enforce-styling",
     components: {WorkingSpinner},
     props: [],
 
-    mixins: [],
+    mixins: [plenaryMixin],
 
     data: function () {
         return {
@@ -39,7 +40,7 @@ export default {
     methods: {
         handleEnforceStyle : function(){
             window.console.log('secretary', 'createAgenda');
-            let url = routes.secretary.resolutions.enforceStyle();
+            let url = routes.secretary.resolutions.enforceStyle(this.plenary);
             let me = this;
             this.isWorking = true;
             Vue.axios.post(url,).then((response) => {

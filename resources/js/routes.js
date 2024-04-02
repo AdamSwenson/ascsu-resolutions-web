@@ -113,9 +113,11 @@ module.exports = {
             return url;
             },
 
-            enforceStyle: () => {
-                let url = normalizedRouteRoot()
-                url += 'secretary/styling'
+            enforceStyle: (plenary) => {
+                let plenaryId = idify(plenary);
+                let url = normalizedRouteRoot();
+                url += 'secretary/styling/';
+                url += plenaryId;
                 return url
             },
 

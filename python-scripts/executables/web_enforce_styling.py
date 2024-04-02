@@ -6,24 +6,32 @@ sys.path.append("/Users/ars62917/Dropbox/ResolutionManagerWeb/python-scripts")
 sys.path.append("/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts/ResolutionManager")
 sys.path.append("/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts")
 
+from ResolutionManager.config.Configuration import Configuration
+
 from ResolutionManager.DAO.DAO import MySqlDao
 
 from ResolutionManager.Repositories.DocumentRepository import DocumentRepository
 from ResolutionManager.Repositories.ResolutionRepository import ResolutionRepository
 from ResolutionManager.Repositories.StylingRepository import StylingRepository
-from ResolutionManager.config.Configuration import Configuration
+from ResolutionManager.Repositories.PlenaryRepository import PlenaryRepository
 
 
-def main():
+def main(plenary_id=None):
     config = Configuration()
     logger = logging.getLogger(__name__)
 
     try:
+        if plenary_id is None:
+            plenary_id = int(sys.argv[1])
+
         dao = MySqlDao()
         resolution_repo = ResolutionRepository(dao)
         style_repo = StylingRepository()
+        plenary_repo = PlenaryRepository(dao)
 
-        resolutions = resolution_repo.load_all_resolutions()
+        plenary = plenary_repo.load_plenary(plenary_id)
+
+        resolutions = resolution_repo.load_all_resolutions_for_plenary(plenary)
 
         for r in resolutions:
             try:

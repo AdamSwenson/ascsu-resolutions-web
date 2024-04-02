@@ -2653,6 +2653,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../routes */ "./resources/js/routes.js");
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_routes__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _common_working_spinner__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../common/working-spinner */ "./resources/js/components/common/working-spinner.vue");
+/* harmony import */ var _mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../mixins/plenaryMixin */ "./resources/js/mixins/plenaryMixin.js");
+/* harmony import */ var _mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_2__);
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2661,7 +2664,7 @@ __webpack_require__.r(__webpack_exports__);
     WorkingSpinner: _common_working_spinner__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   props: [],
-  mixins: [],
+  mixins: [(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_2___default())],
   data: function data() {
     return {
       isWorking: false
@@ -2672,7 +2675,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     handleEnforceStyle: function handleEnforceStyle() {
       window.console.log('secretary', 'createAgenda');
-      var url = _routes__WEBPACK_IMPORTED_MODULE_0__.secretary.resolutions.enforceStyle();
+      var url = _routes__WEBPACK_IMPORTED_MODULE_0__.secretary.resolutions.enforceStyle(this.plenary);
       var me = this;
       this.isWorking = true;
       Vue.axios.post(url).then(function (response) {
@@ -5771,9 +5774,11 @@ module.exports = {
         url += plenaryId;
         return url;
       },
-      enforceStyle: function enforceStyle() {
+      enforceStyle: function enforceStyle(plenary) {
+        var plenaryId = idify(plenary);
         var url = normalizedRouteRoot();
-        url += 'secretary/styling';
+        url += 'secretary/styling/';
+        url += plenaryId;
         return url;
       },
       syncTitles: function syncTitles() {

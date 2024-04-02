@@ -18,11 +18,11 @@ class SecretaryController extends Controller
     }
 
 
-    public function enforceStyling()
+    public function enforceStyling(Plenary $plenary)
     {
         try{
             $scriptfile = 'web_enforce_styling.py';
-            $result = $this->handleScript($scriptfile);
+            $result = $this->handleScript($scriptfile, $plenary->id);
             return response()->json($result->output());
         }catch (PythonScriptError $error){
             return $error->getMessage();
