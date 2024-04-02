@@ -3887,6 +3887,7 @@ __webpack_require__.r(__webpack_exports__);
     WorkingSpinner: _common_working_spinner__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   props: ['plenaryId'],
+  mixins: [(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_0___default())],
   data: function data() {
     return {
       url: null,
@@ -3902,12 +3903,14 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     handleSyncTitles: function handleSyncTitles() {
       window.console.log('secretary', 'sync titles');
-      var url = _routes__WEBPACK_IMPORTED_MODULE_1__.secretary.resolutions.syncTitles();
+      var url = _routes__WEBPACK_IMPORTED_MODULE_1__.secretary.resolutions.syncTitles(this.plenary);
       var me = this;
       this.isWorking = true;
       Vue.axios.post(url).then(function (response) {
         window.console.log('secretary', 'response', 126, response);
         me.isWorking = false;
+        //todo Actually update the object
+        me.$store.dispatch('forceReload');
         // me.url = response.data.agendaUrl;
       });
     }
@@ -5781,9 +5784,11 @@ module.exports = {
         url += plenaryId;
         return url;
       },
-      syncTitles: function syncTitles() {
+      syncTitles: function syncTitles(plenary) {
+        var plenaryId = idify(plenary);
         var url = normalizedRouteRoot();
-        url += 'secretary/sync';
+        url += 'secretary/sync/';
+        url += plenaryId;
         return url;
       },
       approvalStatus: function approvalStatus(resolution) {

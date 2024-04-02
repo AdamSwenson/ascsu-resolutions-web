@@ -121,9 +121,11 @@ module.exports = {
                 return url
             },
 
-            syncTitles: () => {
+            syncTitles: (plenary) => {
+                let plenaryId = idify(plenary);
                 let url = normalizedRouteRoot();
-                url += 'secretary/sync';
+                url += 'secretary/sync/';
+                url += plenaryId;
                 return url;
             },
 
