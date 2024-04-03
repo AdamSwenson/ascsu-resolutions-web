@@ -193,8 +193,12 @@ class ResolutionTemplateRepository(object):
 
         requests = [
             RequestRepository.make_insert_text_request(0, txt, self.config.TEMPLATE_HEADER_ID),
-            RequestRepository.make_header_style_request(0, len(txt))
+            RequestRepository.make_header_style_request(0, len(txt)),
+            RequestRepository.make_single_space_request(0, len(txt), self.config.TEMPLATE_HEADER_ID)
         ]
+
+        result = self.service.documents().batchUpdate(documentId=resolution.document_id,
+                                                      body={'requests': requests}).execute()
 
         # requests = [
         # {
@@ -232,9 +236,6 @@ class ResolutionTemplateRepository(object):
         #     },
         # )
         # ]
-
-        result = self.service.documents().batchUpdate(documentId=resolution.document_id,
-                                                      body={'requests': requests}).execute()
 
 
 # print(result)
