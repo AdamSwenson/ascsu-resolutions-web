@@ -258,11 +258,36 @@ class StylingRepository(object):
             body=body
         ).execute()
 
+    def enforce_styling_on_header(self, resolution: Resolution, revision_id=None):
+        """
+        Ensures header is:
+            Single spaced
+            11 point font
+
+        @ticket: AR-79
+        """
+        end_index = resolution.max_end_index_in_header
+        requests = [
+            RequestRepository.make_header_style_request(0, end_index ),
+            RequestRepository.make_single_space_request(0, end_index, self.config.TEMPLATE_HEADER_ID )
+        ]
+
+        body = {'requests': requests}
+        if revision_id is not None:
+            # Lock to ensure that hasn't change since we fetched
+            body['writeControl'] = {'requiredRevisionId': revision_id}
+
+        self.service.documents().batchUpdate(
+            documentId=resolution.document_id,
+            body=body
+        ).execute()
+
     def enforce_styling_on_resolution(self, resolution):
         self.enforce_styling_on_body(resolution)
         self.enforce_styling_on_title(resolution)
+        self.enforce_styling_on_header(resolution)
 
-    #
+
     # def double_space(self, resolution, paragraph, skip_text=[]):
     #     """"
     #     todo: Revise this so it only makes one batched request to avoid quota limits

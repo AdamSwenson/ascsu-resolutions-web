@@ -1,3 +1,6 @@
+from ResolutionManager.config.Configuration import Configuration
+
+
 class RequestRepository(object):
     """
     This generates common request objects which will be sent to the
@@ -40,7 +43,6 @@ class RequestRepository(object):
             }
         }
 
-
     @classmethod
     def make_align_left_request(cls, start_index, end_index):
         return {
@@ -56,7 +58,6 @@ class RequestRepository(object):
             }
         }
 
-
     @classmethod
     def make_delete_content_request(cls, start_index, end_index):
         return {
@@ -69,8 +70,8 @@ class RequestRepository(object):
         }
 
     @classmethod
-    def make_insert_text_request(cls, start_index, text):
-        return {
+    def make_insert_text_request(cls, start_index, text, segmentId=None):
+        r = {
             'insertText': {
                 'location': {
                     'index': start_index,
@@ -78,6 +79,10 @@ class RequestRepository(object):
                 'text': text,
             }
         }
+        if segmentId is not None:
+            r['insertText']['location']['segmentId'] = segmentId
+
+        return r
 
     # ------------------------- Named styles
     @classmethod
@@ -92,6 +97,32 @@ class RequestRepository(object):
                     'namedStyleType': 'NORMAL_TEXT'
                 },
                 'fields': 'namedStyleType'
+            }
+        }
+
+    @classmethod
+    def make_header_style_request(cls, start_index, end_index):
+        config = Configuration()
+
+        return {
+            'updateTextStyle': {
+
+                'range': {
+                    'segmentId': config.TEMPLATE_HEADER_ID,
+                    'startIndex': start_index,
+                    'endIndex': end_index
+                },
+                'textStyle': {
+                    'weightedFontFamily': {
+                        'fontFamily': 'Atkinson Hyperlegible'
+
+                    },
+                    'fontSize': {
+                        'magnitude': 11,
+                        'unit': 'PT'
+                    },
+                },
+                'fields': 'weightedFontFamily,fontSize'
             }
         }
 
@@ -112,6 +143,7 @@ class RequestRepository(object):
                 'paragraphStyle': {
                     'namedStyleType': 'TITLE'
                 },
+
                 'fields': 'namedStyleType'
             }
         }
@@ -119,23 +151,23 @@ class RequestRepository(object):
     @classmethod
     def make_url_request(cls, start_index, end_index, url):
         return {
-                "updateTextStyle": {
-                    "textStyle": {
-                        "link": {
-                            "url": url
-                        }
-                    },
-                    "range": {
-                        "startIndex": start_index,
-                        "endIndex": end_index
-                    },
-                    "fields": "link"
-                }
+            "updateTextStyle": {
+                "textStyle": {
+                    "link": {
+                        "url": url
+                    }
+                },
+                "range": {
+                    "startIndex": start_index,
+                    "endIndex": end_index
+                },
+                "fields": "link"
             }
+        }
 
     # ---------------------------- Spacing
     @classmethod
-    def make_single_space_request(cls, start_index, end_index):
+    def make_single_space_request(cls, start_index, end_index, segmentId=None):
         """
         Creates a request object for making the given indicies double spaced.
         Used to create the objects used in a batch update
@@ -144,7 +176,7 @@ class RequestRepository(object):
         :param end_index:
         :return:
         """
-        return {
+        r = {
             'updateParagraphStyle': {
                 'range': {
                     'startIndex': start_index,
@@ -156,6 +188,10 @@ class RequestRepository(object):
                 'fields': 'lineSpacing'
             }
         }
+        if segmentId is not None:
+            r['updateParagraphStyle']['range']['segmentId'] = segmentId
+
+        return r
 
     @classmethod
     def make_double_space_request(cls, start_index, end_index):
