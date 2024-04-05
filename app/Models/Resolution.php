@@ -32,7 +32,9 @@ class Resolution extends Model
     protected $appends = [
 //        'is_first_reading', 'is_waiver',
         'readingType',
-        'url', 'formattedNumber', 'firstReadingPlenary', 'actionPlenaries'];
+        'url', 'formattedNumber', 'firstReadingPlenary', 'actionPlenaries',
+        'sponsor', 'cosponsors'];
+
     protected $casts = ['is_approved' => 'boolean'];
 
 
@@ -100,7 +102,10 @@ class Resolution extends Model
 
     public function getCosponsorsAttribute()
     {
-        return $this->committees()->where('is_sponsor', '!=', true)->get();
+        return $this->committees()->where('is_cosponsor', true)->get();
+
+        //changed in AR-75
+        //return $this->committees()->where('is_sponsor', '!=', true)->get();
     }
 
     public function getFormattedNumberAttribute()

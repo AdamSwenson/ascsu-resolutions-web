@@ -3156,6 +3156,30 @@ __webpack_require__.r(__webpack_exports__);
     showWaiverIndicator: function showWaiverIndicator() {
       if (!(0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_2__.isReadyToRock)(this.waiver)) return false;
       return this.waiver === 1;
+    },
+    /**
+     * name of the sponsoring committee
+     */
+    sponsorName: function sponsorName() {
+      if (!(0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_2__.isReadyToRock)(this.resolution)) return '';
+      return this.resolution.sponsor.abbreviation;
+    },
+    cosponsorNames: function cosponsorNames() {
+      if (!(0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_2__.isReadyToRock)(this.resolution)) return '';
+      if (this.resolution.cosponsors.length === 0) return '';
+
+      // let cosponsors = '<ul>';
+      var cosponsors = [];
+      _.forEach(this.resolution.cosponsors, function (c) {
+        cosponsors.push(c.abbreviation);
+        // cosponsors += '<li>' + c.abbreviation + '</li>';
+      });
+      // cosponsors += '</ul>'
+      return _.join(cosponsors, ', ');
+    },
+    showCosponsors: function showCosponsors() {
+      if (!(0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_2__.isReadyToRock)(this.resolution)) return false;
+      return this.resolution.cosponsors.length !== 0;
     }
   },
   computed: {},
@@ -4874,6 +4898,10 @@ var render = function render() {
       staticClass: "card-text text-light"
     }, [_vm._v("Action item: " + _vm._s(p))]);
   }), _vm._v(" "), _c("p", {
+    staticClass: "card-text text-light"
+  }, [_vm._v("Sponsor: " + _vm._s(_vm.sponsorName))]), _vm._v(" "), _vm.showCosponsors ? _c("p", {
+    staticClass: "card-text text-light"
+  }, [_vm._v("Cosponsors: " + _vm._s(_vm.cosponsorNames))]) : _vm._e(), _vm._v(" "), _c("p", {
     staticClass: "card-text"
   }, [_c("status-badge", {
     attrs: {

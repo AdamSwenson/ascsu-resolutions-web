@@ -2,11 +2,13 @@
 
 namespace Tests\Models;
 
+use App\Models\Committee;
 use App\Models\Plenary;
 use App\Models\Resolution;
 
 //use PHPUnit\Framework\TestCase;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
 use Tests\TestCase;
 
 
@@ -287,4 +289,37 @@ class ResolutionTest extends TestCase
         //call
         $resolution->toggleIsWaiver();
     }
+
+// ==================== Sponsors and cosponsors
+
+/** @test */
+public function getSponsorAttribute(){
+    $c = Committee::first();
+    $r = Resolution::factory()->create();
+    $r->committees()->attach($c, ['is_sponsor' => true]);
+
+    //call
+    $result = $r->sponsor;
+
+    //check
+    $this->assertEquals($c->id, $result->id, "getSponsor attribute returns correct committee");
+
+}
+
+    /** @test */
+    public function getCoponsorAttribute(){
+        $r = Resolution::factory()->create();
+        $committees = Committee::all();
+        foreach ($committees as $c){
+            $r->committees()->attach($c, ['is_cosponsor' => true]);
+        }
+        $r->save();
+
+        //call
+        $result = $r->cosponsors;
+
+        //check
+        $this->assertEquals(sizeof($committees), sizeof($result));
+    }
+
 }

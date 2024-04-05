@@ -13,6 +13,12 @@
                :key="p"
             >Action item: {{ p }}</p>
 
+            <p class="card-text text-light">Sponsor: {{ sponsorName }}</p>
+
+            <p class="card-text text-light"
+            v-if="showCosponsors">Cosponsors: {{ cosponsorNames }}</p>
+
+
             <p class="card-text">
                 <status-badge :resolution-id="resolutionId"></status-badge>&nbsp;&nbsp;
                 <reading-type-badge :resolution-id="resolutionId"></reading-type-badge>
@@ -95,7 +101,40 @@ export default {
         showWaiverIndicator: function () {
             if (!isReadyToRock(this.waiver)) return false;
             return this.waiver === 1;
+        },
+
+        /**
+         * name of the sponsoring committee
+         */
+        sponsorName: function () {
+            if (!isReadyToRock(this.resolution)) return '';
+            return this.resolution.sponsor.abbreviation;
+
+        },
+
+        cosponsorNames: function () {
+            if (!isReadyToRock(this.resolution)) return '';
+
+            if (this.resolution.cosponsors.length === 0) return '';
+
+
+
+            // let cosponsors = '<ul>';
+            let cosponsors = [];
+
+            _.forEach(this.resolution.cosponsors, (c) => {
+                cosponsors.push(c.abbreviation);
+                // cosponsors += '<li>' + c.abbreviation + '</li>';
+            });
+            // cosponsors += '</ul>'
+            return _.join(cosponsors, ', ');
+        },
+
+        showCosponsors : function(){
+            if (!isReadyToRock(this.resolution)) return false;
+            return this.resolution.cosponsors.length !== 0;
         }
+
     },
 
     computed: {},
