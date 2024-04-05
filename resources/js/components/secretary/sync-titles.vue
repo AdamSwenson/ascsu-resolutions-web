@@ -21,7 +21,7 @@ import WorkingSpinner from "../common/working-spinner";
 export default {
     name: "sync-titles",
     components: {WorkingSpinner},
-    props: ['plenaryId'],
+    props: [],
 
     mixins: [plenaryMixin],
 

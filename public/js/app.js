@@ -3886,7 +3886,7 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     WorkingSpinner: _common_working_spinner__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  props: ['plenaryId'],
+  props: [],
   mixins: [(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_0___default())],
   data: function data() {
     return {
