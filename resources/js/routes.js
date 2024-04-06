@@ -33,6 +33,13 @@ const idify = (ObjectOrId) => {
  *
  */
 module.exports = {
+    all : {
+      loadCommittees: () => {
+          let url = normalizedRouteRoot();
+          url += 'committees/all';
+          return url;
+      }
+    },
 
     committee: {},
 

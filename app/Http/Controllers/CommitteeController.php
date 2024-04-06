@@ -51,6 +51,15 @@ class CommitteeController extends Controller
 
     }
 
+    /**
+     * Returns all committee objects
+     * @return JsonResponse
+     */
+    public function getCommittees(){
+        $committees = Committee::all();
+        return response()->json($committees);
+    }
+
     public function diagnostics()
     {
         $result = $this->runScript();

@@ -1,7 +1,7 @@
 <template>
-        <div class="committee py-2">
+    <div class="committee py-2">
 
-    <resolution-creation></resolution-creation>
+        <resolution-creation></resolution-creation>
 
         <page-footer></page-footer>
     </div>
@@ -14,6 +14,7 @@ import SponsorSelect from "./sponsor-select";
 import CosponsorsSelect from "./cosponsors-select";
 import CreationResult from "./creation-result";
 import ResolutionCreation from "./resolution-creation";
+import {isReadyToRock} from "../../utilities/readiness.utilities";
 
 export default {
     name: "committee",
@@ -29,19 +30,34 @@ export default {
             cosponsors: [],
             // waiver_requested: false,
             waiver: false,
-            committees: [
-                'Academic Affairs',
-                'Academic Preparation and Educational Programs',
-                'Executive Committee',
-                'Faculty Affairs',
-                'Fiscal and Governmental Affairs',
-                'Justice, Equity, Diversity, and Inclusion'
-            ],
-            url : null
+            // committees: [
+            //     'Academic Affairs',
+            //     'Academic Preparation and Educational Programs',
+            //     'Executive Committee',
+            //     'Faculty Affairs',
+            //     'Fiscal and Governmental Affairs',
+            //     'Justice, Equity, Diversity, and Inclusion'
+            // ],
+            url: null
         }
     },
 
-    asyncComputed: {},
+    asyncComputed: {
+        committeeObjects : function (){
+            return this.$store.getters.getCommittees;
+        },
+
+        committees : function (){
+            if(!isReadyToRock(this.committeeObjects)) return [];
+
+            let names = [];
+            _.forEach(this.committeeObjects, (c) => {
+               names.push(c.name);
+            });
+            names.sort();
+            return names;
+        }
+    },
 
     computed: {
         // wavier: {
@@ -79,7 +95,12 @@ export default {
         //     }
         //
         // }
+    },
+    mounted() {
+        window.console.log('committee', 'mounted', 97, 'beep');
+        this.$store.dispatch('committeeStartup');
     }
+
 
 }
 </script>

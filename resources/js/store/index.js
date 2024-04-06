@@ -13,6 +13,7 @@ import * as mutations from './mutations'
 import * as state from './state'
 
 //modules
+import committees from "./modules/committees";
 import errors from "./modules/errors";
 import plenaries from "./modules/plenaries";
 import resolutions from "./modules/resolutions";
@@ -49,6 +50,7 @@ export default new Vuex.Store({
     plugins: [], //[ apiPlugin, websocketPlugin ],
 
     modules: {
+        committees,
         errors,
         plenaries,
         resolutions,

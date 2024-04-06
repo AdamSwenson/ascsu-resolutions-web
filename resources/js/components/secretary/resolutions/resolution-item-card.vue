@@ -16,8 +16,7 @@
             <p class="card-text text-light">Sponsor: {{ sponsorName }}</p>
 
             <p class="card-text text-light"
-            v-if="showCosponsors">Cosponsors: {{ cosponsorNames }}</p>
-
+               v-if="showCosponsors">Cosponsors: {{ cosponsorNames }}</p>
 
             <p class="card-text">
                 <status-badge :resolution-id="resolutionId"></status-badge>&nbsp;&nbsp;
@@ -42,6 +41,9 @@
             <failed-toggle-button :resolution-id="resolutionId"></failed-toggle-button>&nbsp;&nbsp;&nbsp;&nbsp;
             <second-reading-toggle-button :resolution-id="resolutionId"></second-reading-toggle-button>
             <waiver-toggle-button :resolution-id="resolutionId"></waiver-toggle-button>
+            <&nbsp;><&nbsp;>
+<!--            <committee-change-button :resolution-id="resolutionId"></committee-change-button> <committee-change-modal :resolution-id="resolutionId"></committee-change-modal>-->
+            <committee-changer :resolution-id="resolutionId"></committee-changer>
         </div>
     </div>
 </template>
@@ -55,10 +57,16 @@ import StatusBadge from "./status-badge";
 import ReadingTypeBadge from "./reading-type-badge";
 import WaiverToggleButton from "./waiver-toggle-button";
 import SecondReadingToggleButton from "./second-reading-toggle-button";
+import CommitteeChanger from "./committee-change/committee-changer";
+import CommitteeChangeButton from "./committee-change/committee-change-button";
+import CommitteeChangeModal from "./committee-change/committee-change-modal";
 
 export default {
     name: "resolution-item-card",
     components: {
+        CommitteeChangeModal,
+        CommitteeChangeButton,
+        CommitteeChanger,
         SecondReadingToggleButton,
         WaiverToggleButton,
         ReadingTypeBadge,
@@ -85,10 +93,9 @@ export default {
 
         firstReadingName: function () {
             if (!isReadyToRock(this.firstReadingPlenary)) return '';
-
             return this.firstReadingPlenary.plenaryName;
-
         },
+
         secondReadingNames: function () {
             if (!isReadyToRock(this.actionPlenaries)) return [];
             let n = [];
@@ -105,6 +112,7 @@ export default {
 
         /**
          * name of the sponsoring committee
+         * @returns {string}
          */
         sponsorName: function () {
             if (!isReadyToRock(this.resolution)) return '';
@@ -112,25 +120,26 @@ export default {
 
         },
 
+        /**
+         * Comma separated list of cosponsoring committee names
+         * @returns {string}
+         */
         cosponsorNames: function () {
             if (!isReadyToRock(this.resolution)) return '';
-
             if (this.resolution.cosponsors.length === 0) return '';
 
-
-
-            // let cosponsors = '<ul>';
             let cosponsors = [];
-
             _.forEach(this.resolution.cosponsors, (c) => {
                 cosponsors.push(c.abbreviation);
-                // cosponsors += '<li>' + c.abbreviation + '</li>';
             });
-            // cosponsors += '</ul>'
             return _.join(cosponsors, ', ');
         },
 
-        showCosponsors : function(){
+        /**
+         * Whether to display the list of cosponsors
+         * @returns {boolean}
+         */
+        showCosponsors: function () {
             if (!isReadyToRock(this.resolution)) return false;
             return this.resolution.cosponsors.length !== 0;
         }
