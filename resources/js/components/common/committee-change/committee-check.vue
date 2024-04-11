@@ -23,8 +23,8 @@
 </template>
 
 <script>
-import committeeMixin from "../../../../mixins/committeeMixin";
-import {isReadyToRock} from "../../../../utilities/readiness.utilities";
+import committeeMixin from "../../../mixins/committeeMixin";
+import {isReadyToRock} from "../../../utilities/readiness.utilities";
 
 
 /**

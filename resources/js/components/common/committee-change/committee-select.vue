@@ -1,6 +1,7 @@
 <template>
     <div class="committee-select ">
-        <h4 class="">{{ heading }}</h4>
+        <h4 v-bind:class="headingStyle"
+        >{{ heading }}</h4>
 
         <committee-check v-for="c in committeeObjects"
                          :committee="c"
@@ -12,7 +13,7 @@
 </template>
 
 <script>
-import committeeMixin from "../../../../mixins/committeeMixin";
+import committeeMixin from "../../../mixins/committeeMixin";
 import CommitteeCheck from "./committee-check";
 
 export default {
@@ -24,18 +25,23 @@ export default {
      *      sponsor
      *      cosponsor
      */
-    props: ['type'],
+    props: ['type', 'lightHeading'],
 
     mixins: [committeeMixin],
 
     data: function () {
-        return {
-        }
+        return {}
     },
 
     asyncComputed: {},
 
     computed: {
+        headingStyle: function () {
+            if (this.lightHeading === true) {
+                return ' text-light '
+            }
+        },
+
         heading: function () {
             switch (this.type) {
                 case 'sponsor':

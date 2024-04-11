@@ -21,6 +21,10 @@
 
 <script>
 import SponsorCheck from "./sponsor-check";
+
+/**
+ * @deprecated
+ */
 export default {
     name: "sponsor-select",
     components: {SponsorCheck},

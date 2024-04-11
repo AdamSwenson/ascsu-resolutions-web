@@ -14,6 +14,10 @@
 </template>
 
 <script>
+
+/**
+ * @deprecated
+ */
 export default {
     name: "sponsor-check",
 

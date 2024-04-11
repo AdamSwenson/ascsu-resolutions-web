@@ -86,9 +86,9 @@ import CreateAgenda from "./create-agenda";
 import EnforceStyling from "./enforce-styling";
 import SyncTitles from "./sync-titles";
 import ResolutionsCard from "./resolutions/resolutions-card";
-import CommitteeChanger from "./resolutions/committee-change/committee-changer";
-import CommitteeChangeButton from "./resolutions/committee-change/committee-change-button";
-import CommitteeChangeModal from "./resolutions/committee-change/committee-change-modal";
+import CommitteeChanger from "../common/committee-change/committee-changer";
+import CommitteeChangeButton from "../common/committee-change/committee-change-button";
+import CommitteeChangeModal from "../common/committee-change/committee-change-modal";
 
 export default {
     name: "secretary",

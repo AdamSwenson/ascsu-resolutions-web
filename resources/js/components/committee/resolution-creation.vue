@@ -39,18 +39,26 @@
                     <!--                    <div class="mb-3">-->
                     <div class="row mb-3">
                         <div class="col-6">
-                            <sponsor-select
-                                v-on:sponsor="handleSponsor"
-                                :committees="committeeNames"
-                            ></sponsor-select>
+                            <committee-select type="sponsor"
+                                              :light-heading="true"
+                            ></committee-select>
+                            <!--                            <sponsor-select-->
+                            <!--                                v-on:sponsor="handleSponsor"-->
+                            <!--                                :committees="committeeNames"-->
+                            <!--                            ></sponsor-select>-->
                         </div>
 
                         <div class="col-6">
+                            <committee-select type="cosponsor"
+                                              :light-heading="true"
+                            ></committee-select>
+
+
                             <!--                    <div class="mb-3">-->
-                            <cosponsors-select
-                                :committees="committeeNames"
-                                v-on:cosponsor="handleCosponsor"
-                            ></cosponsors-select>
+<!--                            <cosponsors-select-->
+<!--                                :committees="committeeNames"-->
+<!--                                v-on:cosponsor="handleCosponsor"-->
+<!--                            ></cosponsors-select>-->
                         </div>
                     </div>
 
@@ -80,15 +88,22 @@
 import plenaryMixin from "../../mixins/plenaryMixin";
 import committeeMixin from "../../mixins/committeeMixin";
 import PageFooter from "../layout/page-footer";
-import SponsorSelect from "./sponsor-select";
-import CosponsorsSelect from "./cosponsors-select";
+// import SponsorSelect from "./sponsor-select";
+// import CosponsorsSelect from "./cosponsors-select";
 import CreationResult from "./creation-result";
 import WorkingSpinner from "../common/working-spinner";
 import ErrorAlert from "../common/error-alert";
+import CommitteeSelect from "../common/committee-change/committee-select";
 
 export default {
     name: "resolution-creation",
-    components: {ErrorAlert, WorkingSpinner, CreationResult, CosponsorsSelect, PageFooter, SponsorSelect},
+    components: {
+        CommitteeSelect,
+        ErrorAlert, WorkingSpinner, CreationResult,
+        // CosponsorsSelect,
+        PageFooter,
+        // SponsorSelect
+    },
     props: [],
 
     mixins: [plenaryMixin, committeeMixin],
@@ -96,8 +111,8 @@ export default {
     data: function () {
         return {
             title: '',
-            sponsor: null,
-            cosponsors: [],
+            // sponsor: null,
+            // cosponsors: [],
             // waiver_requested: false,
             waiver: false,
             // committees: [
@@ -116,18 +131,29 @@ export default {
     },
 
     asyncComputed: {
+        sponsor: function () {
+            return this.$store.getters.getSelectedSponsor;
+        },
+
+        cosponsors : function(){
+            return this.$store.getters.getSelectedCosponsorsNames;
+        }
+
     },
 
-    computed: {
-    },
+    computed: {},
 
     methods: {
         createRezzie: function () {
             window.console.log('committee', 'createRezzie', 124, this.$data);
             let url = window.routeRoot + '/resolution/' + this.plenaryId;
             let me = this;
+            let payload = this.$data;
+            payload['sponsor'] = this.sponsor.name;
+            payload['cosponsors'] = this.cosponsors;
+
             this.isWorking = true;
-            Vue.axios.post(url, this.$data)
+            Vue.axios.post(url, payload)
                 .then((response) => {
                     window.console.log('committee', 'response', 126, response);
                     //This is needed in case we set error previously
@@ -150,22 +176,22 @@ export default {
 
         },
 
-        handleSponsor: function (v) {
-            window.console.log('committee', 'handleSponsor', 220, v);
-            this.sponsor = v;
-        },
-
-        handleCosponsor: function (v) {
-            //if already in, remove
-            let idx = this.cosponsors.indexOf(v);
-            window.console.log('committee', 'handleCosponsor', 229, idx);
-            if (idx === -1) {
-                this.cosponsors.push(v);
-            } else {
-                this.cosponsors.splice(idx, 1);
-            }
-
-        }
+        // handleSponsor: function (v) {
+        //     window.console.log('committee', 'handleSponsor', 220, v);
+        //     this.sponsor = v;
+        // },
+        //
+        // handleCosponsor: function (v) {
+        //     //if already in, remove
+        //     let idx = this.cosponsors.indexOf(v);
+        //     window.console.log('committee', 'handleCosponsor', 229, idx);
+        //     if (idx === -1) {
+        //         this.cosponsors.push(v);
+        //     } else {
+        //         this.cosponsors.splice(idx, 1);
+        //     }
+        //
+        // }
     }
 
 }

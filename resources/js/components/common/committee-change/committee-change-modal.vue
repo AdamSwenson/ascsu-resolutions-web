@@ -1,6 +1,6 @@
 <script>
-import modalParent from "../../../parents/modal-parent";
-import resolutionMixin from "../../../../mixins/resolutionMixin";
+import modalParent from "../../parents/modal-parent";
+import resolutionMixin from "../../../mixins/resolutionMixin";
 
 export default {
     name: "committee-change-modal",

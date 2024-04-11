@@ -37,6 +37,9 @@
 <script>
 import committeeMixin from "../../mixins/committeeMixin";
 
+/**
+ * @deprecated
+ */
 export default {
     name: "cosponsor-check",
 

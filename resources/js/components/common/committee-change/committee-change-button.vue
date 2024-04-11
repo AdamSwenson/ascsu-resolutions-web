@@ -1,6 +1,6 @@
 <script>
-import modalButtonParent from "../../../parents/modal-button-parent";
-import resolutionMixin from "../../../../mixins/resolutionMixin";
+import modalButtonParent from "../../parents/modal-button-parent";
+import resolutionMixin from "../../../mixins/resolutionMixin";
 
 export default {
     name: "committee-change-button",

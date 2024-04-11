@@ -31,6 +31,10 @@
 <script>
 import CosponsorCheck from "./cosponsor-check";
 import committeeMixin from "../../mixins/committeeMixin";
+
+/**
+ * @deprecated
+ */
 export default {
     name: "cosponsors-select",
     components: {CosponsorCheck},

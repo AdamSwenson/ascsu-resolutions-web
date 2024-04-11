@@ -57,9 +57,9 @@ import StatusBadge from "./status-badge";
 import ReadingTypeBadge from "./reading-type-badge";
 import WaiverToggleButton from "./waiver-toggle-button";
 import SecondReadingToggleButton from "./second-reading-toggle-button";
-import CommitteeChanger from "./committee-change/committee-changer";
-import CommitteeChangeButton from "./committee-change/committee-change-button";
-import CommitteeChangeModal from "./committee-change/committee-change-modal";
+import CommitteeChanger from "../../common/committee-change/committee-changer";
+import CommitteeChangeButton from "../../common/committee-change/committee-change-button";
+import CommitteeChangeModal from "../../common/committee-change/committee-change-modal";
 
 export default {
     name: "resolution-item-card",

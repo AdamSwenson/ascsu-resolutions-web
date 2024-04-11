@@ -226,6 +226,14 @@ const getters = {
      */
     getSelectedCosponsors: (state) => {
         return state.selectedCosponsors;
+    },
+
+    getSelectedCosponsorsNames: (state) => {
+        let out = [];
+        _.forEach(state.selectedCosponsors, (c) => {
+            out.push(c.name);
+        });
+        return out;
     }
 
 };

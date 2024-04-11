@@ -10,19 +10,25 @@
 
 <script>
 import PageFooter from "../layout/page-footer";
-import SponsorSelect from "./sponsor-select";
-import CosponsorsSelect from "./cosponsors-select";
-import CreationResult from "./creation-result";
+// import SponsorSelect from "./sponsor-select";
+// import CosponsorsSelect from "../attic/cosponsors-select";
+// import CreationResult from "./creation-result";
 import ResolutionCreation from "./resolution-creation";
 import {isReadyToRock} from "../../utilities/readiness.utilities";
-import CommitteeSelect from "../secretary/resolutions/committee-change/committee-select";
-import CommitteeChanger from "../secretary/resolutions/committee-change/committee-changer";
+// import CommitteeSelect from "../secretary/resolutions/committee-change/committee-select";
+// import CommitteeChanger from "../secretary/resolutions/committee-change/committee-changer";
 
 export default {
     name: "committee",
     components: {
-        CommitteeChanger,
-        CommitteeSelect, ResolutionCreation, CreationResult, CosponsorsSelect, PageFooter, SponsorSelect},
+        // CommitteeChanger,
+        // CommitteeSelect,
+        ResolutionCreation,
+        // CreationResult,
+        // CosponsorsSelect,
+        PageFooter,
+        // SponsorSelect
+    },
     props: [],
 
     mixins: [],
