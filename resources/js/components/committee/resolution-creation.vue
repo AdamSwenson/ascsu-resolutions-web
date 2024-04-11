@@ -17,7 +17,6 @@
                 <creation-result :url="url" :title="title" v-if="showResult" :is-error="showError"></creation-result>
 
                 <div class="resolution-creation-main" v-else>
-                    <!--                <form>-->
                     <div class="mb-3">
                         <label for="resolutionTitle" class="form-label text-light h4 ">Resolution title</label>
                         <input type="text"
@@ -36,29 +35,17 @@
                         <label class="form-check-label text-light" for="waiver">Waiver requested?</label>
                     </div>
 
-                    <!--                    <div class="mb-3">-->
                     <div class="row mb-3">
                         <div class="col-6">
                             <committee-select type="sponsor"
                                               :light-heading="true"
                             ></committee-select>
-                            <!--                            <sponsor-select-->
-                            <!--                                v-on:sponsor="handleSponsor"-->
-                            <!--                                :committees="committeeNames"-->
-                            <!--                            ></sponsor-select>-->
                         </div>
 
                         <div class="col-6">
                             <committee-select type="cosponsor"
                                               :light-heading="true"
                             ></committee-select>
-
-
-                            <!--                    <div class="mb-3">-->
-<!--                            <cosponsors-select-->
-<!--                                :committees="committeeNames"-->
-<!--                                v-on:cosponsor="handleCosponsor"-->
-<!--                            ></cosponsors-select>-->
                         </div>
                     </div>
 
@@ -73,7 +60,6 @@
                             </button>
                         </p>
                     </div>
-                    <!--                </form>-->
                 </div>
                 <div class="col-lg-2"></div>
             </div>
@@ -88,8 +74,6 @@
 import plenaryMixin from "../../mixins/plenaryMixin";
 import committeeMixin from "../../mixins/committeeMixin";
 import PageFooter from "../layout/page-footer";
-// import SponsorSelect from "./sponsor-select";
-// import CosponsorsSelect from "./cosponsors-select";
 import CreationResult from "./creation-result";
 import WorkingSpinner from "../common/working-spinner";
 import ErrorAlert from "../common/error-alert";
@@ -99,10 +83,10 @@ export default {
     name: "resolution-creation",
     components: {
         CommitteeSelect,
-        ErrorAlert, WorkingSpinner, CreationResult,
-        // CosponsorsSelect,
+        ErrorAlert,
+        WorkingSpinner,
+        CreationResult,
         PageFooter,
-        // SponsorSelect
     },
     props: [],
 
@@ -111,18 +95,7 @@ export default {
     data: function () {
         return {
             title: '',
-            // sponsor: null,
-            // cosponsors: [],
-            // waiver_requested: false,
             waiver: false,
-            // committees: [
-            //     'Academic Affairs',
-            //     'Academic Preparation and Educational Programs',
-            //     'Executive Committee',
-            //     'Faculty Affairs',
-            //     'Fiscal and Governmental Affairs',
-            //     'Justice, Equity, Diversity, and Inclusion'
-            // ],
             isWorking: false,
             showError: false,
             showResult: false,
@@ -176,22 +149,6 @@ export default {
 
         },
 
-        // handleSponsor: function (v) {
-        //     window.console.log('committee', 'handleSponsor', 220, v);
-        //     this.sponsor = v;
-        // },
-        //
-        // handleCosponsor: function (v) {
-        //     //if already in, remove
-        //     let idx = this.cosponsors.indexOf(v);
-        //     window.console.log('committee', 'handleCosponsor', 229, idx);
-        //     if (idx === -1) {
-        //         this.cosponsors.push(v);
-        //     } else {
-        //         this.cosponsors.splice(idx, 1);
-        //     }
-        //
-        // }
     }
 
 }

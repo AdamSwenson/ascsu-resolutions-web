@@ -5077,90 +5077,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _layout_page_footer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../layout/page-footer */ "./resources/js/components/layout/page-footer.vue");
 /* harmony import */ var _resolution_creation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./resolution-creation */ "./resources/js/components/committee/resolution-creation.vue");
-/* harmony import */ var _utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utilities/readiness.utilities */ "./resources/js/utilities/readiness.utilities.js");
-
-// import SponsorSelect from "./sponsor-select";
-// import CosponsorsSelect from "../attic/cosponsors-select";
-// import CreationResult from "./creation-result";
 
 
-// import CommitteeSelect from "../secretary/resolutions/committee-change/committee-select";
-// import CommitteeChanger from "../secretary/resolutions/committee-change/committee-changer";
+// import {isReadyToRock} from "../../utilities/readiness.utilities";
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "committee",
   components: {
-    // CommitteeChanger,
-    // CommitteeSelect,
     ResolutionCreation: _resolution_creation__WEBPACK_IMPORTED_MODULE_1__["default"],
-    // CreationResult,
-    // CosponsorsSelect,
     PageFooter: _layout_page_footer__WEBPACK_IMPORTED_MODULE_0__["default"]
-    // SponsorSelect
   },
-
   props: [],
   mixins: [],
   data: function data() {
-    return {
-      title: '',
-      sponsor: null,
-      cosponsors: [],
-      // waiver_requested: false,
-      waiver: false,
-      url: null
-    };
+    return {};
   },
-  asyncComputed: {
-    committeeObjects: function committeeObjects() {
-      return this.$store.getters.getCommittees;
-    },
-    committees: function committees() {
-      if (!(0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_2__.isReadyToRock)(this.committeeObjects)) return [];
-      var names = [];
-      _.forEach(this.committeeObjects, function (c) {
-        names.push(c.name);
-      });
-      names.sort();
-      return names;
-    }
-  },
-  computed: {
-    // wavier: {
-    //     get: function () {
-    //         return this.waiver_requested;
-    //     },
-    //     set: function (v) {
-    //         this.waiver_requested = v;
-    //     }
-    // }
-  },
-  methods: {
-    // createRezzie: function () {
-    //     window.console.log('committee', 'createRezzie', 124,this.$data);
-    //     let url = window.routeRoot + '/committee'
-    //     let me = this;
-    //     Vue.axios.post(url, this.$data).then((response) => {
-    //         window.console.log('committee', 'response', 126,response);
-    //     me.url = response.data.url;
-    //     });
-    // },
-    // handleSponsor: function (v) {
-    //     window.console.log('committee', 'handleSponsor', 220, v);
-    //     this.sponsor = v;
-    // },
-    // handleCosponsor: function (v) {
-    //     //if already in, remove
-    //     let idx = this.cosponsors.indexOf(v);
-    //     window.console.log('committee', 'handleCosponsor', 229, idx);
-    //     if(idx === -1){
-    //         this.cosponsors.push(v);
-    //     }else{
-    //         this.cosponsors.splice(idx, 1);
-    //     }
-    //
-    // }
-  },
+  asyncComputed: {},
+  computed: {},
+  methods: {},
   mounted: function mounted() {
     window.console.log('committee', 'mounted', 97, 'beep');
     this.$store.dispatch('committeeStartup');
@@ -5225,8 +5159,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// import SponsorSelect from "./sponsor-select";
-// import CosponsorsSelect from "./cosponsors-select";
 
 
 
@@ -5238,28 +5170,14 @@ __webpack_require__.r(__webpack_exports__);
     ErrorAlert: _common_error_alert__WEBPACK_IMPORTED_MODULE_5__["default"],
     WorkingSpinner: _common_working_spinner__WEBPACK_IMPORTED_MODULE_4__["default"],
     CreationResult: _creation_result__WEBPACK_IMPORTED_MODULE_3__["default"],
-    // CosponsorsSelect,
     PageFooter: _layout_page_footer__WEBPACK_IMPORTED_MODULE_2__["default"]
-    // SponsorSelect
   },
-
   props: [],
   mixins: [(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_0___default()), (_mixins_committeeMixin__WEBPACK_IMPORTED_MODULE_1___default())],
   data: function data() {
     return {
       title: '',
-      // sponsor: null,
-      // cosponsors: [],
-      // waiver_requested: false,
       waiver: false,
-      // committees: [
-      //     'Academic Affairs',
-      //     'Academic Preparation and Educational Programs',
-      //     'Executive Committee',
-      //     'Faculty Affairs',
-      //     'Fiscal and Governmental Affairs',
-      //     'Justice, Equity, Diversity, and Inclusion'
-      // ],
       isWorking: false,
       showError: false,
       showResult: false,
@@ -5303,23 +5221,6 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     }
-
-    // handleSponsor: function (v) {
-    //     window.console.log('committee', 'handleSponsor', 220, v);
-    //     this.sponsor = v;
-    // },
-    //
-    // handleCosponsor: function (v) {
-    //     //if already in, remove
-    //     let idx = this.cosponsors.indexOf(v);
-    //     window.console.log('committee', 'handleCosponsor', 229, idx);
-    //     if (idx === -1) {
-    //         this.cosponsors.push(v);
-    //     } else {
-    //         this.cosponsors.splice(idx, 1);
-    //     }
-    //
-    // }
   }
 });
 
@@ -7458,7 +7359,7 @@ var render = function render() {
     attrs: {
       id: "resolutionTitleHelp"
     }
-  }, [_vm._v("Enter the initial title of the\n                            resolution here\n                        ")])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Enter the initial title of the\n                        resolution here\n                    ")])]), _vm._v(" "), _c("div", {
     staticClass: "mb-5 form-check"
   }, [_c("input", {
     directives: [{
@@ -7521,7 +7422,7 @@ var render = function render() {
     on: {
       click: _vm.createRezzie
     }
-  }, [_vm._v("Create resolution\n                            ")])])], 1)]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Create resolution\n                        ")])])], 1)]), _vm._v(" "), _c("div", {
     staticClass: "col-lg-2"
   })], 1)])], 1);
 };
