@@ -5081,6 +5081,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _creation_result__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./creation-result */ "./resources/js/components/committee/creation-result.vue");
 /* harmony import */ var _resolution_creation__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./resolution-creation */ "./resources/js/components/committee/resolution-creation.vue");
 /* harmony import */ var _utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../utilities/readiness.utilities */ "./resources/js/utilities/readiness.utilities.js");
+/* harmony import */ var _secretary_resolutions_committee_change_committee_select__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../secretary/resolutions/committee-change/committee-select */ "./resources/js/components/secretary/resolutions/committee-change/committee-select.vue");
+/* harmony import */ var _secretary_resolutions_committee_change_committee_changer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../secretary/resolutions/committee-change/committee-changer */ "./resources/js/components/secretary/resolutions/committee-change/committee-changer.vue");
+
+
 
 
 
@@ -5090,6 +5094,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "committee",
   components: {
+    CommitteeChanger: _secretary_resolutions_committee_change_committee_changer__WEBPACK_IMPORTED_MODULE_7__["default"],
+    CommitteeSelect: _secretary_resolutions_committee_change_committee_select__WEBPACK_IMPORTED_MODULE_6__["default"],
     ResolutionCreation: _resolution_creation__WEBPACK_IMPORTED_MODULE_4__["default"],
     CreationResult: _creation_result__WEBPACK_IMPORTED_MODULE_3__["default"],
     CosponsorsSelect: _cosponsors_select__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -5105,14 +5111,6 @@ __webpack_require__.r(__webpack_exports__);
       cosponsors: [],
       // waiver_requested: false,
       waiver: false,
-      // committees: [
-      //     'Academic Affairs',
-      //     'Academic Preparation and Educational Programs',
-      //     'Executive Committee',
-      //     'Faculty Affairs',
-      //     'Fiscal and Governmental Affairs',
-      //     'Justice, Equity, Diversity, and Inclusion'
-      // ],
       url: null
     };
   },
@@ -5185,10 +5183,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _mixins_committeeMixin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../mixins/committeeMixin */ "./resources/js/mixins/committeeMixin.js");
+/* harmony import */ var _mixins_committeeMixin__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_mixins_committeeMixin__WEBPACK_IMPORTED_MODULE_0__);
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "cosponsor-check",
   props: ['committee'],
-  mixins: [],
+  mixins: [(_mixins_committeeMixin__WEBPACK_IMPORTED_MODULE_0___default())],
   data: function data() {
     return {
       checked: false
@@ -5199,7 +5200,9 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit('cosponsor', this.committee);
     }
   },
-  asyncComputed: {},
+  asyncComputed: {
+    label: function label() {}
+  },
   computed: {
     inputId: function inputId() {
       return _.camelCase(this.committee) + 'Cosponsor';
@@ -5222,6 +5225,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _cosponsor_check__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cosponsor-check */ "./resources/js/components/committee/cosponsor-check.vue");
+/* harmony import */ var _mixins_committeeMixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../mixins/committeeMixin */ "./resources/js/mixins/committeeMixin.js");
+/* harmony import */ var _mixins_committeeMixin__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_mixins_committeeMixin__WEBPACK_IMPORTED_MODULE_1__);
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "cosponsors-select",
@@ -5229,7 +5235,7 @@ __webpack_require__.r(__webpack_exports__);
     CosponsorCheck: _cosponsor_check__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   props: ['committees'],
-  mixins: [],
+  mixins: [(_mixins_committeeMixin__WEBPACK_IMPORTED_MODULE_1___default())],
   data: function data() {
     return {
       // committees: [
@@ -5297,14 +5303,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _layout_page_footer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../layout/page-footer */ "./resources/js/components/layout/page-footer.vue");
-/* harmony import */ var _sponsor_select__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./sponsor-select */ "./resources/js/components/committee/sponsor-select.vue");
-/* harmony import */ var _cosponsors_select__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./cosponsors-select */ "./resources/js/components/committee/cosponsors-select.vue");
-/* harmony import */ var _creation_result__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./creation-result */ "./resources/js/components/committee/creation-result.vue");
-/* harmony import */ var _mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../mixins/plenaryMixin */ "./resources/js/mixins/plenaryMixin.js");
-/* harmony import */ var _mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _common_working_spinner__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../common/working-spinner */ "./resources/js/components/common/working-spinner.vue");
-/* harmony import */ var _common_error_alert__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../common/error-alert */ "./resources/js/components/common/error-alert.vue");
+/* harmony import */ var _mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../mixins/plenaryMixin */ "./resources/js/mixins/plenaryMixin.js");
+/* harmony import */ var _mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _mixins_committeeMixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../mixins/committeeMixin */ "./resources/js/mixins/committeeMixin.js");
+/* harmony import */ var _mixins_committeeMixin__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_mixins_committeeMixin__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _layout_page_footer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../layout/page-footer */ "./resources/js/components/layout/page-footer.vue");
+/* harmony import */ var _sponsor_select__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./sponsor-select */ "./resources/js/components/committee/sponsor-select.vue");
+/* harmony import */ var _cosponsors_select__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./cosponsors-select */ "./resources/js/components/committee/cosponsors-select.vue");
+/* harmony import */ var _creation_result__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./creation-result */ "./resources/js/components/committee/creation-result.vue");
+/* harmony import */ var _common_working_spinner__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../common/working-spinner */ "./resources/js/components/common/working-spinner.vue");
+/* harmony import */ var _common_error_alert__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../common/error-alert */ "./resources/js/components/common/error-alert.vue");
+
 
 
 
@@ -5315,15 +5324,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "resolution-creation",
   components: {
-    ErrorAlert: _common_error_alert__WEBPACK_IMPORTED_MODULE_6__["default"],
-    WorkingSpinner: _common_working_spinner__WEBPACK_IMPORTED_MODULE_5__["default"],
-    CreationResult: _creation_result__WEBPACK_IMPORTED_MODULE_3__["default"],
-    CosponsorsSelect: _cosponsors_select__WEBPACK_IMPORTED_MODULE_2__["default"],
-    PageFooter: _layout_page_footer__WEBPACK_IMPORTED_MODULE_0__["default"],
-    SponsorSelect: _sponsor_select__WEBPACK_IMPORTED_MODULE_1__["default"]
+    ErrorAlert: _common_error_alert__WEBPACK_IMPORTED_MODULE_7__["default"],
+    WorkingSpinner: _common_working_spinner__WEBPACK_IMPORTED_MODULE_6__["default"],
+    CreationResult: _creation_result__WEBPACK_IMPORTED_MODULE_5__["default"],
+    CosponsorsSelect: _cosponsors_select__WEBPACK_IMPORTED_MODULE_4__["default"],
+    PageFooter: _layout_page_footer__WEBPACK_IMPORTED_MODULE_2__["default"],
+    SponsorSelect: _sponsor_select__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   props: [],
-  mixins: [(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_4___default())],
+  mixins: [(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_0___default()), (_mixins_committeeMixin__WEBPACK_IMPORTED_MODULE_1___default())],
   data: function data() {
     return {
       title: '',
@@ -5331,7 +5340,14 @@ __webpack_require__.r(__webpack_exports__);
       cosponsors: [],
       // waiver_requested: false,
       waiver: false,
-      committees: ['Academic Affairs', 'Academic Preparation and Educational Programs', 'Executive Committee', 'Faculty Affairs', 'Fiscal and Governmental Affairs', 'Justice, Equity, Diversity, and Inclusion'],
+      // committees: [
+      //     'Academic Affairs',
+      //     'Academic Preparation and Educational Programs',
+      //     'Executive Committee',
+      //     'Faculty Affairs',
+      //     'Fiscal and Governmental Affairs',
+      //     'Justice, Equity, Diversity, and Inclusion'
+      // ],
       isWorking: false,
       showError: false,
       showResult: false,
@@ -5669,6 +5685,7 @@ __webpack_require__.r(__webpack_exports__);
  *      hideActionButton : Boolean of whether to hide the action button.
  *                          mostly used when a button will be used in the slot
  *
+ * handleCancel
  */
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "modal-parent",
@@ -5689,7 +5706,8 @@ __webpack_require__.r(__webpack_exports__);
       var myModalEl = document.getElementById(this.modalId);
       var modal = bootstrap.Modal.getInstance(myModalEl);
       modal.hide();
-    }
+    },
+    handleCancel: function handleCancel() {}
   }
 });
 
@@ -6041,17 +6059,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _parents_modal_button_parent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../parents/modal-button-parent */ "./resources/js/components/parents/modal-button-parent.vue");
+/* harmony import */ var _mixins_resolutionMixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../mixins/resolutionMixin */ "./resources/js/mixins/resolutionMixin.js");
+/* harmony import */ var _mixins_resolutionMixin__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_mixins_resolutionMixin__WEBPACK_IMPORTED_MODULE_1__);
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "committee-change-button",
   "extends": _parents_modal_button_parent__WEBPACK_IMPORTED_MODULE_0__["default"],
   props: ['resolutionId'],
-  mixins: [],
+  mixins: [(_mixins_resolutionMixin__WEBPACK_IMPORTED_MODULE_1___default())],
   data: function data() {
     return {
       label: 'Edit committtees',
       ariaDisabled: false,
-      styling: ' btn-sm btn-primary'
+      styling: ' btn-sm btn-outline-primary'
     };
   },
   asyncComputed: {},
@@ -6060,7 +6081,17 @@ __webpack_require__.r(__webpack_exports__);
       return 'committeeChangeModal' + this.resolutionId;
     }
   },
-  methods: {}
+  methods: {
+    handleClick: function handleClick() {
+      var _this = this;
+      //when modal opens, we need to populate the
+      //selected committees with the ones from the resolution
+      this.$store.commit('updateSelectedSponsor', this.resolution.sponsor);
+      _.forEach(this.resolution.cosponsors, function (c) {
+        _this.$store.commit('addCosponsor', c);
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -6077,12 +6108,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _parents_modal_parent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../parents/modal-parent */ "./resources/js/components/parents/modal-parent.vue");
+/* harmony import */ var _mixins_resolutionMixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../mixins/resolutionMixin */ "./resources/js/mixins/resolutionMixin.js");
+/* harmony import */ var _mixins_resolutionMixin__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_mixins_resolutionMixin__WEBPACK_IMPORTED_MODULE_1__);
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "committee-change-modal",
   "extends": _parents_modal_parent__WEBPACK_IMPORTED_MODULE_0__["default"],
   props: ['resolutionId'],
-  mixins: [],
+  mixins: [(_mixins_resolutionMixin__WEBPACK_IMPORTED_MODULE_1___default())],
   data: function data() {
     return {
       modalTitle: "Update sponsors or cosponsors",
@@ -6104,7 +6138,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     handleClick: function handleClick() {
-      window.console.log('committee-change-modal', 'handleClick', 31);
+      window.console.log('committee-change-modal', 'handleClick', 31, 'boop', this.resolution);
+      //Ask the server to make the changes. Then reset selected committees
+      this.$store.dispatch('updateResolutionCommittees', this.resolution);
+    },
+    handleCancel: function handleCancel() {
+      //Need to clear the selected committees
+      window.console.log('committee-change-modal', 'handleCancel', 42, 'beep');
+      this.$store.commit('resetSelectedCommittees');
     }
   }
 });
@@ -6124,11 +6165,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _committee_change_button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./committee-change-button */ "./resources/js/components/secretary/resolutions/committee-change/committee-change-button.vue");
 /* harmony import */ var _committee_change_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./committee-change-modal */ "./resources/js/components/secretary/resolutions/committee-change/committee-change-modal.vue");
+/* harmony import */ var _committee_select__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./committee-select */ "./resources/js/components/secretary/resolutions/committee-change/committee-select.vue");
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "committee-changer",
   components: {
+    CommitteeSelect: _committee_select__WEBPACK_IMPORTED_MODULE_2__["default"],
     CommitteeChangeModal: _committee_change_modal__WEBPACK_IMPORTED_MODULE_1__["default"],
     CommitteeChangeButton: _committee_change_button__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -6140,6 +6184,167 @@ __webpack_require__.r(__webpack_exports__);
   asyncComputed: {},
   computed: {},
   methods: {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/committee-change/committee-check.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/committee-change/committee-check.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _mixins_committeeMixin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../mixins/committeeMixin */ "./resources/js/mixins/committeeMixin.js");
+/* harmony import */ var _mixins_committeeMixin__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_mixins_committeeMixin__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../utilities/readiness.utilities */ "./resources/js/utilities/readiness.utilities.js");
+
+
+
+/**
+ * Button for selecting or de selecting a committee.
+ *
+ * dev Not happy about the very similar colors for hover and selected buttons, but
+ * using it as a check makes it hard to update state
+ *
+ */
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "committee-check",
+  props: ['committee', 'type'],
+  mixins: [(_mixins_committeeMixin__WEBPACK_IMPORTED_MODULE_0___default())],
+  data: function data() {
+    return {
+      unselectedStyle: 'btn-outline-primary',
+      selectedStyle: 'btn-primary'
+
+      // checked: false
+    };
+  },
+
+  // watch: {
+  //     isSelected: function () {
+  //         this.$emit('cosponsor', this.committee);
+  //     }
+  // },
+
+  asyncComputed: {
+    inputId: function inputId() {
+      return _.camelCase(this.committee.name) + this.type;
+    },
+    isSelected: {
+      get: function get() {
+        switch (this.type) {
+          case 'sponsor':
+            return this.isSponsor;
+            break;
+          case 'cosponsor':
+            return this.isCosponsor;
+            break;
+        }
+      }
+    },
+    isSponsor: function isSponsor() {
+      if (!(0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_1__.isReadyToRock)(this.selectedSponsor)) return false;
+      return this.selectedSponsor.id === this.committee.id;
+    },
+    isCosponsor: function isCosponsor() {
+      if (!(0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_1__.isReadyToRock)(this.selectedCosponsors) || !(0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_1__.isReadyToRock)(this.committee)) return false;
+      var me = this;
+      var v = _.find(this.selectedCosponsors, function (c) {
+        return c.id === me.committee.id;
+      });
+      return !_.isUndefined(v);
+    },
+    label: function label() {
+      return this.committee.name;
+    },
+    styling: function styling() {
+      if (this.isSelected) return this.selectedStyle;
+      return this.unselectedStyle;
+    }
+  },
+  computed: {},
+  methods: {
+    handleClick: function handleClick() {
+      switch (this.type) {
+        case 'sponsor':
+          this.toggleSponsor();
+          break;
+        case 'cosponsor':
+          this.toggleCosponsor();
+          break;
+      }
+    },
+    toggleCosponsor: function toggleCosponsor() {
+      if (this.isCosponsor) {
+        //The committee has been deselected
+        this.$store.commit('removeCosponsor', this.committee);
+      } else {
+        //the committee has been selected
+        this.$store.commit('addCosponsor', this.committee);
+      }
+    },
+    toggleSponsor: function toggleSponsor() {
+      this.$store.commit('updateSelectedSponsor', this.committee);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/committee-change/committee-select.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/committee-change/committee-select.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _mixins_committeeMixin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../mixins/committeeMixin */ "./resources/js/mixins/committeeMixin.js");
+/* harmony import */ var _mixins_committeeMixin__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_mixins_committeeMixin__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _committee_check__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./committee-check */ "./resources/js/components/secretary/resolutions/committee-change/committee-check.vue");
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "committee-select",
+  components: {
+    CommitteeCheck: _committee_check__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  /**
+   * type should be either:
+   *      sponsor
+   *      cosponsor
+   */
+  props: ['type'],
+  mixins: [(_mixins_committeeMixin__WEBPACK_IMPORTED_MODULE_0___default())],
+  data: function data() {
+    return {};
+  },
+  asyncComputed: {},
+  computed: {
+    heading: function heading() {
+      switch (this.type) {
+        case 'sponsor':
+          return "Sponsor";
+          break;
+        case 'cosponsor':
+          return "Cosponsors";
+          break;
+      }
+    }
+  },
+  methods: {
+    handleCosponsor: function handleCosponsor(v) {
+      // this.$emit('cosponsor', v);
+    }
+  }
 });
 
 /***/ }),
@@ -7355,7 +7560,7 @@ var render = function render() {
     staticClass: "cosponsors-select"
   }, [_c("h4", {
     staticClass: "text-light"
-  }, [_vm._v("Cosponsors")]), _vm._v(" "), _vm._l(_vm.committees, function (c) {
+  }, [_vm._v("Cosponsors")]), _vm._v(" "), _vm._l(_vm.committeeNames, function (c) {
     return _c("cosponsor-check", {
       key: c,
       attrs: {
@@ -7554,7 +7759,7 @@ var render = function render() {
     staticClass: "col-6"
   }, [_c("sponsor-select", {
     attrs: {
-      committees: _vm.committees
+      committees: _vm.committeeNames
     },
     on: {
       sponsor: _vm.handleSponsor
@@ -7563,7 +7768,7 @@ var render = function render() {
     staticClass: "col-6"
   }, [_c("cosponsors-select", {
     attrs: {
-      committees: _vm.committees
+      committees: _vm.committeeNames
     },
     on: {
       cosponsor: _vm.handleCosponsor
@@ -7900,6 +8105,9 @@ var render = function render() {
       type: "button",
       "data-bs-dismiss": "modal",
       "aria-label": "Close"
+    },
+    on: {
+      click: _vm.handleCancel
     }
   })]), _vm._v(" "), _c("div", {
     staticClass: "modal-body"
@@ -7922,6 +8130,9 @@ var render = function render() {
     attrs: {
       type: "button",
       "data-bs-dismiss": "modal"
+    },
+    on: {
+      click: _vm.handleCancel
     }
   }, [_vm._v("Cancel\n                ")]), _vm._v(" "), _vm.showActionButton ? _c("button", {
     staticClass: "btn btn-primary",
@@ -8228,7 +8439,81 @@ var render = function render() {
     attrs: {
       "resolution-id": _vm.resolutionId
     }
-  }, [_c("p", [_vm._v("beep")])])], 1);
+  }, [_c("div", {
+    staticClass: "selectors"
+  }, [_c("committee-select", {
+    attrs: {
+      type: "sponsor"
+    }
+  }), _vm._v(" "), _c("committee-select", {
+    attrs: {
+      type: "cosponsor"
+    }
+  })], 1)])], 1);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/committee-change/committee-check.vue?vue&type=template&id=094b1573&scoped=true&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/committee-change/committee-check.vue?vue&type=template&id=094b1573&scoped=true& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "committee-check mb-1"
+  }, [_c("button", {
+    staticClass: "btn",
+    "class": _vm.styling,
+    on: {
+      click: _vm.handleClick
+    }
+  }, [_vm._v(_vm._s(_vm.label))])]);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/committee-change/committee-select.vue?vue&type=template&id=422dfbbe&scoped=true&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/committee-change/committee-select.vue?vue&type=template&id=422dfbbe&scoped=true& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "committee-select"
+  }, [_c("h4", {}, [_vm._v(_vm._s(_vm.heading))]), _vm._v(" "), _vm._l(_vm.committeeObjects, function (c) {
+    return _c("committee-check", {
+      key: c.id,
+      attrs: {
+        committee: c,
+        type: _vm.type
+      }
+    });
+  })], 2);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -8387,7 +8672,7 @@ var render = function render() {
     attrs: {
       "resolution-id": _vm.resolutionId
     }
-  }), _vm._v("\n            < >< >\n"), _vm._v(" "), _c("committee-changer", {
+  }), _vm._v("\n               \n"), _vm._v(" "), _c("committee-changer", {
     attrs: {
       "resolution-id": _vm.resolutionId
     }
@@ -9094,6 +9379,60 @@ try {
 
 /***/ }),
 
+/***/ "./resources/js/mixins/committeeMixin.js":
+/*!***********************************************!*\
+  !*** ./resources/js/mixins/committeeMixin.js ***!
+  \***********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+var _require = __webpack_require__(/*! ../utilities/readiness.utilities */ "./resources/js/utilities/readiness.utilities.js"),
+  isReadyToRock = _require.isReadyToRock;
+/**
+ * Common things for any use of committees
+ */
+module.exports = {
+  asyncComputed: {
+    /**
+     * All objects representing committees
+     * @returns {any}
+     */
+    committeeObjects: function committeeObjects() {
+      return this.$store.getters.getCommittees;
+    },
+    /**
+     * List of names of all committees
+     * @returns {*[]}
+     */
+    committeeNames: function committeeNames() {
+      if (!isReadyToRock(this.committeeObjects)) return [];
+      var names = [];
+      _.forEach(this.committeeObjects, function (c) {
+        names.push(c.name);
+      });
+      names.sort();
+      return names;
+    },
+    selectedSponsor: {
+      set: function set(committee) {
+        this.$store.commit('updateSelectedSponsor', committee);
+      },
+      get: function get() {
+        return this.$store.getters.getSelectedSponsor;
+      }
+    },
+    selectedCosponsors: {
+      set: function set(committee) {
+        this.$store.commit('addCosponsor', committee);
+      },
+      get: function get() {
+        return this.$store.getters.getSelectedCosponsors;
+      }
+    }
+  }
+};
+
+/***/ }),
+
 /***/ "./resources/js/mixins/plenaryMixin.js":
 /*!*********************************************!*\
   !*** ./resources/js/mixins/plenaryMixin.js ***!
@@ -9214,7 +9553,14 @@ module.exports = {
       return url;
     }
   },
-  committee: {},
+  committee: {
+    updateCommittees: function updateCommittees(resolution) {
+      var resolutionId = idify(resolution);
+      var url = normalizedRouteRoot();
+      url += 'committees/update/' + resolutionId;
+      return url;
+    }
+  },
   secretary: {
     agenda: {
       createAgenda: function createAgenda(plenary) {
@@ -9461,7 +9807,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var state = {
-  committees: []
+  committees: [],
+  /**
+   * When creating or editing a resolution, this is the
+   * committee currently selected as the sponsor
+   */
+  selectedSponsor: null,
+  /**
+   * When creating or editing a resolution, these are the
+   * committees currently selected as cosponsors
+   */
+  selectedCosponsors: []
 };
 var mutations = {
   /**
@@ -9471,6 +9827,52 @@ var mutations = {
    */
   addCommittee: function addCommittee(state, committee) {
     state.committees.push(committee);
+  },
+  /**
+   * Changes the committee designated as sponsor
+   * @param state
+   * @param committee Committee object
+   */
+  updateSelectedSponsor: function updateSelectedSponsor(state, committee) {
+    state.selectedSponsor = committee;
+  },
+  /**
+   * Adds a committee object to the list of cosponsors
+   * @param state
+   * @param committee
+   */
+  addCosponsor: function addCosponsor(state, committee) {
+    state.selectedCosponsors.push(committee);
+    state.selectedCosponsors = _.uniq(state.selectedCosponsors);
+  },
+  /**
+   * Removes the cosponsor object
+   * @param state
+   * @param committee
+   */
+  removeCosponsor: function removeCosponsor(state, committee) {
+    // _.remove(state.selectedCosponsors, function (c) {
+    //     return c.id === committee.id;
+    // });
+
+    var idx = state.selectedCosponsors.indexOf(committee);
+    state.selectedCosponsors.splice(idx, 1);
+  },
+  /**
+   * Resets selected sponsor and cosponsor to null /empty
+   * Used after making edits
+   * @param state
+   * @param committee
+   */
+  resetSelectedCommittees: function resetSelectedCommittees(state, committee) {
+    state.selectedSponsor = null;
+    state.selectedCosponsors = [];
+  },
+  resetSelectedSponsor: function resetSelectedSponsor(state, committee) {
+    state.selectedSponsor = null;
+  },
+  resetSelectedCosponsors: function resetSelectedCosponsors(state, committee) {
+    state.selectedCosponsors = [];
   }
 };
 var actions = {
@@ -9490,7 +9892,84 @@ var actions = {
         return resolve();
       });
     });
-  }
+  },
+  /**
+   * Asks the server to figure out which committees needs to be
+   * updated and take care of it.
+   * This is the main called method
+   *
+   * @param dispatch
+   * @param commit
+   * @param getters
+   * @param resolution
+   * @returns {Promise<unknown>}
+   */
+  updateResolutionCommittees: function updateResolutionCommittees(_ref2, resolution) {
+    var dispatch = _ref2.dispatch,
+      commit = _ref2.commit,
+      getters = _ref2.getters;
+    return new Promise(function (resolve, reject) {
+      var url = _routes__WEBPACK_IMPORTED_MODULE_0__.committee.updateCommittees(resolution);
+      var data = {
+        sponsor: getters.getSelectedSponsor,
+        cosponsors: getters.getSelectedCosponsors
+      };
+      Vue.axios.post(url, data).then(function (response) {
+        commit('resetSelectedCommittees');
+        //dev Consider updating objects on client instead
+        dispatch('forceReload');
+        return resolve();
+      });
+
+      // //dev or just be lazy and do all?
+      // if(resolution.sponsor.id !== getters.getSelectedSponsor.id){
+      //     //we need to update the sponsor
+      //
+      // }
+      //
+      // // if()
+      // dispatch('updateResolutionSponsor', resolution).then(() => {
+      //     dispatch('updateResolutionCosponsors', resolution).then(() => {
+      //         return resolve();
+      //     });
+      //
+      // })
+    });
+  } // /**
+  //  * Updates the resolution's sponsor to use the sponsor
+  //  * currently set in selectedSponsor
+  //  * @param dispatch
+  //  * @param commit
+  //  * @param getters
+  //  * @param resolution
+  //  */
+  // updateResolutionSponsor({dispatch, commit, getters}, resolution) {
+  //     return new Promise(((resolve, reject) => {
+  //
+  //         //reset
+  //         commit('resetSelectedSponsor');
+  //         return resolve();
+  //     }));
+  //
+  // },
+  //
+  // /**
+  //  * Updates the resolution's cosponsors to use the committees currently
+  //  * set in selectedCosponsors
+  //  * @param dispatch
+  //  * @param commit
+  //  * @param getters
+  //  * @param resolution
+  //  */
+  // updateResolutionCosponsors({dispatch, commit, getters}, resolution) {
+  //     return new Promise(((resolve, reject) => {
+  //
+  //
+  //         //reset
+  //         commit('resetSelectedCosponsors');
+  //         return resolve();
+  //     }));
+  // }
   /*
   *    doThing({dispatch, commit, getters}, thingParam) {
   *        return new Promise(((resolve, reject) => {
@@ -9513,6 +9992,22 @@ var actions = {
 var getters = {
   getCommittees: function getCommittees(state) {
     return state.committees;
+  },
+  /**
+   * Returns the currently selected sponsor
+   * @param state
+   * @returns {string}
+   */
+  getSelectedSponsor: function getSelectedSponsor(state) {
+    return state.selectedSponsor;
+  },
+  /**
+   * Returns a list of currently selected cosponsors
+   * @param state
+   * @returns {[]}
+   */
+  getSelectedCosponsors: function getSelectedCosponsors(state) {
+    return state.selectedCosponsors;
   }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -25293,6 +25788,30 @@ if ( typeof noGlobal === "undefined" ) {
 
 return jQuery;
 } );
+
+
+/***/ }),
+
+/***/ "./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/committee-change/committee-check.vue?vue&type=style&index=0&id=094b1573&scoped=true&lang=scss&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/committee-change/committee-check.vue?vue&type=style&index=0&id=094b1573&scoped=true&lang=scss& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/runtime/api.js */ "./node_modules/laravel-mix/node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
 /***/ }),
@@ -45495,6 +46014,36 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/committee-change/committee-check.vue?vue&type=style&index=0&id=094b1573&scoped=true&lang=scss&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/committee-change/committee-check.vue?vue&type=style&index=0&id=094b1573&scoped=true&lang=scss& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_lib_index_js_vue_loader_options_committee_check_vue_vue_type_style_index_0_id_094b1573_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./committee-check.vue?vue&type=style&index=0&id=094b1573&scoped=true&lang=scss& */ "./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/committee-change/committee-check.vue?vue&type=style&index=0&id=094b1573&scoped=true&lang=scss&");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_lib_index_js_vue_loader_options_committee_check_vue_vue_type_style_index_0_id_094b1573_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_lib_index_js_vue_loader_options_committee_check_vue_vue_type_style_index_0_id_094b1573_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/committee/committee.vue?vue&type=style&index=0&id=0a6e13f0&scoped=true&lang=css&":
 /*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/committee/committee.vue?vue&type=style&index=0&id=0a6e13f0&scoped=true&lang=css& ***!
@@ -46991,6 +47540,86 @@ component.options.__file = "resources/js/components/secretary/resolutions/commit
 
 /***/ }),
 
+/***/ "./resources/js/components/secretary/resolutions/committee-change/committee-check.vue":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/secretary/resolutions/committee-change/committee-check.vue ***!
+  \********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _committee_check_vue_vue_type_template_id_094b1573_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./committee-check.vue?vue&type=template&id=094b1573&scoped=true& */ "./resources/js/components/secretary/resolutions/committee-change/committee-check.vue?vue&type=template&id=094b1573&scoped=true&");
+/* harmony import */ var _committee_check_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./committee-check.vue?vue&type=script&lang=js& */ "./resources/js/components/secretary/resolutions/committee-change/committee-check.vue?vue&type=script&lang=js&");
+/* harmony import */ var _committee_check_vue_vue_type_style_index_0_id_094b1573_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./committee-check.vue?vue&type=style&index=0&id=094b1573&scoped=true&lang=scss& */ "./resources/js/components/secretary/resolutions/committee-change/committee-check.vue?vue&type=style&index=0&id=094b1573&scoped=true&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _committee_check_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _committee_check_vue_vue_type_template_id_094b1573_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _committee_check_vue_vue_type_template_id_094b1573_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "094b1573",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/secretary/resolutions/committee-change/committee-check.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/secretary/resolutions/committee-change/committee-select.vue":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/components/secretary/resolutions/committee-change/committee-select.vue ***!
+  \*********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _committee_select_vue_vue_type_template_id_422dfbbe_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./committee-select.vue?vue&type=template&id=422dfbbe&scoped=true& */ "./resources/js/components/secretary/resolutions/committee-change/committee-select.vue?vue&type=template&id=422dfbbe&scoped=true&");
+/* harmony import */ var _committee_select_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./committee-select.vue?vue&type=script&lang=js& */ "./resources/js/components/secretary/resolutions/committee-change/committee-select.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _committee_select_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _committee_select_vue_vue_type_template_id_422dfbbe_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _committee_select_vue_vue_type_template_id_422dfbbe_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "422dfbbe",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/secretary/resolutions/committee-change/committee-select.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/secretary/resolutions/failed-toggle-button.vue":
 /*!********************************************************************************!*\
   !*** ./resources/js/components/secretary/resolutions/failed-toggle-button.vue ***!
@@ -47875,6 +48504,38 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/secretary/resolutions/committee-change/committee-check.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************!*\
+  !*** ./resources/js/components/secretary/resolutions/committee-change/committee-check.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_committee_check_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./committee-check.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/committee-change/committee-check.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_committee_check_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/secretary/resolutions/committee-change/committee-select.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************!*\
+  !*** ./resources/js/components/secretary/resolutions/committee-change/committee-select.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_committee_select_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./committee-select.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/committee-change/committee-select.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_committee_select_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/secretary/resolutions/failed-toggle-button.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************!*\
   !*** ./resources/js/components/secretary/resolutions/failed-toggle-button.vue?vue&type=script&lang=js& ***!
@@ -48422,6 +49083,40 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/secretary/resolutions/committee-change/committee-check.vue?vue&type=template&id=094b1573&scoped=true&":
+/*!***************************************************************************************************************************************!*\
+  !*** ./resources/js/components/secretary/resolutions/committee-change/committee-check.vue?vue&type=template&id=094b1573&scoped=true& ***!
+  \***************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_committee_check_vue_vue_type_template_id_094b1573_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_committee_check_vue_vue_type_template_id_094b1573_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_committee_check_vue_vue_type_template_id_094b1573_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./committee-check.vue?vue&type=template&id=094b1573&scoped=true& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/committee-change/committee-check.vue?vue&type=template&id=094b1573&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/secretary/resolutions/committee-change/committee-select.vue?vue&type=template&id=422dfbbe&scoped=true&":
+/*!****************************************************************************************************************************************!*\
+  !*** ./resources/js/components/secretary/resolutions/committee-change/committee-select.vue?vue&type=template&id=422dfbbe&scoped=true& ***!
+  \****************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_committee_select_vue_vue_type_template_id_422dfbbe_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_committee_select_vue_vue_type_template_id_422dfbbe_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_committee_select_vue_vue_type_template_id_422dfbbe_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./committee-select.vue?vue&type=template&id=422dfbbe&scoped=true& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/committee-change/committee-select.vue?vue&type=template&id=422dfbbe&scoped=true&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/secretary/resolutions/failed-toggle-button.vue?vue&type=template&id=61b79305&scoped=true&":
 /*!***************************************************************************************************************************!*\
   !*** ./resources/js/components/secretary/resolutions/failed-toggle-button.vue?vue&type=template&id=61b79305&scoped=true& ***!
@@ -48656,6 +49351,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_sync_titles_vue_vue_type_template_id_5a15230a_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_sync_titles_vue_vue_type_template_id_5a15230a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./sync-titles.vue?vue&type=template&id=5a15230a&scoped=true& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/sync-titles.vue?vue&type=template&id=5a15230a&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/secretary/resolutions/committee-change/committee-check.vue?vue&type=style&index=0&id=094b1573&scoped=true&lang=scss&":
+/*!******************************************************************************************************************************************************!*\
+  !*** ./resources/js/components/secretary/resolutions/committee-change/committee-check.vue?vue&type=style&index=0&id=094b1573&scoped=true&lang=scss& ***!
+  \******************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_lib_index_js_vue_loader_options_committee_check_vue_vue_type_style_index_0_id_094b1573_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/style-loader/dist/cjs.js!../../../../../../node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./committee-check.vue?vue&type=style&index=0&id=094b1573&scoped=true&lang=scss& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/laravel-mix/node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/resolutions/committee-change/committee-check.vue?vue&type=style&index=0&id=094b1573&scoped=true&lang=scss&");
 
 
 /***/ }),

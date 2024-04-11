@@ -4,7 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Plenary;
 
-class PlenaryRepository
+class PlenaryRepository implements IPlenaryRepository
 {
 
     public function setCurrentPlenary(Plenary $plenary){

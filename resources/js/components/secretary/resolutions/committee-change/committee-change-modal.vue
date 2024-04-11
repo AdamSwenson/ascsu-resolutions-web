@@ -1,5 +1,6 @@
 <script>
 import modalParent from "../../../parents/modal-parent";
+import resolutionMixin from "../../../../mixins/resolutionMixin";
 
 export default {
     name: "committee-change-modal",
@@ -8,7 +9,7 @@ export default {
 
     props: ['resolutionId'],
 
-    mixins: [],
+    mixins: [resolutionMixin],
 
     data: function () {
         return {
@@ -23,20 +24,28 @@ export default {
     },
 
     asyncComputed: {
-modalText : function(){
-    return "this one is #" + this.resolutionId;
-}
+        modalText: function () {
+            return "this one is #" + this.resolutionId;
+        }
     },
 
     computed: {
-        modalId : function(){
+        modalId: function () {
             return 'committeeChangeModal' + this.resolutionId;
         }
     },
 
     methods: {
         handleClick: function () {
-            window.console.log('committee-change-modal', 'handleClick', 31,);
+            window.console.log('committee-change-modal', 'handleClick', 31, 'boop', this.resolution);
+            //Ask the server to make the changes. Then reset selected committees
+            this.$store.dispatch('updateResolutionCommittees', this.resolution);
+        },
+
+        handleCancel: function () {
+            //Need to clear the selected committees
+            window.console.log('committee-change-modal', 'handleCancel', 42, 'beep');
+            this.$store.commit('resetSelectedCommittees');
         }
     }
 

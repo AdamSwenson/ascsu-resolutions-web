@@ -4,16 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\PythonScriptError;
 use App\Models\Plenary;
+use App\Repositories\IPlenaryRepository;
 use App\Repositories\PlenaryRepository;
 use Illuminate\Http\Request;
 
 class PlenaryController extends Controller
 {
+    /**
+     * @var PlenaryRepository|mixed
+     */
     public PlenaryRepository $plenaryRepo;
 
     public function __construct()
     {
-        $this->plenaryRepo = new PlenaryRepository();
+        $this->plenaryRepo = app()->make(IPlenaryRepository::class);
     }
 
 

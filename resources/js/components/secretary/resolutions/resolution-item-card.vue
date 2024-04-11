@@ -41,7 +41,7 @@
             <failed-toggle-button :resolution-id="resolutionId"></failed-toggle-button>&nbsp;&nbsp;&nbsp;&nbsp;
             <second-reading-toggle-button :resolution-id="resolutionId"></second-reading-toggle-button>
             <waiver-toggle-button :resolution-id="resolutionId"></waiver-toggle-button>
-            <&nbsp;><&nbsp;>
+            &nbsp &nbsp
 <!--            <committee-change-button :resolution-id="resolutionId"></committee-change-button> <committee-change-modal :resolution-id="resolutionId"></committee-change-modal>-->
             <committee-changer :resolution-id="resolutionId"></committee-changer>
         </div>

@@ -41,7 +41,14 @@ module.exports = {
       }
     },
 
-    committee: {},
+    committee: {
+        updateCommittees : (resolution) => {
+            let resolutionId = idify(resolution);
+            let url = normalizedRouteRoot();
+            url += 'committees/update/' + resolutionId;
+            return url;
+        }
+    },
 
     secretary: {
         agenda: {

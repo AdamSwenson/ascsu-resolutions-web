@@ -15,10 +15,14 @@ import CosponsorsSelect from "./cosponsors-select";
 import CreationResult from "./creation-result";
 import ResolutionCreation from "./resolution-creation";
 import {isReadyToRock} from "../../utilities/readiness.utilities";
+import CommitteeSelect from "../secretary/resolutions/committee-change/committee-select";
+import CommitteeChanger from "../secretary/resolutions/committee-change/committee-changer";
 
 export default {
     name: "committee",
-    components: {ResolutionCreation, CreationResult, CosponsorsSelect, PageFooter, SponsorSelect},
+    components: {
+        CommitteeChanger,
+        CommitteeSelect, ResolutionCreation, CreationResult, CosponsorsSelect, PageFooter, SponsorSelect},
     props: [],
 
     mixins: [],
@@ -30,15 +34,7 @@ export default {
             cosponsors: [],
             // waiver_requested: false,
             waiver: false,
-            // committees: [
-            //     'Academic Affairs',
-            //     'Academic Preparation and Educational Programs',
-            //     'Executive Committee',
-            //     'Faculty Affairs',
-            //     'Fiscal and Governmental Affairs',
-            //     'Justice, Equity, Diversity, and Inclusion'
-            // ],
-            url: null
+             url: null
         }
     },
 

@@ -19,6 +19,7 @@
                         class="btn-close"
                         data-bs-dismiss="modal"
                         aria-label="Close"
+                        v-on:click="handleCancel"
                     ></button>
 
                 </div>
@@ -34,6 +35,7 @@
                     <button type="button"
                             class="btn btn-secondary"
                             data-bs-dismiss="modal"
+                            v-on:click="handleCancel"
                     >Cancel
                     </button>
 
@@ -81,6 +83,7 @@ import {isReadyToRock} from "../../utilities/readiness.utilities";
  *      hideActionButton : Boolean of whether to hide the action button.
  *                          mostly used when a button will be used in the slot
  *
+ * handleCancel
  */
 export default {
     name: "modal-parent",
@@ -108,6 +111,8 @@ export default {
             var modal = bootstrap.Modal.getInstance(myModalEl)
             modal.hide();
         },
+
+        handleCancel : function(){}
 
     }
 

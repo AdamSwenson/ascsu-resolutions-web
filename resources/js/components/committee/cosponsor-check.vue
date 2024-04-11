@@ -1,4 +1,5 @@
 <template>
+
     <div class="cosponsor-check mb-1">
         <input type="checkbox"
                class="btn-check"
@@ -34,12 +35,14 @@
 </template>
 
 <script>
+import committeeMixin from "../../mixins/committeeMixin";
+
 export default {
     name: "cosponsor-check",
 
     props: ['committee'],
 
-    mixins: [],
+    mixins: [committeeMixin],
 
     data: function () {
         return {
@@ -53,7 +56,12 @@ export default {
         }
     },
 
-    asyncComputed: {},
+    asyncComputed: {
+
+        label : function(){
+
+        }
+    },
 
     computed: {
         inputId: function () {
@@ -61,7 +69,9 @@ export default {
         }
     },
 
-    methods: {}
+    methods: {
+
+    }
 
 }
 </script>

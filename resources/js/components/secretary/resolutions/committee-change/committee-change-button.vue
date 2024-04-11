@@ -1,34 +1,40 @@
-
 <script>
 import modalButtonParent from "../../../parents/modal-button-parent";
+import resolutionMixin from "../../../../mixins/resolutionMixin";
 
 export default {
     name: "committee-change-button",
-extends: modalButtonParent,
+    extends: modalButtonParent,
     props: ['resolutionId'],
 
-    mixins: [],
+    mixins: [resolutionMixin],
 
     data: function () {
         return {
-            label : 'Edit committtees',
+            label: 'Edit committtees',
             ariaDisabled: false,
-            styling: ' btn-sm btn-primary'
-
+            styling: ' btn-sm btn-outline-primary'
         }
     },
 
-    asyncComputed: {
-
-    },
+    asyncComputed: {},
 
     computed: {
-        modalId : function(){
+        modalId: function () {
             return 'committeeChangeModal' + this.resolutionId;
         }
     },
 
-    methods: {}
+    methods: {
+        handleClick: function () {
+            //when modal opens, we need to populate the
+            //selected committees with the ones from the resolution
+            this.$store.commit('updateSelectedSponsor', this.resolution.sponsor);
+            _.forEach(this.resolution.cosponsors, (c) => {
+                this.$store.commit('addCosponsor', c);
+            });
+        }
+    }
 
 }
 </script>

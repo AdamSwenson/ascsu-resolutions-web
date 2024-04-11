@@ -41,14 +41,14 @@
                         <div class="col-6">
                             <sponsor-select
                                 v-on:sponsor="handleSponsor"
-                                :committees="committees"
+                                :committees="committeeNames"
                             ></sponsor-select>
                         </div>
 
                         <div class="col-6">
                             <!--                    <div class="mb-3">-->
                             <cosponsors-select
-                                :committees="committees"
+                                :committees="committeeNames"
                                 v-on:cosponsor="handleCosponsor"
                             ></cosponsors-select>
                         </div>
@@ -77,11 +77,12 @@
 </template>
 
 <script>
+import plenaryMixin from "../../mixins/plenaryMixin";
+import committeeMixin from "../../mixins/committeeMixin";
 import PageFooter from "../layout/page-footer";
 import SponsorSelect from "./sponsor-select";
 import CosponsorsSelect from "./cosponsors-select";
 import CreationResult from "./creation-result";
-import plenaryMixin from "../../mixins/plenaryMixin";
 import WorkingSpinner from "../common/working-spinner";
 import ErrorAlert from "../common/error-alert";
 
@@ -90,7 +91,7 @@ export default {
     components: {ErrorAlert, WorkingSpinner, CreationResult, CosponsorsSelect, PageFooter, SponsorSelect},
     props: [],
 
-    mixins: [plenaryMixin],
+    mixins: [plenaryMixin, committeeMixin],
 
     data: function () {
         return {
@@ -99,14 +100,14 @@ export default {
             cosponsors: [],
             // waiver_requested: false,
             waiver: false,
-            committees: [
-                'Academic Affairs',
-                'Academic Preparation and Educational Programs',
-                'Executive Committee',
-                'Faculty Affairs',
-                'Fiscal and Governmental Affairs',
-                'Justice, Equity, Diversity, and Inclusion'
-            ],
+            // committees: [
+            //     'Academic Affairs',
+            //     'Academic Preparation and Educational Programs',
+            //     'Executive Committee',
+            //     'Faculty Affairs',
+            //     'Fiscal and Governmental Affairs',
+            //     'Justice, Equity, Diversity, and Inclusion'
+            // ],
             isWorking: false,
             showError: false,
             showResult: false,

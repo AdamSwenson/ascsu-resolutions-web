@@ -28,6 +28,7 @@ Route::get('/privacy', function(){
 
 Route::get('/committee', [CommitteeController::class, 'getCommitteePage']);
 Route::get('/committees/all', [CommitteeController::class, 'getCommittees']);
+Route::post('/committees/update/{resolution}', [CommitteeController::class, 'updateCommittees']);
 Route::post('/resolution/action/{plenary}/{resolution}', [ResolutionController::class, 'setAction']);
 Route::post('/resolution/{plenary}', [CommitteeController::class, 'recordResolution']);
 Route::post('/resolution/waiver/toggle/{resolution}', [ResolutionController::class, 'toggleWaiver']);

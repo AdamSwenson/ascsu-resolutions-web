@@ -2,7 +2,10 @@
 <span class="committee-changer ">
 <committee-change-button :resolution-id="resolutionId"></committee-change-button>
 <committee-change-modal :resolution-id="resolutionId">
-    <p>beep</p>
+    <div class="selectors">
+        <committee-select type="sponsor"></committee-select>
+        <committee-select type="cosponsor"></committee-select>
+    </div>
 </committee-change-modal>
 </span>
 </template>
@@ -10,9 +13,11 @@
 <script>
 import CommitteeChangeButton from "./committee-change-button";
 import CommitteeChangeModal from "./committee-change-modal";
+import CommitteeSelect from "./committee-select";
+
 export default {
     name: "committee-changer",
-    components: {CommitteeChangeModal, CommitteeChangeButton},
+    components: {CommitteeSelect, CommitteeChangeModal, CommitteeChangeButton},
     props: ['resolutionId'],
 
     mixins: [],
