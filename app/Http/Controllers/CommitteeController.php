@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Process;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Str;
 
 class CommitteeController extends Controller
 {
@@ -131,6 +132,10 @@ class CommitteeController extends Controller
     public function recordResolution(Plenary $plenary, ResolutionRequest $request)
     {
         $request->merge(['number' => $this->getNextResolutionNumber()]);
+
+        // AR-65
+        $request['title'] = Str::title($request->title);
+
         $resolution = Resolution::create($request->all());
 
         //add committees
