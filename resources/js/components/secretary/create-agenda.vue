@@ -8,6 +8,13 @@
         <button v-else class="btn btn-primary" v-on:click="handleCreateAgenda">Create resolution list</button>
     </div>
 
+    <div class="card-body " v-show="showUrl">
+        <p class="card-text text-light">
+            Link to list of resolutions:<br>
+            <a v-bind:href="resolutionListUrl" target="_blank">{{ resolutionListUrl }}</a>
+        </p>
+    </div>
+
 
 </div>
 </template>
@@ -16,24 +23,26 @@
 import plenaryMixin from "../../mixins/plenaryMixin";
 import * as routes from "../../routes";
 import WorkingSpinner from "../common/working-spinner";
+import PlenaryMixin from "../../mixins/plenaryMixin";
 
 export default {
     name: "create-agenda",
     components: {WorkingSpinner},
-    props: ['plenaryId'],
+
+    props: [],
+
+    mixins: [PlenaryMixin],
 
 
     data: function () {
         return {
-            url : null,
+            // url : null,
             isWorking: false
-
-
         }
     },
     asyncComputed: {
         showUrl : function(){
-            return ! _.isNull(this.url);
+            return ! _.isNull(this.resolutionListUrl);
         }
     },
 

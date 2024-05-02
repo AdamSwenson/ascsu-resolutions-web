@@ -12,7 +12,7 @@
         <div class="card-body " v-show="showUrl">
             <p class="card-text text-light">
                 Link to public versions of first reading documents:<br>
-                <a v-bind:href="publicUrl" target="_blank">{{ publicUrl }}</a>
+                <a v-bind:href="publicFolderUrl" target="_blank">{{ publicFolderUrl }}</a>
             </p>
         </div>
 
@@ -22,24 +22,26 @@
 
 <script>
 import WorkingSpinner from "../common/working-spinner";
+import PlenaryMixin from "../../mixins/plenaryMixin";
+import {isReadyToRock} from "../../utilities/readiness.utilities";
 export default {
     name: "public-folder-creation",
     components: {WorkingSpinner},
-    props: ['plenaryId'],
+    props: [],
 
-    mixins: [],
+    mixins: [PlenaryMixin],
 
     data: function () {
         return {
             // plenary_id: 1,
-            publicUrl: null,
+            // publicUrl: null,
             isWorking : false
         }
     },
 
     asyncComputed: {
         showUrl: function () {
-            return !_.isNull(this.url);
+            return isReadyToRock(this.publicFolderUrl) && this.publicFolderUrl.length > 0;
         }
     },
 

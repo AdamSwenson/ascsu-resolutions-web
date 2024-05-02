@@ -5781,21 +5781,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "create-agenda",
   components: {
     WorkingSpinner: _common_working_spinner__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  props: ['plenaryId'],
+  props: [],
+  mixins: [(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_0___default())],
   data: function data() {
     return {
-      url: null,
+      // url : null,
       isWorking: false
     };
   },
   asyncComputed: {
     showUrl: function showUrl() {
-      return !_.isNull(this.url);
+      return !_.isNull(this.resolutionListUrl);
     }
   },
   computed: {},
@@ -5994,24 +5996,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _common_working_spinner__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../common/working-spinner */ "./resources/js/components/common/working-spinner.vue");
+/* harmony import */ var _mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../mixins/plenaryMixin */ "./resources/js/mixins/plenaryMixin.js");
+/* harmony import */ var _mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utilities/readiness.utilities */ "./resources/js/utilities/readiness.utilities.js");
+
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "public-folder-creation",
   components: {
     WorkingSpinner: _common_working_spinner__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  props: ['plenaryId'],
-  mixins: [],
+  props: [],
+  mixins: [(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_1___default())],
   data: function data() {
     return {
       // plenary_id: 1,
-      publicUrl: null,
+      // publicUrl: null,
       isWorking: false
     };
   },
   asyncComputed: {
     showUrl: function showUrl() {
-      return !_.isNull(this.url);
+      return (0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_2__.isReadyToRock)(this.publicFolderUrl) && this.publicFolderUrl.length > 0;
     }
   },
   computed: {},
@@ -7839,7 +7846,22 @@ var render = function render() {
     on: {
       click: _vm.handleCreateAgenda
     }
-  }, [_vm._v("Create resolution list")])], 1)]);
+  }, [_vm._v("Create resolution list")])], 1), _vm._v(" "), _c("div", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.showUrl,
+      expression: "showUrl"
+    }],
+    staticClass: "card-body"
+  }, [_c("p", {
+    staticClass: "card-text text-light"
+  }, [_vm._v("\n            Link to list of resolutions:"), _c("br"), _vm._v(" "), _c("a", {
+    attrs: {
+      href: _vm.resolutionListUrl,
+      target: "_blank"
+    }
+  }, [_vm._v(_vm._s(_vm.resolutionListUrl))])])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -8033,10 +8055,10 @@ var render = function render() {
     staticClass: "card-text text-light"
   }, [_vm._v("\n            Link to public versions of first reading documents:"), _c("br"), _vm._v(" "), _c("a", {
     attrs: {
-      href: _vm.publicUrl,
+      href: _vm.publicFolderUrl,
       target: "_blank"
     }
-  }, [_vm._v(_vm._s(_vm.publicUrl))])])])]);
+  }, [_vm._v(_vm._s(_vm.publicFolderUrl))])])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -9008,6 +9030,18 @@ module.exports = {
     plenaryName: function plenaryName() {
       if (_.isNull(this.plenary)) return '';
       return this.plenary.plenaryName;
+    },
+    publicFolderUrl: function publicFolderUrl() {
+      if (_.isNull(this.plenary)) return '';
+      return this.plenary.publicUrl;
+    },
+    plenaryUrl: function plenaryUrl() {
+      if (_.isNull(this.plenary)) return '';
+      return this.plenary.plenaryUrl;
+    },
+    resolutionListUrl: function resolutionListUrl() {
+      if (_.isNull(this.plenary)) return '';
+      return this.plenary.resolutionListUrl;
     }
   },
   computed: {},

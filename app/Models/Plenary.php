@@ -9,6 +9,7 @@ use Illuminate\Support\Carbon;
 class Plenary extends Model
 {
     const URL_BASE = 'https://drive.google.com/drive/folders/';
+    const DOCS_BASE = 'https://docs.google.com/document/d/';
     use HasFactory;
 
     protected $fillable = [
@@ -22,7 +23,7 @@ class Plenary extends Model
 
 protected $casts = ['is_current' => 'boolean'];
 
-protected $appends = ['publicUrl', 'plenaryUrl', 'plenaryName'];
+protected $appends = ['publicUrl', 'plenaryUrl', 'plenaryName', 'resolutionListUrl'];
 
 
     public function getPublicUrlAttribute(){
@@ -36,6 +37,11 @@ protected $appends = ['publicUrl', 'plenaryUrl', 'plenaryName'];
     public function getPlenaryNameAttribute(){
        $d = new Carbon($this->thursday_date);
     return $d->format('Y F');
+    }
+
+    public function getResolutionListUrlAttribute(){
+        if (is_null($this->agenda_id)) return $this->agenda_id;
+        return self::DOCS_BASE . $this->agenda_id;
     }
 
     public function resolutions(){
