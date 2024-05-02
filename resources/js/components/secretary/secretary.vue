@@ -68,6 +68,8 @@
 
         </div>
 
+
+
         <page-footer></page-footer>
     </div>
 
@@ -84,10 +86,16 @@ import CreateAgenda from "./create-agenda";
 import EnforceStyling from "./enforce-styling";
 import SyncTitles from "./sync-titles";
 import ResolutionsCard from "./resolutions/resolutions-card";
+import CommitteeChanger from "../common/committee-change/committee-changer";
+import CommitteeChangeButton from "../common/committee-change/committee-change-button";
+import CommitteeChangeModal from "../common/committee-change/committee-change-modal";
 
 export default {
     name: "secretary",
     components: {
+        CommitteeChangeModal,
+        CommitteeChangeButton,
+        CommitteeChanger,
         ResolutionsCard,
         SyncTitles,
         EnforceStyling,
@@ -109,6 +117,7 @@ export default {
     computed: {},
 
     methods: {},
+
     mounted() {
         window.console.log('secretary', 'mounted', 97, 'beep');
         this.$store.dispatch('secretaryStartup');

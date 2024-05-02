@@ -14,7 +14,23 @@ module.exports = {
         plenaryName : function(){
             if(_.isNull(this.plenary)) return ''
             return this.plenary.plenaryName;
+        },
+
+        publicFolderUrl: function(){
+            if(_.isNull(this.plenary)) return ''
+            return this.plenary.publicUrl;
+        },
+
+        plenaryUrl : function(){
+            if(_.isNull(this.plenary)) return ''
+            return this.plenary.plenaryUrl;
+        },
+
+        resolutionListUrl : function(){
+            if(_.isNull(this.plenary)) return ''
+            return this.plenary.resolutionListUrl;
         }
+
     },
 
     computed: {},

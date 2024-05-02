@@ -23,6 +23,7 @@ const actions = {
         return new Promise(((resolve, reject)=>{
             dispatch('setCurrentPlenaryId').then(() => {
                 dispatch('loadPlenaries');
+                dispatch('loadCommittees');
                 dispatch('loadAllResolutions').then(() => {
                     dispatch('loadCurrentPlenaryResolutions').then(() => {
                         commit('toggleIsReady');
@@ -31,6 +32,12 @@ const actions = {
                 });
             });
 
+        }));
+    },
+
+    committeeStartup({dispatch, commit, getters}){
+        return new Promise(((resolve, reject)=>{
+            dispatch('loadCommittees');
         }));
     }
 

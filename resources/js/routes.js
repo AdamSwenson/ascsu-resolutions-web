@@ -33,8 +33,22 @@ const idify = (ObjectOrId) => {
  *
  */
 module.exports = {
+    all : {
+      loadCommittees: () => {
+          let url = normalizedRouteRoot();
+          url += 'committees/all';
+          return url;
+      }
+    },
 
-    committee: {},
+    committee: {
+        updateCommittees : (resolution) => {
+            let resolutionId = idify(resolution);
+            let url = normalizedRouteRoot();
+            url += 'committees/update/' + resolutionId;
+            return url;
+        }
+    },
 
     secretary: {
         agenda: {
@@ -113,15 +127,19 @@ module.exports = {
             return url;
             },
 
-            enforceStyle: () => {
-                let url = normalizedRouteRoot()
-                url += 'secretary/styling'
+            enforceStyle: (plenary) => {
+                let plenaryId = idify(plenary);
+                let url = normalizedRouteRoot();
+                url += 'secretary/styling/';
+                url += plenaryId;
                 return url
             },
 
-            syncTitles: () => {
+            syncTitles: (plenary) => {
+                let plenaryId = idify(plenary);
                 let url = normalizedRouteRoot();
-                url += 'secretary/sync';
+                url += 'secretary/sync/';
+                url += plenaryId;
                 return url;
             },
 
@@ -140,6 +158,14 @@ module.exports = {
                 let url = normalizedRouteRoot();
                 url += 'resolution/action/';
                 url += plenary_id + '/'
+                url += resolution_id;
+                return url;
+            },
+
+            toggleWaiver : (resolution) => {
+                let resolution_id = idify(resolution);
+                let url = normalizedRouteRoot();
+                url += 'resolution/waiver/toggle/';
                 url += resolution_id;
                 return url;
             }

@@ -3,7 +3,10 @@
 <!--    <div class="card-header">-->
     <h4 class="text-light">Cosponsors</h4>
 <!--    </div>-->
-    <cosponsor-check v-for="c in committees" :committee="c" :key="c" v-on:cosponsor="handleCosponsor"></cosponsor-check>
+    <cosponsor-check v-for="c in committeeNames"
+                     :committee="c"
+                     :key="c"
+                     v-on:cosponsor="handleCosponsor"></cosponsor-check>
 <!--    <div class="form-check">-->
 <!--        <input class="form-check-input" type="radio" name="cosponsors" id="exampleRadios1" value="option1" checked>-->
 <!--        <label class="form-check-label" for="exampleRadios1">-->
@@ -27,12 +30,17 @@
 
 <script>
 import CosponsorCheck from "./cosponsor-check";
+import committeeMixin from "../../mixins/committeeMixin";
+
+/**
+ * @deprecated
+ */
 export default {
     name: "cosponsors-select",
     components: {CosponsorCheck},
     props: ['committees'],
 
-    mixins: [],
+    mixins: [committeeMixin],
 
     data: function () {
         return {

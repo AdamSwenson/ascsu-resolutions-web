@@ -2,10 +2,13 @@
 
 namespace Tests\Models;
 
+use App\Models\Committee;
 use App\Models\Plenary;
 use App\Models\Resolution;
 
 //use PHPUnit\Framework\TestCase;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
 use Tests\TestCase;
 
 
@@ -38,22 +41,24 @@ class ResolutionTest extends TestCase
     }
 
     /** @test */
- public function actionPlenariesWithOnePlenary(){
-     $resolution = Resolution::factory()->create();
-     $resolution->plenaries()->attach($this->plenary, ['is_first_reading' => 0]);
-     $resolution->save();
-     $resolution->refresh();
-     //call
-     $result = $resolution->actionPlenaries;
+    public function actionPlenariesWithOnePlenary()
+    {
+        $resolution = Resolution::factory()->create();
+        $resolution->plenaries()->attach($this->plenary, ['is_first_reading' => 0]);
+        $resolution->save();
+        $resolution->refresh();
+        //call
+        $result = $resolution->actionPlenaries;
 
-     //check
-     $this->assertTrue(sizeof($result) === 1);
-     $this->assertInstanceOf(Plenary::class, $result[0]);
-     $this->assertEquals($this->plenary->id, $result[0]->id);
- }
+        //check
+        $this->assertTrue(sizeof($result) === 1);
+        $this->assertInstanceOf(Plenary::class, $result[0]);
+        $this->assertEquals($this->plenary->id, $result[0]->id);
+    }
 
     /** @test */
-    public function actionPlenariesWithTwoPlenaries(){
+    public function actionPlenariesWithTwoPlenaries()
+    {
         $plenary2 = Plenary::factory()->create();
         $resolution = Resolution::factory()->create();
         $resolution->plenaries()->attach($this->plenary, ['is_first_reading' => 0]);
@@ -78,8 +83,10 @@ class ResolutionTest extends TestCase
 
 
     // ============
+
     /** @test */
-    public function setFirstReading(){
+    public function setFirstReading()
+    {
         $resolution = Resolution::factory()->create();
         $resolution->plenaries()->attach($this->plenary, ['is_first_reading' => 0]);
         $resolution->save();
@@ -98,7 +105,8 @@ class ResolutionTest extends TestCase
     }
 
     /** @test */
-    public function setApproved(){
+    public function setApproved()
+    {
         $resolution = Resolution::factory()->create();
 
         //call
@@ -111,7 +119,8 @@ class ResolutionTest extends TestCase
     }
 
     /** @test */
-    public function setFailed(){
+    public function setFailed()
+    {
         $resolution = Resolution::factory()->create();
 
         //call
@@ -124,7 +133,8 @@ class ResolutionTest extends TestCase
     }
 
     /** @test */
-    public function setActionWithoutPreexistingPlenary(){
+    public function setActionWithoutPreexistingPlenary()
+    {
         //simulates setting as action when there's no second
         //reading plenary already associated
         $resolution = Resolution::factory()->create();
@@ -139,7 +149,8 @@ class ResolutionTest extends TestCase
     }
 
     /** @test */
-    public function setActionWithPreexistingPlenary(){
+    public function setActionWithPreexistingPlenary()
+    {
         //Simulates the case where an item may have been referred back
         //thus there is already a second reading plenary present. Still should
         //associate it with the passed in one.
@@ -156,11 +167,12 @@ class ResolutionTest extends TestCase
         //check
         $this->assertEquals('action', $resolution->readingType);
         $this->assertNotEmpty($resolution->actionPlenaries);
-    $this->assertEquals(2, sizeof($resolution->actionPlenaries));
+        $this->assertEquals(2, sizeof($resolution->actionPlenaries));
     }
 
     /** @test */
-    public function approvalstatus(){
+    public function approvalstatus()
+    {
         $r = Resolution::factory()->create();
         $r->status = 'failed';
         $r->save();
@@ -170,9 +182,11 @@ class ResolutionTest extends TestCase
         $this->assertEquals('failed', $og);
     }
 
+//========= Reading type
 
-    /** @test  */
-    public function readingTypeFirst(){
+    /** @test */
+    public function readingTypeFirst()
+    {
         $resolution = Resolution::factory()->create();
         $resolution->plenaries()->attach($this->plenary, ['is_first_reading' => 1]);
         $resolution->save();
@@ -183,8 +197,9 @@ class ResolutionTest extends TestCase
         $this->assertEquals('first', $resolution->readingType);
     }
 
-    /** @test  */
-    public function readingTypeFirstWaiver(){
+    /** @test */
+    public function readingTypeFirstWaiver()
+    {
         $resolution = Resolution::factory()->create();
         $resolution->plenaries()->attach($this->plenary,
             ['is_first_reading' => 1,
@@ -196,8 +211,9 @@ class ResolutionTest extends TestCase
         $this->assertEquals('waiver', $resolution->readingType);
     }
 
-    /** @test  */
-    public function readingTypeAction(){
+    /** @test */
+    public function readingTypeAction()
+    {
         $resolution = Resolution::factory()->create();
         $resolution->plenaries()->attach($this->plenary,
             ['is_first_reading' => 0]);
@@ -207,4 +223,103 @@ class ResolutionTest extends TestCase
 
         $this->assertEquals('action', $resolution->readingType);
     }
+
+    //========= Toggle waiver
+
+    /** @test */
+    public function toggleIsWaiverOffToOn()
+    {
+        $resolution = Resolution::factory()->create();
+        $resolution->plenaries()->attach($this->plenary,
+            ['is_first_reading' => 1,
+                'is_waiver' => 0
+            ]);
+        $resolution->save();
+        $resolution->push();
+        $resolution->refresh();
+        $this->assertFalse($resolution->isWaiver);
+
+        //call
+        $resolution->toggleIsWaiver();
+
+        //check
+        $resolution->refresh();
+
+        $this->assertTrue($resolution->isWaiver);
+    }
+
+    /** @test */
+    public function toggleIsWaiverOnToOff()
+    {
+        $resolution = Resolution::factory()->create();
+        $resolution->plenaries()->attach($this->plenary,
+            ['is_first_reading' => 1,
+                'is_waiver' => 1
+            ]);
+        $resolution->save();
+        $resolution->push();
+        $resolution->refresh();
+        $this->assertTrue($resolution->isWaiver);
+
+        //call
+        $resolution->toggleIsWaiver();
+
+        //check
+        $resolution->refresh();
+
+        $this->assertFalse($resolution->isWaiver);
+    }
+
+    /** @test */
+    public function toggleIsWaiverFailsIfActionItem()
+    {
+        $resolution = Resolution::factory()->create();
+        $resolution->plenaries()->attach($this->plenary,
+            ['is_first_reading' => 0,
+                'is_waiver' => 0
+            ]);
+        $resolution->save();
+        $resolution->push();
+        $resolution->refresh();
+        $this->assertFalse($resolution->isWaiver);
+        $this->assertEquals('action', $resolution->readingType);
+
+        $this->expectException(ModelNotFoundException::class);
+
+        //call
+        $resolution->toggleIsWaiver();
+    }
+
+// ==================== Sponsors and cosponsors
+
+/** @test */
+public function getSponsorAttribute(){
+    $c = Committee::first();
+    $r = Resolution::factory()->create();
+    $r->committees()->attach($c, ['is_sponsor' => true]);
+
+    //call
+    $result = $r->sponsor;
+
+    //check
+    $this->assertEquals($c->id, $result->id, "getSponsor attribute returns correct committee");
+
+}
+
+    /** @test */
+    public function getCoponsorAttribute(){
+        $r = Resolution::factory()->create();
+        $committees = Committee::all();
+        foreach ($committees as $c){
+            $r->committees()->attach($c, ['is_cosponsor' => true]);
+        }
+        $r->save();
+
+        //call
+        $result = $r->cosponsors;
+
+        //check
+        $this->assertEquals(sizeof($committees), sizeof($result));
+    }
+
 }

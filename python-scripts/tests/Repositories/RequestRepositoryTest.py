@@ -15,3 +15,18 @@ class RequestRepositoryTest(TestCase):
             }
         }
         self.assertEqual(r, expect)
+
+
+    def test_make_insert_text_request_with_segment_id(self):
+        r = RequestRepository.make_insert_text_request(2, 'taco', segmentId=1)
+        expect = {
+            'insertText': {
+                'location': {
+                    'segmentId' : 1,
+                    'index': 2,
+                },
+                'text': 'taco',
+            }
+        }
+        self.assertEqual(r, expect)
+

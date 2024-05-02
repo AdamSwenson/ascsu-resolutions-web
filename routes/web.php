@@ -27,11 +27,11 @@ Route::get('/privacy', function(){
 });
 
 Route::get('/committee', [CommitteeController::class, 'getCommitteePage']);
+Route::get('/committees/all', [CommitteeController::class, 'getCommittees']);
+Route::post('/committees/update/{resolution}', [CommitteeController::class, 'updateCommittees']);
 Route::post('/resolution/action/{plenary}/{resolution}', [ResolutionController::class, 'setAction']);
 Route::post('/resolution/{plenary}', [CommitteeController::class, 'recordResolution']);
-
-
-
+Route::post('/resolution/waiver/toggle/{resolution}', [ResolutionController::class, 'toggleWaiver']);
 
 Route::get('/secretary', [SecretaryController::class, 'getSecretaryPage']);
 Route::post('/secretary/folders', [PlenaryController::class, 'createPlenary']);
@@ -40,8 +40,9 @@ Route::post('secretary/public/{plenary}', [SecretaryController::class, 'createPu
 Route::post('plenary/current/{plenary}', [PlenaryController::class, 'setCurrent']);
 
 Route::post('/secretary/agenda/{plenary}', [SecretaryController::class, 'createAgenda']);
-Route::post('/secretary/styling', [SecretaryController::class, 'enforceStyling']);
-Route::post('/secretary/sync', [SecretaryController::class, 'syncTitles']);
+Route::post('/secretary/styling/{plenary}', [SecretaryController::class, 'enforceStyling']);
+Route::post('/secretary/sync/{plenary}', [SecretaryController::class, 'syncTitles']);
+
 
 Route::resource('plenaries', PlenaryController::class);
 

@@ -32,7 +32,9 @@ class Resolution extends Model
     protected $appends = [
 //        'is_first_reading', 'is_waiver',
         'readingType',
-        'url', 'formattedNumber', 'firstReadingPlenary', 'actionPlenaries'];
+        'url', 'formattedNumber', 'firstReadingPlenary', 'actionPlenaries',
+        'sponsor', 'cosponsors'];
+
     protected $casts = ['is_approved' => 'boolean'];
 
 
@@ -100,7 +102,10 @@ class Resolution extends Model
 
     public function getCosponsorsAttribute()
     {
-        return $this->committees()->where('is_sponsor', '!=', true)->get();
+        return $this->committees()->where('is_cosponsor', true)->get();
+
+        //changed in AR-75
+        //return $this->committees()->where('is_sponsor', '!=', true)->get();
     }
 
     public function getFormattedNumberAttribute()
@@ -137,6 +142,24 @@ class Resolution extends Model
 //        return $this->belongsToMany(Plenary::class)
 //            ->wherePivot('is_first_reading', 1)
 //            ->first();
+    }
+
+    /**
+     * Sets or unsets resolution as a waiver item
+     * Added in AR-81
+     */
+    public function toggleIsWaiver()
+    {
+        $newValue = !$this->isWaiver;
+
+        $plenary = $this->belongsToMany(Plenary::class)
+            ->wherePivot('is_first_reading', 1)
+            ->firstOrFail();
+
+        $this->plenaries()->updateExistingPivot($plenary->id, [
+            'is_waiver' => $newValue,
+        ]);
+        $this->save();
     }
 
 

@@ -75,3 +75,16 @@ class Resolution(object):
         if self.is_waiver == 1:
             t += " WAIVER "
         return t
+
+    @property
+    def max_end_index_in_header(self):
+        """Returns the maximum end index in the header. This is a utility
+        used to help with formatting"""
+        end_indices = []
+        h = list(self.document_obj['headers'].keys())[0]
+        # h = self.document_obj['headers'][0]
+        end_indices.extend([a['endIndex'] for a in self.document_obj['headers'][h]['content']])
+
+        # for h in self.document_obj['headers']:
+        #     end_indices.extend([a['endIndex'] for a in self.document_obj['headers'][h]['content']])
+        return max(end_indices)

@@ -18,17 +18,27 @@ class SecretaryController extends Controller
     }
 
 
-    public function enforceStyling()
+    /**
+     * Handles request to impose standard styling on all resolutions for the plenary
+     * Updated to be plenary specific in AR-88
+     * @param Plenary $plenary
+     * @return \Illuminate\Http\JsonResponse|string
+     */
+    public function enforceStyling(Plenary $plenary)
     {
         try{
             $scriptfile = 'web_enforce_styling.py';
-            $result = $this->handleScript($scriptfile);
+            $result = $this->handleScript($scriptfile, $plenary->id);
             return response()->json($result->output());
         }catch (PythonScriptError $error){
             return $error->getMessage();
         }
     }
 
+    /**
+     * Displays the secretary page
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     */
     public function getSecretaryPage()
     {
 
@@ -50,6 +60,12 @@ class SecretaryController extends Controller
 
     }
 
+    /**
+     * Handles the request to create the resolution list for the
+     * given plenary
+     * @param Plenary $plenary
+     * @return \Illuminate\Http\JsonResponse|string
+     */
     public function createAgenda(Plenary $plenary)
     {
         try{
@@ -62,6 +78,12 @@ class SecretaryController extends Controller
 
     }
 
+    /**
+     * Handles the request to create public, non editable versions of the resolutions
+     * for the given plenary
+     * @param Plenary $plenary
+     * @return \Illuminate\Http\JsonResponse|string
+     */
     public function createPublic(Plenary $plenary)
     {
 
@@ -80,12 +102,15 @@ class SecretaryController extends Controller
 
     /**
      * Updates all titles in database from titles in resolution text
+     * Updated to be plenary specific in AR-88
+     * @param Plenary $plenary
+     * @return \Illuminate\Http\JsonResponse|string
      */
-    public function syncTitles()
+    public function syncTitles(Plenary $plenary)
     {
         try{
             $scriptfile = 'web_sync_titles.py';
-            $result = $this->handleScript($scriptfile);
+            $result = $this->handleScript($scriptfile, $plenary->id);
             return response()->json($result->output());
 
         }catch (PythonScriptError $error){
@@ -93,5 +118,7 @@ class SecretaryController extends Controller
         }
 
     }
+
+
 
 }

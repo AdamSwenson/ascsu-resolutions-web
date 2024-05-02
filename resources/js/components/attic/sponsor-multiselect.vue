@@ -11,6 +11,9 @@
 <script>
 import Multiselect from 'vue-multiselect'
 
+/**
+ * @deprecated
+ */
 export default {
     name: "sponsor-select",
     components: {

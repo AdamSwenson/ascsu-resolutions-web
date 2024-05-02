@@ -8,6 +8,7 @@ sys.path.append("/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-script
 from ResolutionManager.DAO.DAO import MySqlDao
 from ResolutionManager.Repositories.ResolutionRepository import ResolutionRepository
 from ResolutionManager.config.Configuration import Configuration
+from ResolutionManager.Repositories.PlenaryRepository import PlenaryRepository
 
 
 def main(plenary_id=None):
@@ -17,9 +18,16 @@ def main(plenary_id=None):
     logger = logging.getLogger(__name__)
 
     try:
+        if plenary_id is None:
+            plenary_id = int(sys.argv[1])
+
         dao = MySqlDao()
         resolution_repo = ResolutionRepository(dao)
-        results = resolution_repo.load_all_resolutions()
+        plenary_repo = PlenaryRepository(dao)
+
+        plenary = plenary_repo.load_plenary(plenary_id)
+
+        results = resolution_repo.load_all_resolutions_for_plenary(plenary)
 
         # query = f"select id from ascsu.resolutions"
         # results = resolution_repo.dao.conn.execute(query)

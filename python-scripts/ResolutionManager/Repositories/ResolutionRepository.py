@@ -120,7 +120,8 @@ class ResolutionRepository(object):
         :type resolution: Resolution
         """
         title = self.get_current_title_from_drive(resolution)
-        title = title.strip()
+        # Added the reformatting to title case in AR-65
+        title = title.strip().title()
         if len(title) > 0:
             query = f"update ascsu.resolutions r set r.title = '{title}' where r.id={resolution.id}"
             result = self.dao.conn.execute(query)

@@ -21,8 +21,9 @@ import WorkingSpinner from "../common/working-spinner";
 export default {
     name: "sync-titles",
     components: {WorkingSpinner},
-    props: ['plenaryId'],
+    props: [],
 
+    mixins: [plenaryMixin],
 
     data: function () {
         return {
@@ -41,12 +42,14 @@ export default {
     methods: {
         handleSyncTitles : function(){
             window.console.log('secretary', 'sync titles');
-            let url = routes.secretary.resolutions.syncTitles();
+            let url = routes.secretary.resolutions.syncTitles(this.plenary);
             let me = this;
             this.isWorking = true;
             Vue.axios.post(url,).then((response) => {
                 window.console.log('secretary', 'response', 126, response);
                 me.isWorking = false;
+                //todo Actually update the object
+                me.$store.dispatch('forceReload');
                 // me.url = response.data.agendaUrl;
             });
 

@@ -7,11 +7,13 @@ use App\Exceptions\PythonScriptError;
 use App\Models\Committee;
 use App\Models\Plenary;
 use App\Models\Resolution;
+use App\Repositories\IResolutionRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Process;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Str;
 
 class CommitteeController extends Controller
 {
@@ -26,11 +28,18 @@ class CommitteeController extends Controller
      */
     public mixed $command;
 
+    /**
+     * @var IResolutionRepository
+     */
+    public mixed $resolutionRepo;
+
     public function __construct()
     {
 //        $this->middleware('auth');
         $this->command = config('app.pythonBin');
         $this->executablePath = config('app.pythonScript');
+
+        $this->resolutionRepo = app()->make(IResolutionRepository::class);
     }
 
     public function getCommitteePage()
@@ -51,6 +60,15 @@ class CommitteeController extends Controller
 
     }
 
+    /**
+     * Returns all committee objects
+     * @return JsonResponse
+     */
+    public function getCommittees(){
+        $committees = Committee::all();
+        return response()->json($committees);
+    }
+
     public function diagnostics()
     {
         $result = $this->runScript();
@@ -61,21 +79,37 @@ class CommitteeController extends Controller
         return $result->errorOutput();
     }
 
-    public function addSponsor(Resolution $resolution, Request $request)
+    /**
+     * Handles parsing the sponsor out of the request and asking the repository
+     * to take care of it.
+     * @param Resolution $resolution
+     * @param Request $request
+     * @return Resolution
+     */
+    protected function addSponsor(Resolution $resolution, Request $request)
     {
         $sponsor = Committee::where('name', $request->sponsor)->first();
-        $resolution->committees()->attach($sponsor, ['is_sponsor' => true]);
+        $this->resolutionRepo->addSponsor($resolution, $sponsor);
+//        $resolution->committees()->attach($sponsor, ['is_sponsor' => true]);
 //        $r->committees()->pivot()->is_sponsor = true;
         $resolution->save();
         return $resolution;
     }
 
-    public function addCosponsors(Resolution $resolution, Request $request)
+    /**
+     * Handles parsing the cosponsors out of the request and asking the repository
+     * to  take care of it
+     * @param Resolution $resolution
+     * @param Request $request
+     * @return Resolution
+     */
+    protected function addCosponsors(Resolution $resolution, Request $request)
     {
         foreach ($request->cosponsors as $cosponsor) {
             if ($resolution->sponsor->name !== $cosponsor) {
                 $c = Committee::where('name', $cosponsor)->first();
-                $resolution->committees()->attach($c, ['is_cosponsor' => true]);
+                $this->resolutionRepo->addCosponsor($resolution, $c);
+//                $resolution->committees()->attach($c, ['is_cosponsor' => true]);
             }
         }
         $resolution->save();
@@ -98,6 +132,10 @@ class CommitteeController extends Controller
     public function recordResolution(Plenary $plenary, ResolutionRequest $request)
     {
         $request->merge(['number' => $this->getNextResolutionNumber()]);
+
+        // AR-65
+        $request['title'] = Str::title($request->title);
+
         $resolution = Resolution::create($request->all());
 
         //add committees
@@ -127,6 +165,30 @@ class CommitteeController extends Controller
 //            return response()->json($resolution);
 //        }
 //        return $result->errorOutput();
+
+    }
+
+    /**
+     * Handles the request to alter the committees set as either
+     * sponsor or cosponsors
+     * @param Resolution $resolution
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function updateCommittees(Resolution $resolution, Request $request){
+        //figure out which need to be changed
+        $sponsor = Committee::where('name', $request->sponsor['name'])->first();
+
+        $cosponsors = [];
+        foreach($request->cosponsors as $c){
+            $cosponsors[] = Committee::where('name', $c['name'])->first();
+        }
+
+        $this->resolutionRepo->updateSponsor($resolution, $sponsor);
+        $this->resolutionRepo->updateCosponsors($resolution, $cosponsors);
+
+        $resolution = $resolution->refresh();
+        return response()->json($resolution);
 
     }
 

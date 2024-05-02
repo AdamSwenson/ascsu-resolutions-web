@@ -34,6 +34,7 @@ export default {
         plenaries : function(){
             //
             let p = this.$store.getters.getPlenaries;
+            p = _.sortBy(p, function(o){ return o.thursday_date });
             if(isReadyToRock(p)) return p;
             return []
         }
