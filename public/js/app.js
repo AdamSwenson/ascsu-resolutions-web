@@ -10498,7 +10498,7 @@ var actions = {
       getters = _ref3.getters;
     return new Promise(function (resolve, reject) {
       dispatch('loadCommittees');
-      dispatch('loadAllResolutions').then(function () {
+      return dispatch('loadAllResolutions').then(function () {
         // dispatch('loadCurrentPlenaryResolutions').then(() => {
         commit('toggleIsReady');
         return resolve();
