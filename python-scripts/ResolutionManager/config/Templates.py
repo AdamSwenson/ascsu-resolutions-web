@@ -25,6 +25,7 @@ class Templates(object):
     RESOLUTIONS_ROOT_NAME = 'Resolutions'
     FIRST_READING_FOLDER_NAME = 'First reading'
     ACTION_FOLDER_NAME = 'Action items'
+    WORKING_FOLDER_NAME = 'Working drafts'
 
     # Plenary
     PLENARY_FOLDER_TEMPLATE = "{year} {month}"
