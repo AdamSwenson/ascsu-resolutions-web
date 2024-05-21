@@ -8,9 +8,17 @@ module.exports = {
             return _.toInteger(window.plenaryId);
         },
 
+        /**
+         * Object of the current plenary
+         * @returns {any}
+         */
         plenary: function(){
             return JSON.parse(window.plenary);
         },
+
+        /**
+         * The display name of the currently selected plenary
+         */
         plenaryName : function(){
             if(_.isNull(this.plenary)) return ''
             return this.plenary.plenaryName;

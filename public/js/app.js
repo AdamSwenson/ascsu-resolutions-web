@@ -5077,6 +5077,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _layout_page_footer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../layout/page-footer */ "./resources/js/components/layout/page-footer.vue");
 /* harmony import */ var _resolution_creation__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./resolution-creation */ "./resources/js/components/committee/resolution-creation.vue");
+/* harmony import */ var _management_committee_management__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./management/committee-management */ "./resources/js/components/committee/management/committee-management.vue");
+
 
 
 // import {isReadyToRock} from "../../utilities/readiness.utilities";
@@ -5084,6 +5086,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "committee",
   components: {
+    CommitteeManagement: _management_committee_management__WEBPACK_IMPORTED_MODULE_2__["default"],
     ResolutionCreation: _resolution_creation__WEBPACK_IMPORTED_MODULE_1__["default"],
     PageFooter: _layout_page_footer__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -5130,6 +5133,242 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     reloadPage: function reloadPage() {
       location.reload();
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/committee/management/committee-management.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/committee/management/committee-management.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../mixins/plenaryMixin */ "./resources/js/mixins/plenaryMixin.js");
+/* harmony import */ var _mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _mixins_committeeMixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../mixins/committeeMixin */ "./resources/js/mixins/committeeMixin.js");
+/* harmony import */ var _mixins_committeeMixin__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_mixins_committeeMixin__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _committee_router_tab__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./committee-router-tab */ "./resources/js/components/committee/management/committee-router-tab.vue");
+/* harmony import */ var _committee_resolutions_card__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./committee-resolutions-card */ "./resources/js/components/committee/management/committee-resolutions-card.vue");
+
+
+
+
+
+/**
+ * This is the root page for committee resolution managment
+ *
+ * Created in AR-91
+ */
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "committee-management",
+  components: {
+    CommitteeResolutionsCard: _committee_resolutions_card__WEBPACK_IMPORTED_MODULE_3__["default"],
+    CommitteeRouterTab: _committee_router_tab__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  props: [],
+  mixins: [(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_0___default()), (_mixins_committeeMixin__WEBPACK_IMPORTED_MODULE_1___default())],
+  data: function data() {
+    return {};
+  },
+  asyncComputed: {},
+  computed: {},
+  methods: {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/committee/management/committee-resolutions-card.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/committee/management/committee-resolutions-card.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../routes */ "./resources/js/routes.js");
+/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_routes__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../mixins/plenaryMixin */ "./resources/js/mixins/plenaryMixin.js");
+/* harmony import */ var _mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utilities/readiness.utilities */ "./resources/js/utilities/readiness.utilities.js");
+/* harmony import */ var _secretary_resolutions_resolution_item_card__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../secretary/resolutions/resolution-item-card */ "./resources/js/components/secretary/resolutions/resolution-item-card.vue");
+
+
+// import ResolutionItem from "./resolution-item";
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "committee-resolutions-card",
+  components: {
+    ResolutionItemCard: _secretary_resolutions_resolution_item_card__WEBPACK_IMPORTED_MODULE_3__["default"]
+  },
+  /**
+   * Committee object
+   */
+  props: ['committee'],
+  mixins: [(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_1___default())],
+  data: function data() {
+    return {
+      selected: 'current',
+      styles: {
+        unselected: 'btn-outline-primary',
+        selected: 'btn-primary'
+      }
+    };
+  },
+  asyncComputed: {
+    allButtonStyle: function allButtonStyle() {
+      if (this.selected === 'all') {
+        return this.styles.selected;
+      }
+      return this.styles.unselected;
+    },
+    currentButtonStyle: function currentButtonStyle() {
+      if (this.selected === 'current') {
+        return this.styles.selected;
+      }
+      return this.styles.unselected;
+    },
+    unapprovedButtonStyle: function unapprovedButtonStyle() {
+      if (this.selected === 'unapproved') {
+        return this.styles.selected;
+      }
+      return this.styles.unselected;
+    },
+    // isReady : function(){
+    //   return this.$store.getters.getIsReady;
+    // },
+
+    committeeResolutions: function committeeResolutions() {
+      var rez = [];
+      if ((0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_2__.isReadyToRock)(this.committee)) {
+        _.forEach(this.$store.getters.getCommitteeResolutions(this.committee), function (r) {
+          if (r.status !== 'approved') {
+            rez.push(r);
+          }
+        });
+
+        // return this.$store.getters.getCommitteeResolutions(this.committee);
+      }
+
+      return rez;
+    },
+    resolutions: {
+      get: function get() {
+        return this.committeeResolutions;
+        var r;
+        switch (this.selected) {
+          case "all":
+            r = this.committeeResolutions;
+            break;
+          case "current":
+            r = this.$store.getters.getCurrentPlenaryResolutions;
+            break;
+          case "unapproved":
+            r = this.$store.getters.getUnapprovedResolutions;
+            break;
+        }
+        if ((0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_2__.isReadyToRock)(r)) return r;
+        return [];
+      }
+      // watch: ['isReady']
+    }
+  },
+
+  watch: {
+    // 'plenaryId': function(){this.loadResolutions();}
+  },
+  computed: {},
+  methods: {
+    setSelected: function setSelected(v) {
+      this.selected = v;
+    }
+
+    //
+    // loadResolutions: function () {
+    //     //todo Need some way to restrict these to active ones
+    //
+    //     let url = routes.secretary.resolutions.loadForPlenary(this.plenaryId);
+    //
+    //     window.console.log('resolutions', 'get', 124, url);
+    //     let me = this;
+    //     Vue.axios.get(url).then((response) => {
+    //         me.rez = response.data;
+    //     });
+    //
+    // }
+  },
+  mounted: function mounted() {
+    // if (isReadyToRock(this.plenaryId)) {
+    //     // this.loadResolutions();
+    // }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/committee/management/committee-router-tab.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/committee/management/committee-router-tab.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../utilities/readiness.utilities */ "./resources/js/utilities/readiness.utilities.js");
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "committee-router-tab",
+  /**
+   * Committee object
+   */
+  props: ['committee'],
+  mixins: [],
+  data: function data() {
+    return {};
+  },
+  asyncComputed: {
+    styling: function styling() {
+      if (!(0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_0__.isReadyToRock)(this.selectedCommittee)) return '';
+      if (!(0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_0__.isReadyToRock)(this.committee)) return '';
+      if (this.committee.id === this.selectedCommittee.id) return "active";
+    },
+    ariaCurrent: function ariaCurrent() {
+      if (!(0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_0__.isReadyToRock)(this.selectedCommittee)) return '';
+      if (!(0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_0__.isReadyToRock)(this.committee)) return '';
+      if (this.committee.id === this.selectedCommittee.id) return "page";
+    }
+  },
+  computed: {
+    name: function name() {
+      return this.committee.name;
+    },
+    label: function label() {
+      this.committee.abbreviation;
+      //                return this.route.label;
+    },
+
+    path: function path() {
+      return "/"["this"].committee.abbreviation;
+    }
+  },
+  methods: {
+    selectCommittee: function selectCommittee() {
+      window.console.log('committee-router-tab', 'selectCommittee', 81, this.committee);
+      this.$store.commit('setCurrentCommittee', this.committee);
     }
   }
 });
@@ -6381,7 +6620,9 @@ __webpack_require__.r(__webpack_exports__);
     ApprovedToggleButton: _approved_toggle_button__WEBPACK_IMPORTED_MODULE_1__["default"],
     ResolutionPermissionButton: _resolution_permission_button__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  props: ['resolutionId', 'title', 'number', 'isApproved', 'firstReadingPlenary', 'actionPlenaries', 'waiver'],
+  props: ['resolutionId', 'title', 'number', 'isApproved', 'firstReadingPlenary', 'actionPlenaries', 'waiver',
+  // whether the approved/failed buttons and permissions show
+  'isSecretary'],
   mixins: [],
   data: function data() {
     return {};
@@ -7223,7 +7464,7 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", {
     staticClass: "committee py-2"
-  }, [_c("resolution-creation"), _vm._v(" "), _c("page-footer")], 1);
+  }, [_c("resolution-creation"), _vm._v(" "), _c("committee-management"), _vm._v(" "), _c("page-footer")], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -7288,6 +7529,156 @@ var render = function render() {
       click: _vm.reloadPage
     }
   }, [_vm._v("Create a new resolution")])])])])]);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/committee/management/committee-management.vue?vue&type=template&id=e7d057dc&scoped=true&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/committee/management/committee-management.vue?vue&type=template&id=e7d057dc&scoped=true& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "committee-management card"
+  }, [_c("div", {
+    staticClass: "card-body"
+  }, [_c("ul", {
+    staticClass: "nav nav-tabs"
+  }, _vm._l(_vm.committeeObjects, function (c) {
+    return _c("committee-router-tab", {
+      key: c.abbreviation,
+      attrs: {
+        committee: c
+      }
+    });
+  }), 1)]), _vm._v(" "), _c("div", {
+    staticClass: "card-body"
+  }, [_c("committee-resolutions-card", {
+    attrs: {
+      committee: _vm.selectedCommittee
+    }
+  })], 1)]);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/committee/management/committee-resolutions-card.vue?vue&type=template&id=29e92e36&scoped=true&xmlns=http%3A%2F%2Fwww.w3.org%2F1999%2Fhtml&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/committee/management/committee-resolutions-card.vue?vue&type=template&id=29e92e36&scoped=true&xmlns=http%3A%2F%2Fwww.w3.org%2F1999%2Fhtml& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "resolution-card card"
+  }, [_c("h3", {
+    staticClass: "card-title text-light"
+  }, [_vm._v("Manage individual resolutions")]), _vm._v(" "), _c("div", {
+    staticClass: "card-body text-center"
+  }, [_c("button", {
+    staticClass: "btn btn-small",
+    "class": _vm.currentButtonStyle,
+    on: {
+      click: function click($event) {
+        return _vm.setSelected("current");
+      }
+    }
+  }, [_vm._v("Current plenary\n        ")]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-small",
+    "class": _vm.unapprovedButtonStyle,
+    on: {
+      click: function click($event) {
+        return _vm.setSelected("unapproved");
+      }
+    }
+  }, [_vm._v("Unapproved\n        ")]), _vm._v(" "), _c("button", {
+    staticClass: "btn btn-small",
+    "class": _vm.allButtonStyle,
+    on: {
+      click: function click($event) {
+        return _vm.setSelected("all");
+      }
+    }
+  }, [_vm._v("All\n        ")])]), _vm._v(" "), _c("div", {
+    staticClass: "card-body"
+  }, _vm._l(_vm.resolutions, function (r) {
+    return _c("resolution-item-card", {
+      key: r.id,
+      attrs: {
+        "is-secretary": false,
+        "resolution-id": r.id,
+        title: r.title,
+        number: r.formattedNumber,
+        "is-approved": r.is_approved,
+        "first-reading-plenary": r.firstReadingPlenary,
+        "action-plenaries": r.actionPlenaries,
+        waiver: r.waiver
+      }
+    });
+  }), 1)]);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/committee/management/committee-router-tab.vue?vue&type=template&id=274f7840&scoped=true&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/committee/management/committee-router-tab.vue?vue&type=template&id=274f7840&scoped=true& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+var render = function render() {
+  var _attrs;
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("li", {
+    staticClass: "nav-item committee-router-tab"
+  }, [_c("a", {
+    staticClass: "nav-link text-light",
+    "class": _vm.styling,
+    attrs: (_attrs = {
+      "aria-current": _vm.ariaCurrent
+    }, _defineProperty(_attrs, "aria-current", "page"), _defineProperty(_attrs, "href", "#"), _attrs),
+    on: {
+      click: _vm.selectCommittee
+    }
+  }, [_vm._v(_vm._s(_vm.name))])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -8204,7 +8595,7 @@ var render = function render() {
     staticClass: "resolution-item-card card mb-3"
   }, [_c("div", {
     staticClass: "card-header h3 text-light"
-  }, [_vm._v("\n            " + _vm._s(_vm.number) + " " + _vm._s(_vm.title) + "\n        ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n        " + _vm._s(_vm.number) + " " + _vm._s(_vm.title) + "\n    ")]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("p", {
     staticClass: "card-text text-light"
@@ -8223,25 +8614,25 @@ var render = function render() {
     attrs: {
       "resolution-id": _vm.resolutionId
     }
-  }), _vm._v("  \n                "), _c("reading-type-badge", {
+  }), _vm._v("  \n            "), _c("reading-type-badge", {
     attrs: {
       "resolution-id": _vm.resolutionId
     }
   })], 1)], 2), _vm._v(" "), _c("div", {
     staticClass: "card-footer"
-  }, [_c("resolution-permission-button", {
+  }, [_vm.isSecretary ? _c("resolution-permission-button", {
     attrs: {
       "resolution-id": _vm.resolutionId
     }
-  }), _vm._v("    \n            "), _c("approved-toggle-button", {
+  }) : _vm._e(), _vm._v("    \n        "), _vm.isSecretary ? _c("approved-toggle-button", {
     attrs: {
       "resolution-id": _vm.resolutionId
     }
-  }), _vm._v(" \n            "), _c("failed-toggle-button", {
+  }) : _vm._e(), _vm._v(" \n        "), _vm.isSecretary ? _c("failed-toggle-button", {
     attrs: {
       "resolution-id": _vm.resolutionId
     }
-  }), _vm._v("    \n            "), _c("second-reading-toggle-button", {
+  }) : _vm._e(), _vm._v("    \n        "), _c("second-reading-toggle-button", {
     attrs: {
       "resolution-id": _vm.resolutionId
     }
@@ -8249,7 +8640,7 @@ var render = function render() {
     attrs: {
       "resolution-id": _vm.resolutionId
     }
-  }), _vm._v("\n               \n"), _vm._v(" "), _c("committee-changer", {
+  }), _vm._v("\n           \n        "), _vm._v(" "), _c("committee-changer", {
     attrs: {
       "resolution-id": _vm.resolutionId
     }
@@ -8380,6 +8771,7 @@ var render = function render() {
     return _c("resolution-item-card", {
       key: r.id,
       attrs: {
+        "is-secretary": true,
         "resolution-id": r.id,
         title: r.title,
         number: r.formattedNumber,
@@ -9004,6 +9396,15 @@ module.exports = {
       get: function get() {
         return this.$store.getters.getSelectedCosponsors;
       }
+    },
+    //==================== Committee management
+    selectedCommittee: {
+      get: function get() {
+        return this.$store.getters.getCurrentCommittee;
+      },
+      set: function set(committeeObject) {
+        this.$store.commit('setCurrentCommittee', committeeObject);
+      }
     }
   }
 };
@@ -9024,9 +9425,16 @@ module.exports = {
     plenaryId: function plenaryId() {
       return _.toInteger(window.plenaryId);
     },
+    /**
+     * Object of the current plenary
+     * @returns {any}
+     */
     plenary: function plenary() {
       return JSON.parse(window.plenary);
     },
+    /**
+     * The display name of the currently selected plenary
+     */
     plenaryName: function plenaryName() {
       if (_.isNull(this.plenary)) return '';
       return this.plenary.plenaryName;
@@ -9406,7 +9814,12 @@ var state = {
    * When creating or editing a resolution, these are the
    * committees currently selected as cosponsors
    */
-  selectedCosponsors: []
+  selectedCosponsors: [],
+  /**
+   * For the committee management pages, this defines which committee
+   * is currently selected
+   */
+  currentCommittee: null
 };
 var mutations = {
   /**
@@ -9462,6 +9875,10 @@ var mutations = {
   },
   resetSelectedCosponsors: function resetSelectedCosponsors(state, committee) {
     state.selectedCosponsors = [];
+  },
+  //=============  committee resolution management
+  setCurrentCommittee: function setCurrentCommittee(state, committee) {
+    state.currentCommittee = committee;
   }
 };
 var actions = {
@@ -9581,6 +9998,15 @@ var actions = {
 var getters = {
   getCommittees: function getCommittees(state) {
     return state.committees;
+  },
+  /**
+   * Returns the currently selected committee for the
+   * committee resolution management
+   * @param state
+   * @returns {null}
+   */
+  getCurrentCommittee: function getCurrentCommittee(state) {
+    return state.currentCommittee;
   },
   /**
    * Returns the currently selected sponsor
@@ -9975,6 +10401,24 @@ var getters = {
     });
     return rez;
   },
+  /**
+   * Returns the unapproved resolutions for the committee
+   * @param state
+   * @param getters
+   * @returns {(function(*))|*}
+   */
+  getCommitteeResolutions: function getCommitteeResolutions(state, getters) {
+    return function (committee) {
+      var committeeId = (0,_utilities_object_utilities__WEBPACK_IMPORTED_MODULE_1__.idify)(committee);
+      var rez = [];
+      _.forEach(getters.getUnapprovedResolutions, function (r) {
+        if (!_.isNull(r.sponsor) && r.sponsor.id === committeeId) {
+          rez.push(r);
+        }
+      });
+      return rez;
+    };
+  },
   getUnapprovedResolutions: function getUnapprovedResolutions(state, getters) {
     var rez = [];
     var resolutions = getters.getResolutions;
@@ -10054,6 +10498,12 @@ var actions = {
       getters = _ref3.getters;
     return new Promise(function (resolve, reject) {
       dispatch('loadCommittees');
+      dispatch('loadAllResolutions').then(function () {
+        // dispatch('loadCurrentPlenaryResolutions').then(() => {
+        commit('toggleIsReady');
+        return resolve();
+        // });
+      });
     });
   }
   /*
@@ -10063,6 +10513,7 @@ var actions = {
   *    },
   */
 };
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   actions: actions,
   state: state,
@@ -46395,6 +46846,123 @@ component.options.__file = "resources/js/components/committee/creation-result.vu
 
 /***/ }),
 
+/***/ "./resources/js/components/committee/management/committee-management.vue":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/committee/management/committee-management.vue ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _committee_management_vue_vue_type_template_id_e7d057dc_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./committee-management.vue?vue&type=template&id=e7d057dc&scoped=true& */ "./resources/js/components/committee/management/committee-management.vue?vue&type=template&id=e7d057dc&scoped=true&");
+/* harmony import */ var _committee_management_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./committee-management.vue?vue&type=script&lang=js& */ "./resources/js/components/committee/management/committee-management.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _committee_management_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _committee_management_vue_vue_type_template_id_e7d057dc_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _committee_management_vue_vue_type_template_id_e7d057dc_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "e7d057dc",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/committee/management/committee-management.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/committee/management/committee-resolutions-card.vue":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/committee/management/committee-resolutions-card.vue ***!
+  \*************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _committee_resolutions_card_vue_vue_type_template_id_29e92e36_scoped_true_xmlns_http_3A_2F_2Fwww_w3_org_2F1999_2Fhtml___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./committee-resolutions-card.vue?vue&type=template&id=29e92e36&scoped=true&xmlns=http%3A%2F%2Fwww.w3.org%2F1999%2Fhtml& */ "./resources/js/components/committee/management/committee-resolutions-card.vue?vue&type=template&id=29e92e36&scoped=true&xmlns=http%3A%2F%2Fwww.w3.org%2F1999%2Fhtml&");
+/* harmony import */ var _committee_resolutions_card_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./committee-resolutions-card.vue?vue&type=script&lang=js& */ "./resources/js/components/committee/management/committee-resolutions-card.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _committee_resolutions_card_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _committee_resolutions_card_vue_vue_type_template_id_29e92e36_scoped_true_xmlns_http_3A_2F_2Fwww_w3_org_2F1999_2Fhtml___WEBPACK_IMPORTED_MODULE_0__.render,
+  _committee_resolutions_card_vue_vue_type_template_id_29e92e36_scoped_true_xmlns_http_3A_2F_2Fwww_w3_org_2F1999_2Fhtml___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "29e92e36",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/committee/management/committee-resolutions-card.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/committee/management/committee-router-tab.vue":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/committee/management/committee-router-tab.vue ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _committee_router_tab_vue_vue_type_template_id_274f7840_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./committee-router-tab.vue?vue&type=template&id=274f7840&scoped=true& */ "./resources/js/components/committee/management/committee-router-tab.vue?vue&type=template&id=274f7840&scoped=true&");
+/* harmony import */ var _committee_router_tab_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./committee-router-tab.vue?vue&type=script&lang=js& */ "./resources/js/components/committee/management/committee-router-tab.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _committee_router_tab_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _committee_router_tab_vue_vue_type_template_id_274f7840_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _committee_router_tab_vue_vue_type_template_id_274f7840_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "274f7840",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/committee/management/committee-router-tab.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/committee/resolution-creation.vue":
 /*!*******************************************************************!*\
   !*** ./resources/js/components/committee/resolution-creation.vue ***!
@@ -47640,6 +48208,54 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/committee/management/committee-management.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************!*\
+  !*** ./resources/js/components/committee/management/committee-management.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_committee_management_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./committee-management.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/committee/management/committee-management.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_committee_management_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/committee/management/committee-resolutions-card.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************!*\
+  !*** ./resources/js/components/committee/management/committee-resolutions-card.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_committee_resolutions_card_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./committee-resolutions-card.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/committee/management/committee-resolutions-card.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_committee_resolutions_card_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/committee/management/committee-router-tab.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************!*\
+  !*** ./resources/js/components/committee/management/committee-router-tab.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_committee_router_tab_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./committee-router-tab.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/committee/management/committee-router-tab.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_committee_router_tab_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/committee/resolution-creation.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************!*\
   !*** ./resources/js/components/committee/resolution-creation.vue?vue&type=script&lang=js& ***!
@@ -48166,6 +48782,57 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_creation_result_vue_vue_type_template_id_5ea6effe_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_creation_result_vue_vue_type_template_id_5ea6effe_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./creation-result.vue?vue&type=template&id=5ea6effe&scoped=true& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/committee/creation-result.vue?vue&type=template&id=5ea6effe&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/committee/management/committee-management.vue?vue&type=template&id=e7d057dc&scoped=true&":
+/*!**************************************************************************************************************************!*\
+  !*** ./resources/js/components/committee/management/committee-management.vue?vue&type=template&id=e7d057dc&scoped=true& ***!
+  \**************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_committee_management_vue_vue_type_template_id_e7d057dc_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_committee_management_vue_vue_type_template_id_e7d057dc_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_committee_management_vue_vue_type_template_id_e7d057dc_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./committee-management.vue?vue&type=template&id=e7d057dc&scoped=true& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/committee/management/committee-management.vue?vue&type=template&id=e7d057dc&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/committee/management/committee-resolutions-card.vue?vue&type=template&id=29e92e36&scoped=true&xmlns=http%3A%2F%2Fwww.w3.org%2F1999%2Fhtml&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./resources/js/components/committee/management/committee-resolutions-card.vue?vue&type=template&id=29e92e36&scoped=true&xmlns=http%3A%2F%2Fwww.w3.org%2F1999%2Fhtml& ***!
+  \****************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_committee_resolutions_card_vue_vue_type_template_id_29e92e36_scoped_true_xmlns_http_3A_2F_2Fwww_w3_org_2F1999_2Fhtml___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_committee_resolutions_card_vue_vue_type_template_id_29e92e36_scoped_true_xmlns_http_3A_2F_2Fwww_w3_org_2F1999_2Fhtml___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_committee_resolutions_card_vue_vue_type_template_id_29e92e36_scoped_true_xmlns_http_3A_2F_2Fwww_w3_org_2F1999_2Fhtml___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./committee-resolutions-card.vue?vue&type=template&id=29e92e36&scoped=true&xmlns=http%3A%2F%2Fwww.w3.org%2F1999%2Fhtml& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/committee/management/committee-resolutions-card.vue?vue&type=template&id=29e92e36&scoped=true&xmlns=http%3A%2F%2Fwww.w3.org%2F1999%2Fhtml&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/committee/management/committee-router-tab.vue?vue&type=template&id=274f7840&scoped=true&":
+/*!**************************************************************************************************************************!*\
+  !*** ./resources/js/components/committee/management/committee-router-tab.vue?vue&type=template&id=274f7840&scoped=true& ***!
+  \**************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_committee_router_tab_vue_vue_type_template_id_274f7840_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_committee_router_tab_vue_vue_type_template_id_274f7840_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_committee_router_tab_vue_vue_type_template_id_274f7840_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./committee-router-tab.vue?vue&type=template&id=274f7840&scoped=true& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/committee/management/committee-router-tab.vue?vue&type=template&id=274f7840&scoped=true&");
 
 
 /***/ }),

@@ -38,6 +38,12 @@ const actions = {
     committeeStartup({dispatch, commit, getters}){
         return new Promise(((resolve, reject)=>{
             dispatch('loadCommittees');
+            dispatch('loadAllResolutions').then(() => {
+                // dispatch('loadCurrentPlenaryResolutions').then(() => {
+                    commit('toggleIsReady');
+                    return resolve();
+                // });
+            });
         }));
     }
 

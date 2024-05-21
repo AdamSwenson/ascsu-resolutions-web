@@ -36,13 +36,14 @@
 
         </div>
         <div class="card-footer">
-            <resolution-permission-button :resolution-id="resolutionId"></resolution-permission-button>&nbsp;&nbsp;&nbsp;&nbsp;
-            <approved-toggle-button :resolution-id="resolutionId"></approved-toggle-button>&nbsp;
-            <failed-toggle-button :resolution-id="resolutionId"></failed-toggle-button>&nbsp;&nbsp;&nbsp;&nbsp;
+            <resolution-permission-button :resolution-id="resolutionId"
+                                          v-if="isSecretary"></resolution-permission-button>&nbsp;&nbsp;&nbsp;&nbsp;
+            <approved-toggle-button :resolution-id="resolutionId" v-if="isSecretary"></approved-toggle-button>&nbsp;
+            <failed-toggle-button :resolution-id="resolutionId" v-if="isSecretary"></failed-toggle-button>&nbsp;&nbsp;&nbsp;&nbsp;
             <second-reading-toggle-button :resolution-id="resolutionId"></second-reading-toggle-button>
             <waiver-toggle-button :resolution-id="resolutionId"></waiver-toggle-button>
             &nbsp &nbsp
-<!--            <committee-change-button :resolution-id="resolutionId"></committee-change-button> <committee-change-modal :resolution-id="resolutionId"></committee-change-modal>-->
+            <!--            <committee-change-button :resolution-id="resolutionId"></committee-change-button> <committee-change-modal :resolution-id="resolutionId"></committee-change-modal>-->
             <committee-changer :resolution-id="resolutionId"></committee-changer>
         </div>
     </div>
@@ -76,8 +77,13 @@ export default {
         ResolutionPermissionButton
     },
 
-    props: ['resolutionId', 'title', 'number', 'isApproved', 'firstReadingPlenary',
-        'actionPlenaries', 'waiver'],
+    props: ['resolutionId', 'title', 'number',
+        'isApproved', 'firstReadingPlenary',
+        'actionPlenaries',
+        'waiver',
+        // whether the approved/failed buttons and permissions show
+        'isSecretary'
+    ],
 
 
     mixins: [],
