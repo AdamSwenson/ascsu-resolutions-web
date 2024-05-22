@@ -1,7 +1,7 @@
 <template>
     <div class="resolution-item-card card mb-3">
         <div class="card-header h3 text-light">
-            {{ number }} {{ title }}
+            {{ resolutionNumber }} {{ title }}
         </div>
         <div class="card-body">
             <!--                <h5 class="card-title">Special title treatment</h5>-->
@@ -45,6 +45,8 @@
             &nbsp &nbsp
             <!--            <committee-change-button :resolution-id="resolutionId"></committee-change-button> <committee-change-modal :resolution-id="resolutionId"></committee-change-modal>-->
             <committee-changer :resolution-id="resolutionId"></committee-changer>
+
+            <status-toggle :resolutionId="resolutionId"></status-toggle>
         </div>
     </div>
 </template>
@@ -61,10 +63,13 @@ import SecondReadingToggleButton from "./second-reading-toggle-button";
 import CommitteeChanger from "../../common/committee-change/committee-changer";
 import CommitteeChangeButton from "../../common/committee-change/committee-change-button";
 import CommitteeChangeModal from "../../common/committee-change/committee-change-modal";
+import StatusToggle from "../../committee/management/status-toggle";
+import resolutionMixin from "../../../mixins/resolutionMixin";
 
 export default {
     name: "resolution-item-card",
     components: {
+        StatusToggle,
         CommitteeChangeModal,
         CommitteeChangeButton,
         CommitteeChanger,
@@ -77,16 +82,21 @@ export default {
         ResolutionPermissionButton
     },
 
-    props: ['resolutionId', 'title', 'number',
-        'isApproved', 'firstReadingPlenary',
-        'actionPlenaries',
-        'waiver',
+    props: [
+        'resolutionId',
+        // 'title',
+        // 'number',
+        // 'isApproved',
+        // 'firstReadingPlenary',
+        // 'actionPlenaries',
+        // 'waiver',
+
         // whether the approved/failed buttons and permissions show
         'isSecretary'
     ],
 
 
-    mixins: [],
+    mixins: [resolutionMixin],
 
     data: function () {
         return {}
@@ -112,8 +122,9 @@ export default {
         },
 
         showWaiverIndicator: function () {
-            if (!isReadyToRock(this.waiver)) return false;
-            return this.waiver === 1;
+            return this.isWaiver;
+            // if (!isReadyToRock(this.waiver)) return false;
+            // return this.waiver === 1;
         },
 
         /**

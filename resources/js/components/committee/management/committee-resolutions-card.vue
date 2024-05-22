@@ -25,18 +25,27 @@
         </div>
 
         <div class="card-body">
+
             <resolution-item-card
                 :is-secretary="false"
                 :resolution-id="r.id"
-                :title="r.title"
-                :number="r.formattedNumber"
-                :is-approved="r.is_approved"
-                :first-reading-plenary="r.firstReadingPlenary"
-                :action-plenaries="r.actionPlenaries"
-                :waiver="r.waiver"
+
                 :key="r.id"
                 v-for="r in resolutions"
             ></resolution-item-card>
+
+<!--            <resolution-item-card-->
+<!--                :is-secretary="false"-->
+<!--                :resolution-id="r.id"-->
+<!--                :title="r.title"-->
+<!--                :number="r.formattedNumber"-->
+<!--                :is-approved="r.is_approved"-->
+<!--                :first-reading-plenary="r.firstReadingPlenary"-->
+<!--                :action-plenaries="r.actionPlenaries"-->
+<!--                :waiver="r.waiver"-->
+<!--                :key="r.id"-->
+<!--                v-for="r in resolutions"-->
+<!--            ></resolution-item-card>-->
             <!--        <ul class="list-group list-group-flush">-->
             <!--            <resolution-item :resolution-id="r.id"-->
             <!--                             :title="r.title"-->

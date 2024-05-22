@@ -131,6 +131,51 @@ const actions = {
 
     },
 
+    /**
+     * Marks the resolution as a first reading and requests
+     * to move it to the corresponding folder
+     * @param dispatch
+     * @param commit
+     * @param getters
+     * @param resolution
+     * @returns {Promise<unknown>}
+     */
+    setFirstReading({dispatch, commit, getters}, resolution) {
+        return new Promise(((resolve, reject) => {
+            let plenaryId = getters.getCurrentPlenaryId;
+            return resolve();
+        }));
+    },
+
+    /**
+     * Marks the resolution as a working draft and
+     * requests to move it to the corresponding folder
+     * @param dispatch
+     * @param commit
+     * @param getters
+     * @param resolution
+     * @returns {Promise<unknown>}
+     */
+    setWorkingDraft({dispatch, commit, getters}, resolution) {
+        return new Promise(((resolve, reject) => {
+            return resolve();
+        }));
+    },
+
+    /**
+     * Marks the resolution as an action item and
+     * requests to move it to the corresponding folder
+     * @param dispatch
+     * @param commit
+     * @param getters
+     * @param resolution
+     * @returns {Promise<unknown>}
+     */
+    setActionItem({dispatch, commit, getters}, resolution) {
+    return new Promise(((resolve, reject) => {
+        return resolve();
+    }));
+},
 
     /*
     *    doThing({dispatch, commit, getters}, thingParam) {
