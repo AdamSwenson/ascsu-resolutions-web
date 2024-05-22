@@ -26,6 +26,11 @@ module.exports = {
             return this.resolution.readingType === 'action';
         },
 
+        isWorking : function(){
+            if(! isReadyToRock(this.resolution)) return false;
+            return this.resolution.readingType === 'working';
+        },
+
         isWaiver: function(){
             if(! isReadyToRock(this.resolution)) return false;
             return this.resolution.readingType === 'waiver';
@@ -35,6 +40,32 @@ module.exports = {
         resolution : function(){
             return this.$store.getters.getResolution(this.resolutionId);
         },
+
+        // ============= Plenaries
+        firstReadingPlenary : function(){
+            if(! isReadyToRock(this.resolution)) return '';
+            return this.resolution.firstReadingPlenary;
+        },
+
+        actionPlenaries : function(){
+            if(! isReadyToRock(this.resolution)) return [];
+            return this.resolution.actionPlenaries;
+        },
+
+
+        // ============= intrinsic properties
+        title : function(){
+            if(! isReadyToRock(this.resolution)) return '';
+            return this.resolution.title;
+        },
+
+        resolutionNumber : function(){
+            if(! isReadyToRock(this.resolution)) return '';
+            return this.resolution.formattedNumber;
+        }
+
+
+
     },
 
     computed: {},
