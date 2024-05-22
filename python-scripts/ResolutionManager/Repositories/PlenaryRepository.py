@@ -55,3 +55,10 @@ class PlenaryRepository(object):
             f"update ascsu.plenaries p set p.feedback_folder_id = '{feedback_folder_id}' where p.id = {plenary.id}")
         plenary.feedback_folder_id = feedback_folder_id
         return plenary
+
+    def update_working_drafts_folder(self, plenary, working_drafts_folder_id):
+        self.dao.conn.execute(
+            f"update ascsu.plenaries p set p.working_drafts_folder_id = '{working_drafts_folder_id}' where p.id = {plenary.id}")
+        plenary.working_drafts_folder_id = working_drafts_folder_id
+        return plenary
+
