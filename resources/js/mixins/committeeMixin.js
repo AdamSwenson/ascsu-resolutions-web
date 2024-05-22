@@ -46,7 +46,21 @@ module.exports = {
                 return this.$store.getters.getSelectedCosponsors;
             },
 
+        },
+
+
+        //==================== Committee management
+        selectedCommittee: {
+            get : function(){
+                return this.$store.getters.getCurrentCommittee;
+            },
+
+            set: function(committeeObject){
+                this.$store.commit('setCurrentCommittee', committeeObject);
+            }
         }
+
+
     },
 
 

@@ -15,7 +15,13 @@ const state = {
      * When creating or editing a resolution, these are the
      * committees currently selected as cosponsors
      */
-    selectedCosponsors: []
+    selectedCosponsors: [],
+
+    /**
+     * For the committee management pages, this defines which committee
+     * is currently selected
+     */
+    currentCommittee: null
 
 };
 
@@ -79,6 +85,11 @@ const mutations = {
 
     resetSelectedCosponsors: (state, committee) => {
         state.selectedCosponsors = [];
+    },
+
+    //=============  committee resolution management
+    setCurrentCommittee: (state, committee) => {
+        state.currentCommittee = committee;
     }
 
 
@@ -208,6 +219,16 @@ const actions = {
 const getters = {
     getCommittees: (state) => {
         return state.committees;
+    },
+
+    /**
+     * Returns the currently selected committee for the
+     * committee resolution management
+     * @param state
+     * @returns {null}
+     */
+    getCurrentCommittee : (state) => {
+        return state.currentCommittee;
     },
 
     /**
