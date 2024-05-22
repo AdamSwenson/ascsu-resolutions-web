@@ -18,12 +18,14 @@ class PlenaryFactory extends Factory
     {
         return [
             'second_reading_folder_id' => fake()->sha1,
-       'feedback_folder_id'=> fake()->sha1,
-        'plenary_folder_id'=> fake()->sha1,
-        'first_reading_folder_id' => fake()->sha1,
-        'thursday_date' => fake()->date
+            'feedback_folder_id' => fake()->sha1,
+            'plenary_folder_id' => fake()->sha1,
+            'first_reading_folder_id' => fake()->sha1,
+            'working_drafts_folder_id' => fake()->sha1,
+            'agenda_id' => fake()->sha1,
+            'thursday_date' => fake()->date
 
-        //
+            //
         ];
     }
 }

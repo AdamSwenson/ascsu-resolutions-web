@@ -19,6 +19,7 @@ class Plenary extends Model
         'is_current',
         'plenary_folder_id',
         'second_reading_folder_id',
+        'working_drafts_folder_id',
         'thursday_date'];
 
 protected $casts = ['is_current' => 'boolean'];
