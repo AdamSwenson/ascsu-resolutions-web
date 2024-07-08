@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exceptions\PythonScriptError;
 use App\Models\Plenary;
 use App\Models\Resolution;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Process;
 
@@ -95,15 +96,29 @@ class ResolutionController extends Controller
     public function setAction(Plenary $plenary, Resolution $resolution)
     {
 
-        if($resolution->readingType === 'action'){
-            //toggle it back to a first reading
-            $resolution->setFirstReading($plenary);
-        }else{
-            //make it an action item
-            $resolution->setAction($plenary);
+        try{
+
+            if($resolution->readingType === 'action'){
+                //toggle it back to a first reading
+                $resolution->setFirstReading($plenary);
+                $scriptfile = 'web_move_resolution_to_first_reading_folder.py';
+
+            }else{
+                //make it an action item
+                $resolution->setAction($plenary);
+                $scriptfile = 'web_move_resolution_to_action_folder.py';
+            }
+            $this->handleScript($scriptfile, [$plenary->id, $resolution->id]);
+
+            $resolution->save();
+            $resolution->refresh();
+
+        }catch (PythonScriptError $error){
+            return response()->json(['code' => $error->getCode(), 'message' => $error->getMessage()]);
+
         }
-        $resolution->save();
-        $resolution->refresh();
+
+
         return response()->json($resolution);
 
     }

@@ -10,7 +10,7 @@
     </div>
 
 </template>
-
+ ,
 <script>
 import PageFooter from "../layout/page-footer";
 import ResolutionCreation from "./resolution-creation";

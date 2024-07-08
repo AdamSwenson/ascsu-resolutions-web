@@ -10,6 +10,8 @@ from ResolutionManager.config.Configuration import Configuration
 from ResolutionManager.Repositories.DocumentRepository import DocumentRepository
 from ResolutionManager.Repositories.FileRepository import FileRepository
 from ResolutionManager.Repositories.PlenaryRepository import PlenaryRepository
+from ResolutionManager.Repositories.ResolutionRepository import ResolutionRepository
+
 from ResolutionManager.DAO.DAO import MySqlDao
 from ResolutionManager.config.Templates import Templates
 
@@ -31,30 +33,20 @@ def main(plenary_id=None, resolution_id=None):
 
         dao = MySqlDao()
 
-        doc_repo = DocumentRepository()
         file_repo = FileRepository()
         plenary_repo = PlenaryRepository(dao)
+        resolution_repo = ResolutionRepository(dao)
 
         plenary = plenary_repo.load_plenary(plenary_id)
+        resolution = resolution_repo.load_resolution(resolution_id)
 
-        # # Create new folder for feedback versions
-        # # todo This needs to check that the folder doesn't already exist
-        # file_repo.move_file_to_folder(plenary.feedback_folder_id, plenary.plenary_folder_id)
-        #
-        # # Make copies and move to new folder
-        # files = file_repo.list_files(folder_id=plenary.first_reading_folder_id)
-        #
-        # for f in files:
-        #     new_name = Templates.FILENAME_TEMPLATE.format(f['name'])
-        #     copy_id = file_repo.copy_file(f['id'], new_name)
-        #     file_repo.move_file_to_folder(copy_id, plenary.feedback_folder_id)
-        #
+        file_repo.move_file_to_folder(resolution.document_id, plenary.second_reading_folder_id)
 
-        return plenary
+        return resolution
+
     except Exception as e:
         logger.warning(e)
 
-    # todo Return link to sharable folder
 
 
 if __name__ == '__main__':

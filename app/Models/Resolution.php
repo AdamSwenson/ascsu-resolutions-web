@@ -90,6 +90,10 @@ class Resolution extends Model
         $this->save();
     }
 
+    public function setWorking(Plenary $plenary){
+
+    }
+
 
     /**
      * Creates sponsor attribute which is the sponsoring committee
