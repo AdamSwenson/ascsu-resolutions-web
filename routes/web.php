@@ -48,6 +48,9 @@ Route::post('/secretary/sync/{plenary}', [SecretaryController::class, 'syncTitle
 
 Route::resource('plenaries', PlenaryController::class);
 
+//Resolutions
+Route::post('/resolution/reading/{plenary}/{resolution}', [ResolutionController::class, 'setReadingType']);
+
 //Permissions
 Route::post('secretary/permissions/all/lock/{plenary}', [PermissionsController::class, 'lockEditingAll']);
 Route::post('secretary/permissions/all/unlock/{plenary}', [PermissionsController::class, 'unlockEditingAll']);

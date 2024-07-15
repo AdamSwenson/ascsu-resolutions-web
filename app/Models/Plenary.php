@@ -46,7 +46,7 @@ protected $appends = ['publicUrl', 'plenaryUrl', 'plenaryName', 'resolutionListU
     }
 
     public function resolutions(){
-        return $this->belongsToMany(Resolution::class)->withPivot(['is_first_reading', 'is_waiver']);
+        return $this->belongsToMany(Resolution::class)->withPivot(['is_first_reading', 'is_waiver', 'reading_type']);
 
 //        return $this->hasMany(Resolution::class);
     }

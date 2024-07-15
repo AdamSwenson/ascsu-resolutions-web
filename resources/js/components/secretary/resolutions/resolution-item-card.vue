@@ -18,6 +18,10 @@
             <p class="card-text text-light"
                v-if="showCosponsors">Cosponsors: {{ cosponsorNames }}</p>
 
+            <p class="card-text text-light">
+                <a v-bind:href="url" target="_blank">{{url}}</a>
+            </p>
+
             <p class="card-text">
                 <status-badge :resolution-id="resolutionId"></status-badge>&nbsp;&nbsp;
                 <reading-type-badge :resolution-id="resolutionId"></reading-type-badge>

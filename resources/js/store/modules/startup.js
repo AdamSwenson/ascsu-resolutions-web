@@ -40,8 +40,8 @@ const actions = {
             return dispatch('setCurrentPlenaryId').then(() => {
                 dispatch('loadPlenaries');
                 dispatch('loadCommittees');
-                return dispatch('loadAllResolutions').then(() => {
-                    // dispatch('loadCurrentPlenaryResolutions').then(() => {
+                // return dispatch('loadAllResolutions').then(() => {
+                    dispatch('loadCurrentPlenaryResolutions').then(() => {
                     commit('toggleIsReady');
                     return resolve();
                 });

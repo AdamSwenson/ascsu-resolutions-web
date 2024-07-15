@@ -96,14 +96,14 @@ class ResolutionController extends Controller
     public function setAction(Plenary $plenary, Resolution $resolution)
     {
 
-        try{
+        try {
 
-            if($resolution->readingType === 'action'){
+            if ($resolution->readingType === 'action') {
                 //toggle it back to a first reading
                 $resolution->setFirstReading($plenary);
                 $scriptfile = 'web_move_resolution_to_first_reading_folder.py';
 
-            }else{
+            } else {
                 //make it an action item
                 $resolution->setAction($plenary);
                 $scriptfile = 'web_move_resolution_to_action_folder.py';
@@ -113,13 +113,66 @@ class ResolutionController extends Controller
             $resolution->save();
             $resolution->refresh();
 
-        }catch (PythonScriptError $error){
+        } catch (PythonScriptError $error) {
             return response()->json(['code' => $error->getCode(), 'message' => $error->getMessage()]);
 
         }
 
-
         return response()->json($resolution);
+
+    }
+
+    /**
+     * This is the new version
+     * @param Plenary $plenary
+     * @param Resolution $resolution
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @version AR-92
+     */
+    public function setReadingType(Plenary $plenary, Resolution $resolution, Request $request)
+    {
+        try {
+
+            switch ($request->readingType) {
+
+                case 'action' :
+                    $resolution->setActionNew($plenary);
+                    $scriptfile = 'web_move_resolution_to_action_folder.py';
+                    break;
+
+                case 'first':
+                    $resolution->setFirstReadingNew($plenary);
+                    $scriptfile = 'web_move_resolution_to_first_reading_folder.py';
+                    break;
+
+                case 'waiver':
+                    $resolution->setWaiverNew($plenary);
+                    //todo Change waiver handling
+                    $scriptfile = 'web_move_resolution_to_first_reading_folder.py';
+                    break;
+
+                case 'working':
+                    $resolution->setWorkingNew($plenary);
+                    $scriptfile = 'web_move_resolution_to_working_folder.py';
+                    break;
+            }
+
+            $this->handleScript($scriptfile, [$plenary->id, $resolution->id]);
+
+            $resolution->save();
+            $resolution->refresh();
+
+            $j = $resolution->toArray();
+            $j['readingType'] = $resolution->getReadingType($plenary);
+
+            return response()->json($j);
+
+        } catch (PythonScriptError $error) {
+            return response()->json(['code' => $error->getCode(), 'message' => $error->getMessage()]);
+
+        }
+
 
     }
 
@@ -137,7 +190,14 @@ class ResolutionController extends Controller
      */
     public function forPlenary(Plenary $plenary)
     {
-        return response()->json($plenary->resolutions);
+        $rezzies = [];
+        foreach ($plenary->resolutions as $r){
+            //We need to add reading type manually
+            $j = $r->toArray();
+            $j['readingType'] = $r->getReadingType($plenary);
+            array_push($rezzies, $j);
+        }
+        return response()->json($rezzies);
     }
 
 

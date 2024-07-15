@@ -5434,6 +5434,12 @@ __webpack_require__.r(__webpack_exports__);
         return this.styles.selected;
       }
       return this.styles.unselected;
+    },
+    waiverStyling: function waiverStyling() {
+      if (this.isWaiver) {
+        return this.styles.selected;
+      }
+      return this.styles.unselected;
     }
   },
   computed: {},
@@ -5453,6 +5459,12 @@ __webpack_require__.r(__webpack_exports__);
     setAction: function setAction() {
       window.console.log('status-toggle', 'setAction', 101);
       this.$store.dispatch('setActionItem', this.resolution);
+      //todo display the link afterwards
+    },
+
+    setWaiver: function setWaiver() {
+      window.console.log('status-toggle', 'setWaiver', 101);
+      this.$store.dispatch('setWaiver', this.resolution);
       //todo display the link afterwards
     }
   }
@@ -7814,7 +7826,16 @@ var render = function render() {
     on: {
       click: _vm.setFirstReading
     }
-  }, [_vm._v("First reading\n        ")]), _vm._v(" "), _c("button", {
+  }, [_vm._v("First reading (regular)\n        ")]), _vm._v(" "), _c("button", {
+    staticClass: "btn",
+    "class": _vm.waiverStyling,
+    attrs: {
+      type: "button"
+    },
+    on: {
+      click: _vm.setWaiver
+    }
+  }, [_vm._v("First reading waiver\n        ")]), _vm._v(" "), _c("button", {
     staticClass: "btn",
     "class": _vm.workingStyling,
     attrs: {
@@ -8765,6 +8786,13 @@ var render = function render() {
   }, [_vm._v("Sponsor: " + _vm._s(_vm.sponsorName))]), _vm._v(" "), _vm.showCosponsors ? _c("p", {
     staticClass: "card-text text-light"
   }, [_vm._v("Cosponsors: " + _vm._s(_vm.cosponsorNames))]) : _vm._e(), _vm._v(" "), _c("p", {
+    staticClass: "card-text text-light"
+  }, [_c("a", {
+    attrs: {
+      href: _vm.url,
+      target: "_blank"
+    }
+  }, [_vm._v(_vm._s(_vm.url))])]), _vm._v(" "), _c("p", {
     staticClass: "card-text"
   }, [_c("status-badge", {
     attrs: {
@@ -9644,6 +9672,7 @@ module.exports = {
     },
     isWorking: function isWorking() {
       if (!isReadyToRock(this.resolution)) return false;
+      // window.console.log('resolutionMixin', 'isWorking', 31, this.resolution);
       return this.resolution.readingType === 'working';
     },
     isWaiver: function isWaiver() {
@@ -9672,6 +9701,10 @@ module.exports = {
     resolutionNumber: function resolutionNumber() {
       if (!isReadyToRock(this.resolution)) return '';
       return this.resolution.formattedNumber;
+    },
+    url: function url() {
+      if (!isReadyToRock(this.resolution)) return '';
+      return this.resolution.url;
     }
   },
   computed: {},
@@ -9838,6 +9871,17 @@ module.exports = {
         url += resolution_id;
         return url;
       }
+    }
+  },
+  resolutions: {
+    setReadingType: function setReadingType(plenary, resolution) {
+      var plenary_id = idify(plenary);
+      var resolution_id = idify(resolution);
+      var url = normalizedRouteRoot();
+      url += 'resolution/reading/';
+      url += plenary_id + '/';
+      url += resolution_id;
+      return url;
     }
   }
 };
@@ -10440,6 +10484,7 @@ var actions = {
       var url = _routes__WEBPACK_IMPORTED_MODULE_0__.secretary.resolutions.loadForPlenary(plenaryId);
       Vue.axios.get(url).then(function (response) {
         _.forEach(response.data, function (r) {
+          commit('addResolution', r);
           commit('addCurrentResolutionId', r.id);
         });
         return resolve();
@@ -10552,11 +10597,61 @@ var actions = {
    * @returns {Promise<unknown>}
    */
   setFirstReading: function setFirstReading(_ref8, resolution) {
+    var _this2 = this;
     var dispatch = _ref8.dispatch,
       commit = _ref8.commit,
       getters = _ref8.getters;
     return new Promise(function (resolve, reject) {
       var plenaryId = getters.getCurrentPlenaryId;
+      var resolutionId = (0,_utilities_object_utilities__WEBPACK_IMPORTED_MODULE_1__.idify)(resolution);
+      var me = _this2;
+      var data = {
+        readingType: 'first'
+      };
+      var url = _routes__WEBPACK_IMPORTED_MODULE_0__.resolutions.setReadingType(plenaryId, resolution);
+      Vue.axios.post(url, data).then(function (response) {
+        window.console.log('resolutions', 'first reading', 168, response);
+        //todo Actually update the object
+        // dispatch('forceReload');
+        // me.approvalStatus = response.data.is_approved;
+        // window.console.log('permissions', 'response', 126, response, me);
+      });
+
+      return resolve();
+    });
+  },
+  /**
+   * Marks the resolution as a first reading waiver  and
+   * requests to move it to the corresponding folder
+   * NEW VERSION
+   * Added in AR-92
+   * @param dispatch
+   * @param commit
+   * @param getters
+   * @param resolution
+   * @returns {Promise<unknown>}
+   */
+  setWaiver: function setWaiver(_ref9, resolution) {
+    var _this3 = this;
+    var dispatch = _ref9.dispatch,
+      commit = _ref9.commit,
+      getters = _ref9.getters;
+    return new Promise(function (resolve, reject) {
+      var plenaryId = getters.getCurrentPlenaryId;
+      var resolutionId = (0,_utilities_object_utilities__WEBPACK_IMPORTED_MODULE_1__.idify)(resolution);
+      var me = _this3;
+      var data = {
+        readingType: 'waiver'
+      };
+      var url = _routes__WEBPACK_IMPORTED_MODULE_0__.resolutions.setReadingType(plenaryId, resolution);
+      Vue.axios.post(url, data).then(function (response) {
+        window.console.log('resolutions', 'waiver', 168, response);
+        //todo Actually update the object
+        // dispatch('forceReload');
+        // me.approvalStatus = response.data.is_approved;
+        // window.console.log('permissions', 'response', 126, response, me);
+      });
+
       return resolve();
     });
   },
@@ -10569,11 +10664,27 @@ var actions = {
    * @param resolution
    * @returns {Promise<unknown>}
    */
-  setWorkingDraft: function setWorkingDraft(_ref9, resolution) {
-    var dispatch = _ref9.dispatch,
-      commit = _ref9.commit,
-      getters = _ref9.getters;
+  setWorkingDraft: function setWorkingDraft(_ref10, resolution) {
+    var _this4 = this;
+    var dispatch = _ref10.dispatch,
+      commit = _ref10.commit,
+      getters = _ref10.getters;
     return new Promise(function (resolve, reject) {
+      var plenaryId = getters.getCurrentPlenaryId;
+      var resolutionId = (0,_utilities_object_utilities__WEBPACK_IMPORTED_MODULE_1__.idify)(resolution);
+      var me = _this4;
+      var data = {
+        readingType: 'working'
+      };
+      var url = _routes__WEBPACK_IMPORTED_MODULE_0__.resolutions.setReadingType(plenaryId, resolution);
+      Vue.axios.post(url, data).then(function (response) {
+        window.console.log('resolutions', 'working', 168, response);
+        //todo Actually update the object
+        // dispatch('forceReload');
+        // me.approvalStatus = response.data.is_approved;
+        // window.console.log('permissions', 'response', 126, response, me);
+      });
+
       return resolve();
     });
   },
@@ -10586,11 +10697,27 @@ var actions = {
    * @param resolution
    * @returns {Promise<unknown>}
    */
-  setActionItem: function setActionItem(_ref10, resolution) {
-    var dispatch = _ref10.dispatch,
-      commit = _ref10.commit,
-      getters = _ref10.getters;
+  setActionItem: function setActionItem(_ref11, resolution) {
+    var _this5 = this;
+    var dispatch = _ref11.dispatch,
+      commit = _ref11.commit,
+      getters = _ref11.getters;
     return new Promise(function (resolve, reject) {
+      var plenaryId = getters.getCurrentPlenaryId;
+      var resolutionId = (0,_utilities_object_utilities__WEBPACK_IMPORTED_MODULE_1__.idify)(resolution);
+      var me = _this5;
+      var data = {
+        readingType: 'action'
+      };
+      var url = _routes__WEBPACK_IMPORTED_MODULE_0__.resolutions.setReadingType(plenaryId, resolution);
+      Vue.axios.post(url, data).then(function (response) {
+        window.console.log('resolutions', 'action', 240, response);
+        //todo Actually update the object
+        // dispatch('forceReload');
+        // me.approvalStatus = response.data.is_approved;
+        // window.console.log('permissions', 'response', 126, response, me);
+      });
+
       return resolve();
     });
   }
@@ -10728,8 +10855,8 @@ var actions = {
       return dispatch('setCurrentPlenaryId').then(function () {
         dispatch('loadPlenaries');
         dispatch('loadCommittees');
-        return dispatch('loadAllResolutions').then(function () {
-          // dispatch('loadCurrentPlenaryResolutions').then(() => {
+        // return dispatch('loadAllResolutions').then(() => {
+        dispatch('loadCurrentPlenaryResolutions').then(function () {
           commit('toggleIsReady');
           return resolve();
         });

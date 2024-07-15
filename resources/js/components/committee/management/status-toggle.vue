@@ -27,7 +27,14 @@
                     class="btn "
                     v-bind:class="firstStyling"
                     v-on:click="setFirstReading"
-            >First reading
+            >First reading (regular)
+            </button>
+
+            <button type="button"
+                    class="btn "
+                    v-bind:class="waiverStyling"
+                    v-on:click="setWaiver"
+            >First reading waiver
             </button>
 
             <button type="button"
@@ -102,6 +109,14 @@ export default {
                 return this.styles.selected;
             }
             return this.styles.unselected;
+        },
+
+        waiverStyling: function(){
+            if (this.isWaiver) {
+                return this.styles.selected;
+            }
+            return this.styles.unselected;
+
         }
 
     },
@@ -123,7 +138,13 @@ export default {
             window.console.log('status-toggle', 'setAction', 101,);
             this.$store.dispatch('setActionItem', this.resolution);
             //todo display the link afterwards
-        }
+        },
+        setWaiver: function () {
+            window.console.log('status-toggle', 'setWaiver', 101,);
+            this.$store.dispatch('setWaiver', this.resolution);
+            //todo display the link afterwards
+        },
+
     }
 
 }

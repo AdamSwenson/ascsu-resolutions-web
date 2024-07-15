@@ -36,6 +36,8 @@ const actions = {
             let url = routes.secretary.resolutions.loadForPlenary(plenaryId);
             Vue.axios.get(url).then((response) => {
                 _.forEach(response.data, (r) => {
+                    commit('addResolution', r);
+
                     commit('addCurrentResolutionId', r.id);
                 });
                 return resolve();
@@ -141,8 +143,52 @@ const actions = {
      * @returns {Promise<unknown>}
      */
     setFirstReading({dispatch, commit, getters}, resolution) {
+
         return new Promise(((resolve, reject) => {
             let plenaryId = getters.getCurrentPlenaryId;
+            let resolutionId = idify(resolution);
+            let me = this;
+            let data = {readingType: 'first'};
+            let url = routes.resolutions.setReadingType(plenaryId, resolution);
+            Vue.axios.post(url, data).then((response) => {
+                window.console.log('resolutions', 'first reading', 168, response);
+                //todo Actually update the object
+                // dispatch('forceReload');
+                // me.approvalStatus = response.data.is_approved;
+                // window.console.log('permissions', 'response', 126, response, me);
+            });
+
+            return resolve();
+        }));
+    },
+
+    /**
+     * Marks the resolution as a first reading waiver  and
+     * requests to move it to the corresponding folder
+     * NEW VERSION
+     * Added in AR-92
+     * @param dispatch
+     * @param commit
+     * @param getters
+     * @param resolution
+     * @returns {Promise<unknown>}
+     */
+    setWaiver({dispatch, commit, getters}, resolution) {
+
+        return new Promise(((resolve, reject) => {
+            let plenaryId = getters.getCurrentPlenaryId;
+            let resolutionId = idify(resolution);
+            let me = this;
+            let data = {readingType: 'waiver'};
+            let url = routes.resolutions.setReadingType(plenaryId, resolution);
+            Vue.axios.post(url, data).then((response) => {
+                window.console.log('resolutions', 'waiver', 168, response);
+                //todo Actually update the object
+                // dispatch('forceReload');
+                // me.approvalStatus = response.data.is_approved;
+                // window.console.log('permissions', 'response', 126, response, me);
+            });
+
             return resolve();
         }));
     },
@@ -157,7 +203,21 @@ const actions = {
      * @returns {Promise<unknown>}
      */
     setWorkingDraft({dispatch, commit, getters}, resolution) {
+
         return new Promise(((resolve, reject) => {
+            let plenaryId = getters.getCurrentPlenaryId;
+            let resolutionId = idify(resolution);
+            let me = this;
+            let data = {readingType: 'working'};
+            let url = routes.resolutions.setReadingType(plenaryId, resolution);
+            Vue.axios.post(url, data).then((response) => {
+                window.console.log('resolutions', 'working', 168, response);
+                //todo Actually update the object
+                // dispatch('forceReload');
+                // me.approvalStatus = response.data.is_approved;
+                // window.console.log('permissions', 'response', 126, response, me);
+            });
+
             return resolve();
         }));
     },
@@ -173,6 +233,19 @@ const actions = {
      */
     setActionItem({dispatch, commit, getters}, resolution) {
     return new Promise(((resolve, reject) => {
+        let plenaryId = getters.getCurrentPlenaryId;
+        let resolutionId = idify(resolution);
+        let me = this;
+        let data = {readingType: 'action'};
+        let url = routes.resolutions.setReadingType(plenaryId, resolution);
+        Vue.axios.post(url, data).then((response) => {
+            window.console.log('resolutions', 'action', 240, response);
+            //todo Actually update the object
+            // dispatch('forceReload');
+            // me.approvalStatus = response.data.is_approved;
+            // window.console.log('permissions', 'response', 126, response, me);
+        });
+
         return resolve();
     }));
 },

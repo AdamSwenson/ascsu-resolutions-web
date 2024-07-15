@@ -171,7 +171,18 @@ module.exports = {
             }
         }
 
+    },
+
+    resolutions : {
+        setReadingType: (plenary, resolution) => {
+            let plenary_id = idify(plenary);
+            let resolution_id = idify(resolution);
+            let url = normalizedRouteRoot();
+            url += 'resolution/reading/';
+            url += plenary_id + '/'
+            url += resolution_id;
+            return url;
+        }
+
     }
-
-
 };
