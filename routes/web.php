@@ -50,6 +50,8 @@ Route::resource('plenaries', PlenaryController::class);
 
 //Resolutions
 Route::post('/resolution/reading/{plenary}/{resolution}', [ResolutionController::class, 'setReadingType']);
+Route::resource('resolutions', ResolutionController::class);
+
 
 //Permissions
 Route::post('secretary/permissions/all/lock/{plenary}', [PermissionsController::class, 'lockEditingAll']);
@@ -61,6 +63,5 @@ Route::get('secretary/permissions/one/{resolution}', [PermissionsController::cla
 Route::post('resolution/approval/{resolution}', [ResolutionController::class, 'setApprovalStatus']);
 Route::get('plenary/resolutions/{plenary}', [ResolutionController::class, 'forPlenary']);
 //Route::get('resolution/approval/{resolution}', [ResolutionController::class, 'getApproval']);
-Route::resource('resolutions', ResolutionController::class);
 
 Route::get('diagnosis', [DevController::class, 'diagnostics']);

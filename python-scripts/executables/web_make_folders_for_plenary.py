@@ -54,8 +54,8 @@ def main(plenary_id=None):
 
         # -------- Working drafts
         working_drafts_folder_id = file_repo.create_folder(Templates.WORKING_DRAFTS_FOLDER_NAME)
-        plenary = plenary_repo.update_plenary_second_reading_folder(plenary, working_drafts_folder_id)
-        file_repo.move_file_to_folder(plenary.second_reading_folder_id, plenary.plenary_folder_id)
+        plenary = plenary_repo.update_working_drafts_folder(plenary, working_drafts_folder_id)
+        file_repo.move_file_to_folder(plenary.working_drafts_folder_id, plenary.plenary_folder_id)
         # make readable
         permissions_repo.make_world_readable(working_drafts_folder_id)
 
