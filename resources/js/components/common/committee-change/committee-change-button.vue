@@ -13,7 +13,7 @@ export default {
         return {
             label: 'Edit committtees',
             ariaDisabled: false,
-            styling: ' btn-sm btn-outline-primary'
+            styling: ' btn-outline-primary'
         }
     },
 

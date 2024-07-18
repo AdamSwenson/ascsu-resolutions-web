@@ -42,6 +42,19 @@ class CommitteeController extends Controller
         $this->resolutionRepo = app()->make(IResolutionRepository::class);
     }
 
+
+    public function diagnostics()
+    {
+        $result = $this->runScript();
+
+        if ($result->successful()) {
+            return $result->output();
+        }
+        return $result->errorOutput();
+    }
+
+
+
     public function getCommitteePage()
     {
         $plenary = Plenary::where('is_current', true)->first();
@@ -57,7 +70,6 @@ class CommitteeController extends Controller
         ];
 
         return view('committee', $data);
-
     }
 
     /**
@@ -69,15 +81,6 @@ class CommitteeController extends Controller
         return response()->json($committees);
     }
 
-    public function diagnostics()
-    {
-        $result = $this->runScript();
-
-        if ($result->successful()) {
-            return $result->output();
-        }
-        return $result->errorOutput();
-    }
 
     /**
      * Handles parsing the sponsor out of the request and asking the repository
@@ -116,12 +119,6 @@ class CommitteeController extends Controller
         return $resolution;
     }
 
-    public function getNextResolutionNumber()
-    {
-        $v = collect(Resolution::all())->pluck('number')->max();
-        return $v + 1;
-    }
-
 
     /**
      * Creates a new resolution for first reading at the provided plenary
@@ -131,7 +128,7 @@ class CommitteeController extends Controller
      */
     public function recordResolution(Plenary $plenary, ResolutionRequest $request)
     {
-        $request->merge(['number' => $this->getNextResolutionNumber()]);
+        $request->merge(['number' => $this->resolutionRepo->getNextResolutionNumber()]);
 
         // AR-65
         $request['title'] = Str::title($request->title);
@@ -145,8 +142,11 @@ class CommitteeController extends Controller
         //set as first reading for plenary
         $readingType = $request->waiver ? 'waiver' : 'first';
         $resolution->plenaries()->attach($plenary,
-            ['is_first_reading' => true,
+            [
+                //todo Remove old first reading and waiver
+                'is_first_reading' => true,
                 'is_waiver' => $request->waiver,
+                //This is the new version as of AR-92
                 'reading_type' => $readingType
             ]);
 

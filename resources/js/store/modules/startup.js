@@ -24,8 +24,8 @@ const actions = {
             dispatch('setCurrentPlenaryId').then(() => {
                 dispatch('loadPlenaries');
                 dispatch('loadCommittees');
-                dispatch('loadAllResolutions').then(() => {
-                    dispatch('loadCurrentPlenaryResolutions').then(() => {
+                dispatch('loadCurrentPlenaryResolutions').then(() => {
+                    dispatch('loadAllResolutions').then(() => {
                         commit('toggleIsReady');
                         return resolve();
                     });

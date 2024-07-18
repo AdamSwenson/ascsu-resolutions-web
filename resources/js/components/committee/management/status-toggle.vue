@@ -1,24 +1,6 @@
 <template>
-    <!--<div class="status-toggle btn-group"-->
-    <!--     role="group"-->
-    <!--     aria-label="resolution status toggle button group">-->
-    <!--        <input type="radio"-->
-    <!--               class="btn-check"-->
-    <!--               name="statusradio"-->
-    <!--               id="statusradio1"-->
-    <!--               autocomplete="off" >-->
-    <!--        <label class="btn btn-outline-primary" for="btnradio1">Radio 1</label>-->
-
-    <!--        <input type="radio" class="btn-check" name="statusradio" id="statusradio2" autocomplete="off">-->
-    <!--        <label class="btn btn-outline-primary" for="btnradio2">Radio 2</label>-->
-
-    <!--        <input type="radio" class="btn-check" name="statusradio" id="statusradio3" autocomplete="off">-->
-    <!--        <label class="btn btn-outline-primary" for="btnradio3">Radio 3</label>-->
-
-    <!--    </div>-->
 
     <div class="status-toggle">
-        <p class="text-light">Manage resolution status </p>
         <div class=" btn-group"
              role="group"
              aria-label="resolution status toggle button group"
@@ -83,7 +65,7 @@ export default {
     asyncComputed: {
 
         plenaryName: function () {
-            if(! isReadyToRock(this.plenary)) return ""
+            if (!isReadyToRock(this.plenary)) return ""
             return this.plenary.plenaryName;
         },
 
@@ -111,7 +93,7 @@ export default {
             return this.styles.unselected;
         },
 
-        waiverStyling: function(){
+        waiverStyling: function () {
             if (this.isWaiver) {
                 return this.styles.selected;
             }
@@ -126,24 +108,49 @@ export default {
     methods: {
         setFirstReading: function () {
             window.console.log('status-toggle', 'setFirstReading', 95);
-            this.$store.dispatch('setFirstReading', this.resolution);
-            //todo display the link afterwards
+            this.signalWorking();
+            let me = this;
+            this.$store.dispatch('setFirstReading', this.resolution).then(() => {
+                me.signalDone();
+            });
         },
+
         setWorking: function () {
             window.console.log('status-toggle', 'setWorking', 98,);
-            this.$store.dispatch('setWorkingDraft', this.resolution);
-            //todo display the link afterwards
+            this.signalWorking();
+            let me = this;
+            this.$store.dispatch('setWorkingDraft', this.resolution).then(() => {
+                me.signalDone();
+            });
         },
+
         setAction: function () {
             window.console.log('status-toggle', 'setAction', 101,);
-            this.$store.dispatch('setActionItem', this.resolution);
-            //todo display the link afterwards
+            this.signalWorking();
+            let me = this;
+            this.$store.dispatch('setActionItem', this.resolution).then(() => {
+                me.signalDone();
+            });
         },
+
         setWaiver: function () {
             window.console.log('status-toggle', 'setWaiver', 101,);
-            this.$store.dispatch('setWaiver', this.resolution);
-            //todo display the link afterwards
+            this.signalWorking();
+            let me = this;
+            this.$store.dispatch('setWaiver', this.resolution).then(() => {
+                me.signalDone();
+            });
         },
+
+        // ============== event communication
+        signalWorking: function () {
+            window.console.log('status-toggle', 'signalWorkingToggle', 153,);
+            this.$emit('reading-working');
+        },
+        signalDone: function () {
+            window.console.log('status-toggle', 'signalDone', 157,);
+            this.$emit('reading-done');
+        }
 
     }
 

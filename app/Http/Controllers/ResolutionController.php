@@ -12,6 +12,14 @@ use Illuminate\Support\Facades\Process;
 class ResolutionController extends Controller
 {
 
+    /**
+     * Sets the resolution as approved, failed, or unvoted.
+     * Adds APPROVED to the header
+     *
+     * @param Resolution $resolution
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|string
+     */
     public function setApprovalStatus(Resolution $resolution, Request $request)
     {
         //Store this because we will need it for determininng
@@ -89,6 +97,8 @@ class ResolutionController extends Controller
      * Makes the resolution an action item in the indicated plenary
      * Changed this to a toggle in AR-87
      *
+     * @deprecated As of AR-92
+     *
      * @param Plenary $plenary
      * @param Resolution $resolution
      * @return \Illuminate\Http\JsonResponse
@@ -123,6 +133,9 @@ class ResolutionController extends Controller
     }
 
     /**
+     * Updates where in the process the resolution is and
+     * moves the resolution to the correct folder.
+     *
      * This is the new version
      * @param Plenary $plenary
      * @param Resolution $resolution
@@ -148,7 +161,6 @@ class ResolutionController extends Controller
 
                 case 'waiver':
                     $resolution->setWaiverNew($plenary);
-                    //todo Change waiver handling
                     $scriptfile = 'web_move_resolution_to_first_reading_folder.py';
                     break;
 
@@ -203,6 +215,7 @@ class ResolutionController extends Controller
 
     /**
      * Sets or unsets resolution as a waiver item
+     * @deprecated as of AR-92
      * Added in AR-81
      * @return void
      */

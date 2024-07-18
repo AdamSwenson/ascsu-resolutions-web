@@ -1,6 +1,7 @@
 import * as routes from "../../routes";
 import {getById, idify} from "../../utilities/object.utilities";
 import {isReadyToRock} from "../../utilities/readiness.utilities";
+// import {deepMerge} from "vue";
 
 const state = {
     resolutions: [],
@@ -17,7 +18,15 @@ const mutations = {
         if (state.currentPlenaryResolutionIds.indexOf(resolutionId) === -1) {
             state.currentPlenaryResolutionIds.push(resolutionId);
         }
+    },
+
+    updateResolution: (state, resolution) => {
+        let idx = state.resolutions.findIndex((o) => {
+            return o.id === resolution.id;
+        });
+        Vue.set(state.resolutions, idx, resolution);
     }
+
     /*
     *   addThing: (state, thing) => {
     *        state.things.push(thing);
@@ -58,6 +67,13 @@ const actions = {
         }));
     },
 
+    /**
+     * Sets the resolution as approved
+     * @param dispatch
+     * @param commit
+     * @param getters
+     * @param resolution
+     */
     markResolutionApproved({dispatch, commit, getters}, resolution) {
         let resolutionId = idify(resolution);
         let url = routes.secretary.resolutions.approvalStatus(resolutionId)
@@ -117,6 +133,14 @@ const actions = {
     },
 
 
+    /**
+     * @deprecated As of AR-92
+     * @param dispatch
+     * @param commit
+     * @param getters
+     * @param resolution
+     * @returns {Promise<unknown>}
+     */
     toggleIsWaiver({dispatch, commit, getters}, resolution) {
         return new Promise(((resolve, reject) => {
             let url = routes.secretary.resolutions.toggleWaiver(resolution)
@@ -136,6 +160,7 @@ const actions = {
     /**
      * Marks the resolution as a first reading and requests
      * to move it to the corresponding folder
+     * Added in AR-92
      * @param dispatch
      * @param commit
      * @param getters
@@ -150,15 +175,18 @@ const actions = {
             let me = this;
             let data = {readingType: 'first'};
             let url = routes.resolutions.setReadingType(plenaryId, resolution);
-            Vue.axios.post(url, data).then((response) => {
-                window.console.log('resolutions', 'first reading', 168, response);
-                //todo Actually update the object
-                // dispatch('forceReload');
-                // me.approvalStatus = response.data.is_approved;
-                // window.console.log('permissions', 'response', 126, response, me);
-            });
-
-            return resolve();
+            return Vue.axios.post(url, data)
+                .then((response) => {
+                    window.console.log('resolutions', 'first reading', 168, response);
+                    commit('updateResolution', response.data);
+                    return resolve();
+                }).catch(function (error) {
+                    // error handling
+                    if (error.response) {
+                        me.$store.dispatch('showError', error.response.data);
+                    }
+                    return reject();
+                });
         }));
     },
 
@@ -181,21 +209,25 @@ const actions = {
             let me = this;
             let data = {readingType: 'waiver'};
             let url = routes.resolutions.setReadingType(plenaryId, resolution);
-            Vue.axios.post(url, data).then((response) => {
-                window.console.log('resolutions', 'waiver', 168, response);
-                //todo Actually update the object
-                // dispatch('forceReload');
-                // me.approvalStatus = response.data.is_approved;
-                // window.console.log('permissions', 'response', 126, response, me);
-            });
-
-            return resolve();
+            return Vue.axios.post(url, data)
+                .then((response) => {
+                    window.console.log('resolutions', 'waiver', 168, response);
+                    commit('updateResolution', response.data);
+                    return resolve();
+                }).catch(function (error) {
+                    // error handling
+                    if (error.response) {
+                        me.$store.dispatch('showError', error.response.data);
+                    }
+                    return reject();
+                });
         }));
     },
 
     /**
      * Marks the resolution as a working draft and
      * requests to move it to the corresponding folder
+     * Added in AR-92
      * @param dispatch
      * @param commit
      * @param getters
@@ -210,21 +242,26 @@ const actions = {
             let me = this;
             let data = {readingType: 'working'};
             let url = routes.resolutions.setReadingType(plenaryId, resolution);
-            Vue.axios.post(url, data).then((response) => {
-                window.console.log('resolutions', 'working', 168, response);
-                //todo Actually update the object
-                // dispatch('forceReload');
-                // me.approvalStatus = response.data.is_approved;
-                // window.console.log('permissions', 'response', 126, response, me);
-            });
+            return Vue.axios.post(url, data)
+                .then((response) => {
+                    window.console.log('resolutions', 'working', 168, response);
+                    commit('updateResolution', response.data);
+                    return resolve();
+                }).catch(function (error) {
+                    // error handling
+                    if (error.response) {
+                        me.$store.dispatch('showError', error.response.data);
+                    }
+                    return reject();
+                });
 
-            return resolve();
         }));
     },
 
     /**
      * Marks the resolution as an action item and
      * requests to move it to the corresponding folder
+     * Added in AR-92
      * @param dispatch
      * @param commit
      * @param getters
@@ -232,23 +269,27 @@ const actions = {
      * @returns {Promise<unknown>}
      */
     setActionItem({dispatch, commit, getters}, resolution) {
-    return new Promise(((resolve, reject) => {
-        let plenaryId = getters.getCurrentPlenaryId;
-        let resolutionId = idify(resolution);
-        let me = this;
-        let data = {readingType: 'action'};
-        let url = routes.resolutions.setReadingType(plenaryId, resolution);
-        Vue.axios.post(url, data).then((response) => {
-            window.console.log('resolutions', 'action', 240, response);
-            //todo Actually update the object
-            // dispatch('forceReload');
-            // me.approvalStatus = response.data.is_approved;
-            // window.console.log('permissions', 'response', 126, response, me);
-        });
+        return new Promise(((resolve, reject) => {
+            let plenaryId = getters.getCurrentPlenaryId;
+            let resolutionId = idify(resolution);
+            let me = this;
+            let data = {readingType: 'action'};
+            let url = routes.resolutions.setReadingType(plenaryId, resolution);
+            return Vue.axios.post(url, data)
+                .then((response) => {
+                    window.console.log('resolutions', 'action', 240, response);
+                    commit('updateResolution', response.data);
+                    return resolve();
+                }).catch(function (error) {
+                    // error handling
+                    if (error.response) {
+                        me.$store.dispatch('showError', error.response.data);
+                    }
+                    return reject();
+                });
 
-        return resolve();
-    }));
-},
+        }));
+    },
 
     /*
     *    doThing({dispatch, commit, getters}, thingParam) {

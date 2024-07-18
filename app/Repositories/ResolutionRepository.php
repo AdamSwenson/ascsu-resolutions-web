@@ -9,6 +9,18 @@ class ResolutionRepository implements IResolutionRepository
 {
 
     /**
+     * Returns the next unused resolution number
+     * @return int|mixed
+     */
+    public function getNextResolutionNumber()
+    {
+        $v = collect(Resolution::all())->pluck('number')->max();
+        return $v + 1;
+    }
+
+
+    // ===================== Committees
+    /**
      * Sets sponsor.
      * Assumes that no other sponsor has been set.
      * @param Resolution $resolution
