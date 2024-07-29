@@ -1,6 +1,6 @@
 <template xmlns="http://www.w3.org/1999/html">
     <div class="resolution-card card">
-        <h3 class="card-title text-light">Manage individual resolutions</h3>
+<!--        <h3 class="card-title text-light">Manage individual resolutions</h3>-->
 
         <div class="card-body text-center">
 
