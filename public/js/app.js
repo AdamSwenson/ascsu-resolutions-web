@@ -5077,7 +5077,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "committee-navbar",
-  props: [],
+  props: ['shownPage'],
   mixins: [],
   data: function data() {
     return {};
@@ -5284,6 +5284,9 @@ __webpack_require__.r(__webpack_exports__);
         return this.styles.selected;
       }
       return this.styles.unselected;
+    },
+    hasResolutions: function hasResolutions() {
+      return _.size(this.resolutions) > 0;
     },
     unapprovedButtonStyle: function unapprovedButtonStyle() {
       if (this.selected === 'unapproved') {
@@ -7766,19 +7769,19 @@ var render = function render() {
     staticClass: "navbar-nav ms-auto"
   }), _vm._v(" "), _c("form", {
     staticClass: "d-flex me-3"
-  }, [_c("button", {
+  }, [_vm.shownPage === "management" ? _c("button", {
     staticClass: "btn btn-outline-success",
     on: {
       click: _vm.openCreation
     }
-  }, [_vm._v("Create resolution")])]), _vm._v(" "), _c("form", {
+  }, [_vm._v("Create resolution\n                ")]) : _vm._e()]), _vm._v(" "), _c("form", {
     staticClass: "d-flex me-3"
-  }, [_c("button", {
+  }, [_vm.shownPage === "creation" ? _c("button", {
     staticClass: "btn btn-outline-success",
     on: {
       click: _vm.openManagement
     }
-  }, [_vm._v("Manage resolutions")])])])])]);
+  }, [_vm._v("Manage resolutions\n                ")]) : _vm._e()])])])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -7804,6 +7807,9 @@ var render = function render() {
   return _c("div", {
     staticClass: "committee py-2"
   }, [_c("committee-navbar", {
+    attrs: {
+      shownPage: _vm.shownPage
+    },
     on: {
       "open-creation": _vm.handleOpenCreation,
       "open-management": _vm.handleOpenManagement
@@ -7940,42 +7946,30 @@ var render = function render() {
   return _c("div", {
     staticClass: "resolution-card card"
   }, [_c("div", {
-    staticClass: "card-body text-center"
-  }, [_c("button", {
-    staticClass: "btn btn-small",
-    "class": _vm.currentButtonStyle,
-    on: {
-      click: function click($event) {
-        return _vm.setSelected("current");
-      }
-    }
-  }, [_vm._v("Current plenary\n            ")]), _vm._v(" "), _c("button", {
-    staticClass: "btn btn-small",
-    "class": _vm.unapprovedButtonStyle,
-    on: {
-      click: function click($event) {
-        return _vm.setSelected("unapproved");
-      }
-    }
-  }, [_vm._v("Unapproved\n            ")]), _vm._v(" "), _c("button", {
-    staticClass: "btn btn-small",
-    "class": _vm.allButtonStyle,
-    on: {
-      click: function click($event) {
-        return _vm.setSelected("all");
-      }
-    }
-  }, [_vm._v("All\n            ")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
-  }, _vm._l(_vm.resolutions, function (r) {
+  }, [_vm._l(_vm.resolutions, function (r) {
     return _c("resolution-item-card", {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: _vm.hasResolutions,
+        expression: "hasResolutions"
+      }],
       key: r.id,
       attrs: {
         "is-secretary": false,
         "resolution-id": r.id
       }
     });
-  }), 1)]);
+  }), _vm._v(" "), _c("p", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: !_vm.hasResolutions,
+      expression: "!hasResolutions"
+    }],
+    staticClass: "card-text text-light"
+  }, [_vm._v("This committee has no resolutions for this plenary")])], 2)]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -9290,32 +9284,6 @@ var render = function render() {
   }, [_c("h3", {
     staticClass: "card-title text-light"
   }, [_vm._v("Manage individual resolutions")]), _vm._v(" "), _c("div", {
-    staticClass: "card-body text-center"
-  }, [_c("button", {
-    staticClass: "btn btn-small",
-    "class": _vm.allButtonStyle,
-    on: {
-      click: function click($event) {
-        return _vm.setSelected("all");
-      }
-    }
-  }, [_vm._v("All")]), _vm._v(" "), _c("button", {
-    staticClass: "btn btn-small",
-    "class": _vm.currentButtonStyle,
-    on: {
-      click: function click($event) {
-        return _vm.setSelected("current");
-      }
-    }
-  }, [_vm._v("Current plenary")]), _vm._v(" "), _c("button", {
-    staticClass: "btn btn-small",
-    "class": _vm.unapprovedButtonStyle,
-    on: {
-      click: function click($event) {
-        return _vm.setSelected("unapproved");
-      }
-    }
-  }, [_vm._v("Unapproved")])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, _vm._l(_vm.resolutions, function (r) {
     return _c("resolution-item-card", {

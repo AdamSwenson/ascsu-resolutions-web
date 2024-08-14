@@ -13,11 +13,21 @@
                 <!-- Right Side Of Navbar -->
 
                 <form class="d-flex me-3">
-                    <button class="btn btn-outline-success" v-on:click="openCreation">Create resolution</button>
+                    <button
+                        class="btn btn-outline-success"
+                        v-on:click="openCreation"
+                        v-if="shownPage === 'management'"
+                    >Create resolution
+                    </button>
                 </form>
 
                 <form class="d-flex me-3">
-                    <button class="btn btn-outline-success" v-on:click="openManagement">Manage resolutions</button>
+                    <button
+                        class="btn btn-outline-success"
+                        v-on:click="openManagement"
+                        v-if="shownPage === 'creation'"
+                    >Manage resolutions
+                    </button>
                 </form>
 
 
@@ -31,7 +41,7 @@
 export default {
     name: "committee-navbar",
 
-    props: [],
+    props: ['shownPage'],
 
     mixins: [],
 

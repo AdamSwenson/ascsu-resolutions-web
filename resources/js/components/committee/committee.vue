@@ -4,6 +4,7 @@
         <committee-navbar
             v-on:open-creation="handleOpenCreation"
             v-on:open-management="handleOpenManagement"
+            :shownPage="shownPage"
         ></committee-navbar>
 
         <resolution-creation v-if="shownPage === 'creation'"></resolution-creation>

@@ -2,22 +2,23 @@
     <div class="resolution-card card">
         <h3 class="card-title text-light">Manage individual resolutions</h3>
 
-        <div class="card-body text-center">
-            <button class="btn btn-small "
-                    v-bind:class="allButtonStyle"
-                    v-on:click="setSelected('all')"
-            >All</button>
-            <button class="btn btn-small "
-                    v-bind:class="currentButtonStyle"
-                    v-on:click="setSelected('current')"
-            >Current plenary</button>
+<!--        todo Reenable for AR-101 -->
+<!--        <div class="card-body text-center">-->
+<!--            <button class="btn btn-small "-->
+<!--                    v-bind:class="allButtonStyle"-->
+<!--                    v-on:click="setSelected('all')"-->
+<!--            >All</button>-->
+<!--            <button class="btn btn-small "-->
+<!--                    v-bind:class="currentButtonStyle"-->
+<!--                    v-on:click="setSelected('current')"-->
+<!--            >Current plenary</button>-->
 
-            <button class="btn btn-small "
-                    v-bind:class="unapprovedButtonStyle"
-                    v-on:click="setSelected('unapproved')"
-            >Unapproved</button>
+<!--            <button class="btn btn-small "-->
+<!--                    v-bind:class="unapprovedButtonStyle"-->
+<!--                    v-on:click="setSelected('unapproved')"-->
+<!--            >Unapproved</button>-->
 
-        </div>
+<!--        </div>-->
 
         <div class="card-body">
 
