@@ -339,9 +339,30 @@ class AgendaRepository(object):
         """
         resolutions = self.resolution_repo.load_all_resolutions_for_plenary(plenary)
 
-        self.first_readings = [r for r in resolutions if r.is_first_reading is True and r.is_waiver is False]
-        self.waivers = [r for r in resolutions if r.is_first_reading is True and r.is_waiver is True]
-        self.second_readings = [r for r in resolutions if r.is_first_reading is not True]
+        # rs = [str(a) for a in resolutions]
+        # self.logger.warning("\n".join(rs))
+
+        self.first_readings = [r for r in resolutions if r.is_first_reading is True]
+        # self.first_readings = [r for r in resolutions if r.is_first_reading is True and r.is_waiver is False]
+
+        # todo Refactor so uses is_waiver rather than waiver to be consistent with other props
+        self.waivers = [r for r in resolutions if r.waiver is True]
+        # self.waivers = [r for r in resolutions if r.is_first_reading is True and r.is_waiver is True]
+
+        self.second_readings = [r for r in resolutions if r.is_action is True]
+        # self.second_readings = [r for r in resolutions if r.is_first_reading is not True]
+
+        # rs = [str(a) for a in self.first_readings]
+        # self.logger.warning("\n First readings \n")
+        # self.logger.warning("\n".join(rs))
+        #
+        # rs = [str(a) for a in self.waivers]
+        # self.logger.warning("\n waivers \n")
+        # self.logger.warning("\n".join(rs))
+        #
+        # rs = [str(a) for a in self.second_readings]
+        # self.logger.warning("\n second readings \n")
+        # self.logger.warning("\n".join(rs))
 
     def make_resolution_list(self, plenary: Plenary):
         """
@@ -352,14 +373,14 @@ class AgendaRepository(object):
         :param plenary: Plenary
         :return:
         """
-        logging.warning('make resolution list')
+        # self.logger.warning('make resolution list')
         # Populate the resolution lists
         self.sort_resolutions(plenary)
+        # logging.warning('sorted')
 
         # Creates a new agenda file or clears the content from the existing one
         self.create_agenda_file(plenary)
-
-        # print(plenary.agenda_id)
+        # logging.warning('file created')
 
         self.idx = 1
         requests = []
@@ -376,14 +397,16 @@ class AgendaRepository(object):
                 sr = self.make_resolution_list_item_requests(r)
                 requests.extend(sr)
             except Exception as e:
-                self.logger.warning(e)
+                m = f"\n=======Agenda creation error=======\nAction\n{e}\n{r}\n==============\n"
+                self.logger.error(m)
 
         for w in self.waivers:
             try:
                 sr = self.make_resolution_list_item_requests(w)
                 requests.extend(sr)
             except Exception as e:
-                self.logger.warning(e)
+                m = f"\n=======Agenda creation error=======\nWaivers\n{e}\n{w}\n==============\n"
+                self.logger.error(m)
 
         # Make first reading header and update index
         frh = self.make_first_readings_heading_requests()
@@ -396,9 +419,8 @@ class AgendaRepository(object):
                 # todo AR-69 problem was here with the first readings
                 requests.extend(fr)
             except Exception as e:
+                m = f"\n=======Agenda creation error=======\nFirst readings\n{e}\n{f}==============\n"
                 self.logger.warning(e)
-
-        # print(requests)
 
         result = self.service.documents().batchUpdate(documentId=plenary.agenda_id,
                                                       body={'requests': requests}).execute()

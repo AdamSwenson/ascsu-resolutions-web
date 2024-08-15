@@ -16,22 +16,24 @@ def main(plenary_id=None):
     config = Configuration()
     logger = logging.getLogger(__name__)
 
-    try:
+    # try:
 
-        if plenary_id is None:
-            plenary_id = int(sys.argv[1])
+    if plenary_id is None:
+        plenary_id = int(sys.argv[1])
 
-        action_sync.main(plenary_id)
+    #dev
+    # action_sync.main(plenary_id)
 
-        dao = MySqlDao()
-        agenda_repo = AgendaRepository(dao)
-        plenary_repo = PlenaryRepository(dao)
+    dao = MySqlDao()
+    agenda_repo = AgendaRepository(dao)
+    plenary_repo = PlenaryRepository(dao)
 
-        plenary = plenary_repo.load_plenary(plenary_id)
+    plenary = plenary_repo.load_plenary(plenary_id)
 
-        agenda_repo.make_resolution_list(plenary)
-    except Exception as e:
-        logger.warning(e)
+    agenda_repo.make_resolution_list(plenary)
+    # except Exception as e:
+    #     logger.warning('beep')
+    #     logger.warning(e)
 
 if __name__ == '__main__':
     main()

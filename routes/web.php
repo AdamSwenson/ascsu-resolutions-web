@@ -19,6 +19,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/logs/laravel', function(){
+    $path = storage_path('logs/laravel.log');
+   return response()->file($path);
+});
+Route::get('/logs/python', function(){
+    $path = storage_path('logs/python.log');
+    return response()->file($path);
+});
+
+
 Route::get('/', function () {
     return view('welcome')->with(['data' => ['plenaryId' => null, 'plenary' => null]]);
 });
