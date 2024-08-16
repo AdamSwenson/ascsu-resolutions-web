@@ -169,11 +169,11 @@ class ResolutionRepository(object):
         results = self.dao.conn.execute(query)
 
         for rid, first_reading, is_waiver, reading_type in results:
-            self.logger.warning(rid)
+            # self.logger.warning(rid)
             # make sure casts correctly
-            first_reading = bool(first_reading)
+            # first_reading = bool(first_reading)
             # added AR-58
-            is_waiver = bool(is_waiver)
+            # is_waiver = bool(is_waiver)
 
             # print((rid, is_waiver, first_reading))
 

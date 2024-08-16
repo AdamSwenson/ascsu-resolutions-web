@@ -150,23 +150,25 @@ class CommitteeController extends Controller
                 'reading_type' => $readingType
             ]);
 
-//        $result = $this->createResolutionInDriveNew($plenary, $resolution);
 
         try{
-            //Actually create the document in drive
+            //Create the document in drive
             $scriptfile = 'web_create_resolution_from_template.py';
             $this->handleScript($scriptfile, [$plenary->id, $resolution->id]);
             $resolution->refresh();
+
+            //In case silently failed to create resolution in drive
+            if(is_null($resolution->document_id)){
+                throw new PythonScriptError("No document created in drive. Please try again. If the problem persists, please notify the Secretary");
+            }
+
             return response()->json($resolution);
         }catch (PythonScriptError $error){
-            return $error->getMessage();
+            # Added in AR-103 / AR-104
+            # If creation fails, delete the resolution
+            $this->resolutionRepo->destroyResolution($resolution);
+            return $this->sendAjaxFailure($error->getMessage());
         }
-
-//        if ($result->successful()) {
-//            $resolution->refresh();
-//            return response()->json($resolution);
-//        }
-//        return $result->errorOutput();
 
     }
 

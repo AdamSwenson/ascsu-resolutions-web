@@ -223,4 +223,37 @@ class ResolutionRepositoryTest extends TestCase
         $this->assertEquals($resolution->cosponsors[0]->id, $newCosponsor1->id, "added cosponsor 1");
         $this->assertEquals($resolution->cosponsors[1]->id, $newCosponsor2->id, "Added new cosponsor 2");
     }
+
+    /** @test */
+    public function destroyResolution()
+    {
+        //prep
+        $plenary = Plenary::factory()->create();
+        $resolution = Resolution::factory()->create();
+        $committees = Committee::all();
+        $oldSponsor = $committees[0];
+        $oldCosponsor1 = $committees[1];
+        $oldCosponsor2 = $committees[2];
+
+        $resolution->plenaries()->attach($plenary,
+            [
+                'reading_type' => 'first'
+            ]);
+
+        $this->object->addSponsor($resolution, $oldSponsor);
+        $this->object->addCosponsor($resolution, $oldCosponsor1);
+        $this->object->addCosponsor($resolution, $oldCosponsor2);
+        $resolution->save();
+        $resolution->refresh();
+
+        //call
+        $this->object->destroyResolution($resolution);
+
+        //check
+        $this->assertModelMissing($resolution);
+        $this->assertDatabaseMissing('plenary_resolution', ['plenary_id' => $plenary->id, 'resolution_id' => $resolution->id]);
+        $this->assertDatabaseMissing('committee_resolution', ['committee_id' => $oldSponsor->id, 'resolution_id' => $resolution->id]);
+        $this->assertDatabaseMissing('committee_resolution', ['committee_id' => $oldCosponsor1->id, 'resolution_id' => $resolution->id]);
+        $this->assertDatabaseMissing('committee_resolution', ['committee_id' => $oldCosponsor2->id, 'resolution_id' => $resolution->id]);
+    }
 }
