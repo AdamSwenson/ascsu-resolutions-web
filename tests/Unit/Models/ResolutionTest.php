@@ -1,15 +1,14 @@
 <?php
 
-namespace Tests\Models;
+namespace Tests\Unit\Models;
 
 use App\Models\Committee;
 use App\Models\Plenary;
 use App\Models\Resolution;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Tests\TestCase;
 
 //use PHPUnit\Framework\TestCase;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request;
-use Tests\TestCase;
 
 
 class ResolutionTest extends TestCase

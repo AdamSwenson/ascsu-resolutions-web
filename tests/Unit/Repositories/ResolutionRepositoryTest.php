@@ -1,14 +1,14 @@
 <?php
 
-namespace Tests\Repositories;
+namespace Tests\Unit\Repositories;
 
 use App\Models\Committee;
 use App\Models\Plenary;
 use App\Models\Resolution;
 use App\Repositories\ResolutionRepository;
+use Tests\TestCase;
 
 //use PHPUnit\Framework\TestCase;
-use Tests\TestCase;
 
 
 class ResolutionRepositoryTest extends TestCase

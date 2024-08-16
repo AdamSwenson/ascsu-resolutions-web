@@ -54,7 +54,6 @@ class CommitteeController extends Controller
     }
 
 
-
     public function getCommitteePage()
     {
         $plenary = Plenary::where('is_current', true)->first();
@@ -76,7 +75,8 @@ class CommitteeController extends Controller
      * Returns all committee objects
      * @return JsonResponse
      */
-    public function getCommittees(){
+    public function getCommittees()
+    {
         $committees = Committee::all();
         return response()->json($committees);
     }
@@ -151,19 +151,19 @@ class CommitteeController extends Controller
             ]);
 
 
-        try{
+        try {
             //Create the document in drive
             $scriptfile = 'web_create_resolution_from_template.py';
             $this->handleScript($scriptfile, [$plenary->id, $resolution->id]);
             $resolution->refresh();
 
             //In case silently failed to create resolution in drive
-            if(is_null($resolution->document_id)){
+            if (is_null($resolution->document_id)) {
                 throw new PythonScriptError("No document created in drive. Please try again. If the problem persists, please notify the Secretary");
             }
 
             return response()->json($resolution);
-        }catch (PythonScriptError $error){
+        } catch (PythonScriptError $error) {
             # Added in AR-103 / AR-104
             # If creation fails, delete the resolution
             $this->resolutionRepo->destroyResolution($resolution);
@@ -179,16 +179,22 @@ class CommitteeController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function updateCommittees(Resolution $resolution, Request $request){
+    public function updateCommittees(Resolution $resolution, Request $request)
+    {
         //figure out which need to be changed
         $sponsor = Committee::where('name', $request->sponsor['name'])->first();
-
-        $cosponsors = [];
-        foreach($request->cosponsors as $c){
-            $cosponsors[] = Committee::where('name', $c['name'])->first();
+        //check whether sponsor is provided before updating so won't have
+        //a null sponsor (added AR-106)
+        if (!is_null($sponsor)) {
+            $this->resolutionRepo->updateSponsor($resolution, $sponsor);
         }
 
-        $this->resolutionRepo->updateSponsor($resolution, $sponsor);
+        $cosponsors = [];
+        foreach ($request->cosponsors as $c) {
+            $cosponsors[] = Committee::where('name', $c['name'])->first();
+        }
+        //We don't need to check if the cosponsors list is empty because
+        //it is possible to have removed cosponsors
         $this->resolutionRepo->updateCosponsors($resolution, $cosponsors);
 
         $resolution = $resolution->refresh();
