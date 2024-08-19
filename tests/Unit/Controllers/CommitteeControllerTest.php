@@ -7,6 +7,7 @@ use App\Http\Controllers\CommitteeController;
 //use PHPUnit\Framework\TestCase;
 use App\Http\Requests\ResolutionRequest;
 use App\Models\Committee;
+use App\Models\Plenary;
 use App\Models\Resolution;
 use Illuminate\Support\Str;
 use Tests\TestCase;
@@ -30,6 +31,59 @@ class CommitteeControllerTest extends TestCase
 
     }
 
+
+    // ==================================== recordResolution
+
+    /** @test */
+    public function recordResolutionFailsIfSponsorEmptyString()
+    {
+        // Added in AR-105
+        $plenary = Plenary::factory()->create();
+        $title = $this->faker->sentence;
+        $url = '/resolution/' . $plenary->id;
+
+        //call
+        $response = $this->post($url, ['title' => $title, 'sponsor' => '']);
+        $response->dump();
+
+        //check
+        $response->assertInvalid();
+    }
+
+    /** @test */
+    public function recordResolutionFailsIfSponsorEmpty()
+    {
+        // Added in AR-105
+        $plenary = Plenary::factory()->create();
+        $title = $this->faker->sentence;
+        $url = '/resolution/' . $plenary->id;
+
+        //call
+        $response = $this->post($url, ['title' => $title, 'sponsor' => null]);
+
+        //$response->dump();
+        //check
+        $response->assertInvalid();
+//       $response->assertSee("The sponsor field is required.");
+    }
+
+
+    /** @test */
+    public function recordResolutionFailsIfTitleEmpty()
+    {
+        // Added in AR-105
+        $plenary = Plenary::factory()->create();
+        $title = '';
+        $url = '/resolution/' . $plenary->id;
+        $sponsor = $this->committees[0];
+
+        //call
+        $response = $this->post($url, ['title' => $title, 'sponsor' => $sponsor]);
+
+        //check
+        $response->assertInvalid();
+    }
+
     /** @test */
     public function recordResolutionUpdatesTitleCase()
     {
@@ -40,6 +94,9 @@ class CommitteeControllerTest extends TestCase
         $r->title = Str::title($r->title);
         $this->assertEquals('This Is A Test', $r->title);
     }
+
+
+    // ==================================== update committees
 
     /** @test */
     public function updateCommitteesHappyPath()
@@ -58,7 +115,7 @@ class CommitteeControllerTest extends TestCase
         //call
         $data = ['sponsor' => $newSponsor,
             'cosponsors' => [$newCosponsor, $ogCosponsor2]];
-$url = "committees/update/{$this->resolution->id}";
+        $url = "committees/update/{$this->resolution->id}";
         $response = $this->post($url, $data);
 
 //$response->dump();
