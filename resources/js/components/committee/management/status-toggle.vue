@@ -30,7 +30,7 @@
                     class="btn "
                     v-bind:class="actionStyling"
                     v-on:click="setAction"
-            >Action item
+            >Action item (second reading)
             </button>
         </div>
         <p class="text-light small">These buttons move the resolution to the corresponding folder for the

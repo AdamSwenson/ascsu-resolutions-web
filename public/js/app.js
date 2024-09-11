@@ -8075,7 +8075,7 @@ var render = function render() {
     on: {
       click: _vm.setAction
     }
-  }, [_vm._v("Action item\n        ")])]), _vm._v(" "), _c("p", {
+  }, [_vm._v("Action item (second reading)\n        ")])]), _vm._v(" "), _c("p", {
     staticClass: "text-light small"
   }, [_vm._v("These buttons move the resolution to the corresponding folder for the\n        " + _vm._s(_vm.plenaryName) + " plenary")])]);
 };
