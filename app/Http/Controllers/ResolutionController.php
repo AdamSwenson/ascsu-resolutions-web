@@ -5,12 +5,21 @@ namespace App\Http\Controllers;
 use App\Exceptions\PythonScriptError;
 use App\Models\Plenary;
 use App\Models\Resolution;
+use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Process;
 
 class ResolutionController extends Controller
 {
 
+    /**
+     * Sets the resolution as approved, failed, or unvoted.
+     * Adds APPROVED to the header
+     *
+     * @param Resolution $resolution
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|string
+     */
     public function setApprovalStatus(Resolution $resolution, Request $request)
     {
         //Store this because we will need it for determininng
@@ -88,6 +97,8 @@ class ResolutionController extends Controller
      * Makes the resolution an action item in the indicated plenary
      * Changed this to a toggle in AR-87
      *
+     * @deprecated As of AR-92
+     *
      * @param Plenary $plenary
      * @param Resolution $resolution
      * @return \Illuminate\Http\JsonResponse
@@ -95,16 +106,85 @@ class ResolutionController extends Controller
     public function setAction(Plenary $plenary, Resolution $resolution)
     {
 
-        if($resolution->readingType === 'action'){
-            //toggle it back to a first reading
-            $resolution->setFirstReading($plenary);
-        }else{
-            //make it an action item
-            $resolution->setAction($plenary);
+        try {
+
+            if ($resolution->readingType === 'action') {
+                //toggle it back to a first reading
+                $resolution->setFirstReading($plenary);
+                $scriptfile = 'web_move_resolution_to_first_reading_folder.py';
+
+            } else {
+                //make it an action item
+                $resolution->setAction($plenary);
+                $scriptfile = 'web_move_resolution_to_action_folder.py';
+            }
+            $this->handleScript($scriptfile, [$plenary->id, $resolution->id]);
+
+            $resolution->save();
+            $resolution->refresh();
+
+        } catch (PythonScriptError $error) {
+            return response()->json(['code' => $error->getCode(), 'message' => $error->getMessage()]);
+
         }
-        $resolution->save();
-        $resolution->refresh();
+
         return response()->json($resolution);
+
+    }
+
+    /**
+     * Updates where in the process the resolution is and
+     * moves the resolution to the correct folder.
+     *
+     * This is the new version
+     * @param Plenary $plenary
+     * @param Resolution $resolution
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @version AR-92
+     */
+    public function setReadingType(Plenary $plenary, Resolution $resolution, Request $request)
+    {
+        try {
+
+            switch ($request->readingType) {
+
+                case 'action' :
+                    $resolution->setActionNew($plenary);
+                    $scriptfile = 'web_move_resolution_to_action_folder.py';
+                    break;
+
+                case 'first':
+                    $resolution->setFirstReadingNew($plenary);
+                    $scriptfile = 'web_move_resolution_to_first_reading_folder.py';
+                    break;
+
+                case 'waiver':
+                    $resolution->setWaiverNew($plenary);
+                    $scriptfile = 'web_move_resolution_to_first_reading_folder.py';
+                    break;
+
+                case 'working':
+                    $resolution->setWorkingNew($plenary);
+                    $scriptfile = 'web_move_resolution_to_working_folder.py';
+                    break;
+            }
+
+            $this->handleScript($scriptfile, [$plenary->id, $resolution->id]);
+
+            $resolution->save();
+            $resolution->refresh();
+
+            $j = $resolution->toArray();
+            $j['readingType'] = $resolution->getReadingType($plenary);
+
+            return response()->json($j);
+
+        } catch (PythonScriptError $error) {
+            return response()->json(['code' => $error->getCode(), 'message' => $error->getMessage()]);
+
+        }
+
 
     }
 
@@ -122,12 +202,20 @@ class ResolutionController extends Controller
      */
     public function forPlenary(Plenary $plenary)
     {
-        return response()->json($plenary->resolutions);
+        $rezzies = [];
+        foreach ($plenary->resolutions as $r){
+            //We need to add reading type manually
+            $j = $r->toArray();
+            $j['readingType'] = $r->getReadingType($plenary);
+            array_push($rezzies, $j);
+        }
+        return response()->json($rezzies);
     }
 
 
     /**
      * Sets or unsets resolution as a waiver item
+     * @deprecated as of AR-92
      * Added in AR-81
      * @return void
      */

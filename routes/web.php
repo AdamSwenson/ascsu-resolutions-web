@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
 Route::get('/', function () {
     return view('welcome')->with(['data' => ['plenaryId' => null, 'plenary' => null]]);
 });
@@ -26,25 +28,33 @@ Route::get('/privacy', function(){
    return view('privacy')->with(['data' => ['plenaryId' => null, 'plenary' => null]]);
 });
 
+// ============================= committee
 Route::get('/committee', [CommitteeController::class, 'getCommitteePage']);
 Route::get('/committees/all', [CommitteeController::class, 'getCommittees']);
 Route::post('/committees/update/{resolution}', [CommitteeController::class, 'updateCommittees']);
-Route::post('/resolution/action/{plenary}/{resolution}', [ResolutionController::class, 'setAction']);
 Route::post('/resolution/{plenary}', [CommitteeController::class, 'recordResolution']);
-Route::post('/resolution/waiver/toggle/{resolution}', [ResolutionController::class, 'toggleWaiver']);
 
+
+// ============================= secretary
 Route::get('/secretary', [SecretaryController::class, 'getSecretaryPage']);
-Route::post('/secretary/folders', [PlenaryController::class, 'createPlenary']);
 Route::post('secretary/public/{plenary}', [SecretaryController::class, 'createPublic']);
-
-Route::post('plenary/current/{plenary}', [PlenaryController::class, 'setCurrent']);
-
 Route::post('/secretary/agenda/{plenary}', [SecretaryController::class, 'createAgenda']);
 Route::post('/secretary/styling/{plenary}', [SecretaryController::class, 'enforceStyling']);
 Route::post('/secretary/sync/{plenary}', [SecretaryController::class, 'syncTitles']);
 
-
+//Plenaries
+Route::post('/secretary/folders', [PlenaryController::class, 'createPlenary']);
+Route::post('plenary/current/{plenary}', [PlenaryController::class, 'setCurrent']);
 Route::resource('plenaries', PlenaryController::class);
+Route::get('plenary/resolutions/{plenary}', [ResolutionController::class, 'forPlenary']);
+
+//Resolutions
+Route::post('/resolution/reading/{plenary}/{resolution}', [ResolutionController::class, 'setReadingType']);
+Route::resource('resolutions', ResolutionController::class);
+Route::post('/resolution/action/{plenary}/{resolution}', [ResolutionController::class, 'setAction']);
+Route::post('/resolution/waiver/toggle/{resolution}', [ResolutionController::class, 'toggleWaiver']);
+Route::post('resolution/approval/{resolution}', [ResolutionController::class, 'setApprovalStatus']);
+
 
 //Permissions
 Route::post('secretary/permissions/all/lock/{plenary}', [PermissionsController::class, 'lockEditingAll']);
@@ -53,9 +63,16 @@ Route::post('secretary/permissions/one/lock/{resolution}', [PermissionsControlle
 Route::post('secretary/permissions/one/unlock/{resolution}', [PermissionsController::class, 'unlockEditingOne']);
 Route::get('secretary/permissions/one/{resolution}', [PermissionsController::class, 'getPermissions']);
 
-Route::post('resolution/approval/{resolution}', [ResolutionController::class, 'setApprovalStatus']);
-Route::get('plenary/resolutions/{plenary}', [ResolutionController::class, 'forPlenary']);
 //Route::get('resolution/approval/{resolution}', [ResolutionController::class, 'getApproval']);
-Route::resource('resolutions', ResolutionController::class);
 
+// ============================== Dev and management
 Route::get('diagnosis', [DevController::class, 'diagnostics']);
+
+Route::get('/logs/laravel', function(){
+    $path = storage_path('logs/laravel.log');
+    return response()->file($path);
+});
+Route::get('/logs/python', function(){
+    $path = storage_path('logs/python.log');
+    return response()->file($path);
+});

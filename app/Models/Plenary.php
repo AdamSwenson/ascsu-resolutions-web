@@ -19,6 +19,7 @@ class Plenary extends Model
         'is_current',
         'plenary_folder_id',
         'second_reading_folder_id',
+        'working_drafts_folder_id',
         'thursday_date'];
 
 protected $casts = ['is_current' => 'boolean'];
@@ -45,7 +46,7 @@ protected $appends = ['publicUrl', 'plenaryUrl', 'plenaryName', 'resolutionListU
     }
 
     public function resolutions(){
-        return $this->belongsToMany(Resolution::class)->withPivot(['is_first_reading', 'is_waiver']);
+        return $this->belongsToMany(Resolution::class)->withPivot(['is_first_reading', 'is_waiver', 'reading_type']);
 
 //        return $this->hasMany(Resolution::class);
     }

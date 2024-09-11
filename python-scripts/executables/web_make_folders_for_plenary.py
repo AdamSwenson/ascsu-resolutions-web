@@ -37,19 +37,27 @@ def main(plenary_id=None):
         # make readable
         permissions_repo.make_world_readable(plenary_folder_id)
 
-        # Make subfolders
+        # ============ Make subfolders
+        # -------- first reading
         first_reading_folder_id = file_repo.create_folder(Templates.FIRST_READING_FOLDER_NAME)
         plenary = plenary_repo.update_plenary_first_reading_folder(plenary, first_reading_folder_id)
-
+        file_repo.move_file_to_folder(plenary.first_reading_folder_id, plenary.plenary_folder_id)
         # make readable
         permissions_repo.make_world_readable(first_reading_folder_id)
 
-        file_repo.move_file_to_folder(plenary.first_reading_folder_id, plenary.plenary_folder_id)
+        # -------- Second reading
         second_reading_folder_id = file_repo.create_folder(Templates.ACTION_FOLDER_NAME)
         plenary = plenary_repo.update_plenary_second_reading_folder(plenary, second_reading_folder_id)
         file_repo.move_file_to_folder(plenary.second_reading_folder_id, plenary.plenary_folder_id)
         # make readable
         permissions_repo.make_world_readable(second_reading_folder_id)
+
+        # -------- Working drafts
+        working_drafts_folder_id = file_repo.create_folder(Templates.WORKING_DRAFTS_FOLDER_NAME)
+        plenary = plenary_repo.update_working_drafts_folder(plenary, working_drafts_folder_id)
+        file_repo.move_file_to_folder(plenary.working_drafts_folder_id, plenary.plenary_folder_id)
+        # make readable
+        permissions_repo.make_world_readable(working_drafts_folder_id)
 
         print("created folders ")
         print(f"Plenary folder id : {plenary.plenary_folder_id} \n First readings folder id : {plenary.first_reading_folder_id} \n Second reading folder id : {plenary.second_reading_folder_id}")

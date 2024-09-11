@@ -7,19 +7,29 @@ from ResolutionManager.config.Templates import Templates
 
 class Plenary(object):
 
-    def __init__(self, id=None, thursday_date=None, first_reading_folder_id=None,
-                 plenary_folder_id=None, feedback_folder_id=None, second_reading_folder_id=None, agenda_id=None):
+    def __init__(self, id=None,
+                 thursday_date=None,
+                 first_reading_folder_id=None,
+                 plenary_folder_id=None,
+                 feedback_folder_id=None,
+                 second_reading_folder_id=None,
+                 working_drafts_folder_id=None,
+                 agenda_id=None):
         """
 
         :type agenda_id: str
         :type plenary_folder_id: object
         """
-        self.agenda_id = agenda_id
         self.id = id
+
+        self.agenda_id = agenda_id
+
+        self.plenary_folder_id = plenary_folder_id
         self.second_reading_folder_id = second_reading_folder_id
         self.feedback_folder_id = feedback_folder_id
-        self.plenary_folder_id = plenary_folder_id
+        self.working_drafts_folder_id = working_drafts_folder_id
         self.first_reading_folder_id = first_reading_folder_id
+
         self.thursday_date = datetime.datetime.strptime(thursday_date, '%Y-%m-%d').date() if isinstance(thursday_date,
                                                                                                         str) else thursday_date
         # self.thursday_date = datetime.datetime(thursday_date)

@@ -1,9 +1,9 @@
 const state = {
-    isReady : false
+    isReady: false
 };
 const mutations = {
     toggleIsReady: (state) => {
-        state.isReady = ! state.isReady;
+        state.isReady = !state.isReady;
     }
 };
 const getters = {
@@ -15,17 +15,17 @@ const getters = {
 const actions = {
 
 
-    forceReload({dispatch, commit, getters}){
+    forceReload({dispatch, commit, getters}) {
         location.reload();
     },
 
-    secretaryStartup({dispatch, commit, getters}){
-        return new Promise(((resolve, reject)=>{
+    secretaryStartup({dispatch, commit, getters}) {
+        return new Promise(((resolve, reject) => {
             dispatch('setCurrentPlenaryId').then(() => {
                 dispatch('loadPlenaries');
                 dispatch('loadCommittees');
-                dispatch('loadAllResolutions').then(() => {
-                    dispatch('loadCurrentPlenaryResolutions').then(() => {
+                dispatch('loadCurrentPlenaryResolutions').then(() => {
+                    dispatch('loadAllResolutions').then(() => {
                         commit('toggleIsReady');
                         return resolve();
                     });
@@ -35,9 +35,17 @@ const actions = {
         }));
     },
 
-    committeeStartup({dispatch, commit, getters}){
-        return new Promise(((resolve, reject)=>{
-            dispatch('loadCommittees');
+    committeeStartup({dispatch, commit, getters}) {
+        return new Promise(((resolve, reject) => {
+            return dispatch('setCurrentPlenaryId').then(() => {
+                dispatch('loadPlenaries');
+                dispatch('loadCommittees');
+                // return dispatch('loadAllResolutions').then(() => {
+                    dispatch('loadCurrentPlenaryResolutions').then(() => {
+                    commit('toggleIsReady');
+                    return resolve();
+                });
+            });
         }));
     }
 

@@ -32,15 +32,15 @@
             </div>
 
             <div class="row mb-5">
-                <div class="col-lg-3"></div>
+                <div class="col-lg-2"></div>
 
-                <div class="col-lg-6">
+                <div class="col-lg-8">
                     <div class="">
                         <resolutions-card></resolutions-card>
                     </div>
                 </div>
 
-                <div class="col-lg-3"></div>
+                <div class="col-lg-2"></div>
             </div>
         </div>
 

@@ -9,6 +9,18 @@ class ResolutionRepository implements IResolutionRepository
 {
 
     /**
+     * Returns the next unused resolution number
+     * @return int|mixed
+     */
+    public function getNextResolutionNumber()
+    {
+        $v = collect(Resolution::all())->pluck('number')->max();
+        return $v + 1;
+    }
+
+
+    // ===================== Committees
+    /**
      * Sets sponsor.
      * Assumes that no other sponsor has been set.
      * @param Resolution $resolution
@@ -94,6 +106,26 @@ class ResolutionRepository implements IResolutionRepository
     }
 
 
+    /**
+     * Deletes resolution after disassociating it from everything.
+     * Mainly used to undo resolution creation if there is a error in creating
+     * the document in drive
+     * @param Resolution $resolution
+     * @return void
+     */
+    public function destroyResolution(Resolution $resolution){
+        # Get rid of plenary associations
+        foreach($resolution->plenaries as $plenary){
+            $resolution->plenaries()->detach($plenary);
+        }
+
+        foreach($resolution->committees as $committee){
+            $resolution->committees()->detach($committee);
+        }
+
+        $resolution->delete();
+
+    }
     //    /**
 //     * Given a list of committees, this updates the associated cosponsors
 //     * to have only those committees in the list

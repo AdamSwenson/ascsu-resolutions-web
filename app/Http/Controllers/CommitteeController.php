@@ -42,6 +42,18 @@ class CommitteeController extends Controller
         $this->resolutionRepo = app()->make(IResolutionRepository::class);
     }
 
+
+    public function diagnostics()
+    {
+        $result = $this->runScript();
+
+        if ($result->successful()) {
+            return $result->output();
+        }
+        return $result->errorOutput();
+    }
+
+
     public function getCommitteePage()
     {
         $plenary = Plenary::where('is_current', true)->first();
@@ -57,27 +69,18 @@ class CommitteeController extends Controller
         ];
 
         return view('committee', $data);
-
     }
 
     /**
      * Returns all committee objects
      * @return JsonResponse
      */
-    public function getCommittees(){
+    public function getCommittees()
+    {
         $committees = Committee::all();
         return response()->json($committees);
     }
 
-    public function diagnostics()
-    {
-        $result = $this->runScript();
-
-        if ($result->successful()) {
-            return $result->output();
-        }
-        return $result->errorOutput();
-    }
 
     /**
      * Handles parsing the sponsor out of the request and asking the repository
@@ -116,12 +119,6 @@ class CommitteeController extends Controller
         return $resolution;
     }
 
-    public function getNextResolutionNumber()
-    {
-        $v = collect(Resolution::all())->pluck('number')->max();
-        return $v + 1;
-    }
-
 
     /**
      * Creates a new resolution for first reading at the provided plenary
@@ -131,7 +128,7 @@ class CommitteeController extends Controller
      */
     public function recordResolution(Plenary $plenary, ResolutionRequest $request)
     {
-        $request->merge(['number' => $this->getNextResolutionNumber()]);
+        $request->merge(['number' => $this->resolutionRepo->getNextResolutionNumber()]);
 
         // AR-65
         $request['title'] = Str::title($request->title);
@@ -143,28 +140,35 @@ class CommitteeController extends Controller
         $resolution = $this->addCosponsors($resolution, $request);
 
         //set as first reading for plenary
+        $readingType = $request->waiver ? 'waiver' : 'first';
         $resolution->plenaries()->attach($plenary,
-            ['is_first_reading' => true,
-                'is_waiver' => $request->waiver
+            [
+                //todo Remove old first reading and waiver
+                'is_first_reading' => true,
+                'is_waiver' => $request->waiver,
+                //This is the new version as of AR-92
+                'reading_type' => $readingType
             ]);
 
-//        $result = $this->createResolutionInDriveNew($plenary, $resolution);
 
-        try{
-            //Actually create the document in drive
+        try {
+            //Create the document in drive
             $scriptfile = 'web_create_resolution_from_template.py';
             $this->handleScript($scriptfile, [$plenary->id, $resolution->id]);
             $resolution->refresh();
-            return response()->json($resolution);
-        }catch (PythonScriptError $error){
-            return $error->getMessage();
-        }
 
-//        if ($result->successful()) {
-//            $resolution->refresh();
-//            return response()->json($resolution);
-//        }
-//        return $result->errorOutput();
+            //In case silently failed to create resolution in drive
+            if (is_null($resolution->document_id)) {
+                throw new PythonScriptError("No document created in drive. Please try again. If the problem persists, please notify the Secretary");
+            }
+
+            return response()->json($resolution);
+        } catch (PythonScriptError $error) {
+            # Added in AR-103 / AR-104
+            # If creation fails, delete the resolution
+            $this->resolutionRepo->destroyResolution($resolution);
+            return $this->sendAjaxFailure($error->getMessage());
+        }
 
     }
 
@@ -175,16 +179,22 @@ class CommitteeController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function updateCommittees(Resolution $resolution, Request $request){
+    public function updateCommittees(Resolution $resolution, Request $request)
+    {
         //figure out which need to be changed
         $sponsor = Committee::where('name', $request->sponsor['name'])->first();
-
-        $cosponsors = [];
-        foreach($request->cosponsors as $c){
-            $cosponsors[] = Committee::where('name', $c['name'])->first();
+        //check whether sponsor is provided before updating so won't have
+        //a null sponsor (added AR-106)
+        if (!is_null($sponsor)) {
+            $this->resolutionRepo->updateSponsor($resolution, $sponsor);
         }
 
-        $this->resolutionRepo->updateSponsor($resolution, $sponsor);
+        $cosponsors = [];
+        foreach ($request->cosponsors as $c) {
+            $cosponsors[] = Committee::where('name', $c['name'])->first();
+        }
+        //We don't need to check if the cosponsors list is empty because
+        //it is possible to have removed cosponsors
         $this->resolutionRepo->updateCosponsors($resolution, $cosponsors);
 
         $resolution = $resolution->refresh();

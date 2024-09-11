@@ -6,7 +6,7 @@
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
         "prod": "npm run production",
-        "production":  "mix --production",
+        "production": "mix --production",
         "test": "jest NODE_OPTIONS=--experimental-vm-modules npx jest",
         "dev": "npm run development",
         "build": "vite build"
@@ -42,7 +42,6 @@
         "vue-axios": "^2.1.5",
         "vue-loader": "^15.9.7",
         "vue-multiselect": "^2.1.7",
-        "vue-router": "^3.3.4",
         "vue-template-compiler": "^2.6.10",
         "vuex": "^3.5.1"
     }

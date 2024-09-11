@@ -1,15 +1,14 @@
 <?php
 
-namespace Tests\Models;
+namespace Tests\Unit\Models;
 
 use App\Models\Committee;
 use App\Models\Plenary;
 use App\Models\Resolution;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Tests\TestCase;
 
 //use PHPUnit\Framework\TestCase;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request;
-use Tests\TestCase;
 
 
 class ResolutionTest extends TestCase
@@ -82,7 +81,54 @@ class ResolutionTest extends TestCase
     }
 
 
+
+    //=------------------------------
+
+    /** @test */
+    public function figureOutReadingtype(){
+        //preexisting
+        $resolution = Resolution::factory()->create();
+        $resolution->plenaries()->attach($this->plenary, ['reading_type' => 'action']);
+        $resolution->save();
+        $resolution->push();
+        $resolution->refresh();
+
+        $r = $resolution->belongsToMany(Plenary::class)->first();
+
+        dd($r);
+        $this->assertTrue(is_null($r));
+
+    }
+
+
+
+
+
+
+
+
+
+
     // ============
+    /** @test */
+    public function getReadingType(){
+
+        foreach (Resolution::READING_TYPES as $type){
+            $resolution = Resolution::factory()->create();
+            $resolution->plenaries()->attach($this->plenary, ['reading_type' => $type]);
+            $resolution->save();
+            $resolution->push();
+            $resolution->refresh();
+
+            //call
+            $result = $resolution->plenaries()->find($this->plenary->id)->pivot->reading_type;
+
+            //check
+            $this->assertEquals($type, $result);
+
+        }
+
+    }
 
     /** @test */
     public function setFirstReading()
@@ -157,7 +203,6 @@ class ResolutionTest extends TestCase
         $resolution = Resolution::factory()->create();
         $resolution->plenaries()->attach($this->plenary, ['is_first_reading' => 0]);
         $resolution->save();
-
 
         //call
         $plenary2 = Plenary::factory()->create();

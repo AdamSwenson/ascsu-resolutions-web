@@ -1,5 +1,6 @@
 import logging
 
+from ResolutionManager.Errors.ResolutionError import ResolutionError
 from ResolutionManager.Models.Plenaries import Plenary
 from ResolutionManager.Models.Resolutions import Resolution
 from ResolutionManager.Repositories.DocumentRepository import DocumentRepository
@@ -15,8 +16,10 @@ class ResolutionRepository(object):
         self.config = Configuration()
         self.logger = logging.getLogger(__name__)
 
-
-    def load_resolution(self, resolution_id, sponsor=None, cosponsors=[]):
+    def load_resolution(self, resolution_id, sponsor=None, cosponsors=[], reading_type=None):
+        """Loads resolution from database
+        This should be the only method by which resolutions are loaded
+        """
         # resolution_id = int(resolution_id)
         # resolution_id =11
         result = self.dao.conn.execute(f"select * from ascsu.resolutions where id = {resolution_id}").fetchone()
@@ -28,6 +31,7 @@ class ResolutionRepository(object):
                        committee=sponsor,
                        cosponsors=cosponsors,
                        status=result.status,
+                       reading_type=reading_type
                        # this has to come from junction table
                        # is_first_reading=result.is_first_reading,
                        # is_approved=result.is_approved)
@@ -144,7 +148,10 @@ class ResolutionRepository(object):
                 if len(doc_title) > 0:
                     rez.title = doc_title
             except Exception as e:
-                self.logger.warning(e)
+                # We use the error to format log message but
+                # don't raise it since we don't want to stop execution
+                m = ResolutionError(e, rez, 'load_all_resolutions')
+                self.logger.error(m)
 
             resolutions.append(rez)
         return resolutions
@@ -158,38 +165,43 @@ class ResolutionRepository(object):
         committee_repo = CommitteeRepository(self.dao)
         resolutions = []
 
-        query = f"select resolution_id, is_first_reading, is_waiver from ascsu.plenary_resolution where plenary_id = {plenary.id}"
+        query = f"select resolution_id, is_first_reading, is_waiver, reading_type from ascsu.plenary_resolution where plenary_id = {plenary.id}"
         results = self.dao.conn.execute(query)
 
-
-        # query = f"select id from ascsu.resolutions"
-        # results = self.dao.conn.execute(query)
-        for rid, first_reading, is_waiver in results:
-             # make sure casts correctly
-            first_reading = bool(first_reading)
+        for rid, first_reading, is_waiver, reading_type in results:
+            # self.logger.warning(rid)
+            # make sure casts correctly
+            # first_reading = bool(first_reading)
             # added AR-58
-            is_waiver = bool(is_waiver)
+            # is_waiver = bool(is_waiver)
 
             # print((rid, is_waiver, first_reading))
 
-        # sys.stderr.write(f"{rid} {first_reading} {is_waiver}" )
-
-            # rid = r[0]
-            sponsor = committee_repo.load_sponsor(rid)
-            cosponsors = committee_repo.load_cosponsors(rid)
-            rez = self.load_resolution(rid, sponsor, cosponsors)
-            rez.is_first_reading = first_reading
-            rez.is_waiver = is_waiver
+            # sys.stderr.write(f"{rid} {first_reading} {is_waiver}" )
             try:
+                # rid = r[0]
+                sponsor = committee_repo.load_sponsor(rid)
+                cosponsors = committee_repo.load_cosponsors(rid)
+                rez = self.load_resolution(resolution_id=rid, sponsor=sponsor, cosponsors=cosponsors,
+                                           reading_type=reading_type)
+                # self.logger.warning(f"borp {rez}")
+
+                # rez.is_first_reading = first_reading
+                # rez.is_waiver = is_waiver
+
                 doc_title = self.get_current_title_from_drive(rez)
                 if len(doc_title) > 0:
                     rez.title = doc_title
+
+                resolutions.append(rez)
+
             except Exception as e:
-                self.logger.warning(e)
+                # We use the error to format log message but
+                # don't raise it since we don't want to stop execution
+                m = ResolutionError(e, rez, 'load_all_resolutions_for_plenary')
+                self.logger.error(m)
 
-            resolutions.append(rez)
         return resolutions
-
 
     def set_as_action_item(self, plenary: Plenary, resolution: Resolution):
         """Marks the resolution as an action item for the plenary
@@ -204,11 +216,12 @@ class ResolutionRepository(object):
         INNER JOIN
         (SELECT * FROM ascsu.plenary_resolution p WHERE p.plenary_id = {plenary.id} AND p.resolution_id = {resolution.id}) AS b
         ON pr.id = b.id
-        SET pr.is_first_reading = 0
+        SET pr.is_first_reading = 0, pr.reading_type='action'
         WHERE pr.id = b.id"""
         self.dao.conn.execute(query)
         # Update the model object just in case it is needed
         resolution.is_first_reading = False
+        resolution.reading_type = 'action'
         return resolution
 
     def set_as_first_reading_item(self, plenary: Plenary, resolution: Resolution):
@@ -227,9 +240,10 @@ class ResolutionRepository(object):
         INNER JOIN
         (SELECT * FROM ascsu.plenary_resolution p WHERE p.plenary_id = {plenary.id} AND p.resolution_id = {resolution.id}) AS b
         ON pr.id = b.id
-        SET pr.is_first_reading = 1, pr.is_waiver = {waiver}
+        SET pr.is_first_reading = 1, pr.is_waiver = {waiver}, pr.reading_type = 'first'
         WHERE pr.id = b.id"""
         self.dao.conn.execute(query)
         # Update the model object just in case it is needed
         resolution.is_first_reading = True
+        resolution.reading_type = 'first'
         return resolution

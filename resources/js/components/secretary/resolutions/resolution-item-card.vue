@@ -1,50 +1,70 @@
 <template>
-    <div class="resolution-item-card card mb-3">
+    <div class="resolution-item-card card border-secondary mb-4">
         <div class="card-header h3 text-light">
-            {{ number }} {{ title }}
+            {{ resolutionNumber }} {{ title }}
         </div>
         <div class="card-body">
             <!--                <h5 class="card-title">Special title treatment</h5>-->
+            <div class="row mb-3">
+                <div class="col">
+                    <p class="card-text text-light"><span class="bold">Sponsor:</span> {{ sponsorName }}</p>
 
-            <p class="card-text text-light">First reading: {{ firstReadingName }}</p>
+                    <p class="card-text text-light"
+                       v-if="showCosponsors"><span class="fw-bold">Cosponsors:</span> {{ cosponsorNames }}</p>
 
-            <p class="card-text text-light"
-               v-for="p in secondReadingNames"
-               :key="p"
-            >Action item: {{ p }}</p>
+                </div>
 
-            <p class="card-text text-light">Sponsor: {{ sponsorName }}</p>
+                <div class="col">
+                    <p class="card-text text-light">First reading: {{ firstReadingName }}</p>
 
-            <p class="card-text text-light"
-               v-if="showCosponsors">Cosponsors: {{ cosponsorNames }}</p>
+                    <p class="card-text text-light"
+                       v-for="p in secondReadingNames"
+                       :key="p"
+                    >Action item: {{ p }}</p>
+
+                </div>
+            </div>
+
+            <p class="card-text text-light">
+                <a v-bind:href="url" target="_blank">{{ url }}</a>
+            </p>
 
             <p class="card-text">
                 <status-badge :resolution-id="resolutionId"></status-badge>&nbsp;&nbsp;
                 <reading-type-badge :resolution-id="resolutionId"></reading-type-badge>
             </p>
 
-            <!--            <p class="card-text text-light" v-if="isApproved || showWaiverIndicator"-->
-            <!--            ><span-->
-            <!--                class="badge rounded-pill bg-success"-->
-            <!--                v-if="isApproved"-->
-            <!--            >Approved</span> <span-->
-            <!--                class="badge rounded-pill bg-warning"-->
-            <!--                v-if="showWaiverIndicator"-->
-            <!--            >Waiver</span>-->
-
-            <!--            </p>-->
-
         </div>
+
+        <div class="card-body" v-if="isSecretary">
+            <div class="row">
+                <div class="col">
+                    <permissions-control-card :resolution-id="resolutionId"></permissions-control-card>
+
+                </div>
+
+                <div class="col">
+                    <approval-control-card :resolution-id="resolutionId"></approval-control-card>
+                </div>
+
+                <div class="col">
+                    <committee-control-card :resolution-id="resolutionId"></committee-control-card>
+                </div>
+            </div>
+        </div>
+
+
         <div class="card-footer">
-            <resolution-permission-button :resolution-id="resolutionId"></resolution-permission-button>&nbsp;&nbsp;&nbsp;&nbsp;
-            <approved-toggle-button :resolution-id="resolutionId"></approved-toggle-button>&nbsp;
-            <failed-toggle-button :resolution-id="resolutionId"></failed-toggle-button>&nbsp;&nbsp;&nbsp;&nbsp;
-            <second-reading-toggle-button :resolution-id="resolutionId"></second-reading-toggle-button>
-            <waiver-toggle-button :resolution-id="resolutionId"></waiver-toggle-button>
-            &nbsp &nbsp
-<!--            <committee-change-button :resolution-id="resolutionId"></committee-change-button> <committee-change-modal :resolution-id="resolutionId"></committee-change-modal>-->
-            <committee-changer :resolution-id="resolutionId"></committee-changer>
+            <p class="text-light">Manage resolution status </p>
+
+            <working-spinner v-show="showWorking"></working-spinner>
+            <status-toggle v-show="! showWorking"
+                           :resolutionId="resolutionId"
+                           v-on:reading-working="handleWorking"
+                           v-on:reading-done="handleDone"
+            ></status-toggle>
         </div>
+
     </div>
 </template>
 
@@ -60,10 +80,21 @@ import SecondReadingToggleButton from "./second-reading-toggle-button";
 import CommitteeChanger from "../../common/committee-change/committee-changer";
 import CommitteeChangeButton from "../../common/committee-change/committee-change-button";
 import CommitteeChangeModal from "../../common/committee-change/committee-change-modal";
+import StatusToggle from "../../committee/management/status-toggle";
+import resolutionMixin from "../../../mixins/resolutionMixin";
+import WorkingSpinner from "../../common/working-spinner";
+import PermissionsControlCard from "./controls/permissions-control-card";
+import ApprovalControlCard from "./controls/approval-control-card";
+import CommitteeControlCard from "./controls/committee-control-card";
 
 export default {
     name: "resolution-item-card",
     components: {
+        CommitteeControlCard,
+        ApprovalControlCard,
+        PermissionsControlCard,
+        WorkingSpinner,
+        StatusToggle,
         CommitteeChangeModal,
         CommitteeChangeButton,
         CommitteeChanger,
@@ -76,17 +107,26 @@ export default {
         ResolutionPermissionButton
     },
 
-    props: ['resolutionId', 'title', 'number', 'isApproved', 'firstReadingPlenary',
-        'actionPlenaries', 'waiver'],
+    props: [
+        'resolutionId',
+
+        // whether the approved/failed buttons and permissions show
+        'isSecretary'
+    ],
 
 
-    mixins: [],
+    mixins: [resolutionMixin],
 
     data: function () {
-        return {}
+        return {
+            isReadingTypeWorking: false
+        }
     },
 
     asyncComputed: {
+        showWorking: function () {
+            return this.isReadingTypeWorking;
+        },
         resolution: function () {
             return this.$store.getters.getResolution(this.resolutionId);
         },
@@ -106,8 +146,9 @@ export default {
         },
 
         showWaiverIndicator: function () {
-            if (!isReadyToRock(this.waiver)) return false;
-            return this.waiver === 1;
+            return this.isWaiver;
+            // if (!isReadyToRock(this.waiver)) return false;
+            // return this.waiver === 1;
         },
 
         /**
@@ -148,7 +189,18 @@ export default {
 
     computed: {},
 
-    methods: {}
+    methods: {
+        handleWorking: function () {
+            this.isReadingTypeWorking = true;
+            window.console.log('resolution-item-card', 'toggleIsReadingTypeWorking', 184, this.isReadingTypeWorking);
+        },
+
+        handleDone: function () {
+            this.isReadingTypeWorking = false;
+            window.console.log('resolution-item-card', 'handleDone', 189, this.isReadingTypeWorking);
+
+        }
+    }
 
 }
 </script>

@@ -16,9 +16,12 @@ class Configuration(object):
         if self.env == 'local':
             self.config_path = "/Users/ars62917/Dropbox/ResolutionManagerWeb/python-scripts/private/config.ini"
             self.BASE = "/Users/ars62917/Dropbox/ResolutionManagerWeb/python-scripts"
+            self.LOG_FOLDER = "/Users/ars62917/Dropbox/ResolutionManagerWeb/storage/logs"
+
         else:
             self.BASE = "/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts"
             self.config_path = "/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/python-scripts/private/config.ini"
+            self.LOG_FOLDER = "/home/ascsuadam-swensoncom/ascsu.adam-swenson.com/storage/logs"
 
         self.CREDENTIALS_FOLDER = f"{self.BASE}/private"
         self.CREDENTIALS_FILEPATH = f"{self.CREDENTIALS_FOLDER}/credentials.json"
@@ -43,8 +46,7 @@ class Configuration(object):
         self.RATIONALE_RANGE_NAME = self.configuration['resolutions']['RATIONALE_RANGE_NAME']
         self.DISTRIBUTION_LIST_RANGE_NAME = self.configuration['resolutions']['DISTRIBUTION_LIST_RANGE_NAME']
 
-        self.LOG_FOLDER = f"{self.BASE}/logs"
-        self.LOG_PATH = f"{self.LOG_FOLDER}/rez.log"
+        self.LOG_PATH = f"{self.LOG_FOLDER}/python.log"
 
         self.initialize_logging()
         # print(self.configuration)

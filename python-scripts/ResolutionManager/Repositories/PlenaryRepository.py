@@ -24,6 +24,7 @@ class PlenaryRepository(object):
                        plenary_folder_id=result.plenary_folder_id,
                        feedback_folder_id=result.feedback_folder_id,
                        second_reading_folder_id=result.second_reading_folder_id,
+                       working_drafts_folder_id=result.working_drafts_folder_id,
                        agenda_id=result.agenda_id)
 
     def update_agenda_id(self, plenary, agenda_id):
@@ -55,3 +56,10 @@ class PlenaryRepository(object):
             f"update ascsu.plenaries p set p.feedback_folder_id = '{feedback_folder_id}' where p.id = {plenary.id}")
         plenary.feedback_folder_id = feedback_folder_id
         return plenary
+
+    def update_working_drafts_folder(self, plenary, working_drafts_folder_id):
+        self.dao.conn.execute(
+            f"update ascsu.plenaries p set p.working_drafts_folder_id = '{working_drafts_folder_id}' where p.id = {plenary.id}")
+        plenary.working_drafts_folder_id = working_drafts_folder_id
+        return plenary
+
