@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\PythonScriptError;
+use App\Jobs\UpdateAgenda;
 use App\Models\Plenary;
 use App\Repositories\IPlenaryRepository;
 use App\Repositories\PlenaryRepository;
@@ -34,6 +35,9 @@ class PlenaryController extends Controller
             $scriptfile = 'web_make_folders_for_plenary.py';
             $this->handleScript($scriptfile, $plenary->id);
             $plenary->refresh();
+
+            UpdateAgenda::dispatchAfterResponse($plenary);
+
             return response()->json($plenary);
         }catch (PythonScriptError $error){
             return $error->getMessage();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ResolutionRequest;
 use App\Exceptions\PythonScriptError;
+use App\Jobs\UpdateAgenda;
 use App\Models\Committee;
 use App\Models\Plenary;
 use App\Models\Resolution;
@@ -162,6 +163,8 @@ class CommitteeController extends Controller
                 throw new PythonScriptError("No document created in drive. Please try again. If the problem persists, please notify the Secretary");
             }
 
+            UpdateAgenda::dispatchAfterResponse($plenary);
+
             return response()->json($resolution);
         } catch (PythonScriptError $error) {
             # Added in AR-103 / AR-104
@@ -198,6 +201,13 @@ class CommitteeController extends Controller
         $this->resolutionRepo->updateCosponsors($resolution, $cosponsors);
 
         $resolution = $resolution->refresh();
+
+        //plenary lookup AR-116
+        $plenary = Plenary::where('is_current', true)->first();
+        if (!is_null($plenary)) {
+            UpdateAgenda::dispatchAfterResponse($plenary);
+        }
+
         return response()->json($resolution);
 
     }

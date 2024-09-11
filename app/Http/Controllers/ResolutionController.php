@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\PythonScriptError;
+use App\Jobs\UpdateAgenda;
 use App\Models\Plenary;
 use App\Models\Resolution;
 use http\Env\Response;
@@ -97,11 +98,13 @@ class ResolutionController extends Controller
      * Makes the resolution an action item in the indicated plenary
      * Changed this to a toggle in AR-87
      *
-     * @deprecated As of AR-92
+     * DEPRECATED
      *
      * @param Plenary $plenary
      * @param Resolution $resolution
      * @return \Illuminate\Http\JsonResponse
+     * @deprecated As of AR-92
+     *
      */
     public function setAction(Plenary $plenary, Resolution $resolution)
     {
@@ -178,6 +181,8 @@ class ResolutionController extends Controller
             $j = $resolution->toArray();
             $j['readingType'] = $resolution->getReadingType($plenary);
 
+            UpdateAgenda::dispatchAfterResponse($plenary);
+
             return response()->json($j);
 
         } catch (PythonScriptError $error) {
@@ -203,7 +208,7 @@ class ResolutionController extends Controller
     public function forPlenary(Plenary $plenary)
     {
         $rezzies = [];
-        foreach ($plenary->resolutions as $r){
+        foreach ($plenary->resolutions as $r) {
             //We need to add reading type manually
             $j = $r->toArray();
             $j['readingType'] = $r->getReadingType($plenary);
@@ -215,9 +220,12 @@ class ResolutionController extends Controller
 
     /**
      * Sets or unsets resolution as a waiver item
+     *
+     * DEPRECATED
+     *
+     * @return void
      * @deprecated as of AR-92
      * Added in AR-81
-     * @return void
      */
     public function toggleWaiver(Resolution $resolution)
     {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\PythonScriptError;
+use App\Jobs\UpdateAgenda;
 use App\Models\Activity;
 use App\Models\Plenary;
 use Illuminate\Http\Request;
@@ -68,6 +69,11 @@ class SecretaryController extends Controller
      */
     public function createAgenda(Plenary $plenary)
     {
+
+//        UpdateAgenda::dispatchAfterResponse($plenary);
+//return $this->sendAjaxSuccess();
+
+
         try{
             $scriptfile = 'web_make_agenda.py';
             $result = $this->handleScript($scriptfile, $plenary->id);
