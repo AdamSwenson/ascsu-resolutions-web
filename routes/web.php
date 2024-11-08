@@ -42,6 +42,10 @@ Route::post('/secretary/agenda/{plenary}', [SecretaryController::class, 'createA
 Route::post('/secretary/styling/{plenary}', [SecretaryController::class, 'enforceStyling']);
 Route::post('/secretary/sync/{plenary}', [SecretaryController::class, 'syncTitles']);
 
+Route::post('secretary/plenary/{plenary}/start', [SecretaryController::class, 'startPlenary']);
+Route::post('secretary/plenary/{plenary}/stop', [SecretaryController::class, 'stopPlenary']);
+
+
 //Plenaries
 Route::post('/secretary/folders', [PlenaryController::class, 'createPlenary']);
 Route::post('plenary/current/{plenary}', [PlenaryController::class, 'setCurrent']);
@@ -62,6 +66,8 @@ Route::post('secretary/permissions/all/unlock/{plenary}', [PermissionsController
 Route::post('secretary/permissions/one/lock/{resolution}', [PermissionsController::class, 'lockEditingOne']);
 Route::post('secretary/permissions/one/unlock/{resolution}', [PermissionsController::class, 'unlockEditingOne']);
 Route::get('secretary/permissions/one/{resolution}', [PermissionsController::class, 'getPermissions']);
+
+
 
 //Route::get('resolution/approval/{resolution}', [ResolutionController::class, 'getApproval']);
 

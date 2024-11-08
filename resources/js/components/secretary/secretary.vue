@@ -9,6 +9,14 @@
         </div>
 
         <div class="row  row-cols-1 row-cols-md-3 g-4 mb-5 mt-5">
+
+<div class="col">
+    <single-control-card></single-control-card>
+</div>
+        </div>
+
+
+        <div class="row  row-cols-1 row-cols-md-3 g-4 mb-5 mt-5">
             <div class="col">
                 <public-folder-creation :plenaryId="plenaryId"></public-folder-creation>
             </div>
@@ -89,10 +97,12 @@ import ResolutionsCard from "./resolutions/resolutions-card";
 import CommitteeChanger from "../common/committee-change/committee-changer";
 import CommitteeChangeButton from "../common/committee-change/committee-change-button";
 import CommitteeChangeModal from "../common/committee-change/committee-change-modal";
+import SingleControlCard from "./singleControl/single-control-card";
 
 export default {
     name: "secretary",
     components: {
+        SingleControlCard,
         CommitteeChangeModal,
         CommitteeChangeButton,
         CommitteeChanger,

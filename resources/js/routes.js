@@ -51,6 +51,27 @@ module.exports = {
     },
 
     secretary: {
+
+        singleControl: {
+            startPlenary : (plenary) => {
+                let plenary_id = idify(plenary);
+                let url = normalizedRouteRoot()
+                url += 'secretary/plenary/'
+                url += plenary_id;
+                url += '/start'
+                return url
+            },
+
+            stopPlenary : (plenary) => {
+                let plenary_id = idify(plenary);
+                let url = normalizedRouteRoot()
+                url += 'secretary/plenary/'
+                url += plenary_id;
+                url += '/stop'
+                return url
+            }
+        },
+
         agenda: {
             createAgenda: (plenary) => {
                 let plenary_id = idify(plenary);

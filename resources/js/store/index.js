@@ -18,7 +18,7 @@ import errors from "./modules/errors";
 import plenaries from "./modules/plenaries";
 import resolutions from "./modules/resolutions";
 import startup from "./modules/startup";
-
+import singleControl from "./modules/singleControl";
 
 Vue.use(Vuex);
 
@@ -54,6 +54,7 @@ export default new Vuex.Store({
         errors,
         plenaries,
         resolutions,
+        singleControl,
         startup
     }
 

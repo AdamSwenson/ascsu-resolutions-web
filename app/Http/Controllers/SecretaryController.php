@@ -27,11 +27,11 @@ class SecretaryController extends Controller
      */
     public function enforceStyling(Plenary $plenary)
     {
-        try{
+        try {
             $scriptfile = 'web_enforce_styling.py';
             $result = $this->handleScript($scriptfile, $plenary->id);
             return response()->json($result->output());
-        }catch (PythonScriptError $error){
+        } catch (PythonScriptError $error) {
             return $error->getMessage();
         }
     }
@@ -74,11 +74,11 @@ class SecretaryController extends Controller
 //return $this->sendAjaxSuccess();
 
 
-        try{
+        try {
             $scriptfile = 'web_make_agenda.py';
             $result = $this->handleScript($scriptfile, $plenary->id);
             return response()->json($result->output());
-        }catch (PythonScriptError $error){
+        } catch (PythonScriptError $error) {
             return $error->getMessage();
         }
 
@@ -93,13 +93,13 @@ class SecretaryController extends Controller
     public function createPublic(Plenary $plenary)
     {
 
-        try{
+        try {
             $scriptfile = 'web_copy_first_readings_for_feedback.py';
             $this->handleScript($scriptfile, $plenary->id);
             $plenary->refresh();
             return response()->json($plenary);
 
-        }catch (PythonScriptError $error){
+        } catch (PythonScriptError $error) {
             return $error->getMessage();
         }
 
@@ -114,17 +114,38 @@ class SecretaryController extends Controller
      */
     public function syncTitles(Plenary $plenary)
     {
-        try{
+        try {
             $scriptfile = 'web_sync_titles.py';
             $result = $this->handleScript($scriptfile, $plenary->id);
             return response()->json($result->output());
 
-        }catch (PythonScriptError $error){
+        } catch (PythonScriptError $error) {
             return $error->getMessage();
         }
 
     }
 
+    /**
+     * One stop shop for everything which happens at beginning of plenary
+     *
+     * @param Plenary $plenary
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function startPlenary(Plenary $plenary)
+    {
+        return $this->sendAjaxSuccess();
 
+    }
+
+    /**
+     * One stop shop for everything that needs to happen at end of plenary
+     *
+     * @param Plenary $plenary
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function stopPlenary(Plenary $plenary)
+    {
+        return $this->sendAjaxSuccess();
+    }
 
 }
