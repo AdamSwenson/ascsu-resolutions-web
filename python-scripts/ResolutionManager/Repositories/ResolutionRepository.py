@@ -247,3 +247,25 @@ class ResolutionRepository(object):
         resolution.is_first_reading = True
         resolution.reading_type = 'first'
         return resolution
+
+
+    def set_as_working_item(self, plenary: Plenary, resolution: Resolution):
+        """Marks the resolution as an action item for the plenary
+        :type resolution: Resolution
+        :type plenary: Plenary
+        """
+        # NB, doesn't alter the waiver flag in case something that was supposed to be a first reading
+        # accidentally got moved into the action folder and then moved back out. Agenda creation doesn't
+        # use the waiver flag so shouldn't be a problem
+
+        query = f"""UPDATE ascsu.plenary_resolution AS pr
+        INNER JOIN
+        (SELECT * FROM ascsu.plenary_resolution p WHERE p.plenary_id = {plenary.id} AND p.resolution_id = {resolution.id}) AS b
+        ON pr.id = b.id
+        SET pr.is_first_reading = 0, pr.reading_type='working'
+        WHERE pr.id = b.id"""
+        self.dao.conn.execute(query)
+        # Update the model object just in case it is needed
+        resolution.is_first_reading = False
+        resolution.reading_type = 'working'
+        return resolution
