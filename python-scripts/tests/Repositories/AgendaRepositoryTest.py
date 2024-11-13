@@ -29,6 +29,7 @@ class AgendaRepositoryTest(TestCase):
         self.agenda_repo.resolution_repo = resolution_repo
 
     def test_check_setup(self):
+        self.prep_complete_lists()
         self.assertIsInstance(self.agenda_repo, AgendaRepository)
         # waivers = [resolution_factory() for i in range(1, 10)]
         for w in self.waivers:

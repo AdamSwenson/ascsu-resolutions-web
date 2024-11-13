@@ -39,8 +39,9 @@ class UpdateAgenda implements ShouldQueue
             Log::info("Agenda updated for plenary {$this->plenary->id}");
             //$result->output();
 
-            SyncReadingTypes::dispatchAfterResponse($this->plenary);
+            SyncReadingTypes::dispatch($this->plenary);
 
+//            SyncReadingTypes::dispatchAfterResponse($this->plenary);
 
         } catch (PythonScriptError $error) {
             Log::error($error->getMessage());

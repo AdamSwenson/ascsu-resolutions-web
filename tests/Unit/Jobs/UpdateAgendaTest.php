@@ -16,8 +16,10 @@ class UpdateAgendaTest extends TestCase
     public function handle()
     {
 //$plenary = Plenary::factory()->create(['id' => 133]);
-        $plenary = Plenary::find(133);
+        $plenary = Plenary::find(self::TEST_PLENARY_PROPS['id']);
 
         UpdateAgenda::dispatch($plenary);
+
+        
     }
 }
