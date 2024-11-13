@@ -190,10 +190,13 @@ class ResolutionRepository(object):
                 # rez.is_waiver = is_waiver
 
                 # dev HOTFIX AR-128
-                doc_title = ''
-                # doc_title = self.get_current_title_from_drive(rez)
-                if len(doc_title) > 0:
-                    rez.title = doc_title
+                try:
+                    doc_title = ''
+                    doc_title = self.get_current_title_from_drive(rez)
+                    if len(doc_title) > 0:
+                        rez.title = doc_title
+                except Exception as e:
+                    pass
 
                 resolutions.append(rez)
 
