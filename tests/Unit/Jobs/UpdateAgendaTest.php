@@ -20,6 +20,6 @@ class UpdateAgendaTest extends TestCase
 
         UpdateAgenda::dispatch($plenary);
 
-        
+
     }
 }

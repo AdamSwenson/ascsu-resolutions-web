@@ -248,7 +248,6 @@ class ResolutionRepository(object):
         resolution.reading_type = 'first'
         return resolution
 
-
     def set_as_working_item(self, plenary: Plenary, resolution: Resolution):
         """Marks the resolution as an action item for the plenary
         :type resolution: Resolution

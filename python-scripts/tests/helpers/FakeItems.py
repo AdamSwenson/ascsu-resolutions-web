@@ -10,11 +10,14 @@ TEST_PLENARY_PROPS = {
     'plenary_folder_id' : '1T2ax3veqABEx7GQhDbZ7RTVCvKqQ1GcK',
     'first_reading_folder_id' : '1n3d7sCh9wJYa76F5BRquYXVtda_jD6yI',
     'agenda_id' : '1OSUJfodzqPOo9udNcTsR1fSb4jXNulJcYC2Y2aXrr8s',
-    'working_drafts_folder_id' : '1r7pBSO3CkdUl7p7TtoWhq5xoFynDSGFf'
+    'working_drafts_folder_id' : '1r7pBSO3CkdUl7p7TtoWhq5xoFynDSGFf',
+    # 'year' : 2024,
+    # 'month' : 'September',
+    'thursday_date' : '2024-09-22'
 }
 
 def get_test_plenary():
     """Creates a plenary object with the properties that
     exist in the database
     """
-    return Plenary(TEST_PLENARY_PROPS)
+    return Plenary(**TEST_PLENARY_PROPS)

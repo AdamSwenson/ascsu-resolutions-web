@@ -33,7 +33,7 @@ class MyTestCase(unittest.TestCase):
         :return:
         """
 
-        http = HttpMock('mock-document-response.json', {'status': '200'})
+        http = HttpMock('mock-responses/mock-document-response.json', {'status': '200'})
         api_key = 'your_api_key'
         service = build('books', 'v1', http=http, developerKey=api_key)
         request = service.volumes().list(source='public', q='android')

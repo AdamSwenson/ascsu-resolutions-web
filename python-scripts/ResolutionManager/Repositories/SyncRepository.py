@@ -52,17 +52,21 @@ class SyncRepository(object):
             self.db_plenary_resolutions = self.resolution_repo.load_all_resolutions_for_plenary(self.plenary)
         except Exception as e:
             print('Error loading resolutions from db ', e)
+            self.logger.error(f'Error loading resolutions from db \n{e}', )
 
         # Get all resolutions for the plenary from the drive
         self._load_from_drive()
 
         self._find_deleted_resolutions()
+        self._find_resolutions_to_update_to_first()
+        self._find_resolutions_to_update_to_action()
+        self._find_resolutions_to_update_to_working()
 
         self._sync_action_resolutions()
         self._sync_working_resolutions()
         self._sync_first_resolutions()
 
-        print(self.__dict__)
+        # print(self.__dict__)
 
     @property
     def extant_files(self):
@@ -74,17 +78,24 @@ class SyncRepository(object):
         Populates internal lists of file ids
         """
         try:
+            print('Action item files in drive')
+            # NB, the raw result from drive is a dict with the key id
+            # that corresponds to document_id in the Resolution object
+            b = self.file_repo.list_files(self.plenary.second_reading_folder_id)
             self.action_item_file_ids = [f['id'] for f in
                                          self.file_repo.list_files(self.plenary.second_reading_folder_id)]
-        except TypeError:
+        except TypeError as e:
+            print(e)
             pass
 
         try:
+            print('First reading files in drive')
             self.first_reading_file_ids = [f['id'] for f in
                                            self.file_repo.list_files(self.plenary.first_reading_folder_id)]
         except TypeError:
             pass
         try:
+            print('Working files in drive')
             self.working_file_ids = [f['id'] for f in self.file_repo.list_files(self.plenary.working_drafts_folder_id)]
         except TypeError:
             pass
@@ -92,6 +103,7 @@ class SyncRepository(object):
     def _search_plenary_resolutions(self, file_id):
         """Gets the resolution object for the given document id"""
         a = [r for r in self.db_plenary_resolutions if r.document_id == file_id]
+        print('search', a)
         if len(a) > 0: return a[0]
         return None
 
@@ -110,9 +122,12 @@ class SyncRepository(object):
                 """
                 self.logger.warning(m)
 
-    def _find_resolutions_to_update_to_action(self, action_item_file_ids):
-        for f in action_item_file_ids:
+    def _find_resolutions_to_update_to_action(self):
+        print(self.action_item_file_ids)
+        for f in self.action_item_file_ids:
             r = self._search_plenary_resolutions(f)
+
+            print(r)
             if r is not None and r.reading_type != 'action':
                 self.update_to_action_resolutions.append(r)
 
