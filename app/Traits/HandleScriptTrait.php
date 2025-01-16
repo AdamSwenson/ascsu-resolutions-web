@@ -17,7 +17,6 @@ trait HandleScriptTrait
     public function handleScript(string $filename, int|array|string $inputs = []): \Illuminate\Process\ProcessResult|\Illuminate\Contracts\Process\ProcessResult
     {
 
-
         $command = config('app.pythonBin');
         $command .= " $filename ";
 

@@ -7,6 +7,14 @@ __author__ = 'adam'
 from sqlalchemy import create_engine
 from ResolutionManager.config.Configuration import Configuration
 
+class Dao(object):
+
+    def __init__(self):
+        self.conn = None
+        self.engine = None
+
+    def connect(self, test=False, local=False):
+        pass
 #
 # class SqliteDao:
 #
@@ -27,7 +35,7 @@ from ResolutionManager.config.Configuration import Configuration
 #         self.engine = create_engine( dsn )
 
 
-class MySqlDao:
+class MySqlDao(Dao):
     """
     This handles interactions with mysql databases
     """

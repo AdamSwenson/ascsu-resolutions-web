@@ -12,11 +12,17 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-class UpdateAgenda implements ShouldQueue
+/**
+ * Updates reading types the database based on
+ * what drive folders resolution files are in
+ */
+class SyncReadingTypes implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, HandleScriptTrait;
 
     public Plenary $plenary;
+
+    const SCRIPT_FILE = 'web_sync_reading_type.py';
 
     /**
      * Create a new job instance.
@@ -32,16 +38,11 @@ class UpdateAgenda implements ShouldQueue
     public function handle(): void
     {
         try {
-            $scriptfile = 'web_make_agenda.py';
 
-            $this->handleScript($scriptfile, $this->plenary->id);
+            $this->handleScript(self::SCRIPT_FILE, $this->plenary->id);
 
-            Log::info("Agenda updated for plenary {$this->plenary->id}");
+            Log::info("Reading types synced for plenary {$this->plenary->id}");
             //$result->output();
-
-            SyncReadingTypes::dispatch($this->plenary);
-
-//            SyncReadingTypes::dispatchAfterResponse($this->plenary);
 
         } catch (PythonScriptError $error) {
             Log::error($error->getMessage());
