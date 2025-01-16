@@ -70,6 +70,7 @@ class AgendaRepository(object):
         """
         Creates a copy of the agenda template and moves it to appropriate folder.
         Sets the agenda_id on the plenary
+        :type plenary: Plenary
         :return:
         """
         template_id = self.config.AGENDA_TEMPLATE_ID
@@ -84,7 +85,8 @@ class AgendaRepository(object):
         """
         This creates a new agenda file if none already exists. If one does, it will
         wipe it clean
-        :param plenary:
+        :param plenary: The plenary to create the agenda for
+        :type plenary: Plenary
         :return:
         """
         if plenary.agenda_id is None:

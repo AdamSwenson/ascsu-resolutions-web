@@ -9,20 +9,21 @@ class SyncRepository(object):
     """Handles syncing any manual changes with the database"""
 
     def __init__(self, dao):
+        """
+        :type dao: Dao
+        """
         self.dao = dao
         self.logger = logging.getLogger(__name__)
 
         self.db_plenary_resolutions = []
         self.plenary = None
 
-        # self.plenary_repo = PlenaryRepository(dao)
         self.resolution_repo = ResolutionRepository(dao)
         self.file_repo = FileRepository()
 
         self.action_item_file_ids = []
         self.first_reading_file_ids = []
         self.working_file_ids = []
-        # self.extant_files = []
 
         # resolutions we need to do something with
         self.deleted_files = []
@@ -30,20 +31,10 @@ class SyncRepository(object):
         self.update_to_first_resolutions = []
         self.update_to_working_resolutions = []
 
-        # dict of things that have been done outside of the app (i.e., directly in the drive)
-        # self.actions_taken = {
-        #     'moved_to_action': [],
-        #     'moved_to_first': [],
-        #     'moved_to_working': []
-        # }
-        #
-        # self.actions_needing_review = {
-        #     'deleted_by_user': []
-        # }
-
     def sync(self, plenary):
         """Handles all syncing.
         Main called method
+        :type plenary: Plenary
         """
         self.plenary = plenary
 
@@ -57,16 +48,16 @@ class SyncRepository(object):
         # Get all resolutions for the plenary from the drive
         self._load_from_drive()
 
+        # Figure out what has changed
         self._find_deleted_resolutions()
         self._find_resolutions_to_update_to_first()
         self._find_resolutions_to_update_to_action()
         self._find_resolutions_to_update_to_working()
 
+        # Make the changes in drive
         self._sync_action_resolutions()
         self._sync_working_resolutions()
         self._sync_first_resolutions()
-
-        # print(self.__dict__)
 
     @property
     def extant_files(self):
@@ -81,7 +72,6 @@ class SyncRepository(object):
             print('Action item files in drive')
             # NB, the raw result from drive is a dict with the key id
             # that corresponds to document_id in the Resolution object
-            b = self.file_repo.list_files(self.plenary.second_reading_folder_id)
             self.action_item_file_ids = [f['id'] for f in
                                          self.file_repo.list_files(self.plenary.second_reading_folder_id)]
         except TypeError as e:
@@ -100,9 +90,12 @@ class SyncRepository(object):
         except TypeError:
             pass
 
-    def _search_plenary_resolutions(self, file_id):
-        """Gets the resolution object for the given document id"""
-        a = [r for r in self.db_plenary_resolutions if r.document_id == file_id]
+    def _search_plenary_resolutions(self, document_id):
+        """Gets the resolution object for the given document id
+        :param document_id: Id of the document in google drive (will be a long hash-like string)
+        :type document_id: str
+        """
+        a = [r for r in self.db_plenary_resolutions if r.document_id == document_id]
         print('search', a)
         if len(a) > 0: return a[0]
         return None
