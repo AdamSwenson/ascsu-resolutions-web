@@ -23,8 +23,8 @@ class Templates(object):
     PUBLIC_FOLDER_NAME = "For campus feedback"
     FILENAME_TEMPLATE = "{} FOR CAMPUS FEEDBACK"
     RESOLUTIONS_ROOT_NAME = 'Resolutions'
-    FIRST_READING_FOLDER_NAME = 'First reading'
-    ACTION_FOLDER_NAME = 'Action items'
+    FIRST_READING_FOLDER_NAME = 'First readings'
+    ACTION_FOLDER_NAME = 'Second readings'
     WORKING_DRAFTS_FOLDER_NAME = 'Working drafts'
 
     # Plenary

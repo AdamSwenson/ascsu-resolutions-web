@@ -123,7 +123,7 @@ class AgendaRepository(object):
         return requests
 
     def make_action_items_heading_requests(self):
-        text = "\nAction Items \n"
+        text = "\nSecond Readings \n"
 
         requests = [
             RequestRepository.make_insert_text_request(self.idx, text),
@@ -132,6 +132,18 @@ class AgendaRepository(object):
 
         self.idx += len(text)
         return requests
+
+    def make_waiver_items_heading_requests(self):
+        text = "\nFirst Reading Waivers \n"
+
+        requests = [
+            RequestRepository.make_insert_text_request(self.idx, text),
+            RequestRepository.make_bold_text_request(self.idx, self.idx + len(text))
+        ]
+
+        self.idx += len(text)
+        return requests
+
 
     def make_resolution_list_item_requests(self, resolution):
         """Returns a list of request objects required to make the entry"""
@@ -216,7 +228,7 @@ class AgendaRepository(object):
         pt = self.make_page_title_requests(plenary)
         requests.extend(pt)
 
-        # Make action items header and update index
+        # Make second reading items header and update index
         aih = self.make_action_items_heading_requests()
         requests.extend(aih)
 
@@ -227,6 +239,10 @@ class AgendaRepository(object):
             except Exception as e:
                 m = f"\n=======Agenda creation error=======\nAction\n{e}\n{r}\n==============\n"
                 self.logger.error(m)
+
+        # Make waiver items header and update index
+        aih = self.make_waiver_items_heading_requests()
+        requests.extend(aih)
 
         for w in self.waivers:
             try:
