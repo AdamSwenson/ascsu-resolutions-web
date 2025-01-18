@@ -262,6 +262,8 @@ class ResolutionRepository(object):
         # accidentally got moved into the action folder and then moved back out. Agenda creation doesn't
         # use the waiver flag so shouldn't be a problem
 
+
+
         query = f"""UPDATE ascsu.plenary_resolution AS pr
         INNER JOIN
         (SELECT * FROM ascsu.plenary_resolution p WHERE p.plenary_id = {plenary.id} AND p.resolution_id = {resolution.id}) AS b
@@ -270,6 +272,6 @@ class ResolutionRepository(object):
         WHERE pr.id = b.id"""
         self.dao.conn.execute(query)
         # Update the model object just in case it is needed
-        resolution.is_first_reading = False
+        # resolution.is_first_reading = False
         resolution.reading_type = 'working'
         return resolution

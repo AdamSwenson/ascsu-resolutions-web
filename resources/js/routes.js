@@ -194,6 +194,27 @@ module.exports = {
 
     },
 
+    working : {
+        bulk : (plenary) => {
+            let plenary_id = idify(plenary);
+            let url = normalizedRouteRoot();
+            url += 'resolution/working/bulk/';
+            url += plenary_id;
+            return url;
+        },
+
+        single : (plenary, resolution) => {
+            let plenary_id = idify(plenary);
+            let resolution_id = idify(resolution);
+            let url = normalizedRouteRoot();
+            url += 'resolution/working/';
+            url += plenary_id;
+            url += '/'
+            url += resolution_id
+            return url;
+        }
+    },
+
     resolutions : {
         setReadingType: (plenary, resolution) => {
             let plenary_id = idify(plenary);

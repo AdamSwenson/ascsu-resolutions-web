@@ -64,8 +64,8 @@ class Resolution(object):
     def waiver(self):
         # todo This is inconsistent should be is_waiver
 
-        # todo Replace with reading_type
-        return self.reading_type == 'waiver'
+        # todo Replace so reading_type covers all
+        return self.is_waiver == 1 or self.reading_type == 'waiver'
         return self.is_waiver == 1 or self.is_waiver is True
 
     @property

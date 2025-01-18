@@ -6,6 +6,7 @@ use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\PlenaryController;
 use App\Http\Controllers\ResolutionController;
 use App\Http\Controllers\SecretaryController;
+use App\Http\Controllers\WorkingDraftsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -58,6 +59,8 @@ Route::resource('resolutions', ResolutionController::class);
 Route::post('/resolution/action/{plenary}/{resolution}', [ResolutionController::class, 'setAction']);
 Route::post('/resolution/waiver/toggle/{resolution}', [ResolutionController::class, 'toggleWaiver']);
 Route::post('resolution/approval/{resolution}', [ResolutionController::class, 'setApprovalStatus']);
+Route::post('resolution/working/bulk/{plenary}', [WorkingDraftsController::class, 'bulk_move_from_plenary']);
+Route::post('resolution/working/{plenary}/{resolution}]', [WorkingDraftsController::class, 'move_to_plenary']);
 
 
 //Permissions

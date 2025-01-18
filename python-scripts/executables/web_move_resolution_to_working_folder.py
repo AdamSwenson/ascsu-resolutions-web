@@ -17,7 +17,7 @@ from ResolutionManager.config.Templates import Templates
 
 
 def main(plenary_id=None, resolution_id=None):
-    """Moves the indicated resolution to the first reading folder for
+    """Moves the indicated resolution to the working drafts folder for
     the indicated plenary
     Added in AR-89
     """
