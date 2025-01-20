@@ -1,5 +1,6 @@
 import * as routes from "../../routes";
 import {getById} from "../../utilities/object.utilities";
+import {isReadyToRock} from "../../utilities/readiness.utilities";
 
 
 const state = {
@@ -69,6 +70,47 @@ const actions = {
  *    getThing: (state, getters) => {}
  */
 const getters = {
+    /**
+     * Returns only plenaries for the academic year
+     */
+    getAcademicYearPlenaries: (state, getters) => {
+        let plenary = getters.getCurrentPlenary;
+        if (!isReadyToRock(plenary)) return [];
+
+        let plenaryDate = new Date(plenary.thursday_date);
+        //NB, January is 0
+        let month = plenaryDate.getMonth();
+        let year = plenaryDate.getFullYear();
+        // window.console.log('plenaries', '', 91, month, year);
+        let out = [];
+        _.forEach(state.plenaries, (p) => {
+            if (p.id !== plenary.id) {
+                let date = new Date(p.thursday_date);
+
+                if (month >= 7) {
+                    //we are in the fall semester, so return the next spring also
+                    if ((date.getFullYear() === year && date.getMonth() >= 7) ||
+                        (date.getFullYear() === year + 1 && date.getMonth() < 7)) {
+                        out.push(p);
+                    }
+
+                } else {
+                    //we are in spring so return previous fall
+                    if ((date.getFullYear() === year && date.getMonth() < 7) ||
+                        (date.getFullYear() === year - 1 && date.getMonth() >= 7)) {
+                        out.push(p);
+                        // window.console.log('plenaries', 'c', 105, date.getFullYear() - 1);
+                    }
+
+                }
+            }
+        });
+
+        return out;
+
+    },
+
+
     getPlenaries: (state) => {
         return state.plenaries;
     },
@@ -77,7 +119,7 @@ const getters = {
         return getById(state.plenaries, state.currentPlenaryId);
     },
 
-    getCurrentPlenaryId : (state) => {
+    getCurrentPlenaryId: (state) => {
         return state.currentPlenaryId;
     }
 

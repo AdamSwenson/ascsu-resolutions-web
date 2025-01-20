@@ -10,9 +10,13 @@
 
         <div class="row  row-cols-1 row-cols-md-3 g-4 mb-5 mt-5">
 
-<div class="col">
-    <single-control-card></single-control-card>
-</div>
+            <div class="col">
+                <single-control-card></single-control-card>
+            </div>
+
+            <div class="col">
+                <bulk-move-dialog></bulk-move-dialog>
+            </div>
         </div>
 
 
@@ -77,7 +81,6 @@
         </div>
 
 
-
         <page-footer></page-footer>
     </div>
 
@@ -98,10 +101,12 @@ import CommitteeChanger from "../common/committee-change/committee-changer";
 import CommitteeChangeButton from "../common/committee-change/committee-change-button";
 import CommitteeChangeModal from "../common/committee-change/committee-change-modal";
 import SingleControlCard from "./singleControl/single-control-card";
+import BulkMoveDialog from "./moveControls/bulk-move-dialog";
 
 export default {
     name: "secretary",
     components: {
+        BulkMoveDialog,
         SingleControlCard,
         CommitteeChangeModal,
         CommitteeChangeButton,
