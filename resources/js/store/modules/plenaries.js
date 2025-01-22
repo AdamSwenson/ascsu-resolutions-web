@@ -84,7 +84,8 @@ const getters = {
         // window.console.log('plenaries', '', 91, month, year);
         let out = [];
         _.forEach(state.plenaries, (p) => {
-            if (p.id !== plenary.id) {
+            //dev we actually do want the current plenary to be an option
+            // if (p.id !== plenary.id) {
                 let date = new Date(p.thursday_date);
 
                 if (month >= 7) {
@@ -103,7 +104,7 @@ const getters = {
                     }
 
                 }
-            }
+            // }
         });
 
         return out;

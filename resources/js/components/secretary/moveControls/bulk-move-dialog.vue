@@ -1,18 +1,25 @@
 <template>
     <div class="bulk-move-dialog card">
-        <div class="card-title text-light">Move first readings and working drafts</div>
+        <h3 class="card-title text-light">Move first readings and working drafts</h3>
 
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-md-6">
                 <div class="card">
-                    <div class="card-title text-light">From plenary</div>
-                    <div class="card-body" v-show="source.plenaryName">
-                        <div class="card-text text-light">{{ source.plenaryName }}</div>
+
+                    <div class="card-header text-light">
+                        <h4 class="card-title">From plenary</h4>
                     </div>
+
+                    <div class="card-body" v-show="source.plenaryName">
+                        <p class="card-text text-light ">{{ source.plenaryName }}</p>
+                    </div>
+
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item" v-for="p in sourcePlenaries" :key="p.thursday_date">
-                                <a href="#" class="btn btn-sm btn-outline-primary"
+                                <a href="#"
+                                   class="btn btn-sm "
+                                   v-bind:class="p.plenaryName === source.plenaryName ? 'btn-primary' : 'btn-outline-primary' "
                                    v-on:click="setAsSource(p)"
                                 >Select</a> {{ p.plenaryName }}
                             </li>
@@ -22,36 +29,40 @@
                 </div>
             </div>
 
-            <div class="col-sm-6">
+            <div class="col-md-6">
                 <div class="card">
-                    <div class="card-title text-light">To plenary</div>
+
+                    <div class="card-header text-light">
+                        <h4 class="card-title text-light">To plenary</h4>
+                    </div>
+
                     <div class="card-body" v-show="destination.plenaryName">
                         <div class="card-text text-light">{{ destination.plenaryName }}</div>
                     </div>
+
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item" v-for="p in destinationPlenaries" :key="p.thursday_date">
-                                <a href="#" class="btn btn-sm btn-outline-primary"
+                                <a href="#"
+                                   class="btn btn-sm "
+                                   v-bind:class="p.plenaryName === destination.plenaryName ? 'btn-primary' : 'btn-outline-primary' "
                                    v-on:click="setAsDestination(p)"
                                 >Select</a> {{ p.plenaryName }}
                             </li>
                         </ul>
 
                     </div>
-                    <!--                    <li class="list-group-item">-->
-                    <!--                        <a href="#" class="btn btn-sm "-->
-                    <!--                           v-bind:class="styling"-->
-                    <!--                           v-on:click="setAsSource"-->
-                    <!--                        >Select</a> {{ plenaryName }}-->
-                    <!--                    </li>-->
-                    <!--                    <div class="card-body">-->
-                    <!--                    </div>-->
+
                 </div>
             </div>
             .
         </div>
         <div class="card-footer" v-show="showButton">
-            <button class="btn btn-warning" v-on:click="handleMove">Move</button>
+            <working-spinner v-if="isWorking"></working-spinner>
+
+            <button class="btn btn-warning" v-else
+                    v-on:click="handleMove"
+            >Move</button>
         </div>
 
     </div>
@@ -61,10 +72,11 @@
 <script>
 import plenaryMixin from "../../../mixins/plenaryMixin";
 import {isReadyToRock} from "../../../utilities/readiness.utilities";
+import WorkingSpinner from "../../common/working-spinner";
 
 export default {
     name: "bulk-move-dialog",
-
+    components: {WorkingSpinner},
     props: [],
 
     mixins: [plenaryMixin,],
@@ -72,7 +84,8 @@ export default {
     data: function () {
         return {
             source: '',
-            destination: ''
+            destination: '',
+            isWorking : false
         }
     },
 
@@ -103,7 +116,15 @@ export default {
         },
 
         handleMove: function () {
+            let me = this;
+            //dev Check that plenaries aren't the same
             window.console.log('bulk-move-dialog', 'handleMove', 100, this.source, this.destination);
+            let payload = {sourcePlenary: this.source, destinationPlenary: this.destination};
+            me.isWorking = true;
+            this.$store.dispatch('moveResolutionsBetweenPlenaries', payload).then((r) => {
+                me.isWorking = false;
+            });
+
         }
     }
 

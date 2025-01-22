@@ -6336,16 +6336,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../mixins/plenaryMixin */ "./resources/js/mixins/plenaryMixin.js");
 /* harmony import */ var _mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../utilities/readiness.utilities */ "./resources/js/utilities/readiness.utilities.js");
+/* harmony import */ var _common_working_spinner__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../common/working-spinner */ "./resources/js/components/common/working-spinner.vue");
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "bulk-move-dialog",
+  components: {
+    WorkingSpinner: _common_working_spinner__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
   props: [],
   mixins: [(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_0___default())],
   data: function data() {
     return {
       source: '',
-      destination: ''
+      destination: '',
+      isWorking: false
     };
   },
   asyncComputed: {
@@ -6369,7 +6375,17 @@ __webpack_require__.r(__webpack_exports__);
       this.destination = v;
     },
     handleMove: function handleMove() {
+      var me = this;
+      //dev Check that plenaries aren't the same
       window.console.log('bulk-move-dialog', 'handleMove', 100, this.source, this.destination);
+      var payload = {
+        sourcePlenary: this.source,
+        destinationPlenary: this.destination
+      };
+      me.isWorking = true;
+      this.$store.dispatch('moveResolutionsBetweenPlenaries', payload).then(function (r) {
+        me.isWorking = false;
+      });
     }
   }
 });
@@ -8956,17 +8972,15 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("div", {
     staticClass: "bulk-move-dialog card"
-  }, [_c("div", {
+  }, [_c("h3", {
     staticClass: "card-title text-light"
   }, [_vm._v("Move first readings and working drafts")]), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_c("div", {
-    staticClass: "col-sm-6"
+    staticClass: "col-md-6"
   }, [_c("div", {
     staticClass: "card"
-  }, [_c("div", {
-    staticClass: "card-title text-light"
-  }, [_vm._v("From plenary")]), _vm._v(" "), _c("div", {
+  }, [_vm._m(0), _vm._v(" "), _c("div", {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -8974,7 +8988,7 @@ var render = function render() {
       expression: "source.plenaryName"
     }],
     staticClass: "card-body"
-  }, [_c("div", {
+  }, [_c("p", {
     staticClass: "card-text text-light"
   }, [_vm._v(_vm._s(_vm.source.plenaryName))])]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
@@ -8985,7 +8999,8 @@ var render = function render() {
       key: p.thursday_date,
       staticClass: "list-group-item"
     }, [_c("a", {
-      staticClass: "btn btn-sm btn-outline-primary",
+      staticClass: "btn btn-sm",
+      "class": p.plenaryName === _vm.source.plenaryName ? "btn-primary" : "btn-outline-primary",
       attrs: {
         href: "#"
       },
@@ -8996,12 +9011,10 @@ var render = function render() {
       }
     }, [_vm._v("Select")]), _vm._v(" " + _vm._s(p.plenaryName) + "\n                        ")]);
   }), 0)])])]), _vm._v(" "), _c("div", {
-    staticClass: "col-sm-6"
+    staticClass: "col-md-6"
   }, [_c("div", {
     staticClass: "card"
-  }, [_c("div", {
-    staticClass: "card-title text-light"
-  }, [_vm._v("To plenary")]), _vm._v(" "), _c("div", {
+  }, [_vm._m(1), _vm._v(" "), _c("div", {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -9020,7 +9033,8 @@ var render = function render() {
       key: p.thursday_date,
       staticClass: "list-group-item"
     }, [_c("a", {
-      staticClass: "btn btn-sm btn-outline-primary",
+      staticClass: "btn btn-sm",
+      "class": p.plenaryName === _vm.destination.plenaryName ? "btn-primary" : "btn-outline-primary",
       attrs: {
         href: "#"
       },
@@ -9038,14 +9052,30 @@ var render = function render() {
       expression: "showButton"
     }],
     staticClass: "card-footer"
-  }, [_c("button", {
+  }, [_vm.isWorking ? _c("working-spinner") : _c("button", {
     staticClass: "btn btn-warning",
     on: {
       click: _vm.handleMove
     }
-  }, [_vm._v("Move")])])]);
+  }, [_vm._v("Move")])], 1)]);
 };
-var staticRenderFns = [];
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "card-header text-light"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("From plenary")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "card-header text-light"
+  }, [_c("h4", {
+    staticClass: "card-title text-light"
+  }, [_vm._v("To plenary")])]);
+}];
 render._withStripped = true;
 
 
@@ -10612,25 +10642,28 @@ module.exports = {
         url += resolution_id;
         return url;
       }
-    }
-  },
-  working: {
-    bulk: function bulk(plenary) {
-      var plenary_id = idify(plenary);
-      var url = normalizedRouteRoot();
-      url += 'resolution/working/bulk/';
-      url += plenary_id;
-      return url;
     },
-    single: function single(plenary, resolution) {
-      var plenary_id = idify(plenary);
-      var resolution_id = idify(resolution);
-      var url = normalizedRouteRoot();
-      url += 'resolution/working/';
-      url += plenary_id;
-      url += '/';
-      url += resolution_id;
-      return url;
+    working: {
+      bulk: function bulk(sourcePlenary, destinationPlenary) {
+        var sourceId = idify(sourcePlenary);
+        var destinationId = idify(destinationPlenary);
+        var url = normalizedRouteRoot();
+        url += 'resolution/working/bulk/';
+        url += sourceId;
+        url += '/';
+        url += destinationId;
+        return url;
+      },
+      single: function single(plenary, resolution) {
+        var plenary_id = idify(plenary);
+        var resolution_id = idify(resolution);
+        var url = normalizedRouteRoot();
+        url += 'resolution/working/';
+        url += plenary_id;
+        url += '/';
+        url += resolution_id;
+        return url;
+      }
     }
   },
   resolutions: {
@@ -11190,21 +11223,22 @@ var getters = {
     // window.console.log('plenaries', '', 91, month, year);
     var out = [];
     _.forEach(state.plenaries, function (p) {
-      if (p.id !== plenary.id) {
-        var date = new Date(p.thursday_date);
-        if (month >= 7) {
-          //we are in the fall semester, so return the next spring also
-          if (date.getFullYear() === year && date.getMonth() >= 7 || date.getFullYear() === year + 1 && date.getMonth() < 7) {
-            out.push(p);
-          }
-        } else {
-          //we are in spring so return previous fall
-          if (date.getFullYear() === year && date.getMonth() < 7 || date.getFullYear() === year - 1 && date.getMonth() >= 7) {
-            out.push(p);
-            // window.console.log('plenaries', 'c', 105, date.getFullYear() - 1);
-          }
+      //dev we actually do want the current plenary to be an option
+      // if (p.id !== plenary.id) {
+      var date = new Date(p.thursday_date);
+      if (month >= 7) {
+        //we are in the fall semester, so return the next spring also
+        if (date.getFullYear() === year && date.getMonth() >= 7 || date.getFullYear() === year + 1 && date.getMonth() < 7) {
+          out.push(p);
+        }
+      } else {
+        //we are in spring so return previous fall
+        if (date.getFullYear() === year && date.getMonth() < 7 || date.getFullYear() === year - 1 && date.getMonth() >= 7) {
+          out.push(p);
+          // window.console.log('plenaries', 'c', 105, date.getFullYear() - 1);
         }
       }
+      // }
     });
     return out;
   },
@@ -11364,10 +11398,25 @@ var actions = {
       dispatch('forceReload');
     });
   },
-  initializeResolutions: function initializeResolutions(_ref6) {
+  moveResolutionsBetweenPlenaries: function moveResolutionsBetweenPlenaries(_ref6, payload) {
     var dispatch = _ref6.dispatch,
       commit = _ref6.commit,
       getters = _ref6.getters;
+    var sourcePlenary = payload.sourcePlenary,
+      destinationPlenary = payload.destinationPlenary;
+    return new Promise(function (resolve, reject) {
+      window.console.log('resolutions', 'action', 124, sourcePlenary, destinationPlenary);
+      var url = _routes__WEBPACK_IMPORTED_MODULE_0__.secretary.working.bulk(sourcePlenary, destinationPlenary);
+      return Vue.axios.post(url).then(function (response) {
+        window.console.log('resolutions', 'response', 126, response);
+        return resolve();
+      });
+    });
+  },
+  initializeResolutions: function initializeResolutions(_ref7) {
+    var dispatch = _ref7.dispatch,
+      commit = _ref7.commit,
+      getters = _ref7.getters;
     return new Promise(function (resolve, reject) {
       dispatch('loadAllResolutions').then(function () {
         dispatch('loadCurrentPlenaryResolutions').then(function () {
@@ -11384,11 +11433,11 @@ var actions = {
    * @param resolution
    * @returns {Promise<unknown>}
    */
-  toggleIsWaiver: function toggleIsWaiver(_ref7, resolution) {
+  toggleIsWaiver: function toggleIsWaiver(_ref8, resolution) {
     var _this = this;
-    var dispatch = _ref7.dispatch,
-      commit = _ref7.commit,
-      getters = _ref7.getters;
+    var dispatch = _ref8.dispatch,
+      commit = _ref8.commit,
+      getters = _ref8.getters;
     return new Promise(function (resolve, reject) {
       var url = _routes__WEBPACK_IMPORTED_MODULE_0__.secretary.resolutions.toggleWaiver(resolution);
       window.console.log('toggle waiver', 'post', url);
@@ -11412,11 +11461,11 @@ var actions = {
    * @param resolution
    * @returns {Promise<unknown>}
    */
-  setFirstReading: function setFirstReading(_ref8, resolution) {
+  setFirstReading: function setFirstReading(_ref9, resolution) {
     var _this2 = this;
-    var dispatch = _ref8.dispatch,
-      commit = _ref8.commit,
-      getters = _ref8.getters;
+    var dispatch = _ref9.dispatch,
+      commit = _ref9.commit,
+      getters = _ref9.getters;
     return new Promise(function (resolve, reject) {
       var plenaryId = getters.getCurrentPlenaryId;
       var resolutionId = (0,_utilities_object_utilities__WEBPACK_IMPORTED_MODULE_1__.idify)(resolution);
@@ -11449,11 +11498,11 @@ var actions = {
    * @param resolution
    * @returns {Promise<unknown>}
    */
-  setWaiver: function setWaiver(_ref9, resolution) {
+  setWaiver: function setWaiver(_ref10, resolution) {
     var _this3 = this;
-    var dispatch = _ref9.dispatch,
-      commit = _ref9.commit,
-      getters = _ref9.getters;
+    var dispatch = _ref10.dispatch,
+      commit = _ref10.commit,
+      getters = _ref10.getters;
     return new Promise(function (resolve, reject) {
       var plenaryId = getters.getCurrentPlenaryId;
       var resolutionId = (0,_utilities_object_utilities__WEBPACK_IMPORTED_MODULE_1__.idify)(resolution);
@@ -11485,11 +11534,11 @@ var actions = {
    * @param resolution
    * @returns {Promise<unknown>}
    */
-  setWorkingDraft: function setWorkingDraft(_ref10, resolution) {
+  setWorkingDraft: function setWorkingDraft(_ref11, resolution) {
     var _this4 = this;
-    var dispatch = _ref10.dispatch,
-      commit = _ref10.commit,
-      getters = _ref10.getters;
+    var dispatch = _ref11.dispatch,
+      commit = _ref11.commit,
+      getters = _ref11.getters;
     return new Promise(function (resolve, reject) {
       var plenaryId = getters.getCurrentPlenaryId;
       var resolutionId = (0,_utilities_object_utilities__WEBPACK_IMPORTED_MODULE_1__.idify)(resolution);
@@ -11521,11 +11570,11 @@ var actions = {
    * @param resolution
    * @returns {Promise<unknown>}
    */
-  setActionItem: function setActionItem(_ref11, resolution) {
+  setActionItem: function setActionItem(_ref12, resolution) {
     var _this5 = this;
-    var dispatch = _ref11.dispatch,
-      commit = _ref11.commit,
-      getters = _ref11.getters;
+    var dispatch = _ref12.dispatch,
+      commit = _ref12.commit,
+      getters = _ref12.getters;
     return new Promise(function (resolve, reject) {
       var plenaryId = getters.getCurrentPlenaryId;
       var resolutionId = (0,_utilities_object_utilities__WEBPACK_IMPORTED_MODULE_1__.idify)(resolution);

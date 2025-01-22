@@ -27,21 +27,24 @@ class WorkingDraftsController extends Controller
      * @param Plenary $plenary
      * @return \Illuminate\Http\JsonResponse
      */
-    public function bulk_move_from_plenary(Plenary $plenary)
+    public function bulk_move_from_plenary(Plenary $sourcePlenary, Plenary $destinationPlenary)
     {
-        $scriptfile = 'web_bulk_move_resolution_to_working_folder.py';
-
-        $destinationPlenary = $this->plenaryRepo->getNextPlenary($plenary);
-
+        $scriptfile = 'web_bulk_move_resolutions_to_working_folder.py';
+//
+//        $destinationPlenary = $this->plenaryRepo->getNextPlenary($plenary);
+//
         try {
 
-            $this->handleScript($scriptfile, [$plenary->id, $destinationPlenary->id]);
+            $this->handleScript($scriptfile, [$sourcePlenary->id, $destinationPlenary->id]);
+
+            return $this->sendAjaxSuccess();
 
         } catch (PythonScriptError $error) {
             return response()->json(['code' => $error->getCode(), 'message' => $error->getMessage()]);
         }
-
-        return $this->sendAjaxSuccess();
+//
+//        return response()->json([$sourcePlenary, $destinationPlenary]);
+//        return $this->sendAjaxSuccess();
     }
 
     /**

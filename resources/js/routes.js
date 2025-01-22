@@ -190,29 +190,34 @@ module.exports = {
                 url += resolution_id;
                 return url;
             }
-        }
-
-    },
-
-    working : {
-        bulk : (plenary) => {
-            let plenary_id = idify(plenary);
-            let url = normalizedRouteRoot();
-            url += 'resolution/working/bulk/';
-            url += plenary_id;
-            return url;
         },
 
-        single : (plenary, resolution) => {
-            let plenary_id = idify(plenary);
-            let resolution_id = idify(resolution);
-            let url = normalizedRouteRoot();
-            url += 'resolution/working/';
-            url += plenary_id;
-            url += '/'
-            url += resolution_id
-            return url;
-        }
+
+        working : {
+            bulk : (sourcePlenary, destinationPlenary) => {
+                let sourceId = idify(sourcePlenary);
+                let destinationId = idify(destinationPlenary);
+                let url = normalizedRouteRoot();
+                url += 'resolution/working/bulk/';
+                url += sourceId;
+                url += '/';
+                url += destinationId;
+                return url;
+            },
+
+            single : (plenary, resolution) => {
+                let plenary_id = idify(plenary);
+                let resolution_id = idify(resolution);
+                let url = normalizedRouteRoot();
+                url += 'resolution/working/';
+                url += plenary_id;
+                url += '/'
+                url += resolution_id
+                return url;
+            }
+        },
+
+
     },
 
     resolutions : {
