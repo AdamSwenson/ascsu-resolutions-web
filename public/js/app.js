@@ -7566,6 +7566,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _common_committee_change_committee_changer__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../common/committee-change/committee-changer */ "./resources/js/components/common/committee-change/committee-changer.vue");
 /* harmony import */ var _common_committee_change_committee_change_button__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../common/committee-change/committee-change-button */ "./resources/js/components/common/committee-change/committee-change-button.vue");
 /* harmony import */ var _common_committee_change_committee_change_modal__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../common/committee-change/committee-change-modal */ "./resources/js/components/common/committee-change/committee-change-modal.vue");
+/* harmony import */ var _singleControl_single_control_card__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./singleControl/single-control-card */ "./resources/js/components/secretary/singleControl/single-control-card.vue");
+
 
 
 
@@ -7582,6 +7584,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "secretary",
   components: {
+    SingleControlCard: _singleControl_single_control_card__WEBPACK_IMPORTED_MODULE_13__["default"],
     CommitteeChangeModal: _common_committee_change_committee_change_modal__WEBPACK_IMPORTED_MODULE_12__["default"],
     CommitteeChangeButton: _common_committee_change_committee_change_button__WEBPACK_IMPORTED_MODULE_11__["default"],
     CommitteeChanger: _common_committee_change_committee_changer__WEBPACK_IMPORTED_MODULE_10__["default"],
@@ -7667,6 +7670,125 @@ __webpack_require__.r(__webpack_exports__);
 
   // mounted() {this.loadPlenaries();
   // }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/singleControl/single-control-card.vue?vue&type=script&lang=js":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/singleControl/single-control-card.vue?vue&type=script&lang=js ***!
+  \*************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _start_plenary_button__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./start-plenary-button */ "./resources/js/components/secretary/singleControl/start-plenary-button.vue");
+/* harmony import */ var _stop_plenary_button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./stop-plenary-button */ "./resources/js/components/secretary/singleControl/stop-plenary-button.vue");
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "single-control-card",
+  components: {
+    StopPlenaryButton: _stop_plenary_button__WEBPACK_IMPORTED_MODULE_1__["default"],
+    StartPlenaryButton: _start_plenary_button__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  props: [],
+  mixins: [],
+  data: function data() {
+    return {};
+  },
+  asyncComputed: {},
+  computed: {},
+  methods: {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/singleControl/start-plenary-button.vue?vue&type=script&lang=js":
+/*!**************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/singleControl/start-plenary-button.vue?vue&type=script&lang=js ***!
+  \**************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _common_working_spinner__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../common/working-spinner */ "./resources/js/components/common/working-spinner.vue");
+/* harmony import */ var _mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../mixins/plenaryMixin */ "./resources/js/mixins/plenaryMixin.js");
+/* harmony import */ var _mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_1__);
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "start-plenary-button",
+  components: {
+    WorkingSpinner: _common_working_spinner__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  props: [],
+  mixins: [(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_1___default())],
+  data: function data() {
+    return {
+      isWorking: false
+    };
+  },
+  asyncComputed: {},
+  computed: {},
+  methods: {
+    handleClick: function handleClick() {
+      this.isWorking = true;
+      var me = this;
+      this.$store.dispatch('startPlenary', this.plenary).then(function () {
+        me.isWorking = false;
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/singleControl/stop-plenary-button.vue?vue&type=script&lang=js":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/singleControl/stop-plenary-button.vue?vue&type=script&lang=js ***!
+  \*************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _common_working_spinner__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../common/working-spinner */ "./resources/js/components/common/working-spinner.vue");
+/* harmony import */ var _mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../mixins/plenaryMixin */ "./resources/js/mixins/plenaryMixin.js");
+/* harmony import */ var _mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_1__);
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "stop-plenary-button",
+  components: {
+    WorkingSpinner: _common_working_spinner__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  props: [],
+  mixins: [(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_1___default())],
+  data: function data() {
+    return {
+      isWorking: false
+    };
+  },
+  asyncComputed: {},
+  computed: {},
+  methods: {
+    handleClick: function handleClick() {
+      this.isWorking = true;
+      var me = this;
+      this.$store.dispatch('stopPlenary', this.plenary).then(function () {
+        me.isWorking = false;
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -9445,6 +9567,10 @@ var render = function render() {
     staticClass: "row row-cols-1 row-cols-md-3 g-4 mb-5 mt-5"
   }, [_c("div", {
     staticClass: "col"
+  }, [_c("single-control-card")], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "row row-cols-1 row-cols-md-3 g-4 mb-5 mt-5"
+  }, [_c("div", {
+    staticClass: "col"
   }, [_c("public-folder-creation", {
     attrs: {
       plenaryId: _vm.plenaryId
@@ -9546,6 +9672,105 @@ var render = function render() {
       }
     });
   }), 1)]);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/singleControl/single-control-card.vue?vue&type=template&id=3c56478e&scoped=true":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/singleControl/single-control-card.vue?vue&type=template&id=3c56478e&scoped=true ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "single-control-card card"
+  }, [_c("h3", {
+    staticClass: "card-title text-light"
+  }, [_vm._v("One-stop shop for plenaries")]), _vm._v(" "), _c("div", {
+    staticClass: "card-body"
+  }, [_c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col"
+  }, [_c("start-plenary-button"), _vm._v(" "), _c("p", {
+    staticClass: "card-text text-info"
+  }, [_vm._v("This will run all tasks for the beginning of the plenary. ")])], 1), _vm._v(" "), _c("div", {
+    staticClass: "col"
+  }, [_c("stop-plenary-button"), _vm._v(" "), _c("p", {
+    staticClass: "card-text text-info"
+  }, [_vm._v("This will run all tasks for the end of the plenary. ")])], 1)])])]);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/singleControl/start-plenary-button.vue?vue&type=template&id=11d1f5c3&scoped=true":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/singleControl/start-plenary-button.vue?vue&type=template&id=11d1f5c3&scoped=true ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "start-plenary-button"
+  }, [_vm.isWorking ? _c("working-spinner") : _c("button", {
+    staticClass: "btn btn-success",
+    on: {
+      click: _vm.handleClick
+    }
+  }, [_vm._v("Start plenary\n    ")])], 1);
+};
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/singleControl/stop-plenary-button.vue?vue&type=template&id=67bfb11b&scoped=true":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/singleControl/stop-plenary-button.vue?vue&type=template&id=67bfb11b&scoped=true ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "stop-plenary-button"
+  }, [_vm.isWorking ? _c("working-spinner") : _c("button", {
+    staticClass: "btn btn-danger",
+    on: {
+      click: _vm.handleClick
+    }
+  }, [_vm._v("Stop plenary\n    ")])], 1);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -10086,6 +10311,24 @@ module.exports = {
     }
   },
   secretary: {
+    singleControl: {
+      startPlenary: function startPlenary(plenary) {
+        var plenary_id = idify(plenary);
+        var url = normalizedRouteRoot();
+        url += 'secretary/plenary/';
+        url += plenary_id;
+        url += '/start';
+        return url;
+      },
+      stopPlenary: function stopPlenary(plenary) {
+        var plenary_id = idify(plenary);
+        var url = normalizedRouteRoot();
+        url += 'secretary/plenary/';
+        url += plenary_id;
+        url += '/stop';
+        return url;
+      }
+    },
     agenda: {
       createAgenda: function createAgenda(plenary) {
         var plenary_id = idify(plenary);
@@ -10249,8 +10492,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actions */ "./resources/js/store/actions.js");
 /* harmony import */ var _actions__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_actions__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _getters__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./getters */ "./resources/js/store/getters.js");
@@ -10264,6 +10507,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_plenaries__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/plenaries */ "./resources/js/store/modules/plenaries.js");
 /* harmony import */ var _modules_resolutions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/resolutions */ "./resources/js/store/modules/resolutions.js");
 /* harmony import */ var _modules_startup__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/startup */ "./resources/js/store/modules/startup.js");
+/* harmony import */ var _modules_singleControl__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/singleControl */ "./resources/js/store/modules/singleControl.js");
 /**
  * Created by adam on 2020-07-13.
  */
@@ -10283,7 +10527,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_9__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_10__["default"]);
+
+vue__WEBPACK_IMPORTED_MODULE_10__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_11__["default"]);
 
 /**
  * This subscribes the api package which
@@ -10295,7 +10540,7 @@ vue__WEBPACK_IMPORTED_MODULE_9__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_10
 
 // const debug = process.env.NODE_ENV !== 'production';
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_10__["default"].Store({
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_11__["default"].Store({
   // strict: debug, //letting check determine whether to turn on or off. should be off for production to avoid performance hit
 
   /**
@@ -10315,6 +10560,7 @@ vue__WEBPACK_IMPORTED_MODULE_9__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_10
     errors: _modules_errors__WEBPACK_IMPORTED_MODULE_5__["default"],
     plenaries: _modules_plenaries__WEBPACK_IMPORTED_MODULE_6__["default"],
     resolutions: _modules_resolutions__WEBPACK_IMPORTED_MODULE_7__["default"],
+    singleControl: _modules_singleControl__WEBPACK_IMPORTED_MODULE_9__["default"],
     startup: _modules_startup__WEBPACK_IMPORTED_MODULE_8__["default"]
   }
 
@@ -11143,6 +11389,62 @@ var getters = {
   getters: getters,
   mutations: mutations,
   state: state
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/singleControl.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/store/modules/singleControl.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../routes */ "./resources/js/routes.js");
+/* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_routes__WEBPACK_IMPORTED_MODULE_0__);
+
+var state = {};
+var mutations = {};
+var getters = {};
+var actions = {
+  startPlenary: function startPlenary(_ref, plenary) {
+    var dispatch = _ref.dispatch,
+      commit = _ref.commit,
+      getters = _ref.getters;
+    return new Promise(function (resolve, reject) {
+      var url = _routes__WEBPACK_IMPORTED_MODULE_0__.secretary.singleControl.startPlenary(plenary);
+      return Vue.axios.post(url).then(function (response) {
+        return resolve();
+      });
+    });
+  },
+  stopPlenary: function stopPlenary(_ref2, plenary) {
+    var dispatch = _ref2.dispatch,
+      commit = _ref2.commit,
+      getters = _ref2.getters;
+    return new Promise(function (resolve, reject) {
+      var url = _routes__WEBPACK_IMPORTED_MODULE_0__.secretary.singleControl.stopPlenary(plenary);
+      return Vue.axios.post(url).then(function (response) {
+        return resolve();
+      });
+    });
+  }
+  /*
+  *    doThing({dispatch, commit, getters}, thingParam) {
+  *        return new Promise(((resolve, reject) => {
+  *        }));
+  *    },
+  */
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  actions: actions,
+  state: state,
+  getters: getters,
+  mutations: mutations
 });
 
 /***/ }),
@@ -49036,6 +49338,123 @@ component.options.__file = "resources/js/components/secretary/select-plenary.vue
 
 /***/ }),
 
+/***/ "./resources/js/components/secretary/singleControl/single-control-card.vue":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/secretary/singleControl/single-control-card.vue ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _single_control_card_vue_vue_type_template_id_3c56478e_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./single-control-card.vue?vue&type=template&id=3c56478e&scoped=true */ "./resources/js/components/secretary/singleControl/single-control-card.vue?vue&type=template&id=3c56478e&scoped=true");
+/* harmony import */ var _single_control_card_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./single-control-card.vue?vue&type=script&lang=js */ "./resources/js/components/secretary/singleControl/single-control-card.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _single_control_card_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _single_control_card_vue_vue_type_template_id_3c56478e_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render,
+  _single_control_card_vue_vue_type_template_id_3c56478e_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "3c56478e",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/secretary/singleControl/single-control-card.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/secretary/singleControl/start-plenary-button.vue":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/secretary/singleControl/start-plenary-button.vue ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _start_plenary_button_vue_vue_type_template_id_11d1f5c3_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./start-plenary-button.vue?vue&type=template&id=11d1f5c3&scoped=true */ "./resources/js/components/secretary/singleControl/start-plenary-button.vue?vue&type=template&id=11d1f5c3&scoped=true");
+/* harmony import */ var _start_plenary_button_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./start-plenary-button.vue?vue&type=script&lang=js */ "./resources/js/components/secretary/singleControl/start-plenary-button.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _start_plenary_button_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _start_plenary_button_vue_vue_type_template_id_11d1f5c3_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render,
+  _start_plenary_button_vue_vue_type_template_id_11d1f5c3_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "11d1f5c3",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/secretary/singleControl/start-plenary-button.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/secretary/singleControl/stop-plenary-button.vue":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/secretary/singleControl/stop-plenary-button.vue ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _stop_plenary_button_vue_vue_type_template_id_67bfb11b_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./stop-plenary-button.vue?vue&type=template&id=67bfb11b&scoped=true */ "./resources/js/components/secretary/singleControl/stop-plenary-button.vue?vue&type=template&id=67bfb11b&scoped=true");
+/* harmony import */ var _stop_plenary_button_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./stop-plenary-button.vue?vue&type=script&lang=js */ "./resources/js/components/secretary/singleControl/stop-plenary-button.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _stop_plenary_button_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _stop_plenary_button_vue_vue_type_template_id_67bfb11b_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render,
+  _stop_plenary_button_vue_vue_type_template_id_67bfb11b_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "67bfb11b",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/secretary/singleControl/stop-plenary-button.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/secretary/sync-titles.vue":
 /*!***********************************************************!*\
   !*** ./resources/js/components/secretary/sync-titles.vue ***!
@@ -49715,6 +50134,54 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/secretary/singleControl/single-control-card.vue?vue&type=script&lang=js":
+/*!*********************************************************************************************************!*\
+  !*** ./resources/js/components/secretary/singleControl/single-control-card.vue?vue&type=script&lang=js ***!
+  \*********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_single_control_card_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./single-control-card.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/singleControl/single-control-card.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_single_control_card_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/secretary/singleControl/start-plenary-button.vue?vue&type=script&lang=js":
+/*!**********************************************************************************************************!*\
+  !*** ./resources/js/components/secretary/singleControl/start-plenary-button.vue?vue&type=script&lang=js ***!
+  \**********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_start_plenary_button_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./start-plenary-button.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/singleControl/start-plenary-button.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_start_plenary_button_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/secretary/singleControl/stop-plenary-button.vue?vue&type=script&lang=js":
+/*!*********************************************************************************************************!*\
+  !*** ./resources/js/components/secretary/singleControl/stop-plenary-button.vue?vue&type=script&lang=js ***!
+  \*********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_stop_plenary_button_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./stop-plenary-button.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/singleControl/stop-plenary-button.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_stop_plenary_button_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/secretary/sync-titles.vue?vue&type=script&lang=js":
 /*!***********************************************************************************!*\
   !*** ./resources/js/components/secretary/sync-titles.vue?vue&type=script&lang=js ***!
@@ -50373,6 +50840,57 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_select_plenary_vue_vue_type_template_id_21ca28d4_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_select_plenary_vue_vue_type_template_id_21ca28d4_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./select-plenary.vue?vue&type=template&id=21ca28d4&scoped=true */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/select-plenary.vue?vue&type=template&id=21ca28d4&scoped=true");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/secretary/singleControl/single-control-card.vue?vue&type=template&id=3c56478e&scoped=true":
+/*!***************************************************************************************************************************!*\
+  !*** ./resources/js/components/secretary/singleControl/single-control-card.vue?vue&type=template&id=3c56478e&scoped=true ***!
+  \***************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_single_control_card_vue_vue_type_template_id_3c56478e_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_single_control_card_vue_vue_type_template_id_3c56478e_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_single_control_card_vue_vue_type_template_id_3c56478e_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./single-control-card.vue?vue&type=template&id=3c56478e&scoped=true */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/singleControl/single-control-card.vue?vue&type=template&id=3c56478e&scoped=true");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/secretary/singleControl/start-plenary-button.vue?vue&type=template&id=11d1f5c3&scoped=true":
+/*!****************************************************************************************************************************!*\
+  !*** ./resources/js/components/secretary/singleControl/start-plenary-button.vue?vue&type=template&id=11d1f5c3&scoped=true ***!
+  \****************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_start_plenary_button_vue_vue_type_template_id_11d1f5c3_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_start_plenary_button_vue_vue_type_template_id_11d1f5c3_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_start_plenary_button_vue_vue_type_template_id_11d1f5c3_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./start-plenary-button.vue?vue&type=template&id=11d1f5c3&scoped=true */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/singleControl/start-plenary-button.vue?vue&type=template&id=11d1f5c3&scoped=true");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/secretary/singleControl/stop-plenary-button.vue?vue&type=template&id=67bfb11b&scoped=true":
+/*!***************************************************************************************************************************!*\
+  !*** ./resources/js/components/secretary/singleControl/stop-plenary-button.vue?vue&type=template&id=67bfb11b&scoped=true ***!
+  \***************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_stop_plenary_button_vue_vue_type_template_id_67bfb11b_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_stop_plenary_button_vue_vue_type_template_id_67bfb11b_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_stop_plenary_button_vue_vue_type_template_id_67bfb11b_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./stop-plenary-button.vue?vue&type=template&id=67bfb11b&scoped=true */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/singleControl/stop-plenary-button.vue?vue&type=template&id=67bfb11b&scoped=true");
 
 
 /***/ }),
