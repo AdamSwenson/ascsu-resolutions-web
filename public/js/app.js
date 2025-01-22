@@ -6322,6 +6322,76 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/moveControls/bulk-move-dialog.vue?vue&type=script&lang=js":
+/*!*********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/moveControls/bulk-move-dialog.vue?vue&type=script&lang=js ***!
+  \*********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../mixins/plenaryMixin */ "./resources/js/mixins/plenaryMixin.js");
+/* harmony import */ var _mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../utilities/readiness.utilities */ "./resources/js/utilities/readiness.utilities.js");
+/* harmony import */ var _common_working_spinner__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../common/working-spinner */ "./resources/js/components/common/working-spinner.vue");
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "bulk-move-dialog",
+  components: {
+    WorkingSpinner: _common_working_spinner__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  props: [],
+  mixins: [(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_0___default())],
+  data: function data() {
+    return {
+      source: '',
+      destination: '',
+      isWorking: false
+    };
+  },
+  asyncComputed: {
+    sourcePlenaries: function sourcePlenaries() {
+      return this.academicYearPlenaries;
+    },
+    destinationPlenaries: function destinationPlenaries() {
+      return this.academicYearPlenaries;
+    },
+    showButton: function showButton() {
+      return (0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_1__.isReadyToRock)(this.source.id) && (0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_1__.isReadyToRock)(this.destination.id);
+    }
+  },
+  computed: {},
+  methods: {
+    setAsSource: function setAsSource(v) {
+      this.source = v;
+      window.console.log('bulk-move-dialog', 'setAsSource', 76, v);
+    },
+    setAsDestination: function setAsDestination(v) {
+      this.destination = v;
+    },
+    handleMove: function handleMove() {
+      var me = this;
+      //dev Check that plenaries aren't the same
+      window.console.log('bulk-move-dialog', 'handleMove', 100, this.source, this.destination);
+      var payload = {
+        sourcePlenary: this.source,
+        destinationPlenary: this.destination
+      };
+      me.isWorking = true;
+      this.$store.dispatch('moveResolutionsBetweenPlenaries', payload).then(function (r) {
+        me.isWorking = false;
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/plenary-list-item.vue?vue&type=script&lang=js":
 /*!*********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/plenary-list-item.vue?vue&type=script&lang=js ***!
@@ -7567,6 +7637,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _common_committee_change_committee_change_button__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../common/committee-change/committee-change-button */ "./resources/js/components/common/committee-change/committee-change-button.vue");
 /* harmony import */ var _common_committee_change_committee_change_modal__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../common/committee-change/committee-change-modal */ "./resources/js/components/common/committee-change/committee-change-modal.vue");
 /* harmony import */ var _singleControl_single_control_card__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./singleControl/single-control-card */ "./resources/js/components/secretary/singleControl/single-control-card.vue");
+/* harmony import */ var _moveControls_bulk_move_dialog__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./moveControls/bulk-move-dialog */ "./resources/js/components/secretary/moveControls/bulk-move-dialog.vue");
+
 
 
 
@@ -7584,6 +7656,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "secretary",
   components: {
+    BulkMoveDialog: _moveControls_bulk_move_dialog__WEBPACK_IMPORTED_MODULE_14__["default"],
     SingleControlCard: _singleControl_single_control_card__WEBPACK_IMPORTED_MODULE_13__["default"],
     CommitteeChangeModal: _common_committee_change_committee_change_modal__WEBPACK_IMPORTED_MODULE_12__["default"],
     CommitteeChangeButton: _common_committee_change_committee_change_button__WEBPACK_IMPORTED_MODULE_11__["default"],
@@ -8882,6 +8955,132 @@ render._withStripped = true;
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/moveControls/bulk-move-dialog.vue?vue&type=template&id=2ee55742&scoped=true":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/moveControls/bulk-move-dialog.vue?vue&type=template&id=2ee55742&scoped=true ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* binding */ render),
+/* harmony export */   staticRenderFns: () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "bulk-move-dialog card"
+  }, [_c("h3", {
+    staticClass: "card-title text-light"
+  }, [_vm._v("Move first readings and working drafts")]), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, [_c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "card"
+  }, [_vm._m(0), _vm._v(" "), _c("div", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.source.plenaryName,
+      expression: "source.plenaryName"
+    }],
+    staticClass: "card-body"
+  }, [_c("p", {
+    staticClass: "card-text text-light"
+  }, [_vm._v(_vm._s(_vm.source.plenaryName))])]), _vm._v(" "), _c("div", {
+    staticClass: "card-body"
+  }, [_c("ul", {
+    staticClass: "list-group list-group-flush"
+  }, _vm._l(_vm.sourcePlenaries, function (p) {
+    return _c("li", {
+      key: p.thursday_date,
+      staticClass: "list-group-item"
+    }, [_c("a", {
+      staticClass: "btn btn-sm",
+      "class": p.plenaryName === _vm.source.plenaryName ? "btn-primary" : "btn-outline-primary",
+      attrs: {
+        href: "#"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.setAsSource(p);
+        }
+      }
+    }, [_vm._v("Select")]), _vm._v(" " + _vm._s(p.plenaryName) + "\n                        ")]);
+  }), 0)])])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("div", {
+    staticClass: "card"
+  }, [_vm._m(1), _vm._v(" "), _c("div", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.destination.plenaryName,
+      expression: "destination.plenaryName"
+    }],
+    staticClass: "card-body"
+  }, [_c("div", {
+    staticClass: "card-text text-light"
+  }, [_vm._v(_vm._s(_vm.destination.plenaryName))])]), _vm._v(" "), _c("div", {
+    staticClass: "card-body"
+  }, [_c("ul", {
+    staticClass: "list-group list-group-flush"
+  }, _vm._l(_vm.destinationPlenaries, function (p) {
+    return _c("li", {
+      key: p.thursday_date,
+      staticClass: "list-group-item"
+    }, [_c("a", {
+      staticClass: "btn btn-sm",
+      "class": p.plenaryName === _vm.destination.plenaryName ? "btn-primary" : "btn-outline-primary",
+      attrs: {
+        href: "#"
+      },
+      on: {
+        click: function click($event) {
+          return _vm.setAsDestination(p);
+        }
+      }
+    }, [_vm._v("Select")]), _vm._v(" " + _vm._s(p.plenaryName) + "\n                        ")]);
+  }), 0)])])]), _vm._v("\n        .\n    ")]), _vm._v(" "), _c("div", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.showButton,
+      expression: "showButton"
+    }],
+    staticClass: "card-footer"
+  }, [_vm.isWorking ? _c("working-spinner") : _c("button", {
+    staticClass: "btn btn-warning",
+    on: {
+      click: _vm.handleMove
+    }
+  }, [_vm._v("Move")])], 1)]);
+};
+var staticRenderFns = [function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "card-header text-light"
+  }, [_c("h4", {
+    staticClass: "card-title"
+  }, [_vm._v("From plenary")])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("div", {
+    staticClass: "card-header text-light"
+  }, [_c("h4", {
+    staticClass: "card-title text-light"
+  }, [_vm._v("To plenary")])]);
+}];
+render._withStripped = true;
+
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/plenary-list-item.vue?vue&type=template&id=525333b4&scoped=true":
 /*!********************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/plenary-list-item.vue?vue&type=template&id=525333b4&scoped=true ***!
@@ -9567,7 +9766,9 @@ var render = function render() {
     staticClass: "row row-cols-1 row-cols-md-3 g-4 mb-5 mt-5"
   }, [_c("div", {
     staticClass: "col"
-  }, [_c("single-control-card")], 1)]), _vm._v(" "), _c("div", {
+  }, [_c("single-control-card")], 1), _vm._v(" "), _c("div", {
+    staticClass: "col"
+  }, [_c("bulk-move-dialog")], 1)]), _vm._v(" "), _c("div", {
     staticClass: "row row-cols-1 row-cols-md-3 g-4 mb-5 mt-5"
   }, [_c("div", {
     staticClass: "col"
@@ -10148,6 +10349,15 @@ module.exports = {
  */
 module.exports = {
   asyncComputed: {
+    /**
+     * Returns only plenaries for the academic year
+     */
+    academicYearPlenaries: function academicYearPlenaries() {
+      return this.$store.getters.getAcademicYearPlenaries;
+    },
+    allPlenaries: function allPlenaries() {
+      return this.$store.getters.getPlenaries;
+    },
     plenaryId: function plenaryId() {
       return _.toInteger(window.plenaryId);
     },
@@ -10429,6 +10639,28 @@ module.exports = {
         var resolution_id = idify(resolution);
         var url = normalizedRouteRoot();
         url += 'resolution/waiver/toggle/';
+        url += resolution_id;
+        return url;
+      }
+    },
+    working: {
+      bulk: function bulk(sourcePlenary, destinationPlenary) {
+        var sourceId = idify(sourcePlenary);
+        var destinationId = idify(destinationPlenary);
+        var url = normalizedRouteRoot();
+        url += 'resolution/working/bulk/';
+        url += sourceId;
+        url += '/';
+        url += destinationId;
+        return url;
+      },
+      single: function single(plenary, resolution) {
+        var plenary_id = idify(plenary);
+        var resolution_id = idify(resolution);
+        var url = normalizedRouteRoot();
+        url += 'resolution/working/';
+        url += plenary_id;
+        url += '/';
         url += resolution_id;
         return url;
       }
@@ -10911,6 +11143,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../routes */ "./resources/js/routes.js");
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_routes__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _utilities_object_utilities__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utilities/object.utilities */ "./resources/js/utilities/object.utilities.js");
+/* harmony import */ var _utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utilities/readiness.utilities */ "./resources/js/utilities/readiness.utilities.js");
+
 
 
 var state = {
@@ -10976,6 +11210,38 @@ var actions = {
  *    getThing: (state, getters) => {}
  */
 var getters = {
+  /**
+   * Returns only plenaries for the academic year
+   */
+  getAcademicYearPlenaries: function getAcademicYearPlenaries(state, getters) {
+    var plenary = getters.getCurrentPlenary;
+    if (!(0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_2__.isReadyToRock)(plenary)) return [];
+    var plenaryDate = new Date(plenary.thursday_date);
+    //NB, January is 0
+    var month = plenaryDate.getMonth();
+    var year = plenaryDate.getFullYear();
+    // window.console.log('plenaries', '', 91, month, year);
+    var out = [];
+    _.forEach(state.plenaries, function (p) {
+      //dev we actually do want the current plenary to be an option
+      // if (p.id !== plenary.id) {
+      var date = new Date(p.thursday_date);
+      if (month >= 7) {
+        //we are in the fall semester, so return the next spring also
+        if (date.getFullYear() === year && date.getMonth() >= 7 || date.getFullYear() === year + 1 && date.getMonth() < 7) {
+          out.push(p);
+        }
+      } else {
+        //we are in spring so return previous fall
+        if (date.getFullYear() === year && date.getMonth() < 7 || date.getFullYear() === year - 1 && date.getMonth() >= 7) {
+          out.push(p);
+          // window.console.log('plenaries', 'c', 105, date.getFullYear() - 1);
+        }
+      }
+      // }
+    });
+    return out;
+  },
   getPlenaries: function getPlenaries(state) {
     return state.plenaries;
   },
@@ -11132,10 +11398,25 @@ var actions = {
       dispatch('forceReload');
     });
   },
-  initializeResolutions: function initializeResolutions(_ref6) {
+  moveResolutionsBetweenPlenaries: function moveResolutionsBetweenPlenaries(_ref6, payload) {
     var dispatch = _ref6.dispatch,
       commit = _ref6.commit,
       getters = _ref6.getters;
+    var sourcePlenary = payload.sourcePlenary,
+      destinationPlenary = payload.destinationPlenary;
+    return new Promise(function (resolve, reject) {
+      window.console.log('resolutions', 'action', 124, sourcePlenary, destinationPlenary);
+      var url = _routes__WEBPACK_IMPORTED_MODULE_0__.secretary.working.bulk(sourcePlenary, destinationPlenary);
+      return Vue.axios.post(url).then(function (response) {
+        window.console.log('resolutions', 'response', 126, response);
+        return resolve();
+      });
+    });
+  },
+  initializeResolutions: function initializeResolutions(_ref7) {
+    var dispatch = _ref7.dispatch,
+      commit = _ref7.commit,
+      getters = _ref7.getters;
     return new Promise(function (resolve, reject) {
       dispatch('loadAllResolutions').then(function () {
         dispatch('loadCurrentPlenaryResolutions').then(function () {
@@ -11152,11 +11433,11 @@ var actions = {
    * @param resolution
    * @returns {Promise<unknown>}
    */
-  toggleIsWaiver: function toggleIsWaiver(_ref7, resolution) {
+  toggleIsWaiver: function toggleIsWaiver(_ref8, resolution) {
     var _this = this;
-    var dispatch = _ref7.dispatch,
-      commit = _ref7.commit,
-      getters = _ref7.getters;
+    var dispatch = _ref8.dispatch,
+      commit = _ref8.commit,
+      getters = _ref8.getters;
     return new Promise(function (resolve, reject) {
       var url = _routes__WEBPACK_IMPORTED_MODULE_0__.secretary.resolutions.toggleWaiver(resolution);
       window.console.log('toggle waiver', 'post', url);
@@ -11180,11 +11461,11 @@ var actions = {
    * @param resolution
    * @returns {Promise<unknown>}
    */
-  setFirstReading: function setFirstReading(_ref8, resolution) {
+  setFirstReading: function setFirstReading(_ref9, resolution) {
     var _this2 = this;
-    var dispatch = _ref8.dispatch,
-      commit = _ref8.commit,
-      getters = _ref8.getters;
+    var dispatch = _ref9.dispatch,
+      commit = _ref9.commit,
+      getters = _ref9.getters;
     return new Promise(function (resolve, reject) {
       var plenaryId = getters.getCurrentPlenaryId;
       var resolutionId = (0,_utilities_object_utilities__WEBPACK_IMPORTED_MODULE_1__.idify)(resolution);
@@ -11217,11 +11498,11 @@ var actions = {
    * @param resolution
    * @returns {Promise<unknown>}
    */
-  setWaiver: function setWaiver(_ref9, resolution) {
+  setWaiver: function setWaiver(_ref10, resolution) {
     var _this3 = this;
-    var dispatch = _ref9.dispatch,
-      commit = _ref9.commit,
-      getters = _ref9.getters;
+    var dispatch = _ref10.dispatch,
+      commit = _ref10.commit,
+      getters = _ref10.getters;
     return new Promise(function (resolve, reject) {
       var plenaryId = getters.getCurrentPlenaryId;
       var resolutionId = (0,_utilities_object_utilities__WEBPACK_IMPORTED_MODULE_1__.idify)(resolution);
@@ -11253,11 +11534,11 @@ var actions = {
    * @param resolution
    * @returns {Promise<unknown>}
    */
-  setWorkingDraft: function setWorkingDraft(_ref10, resolution) {
+  setWorkingDraft: function setWorkingDraft(_ref11, resolution) {
     var _this4 = this;
-    var dispatch = _ref10.dispatch,
-      commit = _ref10.commit,
-      getters = _ref10.getters;
+    var dispatch = _ref11.dispatch,
+      commit = _ref11.commit,
+      getters = _ref11.getters;
     return new Promise(function (resolve, reject) {
       var plenaryId = getters.getCurrentPlenaryId;
       var resolutionId = (0,_utilities_object_utilities__WEBPACK_IMPORTED_MODULE_1__.idify)(resolution);
@@ -11289,11 +11570,11 @@ var actions = {
    * @param resolution
    * @returns {Promise<unknown>}
    */
-  setActionItem: function setActionItem(_ref11, resolution) {
+  setActionItem: function setActionItem(_ref12, resolution) {
     var _this5 = this;
-    var dispatch = _ref11.dispatch,
-      commit = _ref11.commit,
-      getters = _ref11.getters;
+    var dispatch = _ref12.dispatch,
+      commit = _ref12.commit,
+      getters = _ref12.getters;
     return new Promise(function (resolve, reject) {
       var plenaryId = getters.getCurrentPlenaryId;
       var resolutionId = (0,_utilities_object_utilities__WEBPACK_IMPORTED_MODULE_1__.idify)(resolution);
@@ -48595,6 +48876,45 @@ component.options.__file = "resources/js/components/secretary/enforce-styling.vu
 
 /***/ }),
 
+/***/ "./resources/js/components/secretary/moveControls/bulk-move-dialog.vue":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/secretary/moveControls/bulk-move-dialog.vue ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _bulk_move_dialog_vue_vue_type_template_id_2ee55742_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bulk-move-dialog.vue?vue&type=template&id=2ee55742&scoped=true */ "./resources/js/components/secretary/moveControls/bulk-move-dialog.vue?vue&type=template&id=2ee55742&scoped=true");
+/* harmony import */ var _bulk_move_dialog_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./bulk-move-dialog.vue?vue&type=script&lang=js */ "./resources/js/components/secretary/moveControls/bulk-move-dialog.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _bulk_move_dialog_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+  _bulk_move_dialog_vue_vue_type_template_id_2ee55742_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render,
+  _bulk_move_dialog_vue_vue_type_template_id_2ee55742_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "2ee55742",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/secretary/moveControls/bulk-move-dialog.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/secretary/plenary-list-item.vue":
 /*!*****************************************************************!*\
   !*** ./resources/js/components/secretary/plenary-list-item.vue ***!
@@ -49830,6 +50150,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/secretary/moveControls/bulk-move-dialog.vue?vue&type=script&lang=js":
+/*!*****************************************************************************************************!*\
+  !*** ./resources/js/components/secretary/moveControls/bulk-move-dialog.vue?vue&type=script&lang=js ***!
+  \*****************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_bulk_move_dialog_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./bulk-move-dialog.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/moveControls/bulk-move-dialog.vue?vue&type=script&lang=js");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_bulk_move_dialog_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/components/secretary/plenary-list-item.vue?vue&type=script&lang=js":
 /*!*****************************************************************************************!*\
   !*** ./resources/js/components/secretary/plenary-list-item.vue?vue&type=script&lang=js ***!
@@ -50517,6 +50853,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_enforce_styling_vue_vue_type_template_id_669f5731_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_enforce_styling_vue_vue_type_template_id_669f5731_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./enforce-styling.vue?vue&type=template&id=669f5731&scoped=true */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/enforce-styling.vue?vue&type=template&id=669f5731&scoped=true");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/secretary/moveControls/bulk-move-dialog.vue?vue&type=template&id=2ee55742&scoped=true":
+/*!***********************************************************************************************************************!*\
+  !*** ./resources/js/components/secretary/moveControls/bulk-move-dialog.vue?vue&type=template&id=2ee55742&scoped=true ***!
+  \***********************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_bulk_move_dialog_vue_vue_type_template_id_2ee55742_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_bulk_move_dialog_vue_vue_type_template_id_2ee55742_scoped_true__WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_lib_index_js_vue_loader_options_bulk_move_dialog_vue_vue_type_template_id_2ee55742_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./bulk-move-dialog.vue?vue&type=template&id=2ee55742&scoped=true */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/lib/loaders/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/secretary/moveControls/bulk-move-dialog.vue?vue&type=template&id=2ee55742&scoped=true");
 
 
 /***/ }),

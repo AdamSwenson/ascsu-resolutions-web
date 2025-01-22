@@ -28,4 +28,19 @@ class PlenaryRepository implements IPlenaryRepository
         }
 
     }
+
+    /**
+     * Returns the next plenary in the session
+     *
+     * Done here to abstract. Right now just using the next
+     * id, but may need to change that in the future to using
+     * the date or something else
+     * @param Plenary $plenary
+     * @return Plenary
+     */
+    public function getNextPlenary(Plenary $plenary){
+        $nextId = $plenary->id + 1;
+        return Plenary::where('id', $nextId)->first();
+    }
+
 }
