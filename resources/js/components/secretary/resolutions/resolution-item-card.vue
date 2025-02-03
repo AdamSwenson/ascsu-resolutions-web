@@ -18,6 +18,12 @@
                     <p class="card-text text-light">First reading: {{ firstReadingName }}</p>
 
                     <p class="card-text text-light"
+                       v-if="workingPlenaryNames.length > 0 "
+                       v-for="p in workingPlenaryNames"
+                       :key="p + 'w'"
+                    >Working items: {{ p }}</p>
+
+                    <p class="card-text text-light"
                        v-for="p in secondReadingNames"
                        :key="p"
                     >Action item: {{ p }}</p>
@@ -137,19 +143,6 @@ export default {
             return this.$store.getters.getResolution(this.resolutionId);
         },
 
-        firstReadingName: function () {
-            if (!isReadyToRock(this.firstReadingPlenary)) return '';
-            return this.firstReadingPlenary.plenaryName;
-        },
-
-        secondReadingNames: function () {
-            if (!isReadyToRock(this.actionPlenaries)) return [];
-            let n = [];
-            _.forEach(this.actionPlenaries, (p) => {
-                n.push(p.plenaryName)
-            });
-            return n;
-        },
 
         showWaiverIndicator: function () {
             return this.isWaiver;

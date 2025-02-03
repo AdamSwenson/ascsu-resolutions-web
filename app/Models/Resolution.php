@@ -33,10 +33,14 @@ class Resolution extends Model
     ];
 
     protected $appends = [
-//        'is_first_reading', 'is_waiver',
-//        'readingType',
-        'url', 'formattedNumber', 'firstReadingPlenary', 'actionPlenaries',
-        'sponsor', 'cosponsors'];
+        'actionPlenaries',
+        'cosponsors',
+        'firstReadingPlenary',
+        'formattedNumber',
+        'sponsor',
+        'url',
+        'workingPlenaries'
+    ];
 
     protected $casts = ['is_approved' => 'boolean'];
 

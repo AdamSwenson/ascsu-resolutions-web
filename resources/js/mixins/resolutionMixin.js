@@ -53,6 +53,48 @@ module.exports = {
             return this.resolution.actionPlenaries;
         },
 
+        workingPlenaries: function(){
+            if(!isReadyToRock(this.resolution)) return [];
+            return this.resolution.workingPlenaries;
+        },
+
+        /**
+         * Returns the name of the plenary in which it was a first reading
+         * @returns {string|*}
+         */
+        firstReadingName: function () {
+            if (!isReadyToRock(this.firstReadingPlenary)) return '';
+            return this.firstReadingPlenary.plenaryName;
+        },
+
+        /**
+         * Returns list of names of plenaries in which it was an action
+         * item
+         * @returns {*[]}
+         */
+        secondReadingNames: function () {
+            if (!isReadyToRock(this.actionPlenaries)) return [];
+            let n = [];
+            _.forEach(this.actionPlenaries, (p) => {
+                n.push(p.plenaryName)
+            });
+            return n;
+        },
+
+        /**
+         * Returns list of names of plenaries in whose working drafts
+         * folder it has been located
+         * @returns {*[]}
+         */
+        workingPlenaryNames : function(){
+            if (!isReadyToRock(this.workingPlenaries)) return [];
+            let n = [];
+            _.forEach(this.workingPlenaries, (p) => {
+                n.push(p.plenaryName)
+            });
+            return n;
+        },
+
 
         // ============= intrinsic properties
         title: function () {

@@ -7036,18 +7036,6 @@ __webpack_require__.r(__webpack_exports__);
     resolution: function resolution() {
       return this.$store.getters.getResolution(this.resolutionId);
     },
-    firstReadingName: function firstReadingName() {
-      if (!(0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_2__.isReadyToRock)(this.firstReadingPlenary)) return '';
-      return this.firstReadingPlenary.plenaryName;
-    },
-    secondReadingNames: function secondReadingNames() {
-      if (!(0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_2__.isReadyToRock)(this.actionPlenaries)) return [];
-      var n = [];
-      _.forEach(this.actionPlenaries, function (p) {
-        n.push(p.plenaryName);
-      });
-      return n;
-    },
     showWaiverIndicator: function showWaiverIndicator() {
       return this.isWaiver;
       // if (!isReadyToRock(this.waiver)) return false;
@@ -9566,7 +9554,12 @@ var render = function render() {
     staticClass: "col"
   }, [_c("p", {
     staticClass: "card-text text-light"
-  }, [_vm._v("First reading: " + _vm._s(_vm.firstReadingName))]), _vm._v(" "), _vm._l(_vm.secondReadingNames, function (p) {
+  }, [_vm._v("First reading: " + _vm._s(_vm.firstReadingName))]), _vm._v(" "), _vm._l(_vm.workingPlenaryNames, function (p) {
+    return _vm.workingPlenaryNames.length > 0 ? _c("p", {
+      key: p + "w",
+      staticClass: "card-text text-light"
+    }, [_vm._v("Working items: " + _vm._s(p))]) : _vm._e();
+  }), _vm._v(" "), _vm._l(_vm.secondReadingNames, function (p) {
     return _c("p", {
       key: p,
       staticClass: "card-text text-light"
@@ -10588,6 +10581,44 @@ module.exports = {
     actionPlenaries: function actionPlenaries() {
       if (!isReadyToRock(this.resolution)) return [];
       return this.resolution.actionPlenaries;
+    },
+    workingPlenaries: function workingPlenaries() {
+      if (!isReadyToRock(this.resolution)) return [];
+      return this.resolution.workingPlenaries;
+    },
+    /**
+     * Returns the name of the plenary in which it was a first reading
+     * @returns {string|*}
+     */
+    firstReadingName: function firstReadingName() {
+      if (!isReadyToRock(this.firstReadingPlenary)) return '';
+      return this.firstReadingPlenary.plenaryName;
+    },
+    /**
+     * Returns list of names of plenaries in which it was an action
+     * item
+     * @returns {*[]}
+     */
+    secondReadingNames: function secondReadingNames() {
+      if (!isReadyToRock(this.actionPlenaries)) return [];
+      var n = [];
+      _.forEach(this.actionPlenaries, function (p) {
+        n.push(p.plenaryName);
+      });
+      return n;
+    },
+    /**
+     * Returns list of names of plenaries in whose working drafts
+     * folder it has been located
+     * @returns {*[]}
+     */
+    workingPlenaryNames: function workingPlenaryNames() {
+      if (!isReadyToRock(this.workingPlenaries)) return [];
+      var n = [];
+      _.forEach(this.workingPlenaries, function (p) {
+        n.push(p.plenaryName);
+      });
+      return n;
     },
     // ============= intrinsic properties
     title: function title() {
