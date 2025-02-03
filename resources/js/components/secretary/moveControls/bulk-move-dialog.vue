@@ -25,6 +25,8 @@
                             </li>
                         </ul>
 
+
+
                     </div>
                 </div>
             </div>
@@ -55,7 +57,8 @@
 
                 </div>
             </div>
-            .
+            <p class="text-light card-text small">Moves the resolution files to the selected plenary's working drafts folder. First reading resolutions will remain listed on the source plenary's agenda. </p>
+
         </div>
         <div class="card-footer" v-show="showButton">
             <working-spinner v-if="isWorking"></working-spinner>

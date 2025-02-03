@@ -50,6 +50,10 @@
                 <div class="col">
                     <committee-control-card :resolution-id="resolutionId"></committee-control-card>
                 </div>
+
+                <div class="col">
+                    <single-move-dialog :resolution-id="resolutionId"></single-move-dialog>
+                </div>
             </div>
         </div>
 
@@ -86,10 +90,12 @@ import WorkingSpinner from "../../common/working-spinner";
 import PermissionsControlCard from "./controls/permissions-control-card";
 import ApprovalControlCard from "./controls/approval-control-card";
 import CommitteeControlCard from "./controls/committee-control-card";
+import SingleMoveDialog from "../moveControls/single-move-dialog";
 
 export default {
     name: "resolution-item-card",
     components: {
+        SingleMoveDialog,
         CommitteeControlCard,
         ApprovalControlCard,
         PermissionsControlCard,

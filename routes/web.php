@@ -60,7 +60,7 @@ Route::post('/resolution/action/{plenary}/{resolution}', [ResolutionController::
 Route::post('/resolution/waiver/toggle/{resolution}', [ResolutionController::class, 'toggleWaiver']);
 Route::post('resolution/approval/{resolution}', [ResolutionController::class, 'setApprovalStatus']);
 Route::post('resolution/working/bulk/{sourcePlenary}/{destinationPlenary}', [WorkingDraftsController::class, 'bulk_move_from_plenary']);
-Route::post('resolution/working/{plenary}/{resolution}]', [WorkingDraftsController::class, 'move_to_plenary']);
+Route::post('resolution/working/{plenary}/{resolution}', [WorkingDraftsController::class, 'move_to_plenary']);
 
 
 //Permissions

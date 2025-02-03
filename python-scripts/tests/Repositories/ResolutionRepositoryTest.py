@@ -29,7 +29,7 @@ class ResolutionRepositoryTest(TestingParent):
         obj = ResolutionRepository(dao)
         resolution = resolution_factory()
 
-        obj.set_as_working_item(plenary, resolution)
+        # obj.set_as_working_item(plenary, resolution)
 
 
     def test_set_as_working_item(self):

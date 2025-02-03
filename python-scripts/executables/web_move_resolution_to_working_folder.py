@@ -43,6 +43,10 @@ def main(plenary_id=None, resolution_id=None):
 
         file_repo.move_file_to_folder(resolution.document_id, plenary.working_drafts_folder_id)
 
+        # Possibly unnecessary for methods which move to working for a plenary, but
+        # needed for moving between plenaries
+        resolution_repo.set_as_working_item(plenary, resolution)
+
         return resolution
 
     except Exception as e:
