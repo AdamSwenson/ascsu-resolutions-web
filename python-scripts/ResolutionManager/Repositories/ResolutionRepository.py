@@ -254,7 +254,7 @@ class ResolutionRepository(object):
         return resolution
 
     def set_as_working_item(self, plenary: Plenary, resolution: Resolution):
-        """Marks the resolution as an action item for the plenary
+        """Marks the resolution as in the working folder for the plenary
         :type resolution: Resolution
         :type plenary: Plenary
         """

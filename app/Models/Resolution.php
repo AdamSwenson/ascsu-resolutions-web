@@ -301,8 +301,14 @@ class Resolution extends Model
      */
     public function getFirstReadingPlenaryAttribute()
     {
+        $first = $this->belongsToMany(Plenary::class)
+//            ->wherePivot('is_first_reading', 1)
+            ->wherePivot('reading_type', 'first')
+            ->first();
+        if (! is_null($first)) return $first;
+
         return $this->belongsToMany(Plenary::class)
-            ->wherePivot('is_first_reading', 1)
+            ->wherePivot('reading_type', 'waiver')
             ->first();
     }
 
@@ -318,7 +324,8 @@ class Resolution extends Model
     public function getActionPlenariesAttribute()
     {
         return $this->belongsToMany(Plenary::class)
-            ->wherePivot('is_first_reading', 0)
+//            ->wherePivot('is_first_reading', 0)
+            ->wherePivot('reading_type', 'action')
             ->get();
     }
 
