@@ -53,7 +53,11 @@ export default {
 
     asyncComputed: {
         destinationPlenaries: function () {
-            return this.academicYearPlenaries;
+            let me = this;
+            return _.filter(this.academicYearPlenaries, (p) => {
+            return p.id !== me.plenary.id;
+            });
+            // return this.academicYearPlenaries;
         },
         showButton: function () {
 

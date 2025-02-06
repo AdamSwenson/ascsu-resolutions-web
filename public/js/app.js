@@ -6425,7 +6425,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   asyncComputed: {
     destinationPlenaries: function destinationPlenaries() {
-      return this.academicYearPlenaries;
+      var me = this;
+      return _.filter(this.academicYearPlenaries, function (p) {
+        return p.id !== me.plenary.id;
+      });
+      // return this.academicYearPlenaries;
     },
     showButton: function showButton() {
       return (0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_0__.isReadyToRock)(this.destination.id);
