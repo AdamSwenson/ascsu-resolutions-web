@@ -9552,7 +9552,9 @@ var render = function render() {
     staticClass: "fw-bold"
   }, [_vm._v("Cosponsors:")]), _vm._v(" " + _vm._s(_vm.cosponsorNames))]) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "col"
-  }, [_c("p", {
+  }, [_c("h5", {
+    staticClass: "card-text text-light"
+  }, [_vm._v("History")]), _vm._v(" "), _c("p", {
     staticClass: "card-text text-light"
   }, [_vm._v("First reading: " + _vm._s(_vm.firstReadingName))]), _vm._v(" "), _vm._l(_vm.workingPlenaryNames, function (p) {
     return _vm.workingPlenaryNames.length > 0 ? _c("p", {
@@ -9566,12 +9568,19 @@ var render = function render() {
     }, [_vm._v("Action item: " + _vm._s(p))]);
   })], 2)]), _vm._v(" "), _c("p", {
     staticClass: "card-text text-light"
-  }, [_c("a", {
+  }, [_vm._v("\n            Link to resolution: "), _c("a", {
     attrs: {
       href: _vm.url,
       target: "_blank"
     }
   }, [_vm._v(_vm._s(_vm.url))])]), _vm._v(" "), _c("p", {
+    staticClass: "card-text text-light"
+  }, [_vm._v("\n            Resolution location: "), _c("a", {
+    attrs: {
+      href: _vm.currentLocationUrl,
+      target: "_blank"
+    }
+  }, [_vm._v(_vm._s(_vm.currentLocation))])]), _vm._v(" "), _c("p", {
     staticClass: "card-text"
   }, [_c("status-badge", {
     attrs: {
@@ -10632,6 +10641,14 @@ module.exports = {
     url: function url() {
       if (!isReadyToRock(this.resolution)) return '';
       return this.resolution.url;
+    },
+    currentLocation: function currentLocation() {
+      if (!isReadyToRock(this.resolution)) return '';
+      return this.resolution.currentLocation;
+    },
+    currentLocationUrl: function currentLocationUrl() {
+      if (!isReadyToRock(this.resolution)) return '';
+      return this.resolution.currentLocationUrl;
     }
   },
   computed: {},

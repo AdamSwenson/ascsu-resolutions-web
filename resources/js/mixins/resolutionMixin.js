@@ -110,7 +110,18 @@ module.exports = {
         url: function () {
             if (!isReadyToRock(this.resolution)) return '';
             return this.resolution.url;
+        },
+
+        currentLocation: function(){
+            if (!isReadyToRock(this.resolution)) return '';
+            return this.resolution.currentLocation;
+        },
+
+        currentLocationUrl: function(){
+            if (!isReadyToRock(this.resolution)) return '';
+            return this.resolution.currentLocationUrl;
         }
+
 
 
     },

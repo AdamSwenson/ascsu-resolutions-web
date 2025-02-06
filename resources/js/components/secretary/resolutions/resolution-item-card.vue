@@ -15,6 +15,7 @@
                 </div>
 
                 <div class="col">
+                    <h5 class="card-text text-light">History</h5>
                     <p class="card-text text-light">First reading: {{ firstReadingName }}</p>
 
                     <p class="card-text text-light"
@@ -32,7 +33,10 @@
             </div>
 
             <p class="card-text text-light">
-                <a v-bind:href="url" target="_blank">{{ url }}</a>
+                Link to resolution: <a v-bind:href="url" target="_blank">{{ url }}</a>
+            </p>
+            <p class="card-text text-light">
+                Resolution location: <a v-bind:href="currentLocationUrl" target="_blank">{{ currentLocation }}</a>
             </p>
 
             <p class="card-text">

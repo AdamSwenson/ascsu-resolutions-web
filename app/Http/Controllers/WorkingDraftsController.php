@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\PythonScriptError;
+use App\Jobs\SyncResolutionLocations;
+use App\Jobs\UpdateAgenda;
 use App\Models\Plenary;
 use App\Models\Resolution;
 use App\Repositories\PlenaryRepository;
@@ -37,6 +39,9 @@ class WorkingDraftsController extends Controller
 
             $this->handleScript($scriptfile, [$sourcePlenary->id, $destinationPlenary->id]);
 
+            SyncResolutionLocations::dispatchAfterResponse($sourcePlenary);
+            SyncResolutionLocations::dispatchAfterResponse($destinationPlenary);
+
             return $this->sendAjaxSuccess();
 
         } catch (PythonScriptError $error) {
@@ -61,6 +66,9 @@ class WorkingDraftsController extends Controller
 
             //toggle its status to working
             $resolution->setWorkingNew($plenary);
+
+            SyncResolutionLocations::dispatchAfterResponse($plenary);
+            //no need to update agenda since the resolution will be in working drafts
 
         } catch (PythonScriptError $error) {
             return response()->json(['code' => $error->getCode(), 'message' => $error->getMessage()]);

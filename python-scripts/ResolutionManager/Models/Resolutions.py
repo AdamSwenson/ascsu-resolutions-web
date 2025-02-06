@@ -4,7 +4,8 @@ from ResolutionManager.config.Templates import Templates
 
 class Resolution(object):
 
-    def __init__(self, id=None, number=None,
+    def __init__(self, id=None,
+                 number=None,
                  title=None,
                  document_id=None,
                  is_waiver=None,
@@ -15,8 +16,10 @@ class Resolution(object):
                  is_approved=None,
                  status=None,
                  reading_type=None,
-                 year=24):
+                 current_folder_id=None,
+                 year=25):
         """
+        :type current_folder_id: str
         :param is_first_reading: Whether the resolution is currently in first reading
         :type is_first_reading: bool
         :param number:
@@ -25,6 +28,7 @@ class Resolution(object):
         :param document_obj The dictionary representation of the document
         """
         # todo Add correct date --- year!
+        self.current_folder_id = current_folder_id
         self.reading_type = reading_type
         self.status = status
         self.year = year

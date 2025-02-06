@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ResolutionRequest;
 use App\Exceptions\PythonScriptError;
 use App\Jobs\SyncReadingTypes;
+use App\Jobs\SyncResolutionLocations;
 use App\Jobs\UpdateAgenda;
 use App\Models\Committee;
 use App\Models\Plenary;
@@ -166,6 +167,7 @@ class CommitteeController extends Controller
 
 
             UpdateAgenda::dispatchAfterResponse($plenary);
+            SyncResolutionLocations::dispatchAfterResponse($plenary);
 
             return response()->json($resolution);
         } catch (PythonScriptError $error) {

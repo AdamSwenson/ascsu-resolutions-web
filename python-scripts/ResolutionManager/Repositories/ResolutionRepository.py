@@ -292,3 +292,19 @@ class ResolutionRepository(object):
 
         resolution.reading_type = 'working'
         return resolution
+
+    def update_resolution_current_folder_id(self, resolution: Resolution, folder_id: str):
+        """
+        Updates the id of the folder the file is currently stored in
+        :param resolution:
+        :param folder_id:
+        :return: Resolution
+        """
+        query = f"""UPDATE ascsu.resolutions r
+        SET r.current_folder_id = '{folder_id}'
+        WHERE r.id = {resolution.id};
+        """
+        self.dao.conn.execute(query)
+        resolution.current_folder_id = folder_id
+        return resolution
+
