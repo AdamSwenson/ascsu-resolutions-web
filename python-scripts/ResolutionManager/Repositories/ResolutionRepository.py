@@ -254,7 +254,7 @@ class ResolutionRepository(object):
         return resolution
 
     def set_as_working_item(self, plenary: Plenary, resolution: Resolution):
-        """Marks the resolution as an action item for the plenary
+        """Marks the resolution as in the working folder for the plenary
         :type resolution: Resolution
         :type plenary: Plenary
         """
@@ -262,14 +262,49 @@ class ResolutionRepository(object):
         # accidentally got moved into the action folder and then moved back out. Agenda creation doesn't
         # use the waiver flag so shouldn't be a problem
 
-        query = f"""UPDATE ascsu.plenary_resolution AS pr
-        INNER JOIN
-        (SELECT * FROM ascsu.plenary_resolution p WHERE p.plenary_id = {plenary.id} AND p.resolution_id = {resolution.id}) AS b
-        ON pr.id = b.id
-        SET pr.is_first_reading = 0, pr.reading_type='working'
-        WHERE pr.id = b.id"""
-        self.dao.conn.execute(query)
-        # Update the model object just in case it is needed
-        resolution.is_first_reading = False
+        # We have to deal with 2 cases, one where the resolution has been moved and the other
+        # where already associated with the plenary but with a different reading type.
+
+        # Determine if the resolution already exists in the plenary
+        query = f"""
+        SELECT * FROM ascsu.plenary_resolution p
+        WHERE p.plenary_id = {plenary.id} AND p.resolution_id = {resolution.id}
+        """
+        result = self.dao.conn.execute(query)
+
+        if result.rowcount > 0:
+            # It already exists in the plenary so we need to update
+
+            update_query = f"""UPDATE ascsu.plenary_resolution AS pr
+            INNER JOIN
+            (SELECT * FROM ascsu.plenary_resolution p WHERE p.plenary_id = {plenary.id} AND p.resolution_id = {resolution.id}) AS b
+            ON pr.id = b.id
+            SET pr.is_first_reading = 0, pr.reading_type='working'
+            WHERE pr.id = b.id"""
+            self.dao.conn.execute(update_query)
+            # Update the model object just in case it is needed
+            # resolution.is_first_reading = False
+        else:
+            insert_query = f"""
+            INSERT INTO ascsu.plenary_resolution (plenary_id, resolution_id, reading_type) VALUES ({plenary.id}, {resolution.id}, 'working')
+            """
+            self.dao.conn.execute(insert_query)
+
         resolution.reading_type = 'working'
         return resolution
+
+    def update_resolution_current_folder_id(self, resolution: Resolution, folder_id: str):
+        """
+        Updates the id of the folder the file is currently stored in
+        :param resolution:
+        :param folder_id:
+        :return: Resolution
+        """
+        query = f"""UPDATE ascsu.resolutions r
+        SET r.current_folder_id = '{folder_id}'
+        WHERE r.id = {resolution.id};
+        """
+        self.dao.conn.execute(query)
+        resolution.current_folder_id = folder_id
+        return resolution
+

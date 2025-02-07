@@ -5,6 +5,8 @@ from ResolutionManager.API.CredentialsManager import CredentialsManager
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
+from ResolutionManager.Models.Resolutions import Resolution
+
 
 class FileRepository(object):
 
@@ -107,6 +109,7 @@ class FileRepository(object):
             self.logger.warning(error)
             print(f'An error occurred: {error}')
 
+
     def move_file_to_folder(self, file_id, folder_id):
         """Move specified file to the specified folder.
         Args:
@@ -131,6 +134,31 @@ class FileRepository(object):
             self.logger.warning(error)
             print(f'An error occurred: {error}')
             return None
+
+    def get_resolution_folder_id(self, resolution: Resolution):
+        """
+        Returns the id of the folder which contains the resolution
+        :param resolution:
+        :return:
+        """
+        try:
+            # pylint: disable=maybe-no-member
+            # Retrieve the existing parents to remove
+            file = self.service.files().get(fileId=resolution.document_id, fields='parents').execute()
+            # parents = ",".join(file.get('parents'))
+            parents = file.get('parents')[0]
+
+            print(f"Parents: {file.get('parents')}")
+            return parents
+
+        except HttpError as error:
+            self.logger.warning(error)
+            print(f'An error occurred: {error}')
+            return None
+
+
+
+
 
 
 # https://docs.google.com/document/d/document_id/edit

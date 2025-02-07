@@ -367,4 +367,26 @@ public function getSponsorAttribute(){
         $this->assertEquals(sizeof($committees), sizeof($result));
     }
 
+    //============================ File location
+
+    /** @test */
+    public function getCurrentLocationAttribute(){
+
+        foreach (Resolution::LOCATION_FIELDS as $k => $v){
+            $loc = $this->faker->sha256;
+            $plenary = Plenary::factory()->create([$v => $loc]);
+
+            $rez = Resolution::factory()->create(['current_folder_id' => $loc]);
+
+            //call
+            $r = $rez->current_location;
+
+            //check
+            $this->assertEquals("$plenary->plenary_name  $k folder", $r, "Received expected location for $k");
+
+        }
+
+    }
+
+
 }

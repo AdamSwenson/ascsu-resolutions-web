@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\PythonScriptError;
+use App\Jobs\SyncResolutionLocations;
+use App\Jobs\UpdateAgenda;
 use App\Models\Plenary;
 use App\Models\Resolution;
 use App\Repositories\PlenaryRepository;
@@ -27,21 +29,27 @@ class WorkingDraftsController extends Controller
      * @param Plenary $plenary
      * @return \Illuminate\Http\JsonResponse
      */
-    public function bulk_move_from_plenary(Plenary $plenary)
+    public function bulk_move_from_plenary(Plenary $sourcePlenary, Plenary $destinationPlenary)
     {
-        $scriptfile = 'web_bulk_move_resolution_to_working_folder.py';
-
-        $destinationPlenary = $this->plenaryRepo->getNextPlenary($plenary);
-
+        $scriptfile = 'web_bulk_move_resolutions_to_working_folder.py';
+//
+//        $destinationPlenary = $this->plenaryRepo->getNextPlenary($plenary);
+//
         try {
 
-            $this->handleScript($scriptfile, [$plenary->id, $destinationPlenary->id]);
+            $this->handleScript($scriptfile, [$sourcePlenary->id, $destinationPlenary->id]);
+
+            SyncResolutionLocations::dispatchAfterResponse($sourcePlenary);
+            SyncResolutionLocations::dispatchAfterResponse($destinationPlenary);
+
+            return $this->sendAjaxSuccess();
 
         } catch (PythonScriptError $error) {
             return response()->json(['code' => $error->getCode(), 'message' => $error->getMessage()]);
         }
-
-        return $this->sendAjaxSuccess();
+//
+//        return response()->json([$sourcePlenary, $destinationPlenary]);
+//        return $this->sendAjaxSuccess();
     }
 
     /**
@@ -58,6 +66,9 @@ class WorkingDraftsController extends Controller
 
             //toggle its status to working
             $resolution->setWorkingNew($plenary);
+
+            SyncResolutionLocations::dispatchAfterResponse($plenary);
+            //no need to update agenda since the resolution will be in working drafts
 
         } catch (PythonScriptError $error) {
             return response()->json(['code' => $error->getCode(), 'message' => $error->getMessage()]);

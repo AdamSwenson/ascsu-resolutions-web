@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\PythonScriptError;
+use App\Jobs\SyncResolutionLocations;
 use App\Jobs\UpdateAgenda;
 use App\Models\Activity;
 use App\Models\Plenary;
@@ -71,7 +72,8 @@ class SecretaryController extends Controller
     {
 
         UpdateAgenda::dispatchAfterResponse($plenary);
-return $this->sendAjaxSuccess();
+        SyncResolutionLocations::dispatchAfterResponse($plenary);
+        return $this->sendAjaxSuccess();
 
 
         try {
