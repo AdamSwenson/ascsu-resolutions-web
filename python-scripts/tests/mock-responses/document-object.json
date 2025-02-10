@@ -1,0 +1,2485 @@
+{
+    "title": "10010 AA Test Resolution 1",
+    "body": {
+        "content": [
+            {
+                "endIndex": 1,
+                "sectionBreak": {
+                    "sectionStyle": {
+                        "columnSeparatorStyle": "NONE",
+                        "contentDirection": "LEFT_TO_RIGHT",
+                        "sectionType": "CONTINUOUS"
+                    }
+                }
+            },
+            {
+                "startIndex": 1,
+                "endIndex": 17,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 1,
+                            "endIndex": 17,
+                            "textRun": {
+                                "content": "Academic Senate\\n",
+                                "textStyle": {
+                                    "bold": true,
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "alignment": "CENTER",
+                        "lineSpacing": 100,
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 17,
+                "endIndex": 24,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 17,
+                            "endIndex": 24,
+                            "textRun": {
+                                "content": "of the\\n",
+                                "textStyle": {
+                                    "bold": true,
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "alignment": "CENTER",
+                        "lineSpacing": 100,
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 24,
+                "endIndex": 52,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 24,
+                            "endIndex": 52,
+                            "textRun": {
+                                "content": "California State University\\n",
+                                "textStyle": {
+                                    "bold": true,
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "alignment": "CENTER",
+                        "lineSpacing": 100,
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 52,
+                "endIndex": 53,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 52,
+                            "endIndex": 53,
+                            "textRun": {
+                                "content": "\\n",
+                                "textStyle": {
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 53,
+                "endIndex": 54,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 53,
+                            "endIndex": 54,
+                            "textRun": {
+                                "content": "\\n",
+                                "textStyle": {
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "alignment": "END",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 54,
+                "endIndex": 72,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 54,
+                            "endIndex": 71,
+                            "textRun": {
+                                "content": "Test Resolution 1",
+                                "textStyle": {
+                                    "bold": true,
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "startIndex": 71,
+                            "endIndex": 72,
+                            "textRun": {
+                                "content": "\\n",
+                                "textStyle": {
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "alignment": "CENTER",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 72,
+                "endIndex": 100,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 72,
+                            "endIndex": 81,
+                            "textRun": {
+                                "content": "RESOLVED:",
+                                "textStyle": {
+                                    "bold": true,
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "startIndex": 81,
+                            "endIndex": 100,
+                            "textRun": {
+                                "content": " [text]; and be it\\n",
+                                "textStyle": {
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT",
+                        "indentFirstLine": {
+                            "magnitude": 18,
+                            "unit": "PT"
+                        },
+                        "indentStart": {
+                            "magnitude": 36,
+                            "unit": "PT"
+                        }
+                    },
+                    "bullet": {
+                        "listId": "kix.ag7o0urpg73q",
+                        "textStyle": {
+                            "fontSize": {
+                                "magnitude": 12,
+                                "unit": "PT"
+                            },
+                            "weightedFontFamily": {
+                                "fontFamily": "Atkinson Hyperlegible",
+                                "weight": 400
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "startIndex": 100,
+                "endIndex": 101,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 100,
+                            "endIndex": 101,
+                            "textRun": {
+                                "content": "\\n",
+                                "textStyle": {
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT",
+                        "indentFirstLine": {
+                            "magnitude": 36,
+                            "unit": "PT"
+                        },
+                        "indentStart": {
+                            "magnitude": 36,
+                            "unit": "PT"
+                        }
+                    }
+                }
+            },
+            {
+                "startIndex": 101,
+                "endIndex": 158,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 101,
+                            "endIndex": 110,
+                            "textRun": {
+                                "content": "RESOLVED:",
+                                "textStyle": {
+                                    "bold": true,
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "startIndex": 110,
+                            "endIndex": 158,
+                            "textRun": {
+                                "content": " That the ASCSU distribute this resolution to: \\n",
+                                "textStyle": {
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT",
+                        "indentFirstLine": {
+                            "magnitude": 18,
+                            "unit": "PT"
+                        },
+                        "indentStart": {
+                            "magnitude": 36,
+                            "unit": "PT"
+                        }
+                    },
+                    "bullet": {
+                        "listId": "kix.ag7o0urpg73q",
+                        "textStyle": {
+                            "fontSize": {
+                                "magnitude": 12,
+                                "unit": "PT"
+                            },
+                            "weightedFontFamily": {
+                                "fontFamily": "Atkinson Hyperlegible",
+                                "weight": 400
+                            }
+                        }
+                    }
+                }
+            },
+            {
+                "startIndex": 158,
+                "endIndex": 159,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 158,
+                            "endIndex": 159,
+                            "textRun": {
+                                "content": "\\n",
+                                "textStyle": {
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 159,
+                "endIndex": 185,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 159,
+                            "endIndex": 185,
+                            "textRun": {
+                                "content": "    CSU Board of Trustees\\n",
+                                "textStyle": {
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 185,
+                "endIndex": 204,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 185,
+                            "endIndex": 204,
+                            "textRun": {
+                                "content": "    CSU Chancellor\\n",
+                                "textStyle": {
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 204,
+                "endIndex": 232,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 204,
+                            "endIndex": 232,
+                            "textRun": {
+                                "content": "    CSU campus Presidents  \\n",
+                                "textStyle": {
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 232,
+                "endIndex": 263,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 232,
+                            "endIndex": 263,
+                            "textRun": {
+                                "content": "    CSU campus Senate Chairs  \\n",
+                                "textStyle": {
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 263,
+                "endIndex": 308,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 263,
+                            "endIndex": 308,
+                            "textRun": {
+                                "content": "    CSU campus Senate Executive Committees  \\n",
+                                "textStyle": {
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 308,
+                "endIndex": 363,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 308,
+                            "endIndex": 363,
+                            "textRun": {
+                                "content": "    CSU Provosts/Vice Presidents of Academic Affairs  \\n",
+                                "textStyle": {
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 363,
+                "endIndex": 402,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 363,
+                            "endIndex": 402,
+                            "textRun": {
+                                "content": "    CSU campus articulation officers  \\n",
+                                "textStyle": {
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 402,
+                "endIndex": 444,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 402,
+                            "endIndex": 444,
+                            "textRun": {
+                                "content": "    California Faculty Association (CFA) \\n",
+                                "textStyle": {
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 444,
+                "endIndex": 493,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 444,
+                            "endIndex": 493,
+                            "textRun": {
+                                "content": "    California State Student Association (CSSA) \\n",
+                                "textStyle": {
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 493,
+                "endIndex": 563,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 493,
+                            "endIndex": 563,
+                            "textRun": {
+                                "content": "    CSU Emeritus and Retired Faculty & Staff Association (CSU-ERFSA) \\n",
+                                "textStyle": {
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 563,
+                "endIndex": 623,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 563,
+                            "endIndex": 623,
+                            "textRun": {
+                                "content": "    Academic Senate for the California Community Colleges  \\n",
+                                "textStyle": {
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 623,
+                "endIndex": 677,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 623,
+                            "endIndex": 677,
+                            "textRun": {
+                                "content": "    Academic Senate of the University of California  \\n",
+                                "textStyle": {
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 677,
+                "endIndex": 733,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 677,
+                            "endIndex": 733,
+                            "textRun": {
+                                "content": "    California Community Colleges\\u2019 Board of Governors  \\n",
+                                "textStyle": {
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 733,
+                "endIndex": 781,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 733,
+                            "endIndex": 781,
+                            "textRun": {
+                                "content": "    University of California Board of Regents  \\n",
+                                "textStyle": {
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 781,
+                "endIndex": 816,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 781,
+                            "endIndex": 816,
+                            "textRun": {
+                                "content": "    Assemblymember [insert name]  \\n",
+                                "textStyle": {
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 816,
+                "endIndex": 844,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 816,
+                            "endIndex": 844,
+                            "textRun": {
+                                "content": "    Senator [insert name]  \\n",
+                                "textStyle": {
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 844,
+                "endIndex": 845,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 844,
+                            "endIndex": 845,
+                            "textRun": {
+                                "content": "\\n",
+                                "textStyle": {
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 845,
+                "endIndex": 976,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 845,
+                            "endIndex": 976,
+                            "textRun": {
+                                "content": "    Legislative Leadership, [indicate which leadership members \\u2013 speaker pro temp? caucus whip? Chair of a particular committee?] \\n",
+                                "textStyle": {
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 976,
+                "endIndex": 977,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 976,
+                            "endIndex": 977,
+                            "textRun": {
+                                "content": "\\n",
+                                "textStyle": {
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 977,
+                "endIndex": 1127,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 977,
+                            "endIndex": 1127,
+                            "textRun": {
+                                "content": "    For additional Legislative distribution a listing of California State Assembly Committees can be found here: http://assembly.ca.gov/committees,  \\n",
+                                "textStyle": {
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 1127,
+                "endIndex": 1128,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 1127,
+                            "endIndex": 1128,
+                            "textRun": {
+                                "content": "\\n",
+                                "textStyle": {
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 1128,
+                "endIndex": 1265,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 1128,
+                            "endIndex": 1265,
+                            "textRun": {
+                                "content": "    For additional Legislative distribution a listing of California Senate committees can be found here: http://senate.ca.gov/committees\\n",
+                                "textStyle": {
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 1265,
+                "endIndex": 1266,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 1265,
+                            "endIndex": 1266,
+                            "textRun": {
+                                "content": "\\n",
+                                "textStyle": {
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 1266,
+                "endIndex": 1267,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 1266,
+                            "endIndex": 1267,
+                            "textRun": {
+                                "content": "\\n",
+                                "textStyle": {
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 1267,
+                "endIndex": 1277,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 1267,
+                            "endIndex": 1277,
+                            "textRun": {
+                                "content": "Rationale\\n",
+                                "textStyle": {
+                                    "bold": true,
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "alignment": "CENTER",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 1277,
+                "endIndex": 1278,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 1277,
+                            "endIndex": 1278,
+                            "textRun": {
+                                "content": "\\n",
+                                "textStyle": {
+                                    "bold": true,
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 1278,
+                "endIndex": 1279,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 1278,
+                            "endIndex": 1279,
+                            "textRun": {
+                                "content": "\\n",
+                                "textStyle": {
+                                    "bold": true,
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 1279,
+                "endIndex": 1280,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 1279,
+                            "endIndex": 1280,
+                            "textRun": {
+                                "content": "\\n",
+                                "textStyle": {
+                                    "bold": true,
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 1280,
+                "endIndex": 1281,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 1280,
+                            "endIndex": 1281,
+                            "textRun": {
+                                "content": "\\n",
+                                "textStyle": {
+                                    "bold": true,
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 1281,
+                "endIndex": 1282,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 1281,
+                            "endIndex": 1282,
+                            "textRun": {
+                                "content": "\\n",
+                                "textStyle": {
+                                    "bold": true,
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 1282,
+                "endIndex": 1283,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 1282,
+                            "endIndex": 1283,
+                            "textRun": {
+                                "content": "\\n",
+                                "textStyle": {
+                                    "bold": true,
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 1283,
+                "endIndex": 1284,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 1283,
+                            "endIndex": 1284,
+                            "textRun": {
+                                "content": "\\n",
+                                "textStyle": {
+                                    "bold": true,
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 1284,
+                "endIndex": 1285,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 1284,
+                            "endIndex": 1285,
+                            "textRun": {
+                                "content": "\\n",
+                                "textStyle": {
+                                    "bold": true,
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 1285,
+                "endIndex": 1304,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 1285,
+                            "endIndex": 1304,
+                            "textRun": {
+                                "content": "Resolution summary\\n",
+                                "textStyle": {
+                                    "bold": true,
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "alignment": "CENTER",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 1304,
+                "endIndex": 1305,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 1304,
+                            "endIndex": 1305,
+                            "textRun": {
+                                "content": "\\n",
+                                "textStyle": {
+                                    "bold": true,
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 1305,
+                "endIndex": 1306,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 1305,
+                            "endIndex": 1306,
+                            "textRun": {
+                                "content": "\\n",
+                                "textStyle": {
+                                    "bold": true,
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 1306,
+                "endIndex": 1319,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 1306,
+                            "endIndex": 1319,
+                            "textRun": {
+                                "content": "Instructions\\n",
+                                "textStyle": {
+                                    "bold": true,
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 1319,
+                "endIndex": 1392,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 1319,
+                            "endIndex": 1391,
+                            "textRun": {
+                                "content": "Delete unnecessary recipients and add additional recipients if warranted",
+                                "textStyle": {
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "startIndex": 1391,
+                            "endIndex": 1392,
+                            "textRun": {
+                                "content": "\\n",
+                                "textStyle": {
+                                    "bold": true,
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 1392,
+                "endIndex": 1427,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 1392,
+                            "endIndex": 1427,
+                            "textRun": {
+                                "content": "Do not italicize rationale section\\n",
+                                "textStyle": {
+                                    "bold": true,
+                                    "fontSize": {
+                                        "magnitude": 12,
+                                        "unit": "PT"
+                                    },
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            },
+            {
+                "startIndex": 1427,
+                "endIndex": 1428,
+                "paragraph": {
+                    "elements": [
+                        {
+                            "startIndex": 1427,
+                            "endIndex": 1428,
+                            "textRun": {
+                                "content": "\\n",
+                                "textStyle": {
+                                    "bold": true,
+                                    "weightedFontFamily": {
+                                        "fontFamily": "Atkinson Hyperlegible",
+                                        "weight": 400
+                                    }
+                                }
+                            }
+                        }
+                    ],
+                    "paragraphStyle": {
+                        "namedStyleType": "NORMAL_TEXT",
+                        "direction": "LEFT_TO_RIGHT"
+                    }
+                }
+            }
+        ]
+    },
+    "headers": {
+        "kix.ykwloztnzf1q": {
+            "headerId": "kix.ykwloztnzf1q",
+            "content": [
+                {
+                    "endIndex": 19,
+                    "paragraph": {
+                        "elements": [
+                            {
+                                "endIndex": 19,
+                                "textRun": {
+                                    "content": "AS-10010-30/AA/FGA\\n",
+                                    "textStyle": {
+                                        "weightedFontFamily": {
+                                            "fontFamily": "Atkinson Hyperlegible",
+                                            "weight": 400
+                                        }
+                                    }
+                                }
+                            }
+                        ],
+                        "paragraphStyle": {
+                            "namedStyleType": "NORMAL_TEXT",
+                            "alignment": "END",
+                            "lineSpacing": 100,
+                            "direction": "LEFT_TO_RIGHT"
+                        }
+                    }
+                },
+                {
+                    "startIndex": 19,
+                    "endIndex": 43,
+                    "paragraph": {
+                        "elements": [
+                            {
+                                "startIndex": 19,
+                                "endIndex": 41,
+                                "textRun": {
+                                    "content": "September 19-20, 2030 ",
+                                    "textStyle": {
+                                        "weightedFontFamily": {
+                                            "fontFamily": "Atkinson Hyperlegible",
+                                            "weight": 400
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "startIndex": 41,
+                                "endIndex": 42,
+                                "textRun": {
+                                    "content": "\\ue907",
+                                    "textStyle": {}
+                                }
+                            },
+                            {
+                                "startIndex": 42,
+                                "endIndex": 43,
+                                "textRun": {
+                                    "content": "\\n",
+                                    "textStyle": {
+                                        "weightedFontFamily": {
+                                            "fontFamily": "Atkinson Hyperlegible",
+                                            "weight": 400
+                                        }
+                                    }
+                                }
+                            }
+                        ],
+                        "paragraphStyle": {
+                            "namedStyleType": "NORMAL_TEXT",
+                            "alignment": "END",
+                            "lineSpacing": 100,
+                            "direction": "LEFT_TO_RIGHT"
+                        }
+                    }
+                }
+            ]
+        },
+        "kix.avx1f6l8zy12": {
+            "headerId": "kix.avx1f6l8zy12",
+            "content": [
+                {
+                    "endIndex": 26,
+                    "paragraph": {
+                        "elements": [
+                            {
+                                "endIndex": 26,
+                                "textRun": {
+                                    "content": "\\ue907AS-[xxxx]-23/[committee]\\n",
+                                    "textStyle": {
+                                        "weightedFontFamily": {
+                                            "fontFamily": "Atkinson Hyperlegible",
+                                            "weight": 400
+                                        }
+                                    }
+                                }
+                            }
+                        ],
+                        "paragraphStyle": {
+                            "namedStyleType": "NORMAL_TEXT",
+                            "alignment": "END",
+                            "direction": "LEFT_TO_RIGHT"
+                        }
+                    }
+                },
+                {
+                    "startIndex": 26,
+                    "endIndex": 54,
+                    "paragraph": {
+                        "elements": [
+                            {
+                                "startIndex": 26,
+                                "endIndex": 54,
+                                "textRun": {
+                                    "content": "[Month] [date]-[date], 2023\\n",
+                                    "textStyle": {
+                                        "weightedFontFamily": {
+                                            "fontFamily": "Atkinson Hyperlegible",
+                                            "weight": 400
+                                        }
+                                    }
+                                }
+                            }
+                        ],
+                        "paragraphStyle": {
+                            "namedStyleType": "NORMAL_TEXT",
+                            "alignment": "END",
+                            "direction": "LEFT_TO_RIGHT"
+                        }
+                    }
+                }
+            ]
+        }
+    },
+    "footers": {
+        "kix.rvbi4vu10lao": {
+            "footerId": "kix.rvbi4vu10lao",
+            "content": [
+                {
+                    "endIndex": 7,
+                    "paragraph": {
+                        "elements": [
+                            {
+                                "endIndex": 1,
+                                "autoText": {
+                                    "type": "PAGE_NUMBER",
+                                    "textStyle": {}
+                                }
+                            },
+                            {
+                                "startIndex": 1,
+                                "endIndex": 5,
+                                "textRun": {
+                                    "content": " of ",
+                                    "textStyle": {}
+                                }
+                            },
+                            {
+                                "startIndex": 5,
+                                "endIndex": 6,
+                                "autoText": {
+                                    "type": "PAGE_COUNT",
+                                    "textStyle": {}
+                                }
+                            },
+                            {
+                                "startIndex": 6,
+                                "endIndex": 7,
+                                "textRun": {
+                                    "content": "\\n",
+                                    "textStyle": {}
+                                }
+                            }
+                        ],
+                        "paragraphStyle": {
+                            "namedStyleType": "NORMAL_TEXT",
+                            "alignment": "CENTER",
+                            "direction": "LEFT_TO_RIGHT"
+                        }
+                    }
+                }
+            ]
+        },
+        "kix.j7r1xmtthk0y": {
+            "footerId": "kix.j7r1xmtthk0y",
+            "content": [
+                {
+                    "endIndex": 7,
+                    "paragraph": {
+                        "elements": [
+                            {
+                                "endIndex": 1,
+                                "autoText": {
+                                    "type": "PAGE_NUMBER",
+                                    "textStyle": {
+                                        "weightedFontFamily": {
+                                            "fontFamily": "Atkinson Hyperlegible",
+                                            "weight": 400
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "startIndex": 1,
+                                "endIndex": 5,
+                                "textRun": {
+                                    "content": " of ",
+                                    "textStyle": {
+                                        "weightedFontFamily": {
+                                            "fontFamily": "Atkinson Hyperlegible",
+                                            "weight": 400
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "startIndex": 5,
+                                "endIndex": 6,
+                                "autoText": {
+                                    "type": "PAGE_COUNT",
+                                    "textStyle": {
+                                        "weightedFontFamily": {
+                                            "fontFamily": "Atkinson Hyperlegible",
+                                            "weight": 400
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "startIndex": 6,
+                                "endIndex": 7,
+                                "textRun": {
+                                    "content": "\\n",
+                                    "textStyle": {
+                                        "weightedFontFamily": {
+                                            "fontFamily": "Atkinson Hyperlegible",
+                                            "weight": 400
+                                        }
+                                    }
+                                }
+                            }
+                        ],
+                        "paragraphStyle": {
+                            "namedStyleType": "NORMAL_TEXT",
+                            "alignment": "END",
+                            "direction": "LEFT_TO_RIGHT"
+                        }
+                    }
+                }
+            ]
+        }
+    },
+    "documentStyle": {
+        "background": {
+            "color": {}
+        },
+        "defaultHeaderId": "kix.ykwloztnzf1q",
+        "defaultFooterId": "kix.j7r1xmtthk0y",
+        "firstPageHeaderId": "kix.avx1f6l8zy12",
+        "firstPageFooterId": "kix.rvbi4vu10lao",
+        "pageNumberStart": 1,
+        "marginTop": {
+            "magnitude": 72,
+            "unit": "PT"
+        },
+        "marginBottom": {
+            "magnitude": 72,
+            "unit": "PT"
+        },
+        "marginRight": {
+            "magnitude": 72,
+            "unit": "PT"
+        },
+        "marginLeft": {
+            "magnitude": 72,
+            "unit": "PT"
+        },
+        "pageSize": {
+            "height": {
+                "magnitude": 792,
+                "unit": "PT"
+            },
+            "width": {
+                "magnitude": 612,
+                "unit": "PT"
+            }
+        },
+        "marginHeader": {
+            "magnitude": 36,
+            "unit": "PT"
+        },
+        "marginFooter": {
+            "magnitude": 36,
+            "unit": "PT"
+        },
+        "useCustomHeaderFooterMargins": true
+    },
+    "namedStyles": {
+        "styles": [
+            {
+                "namedStyleType": "NORMAL_TEXT",
+                "textStyle": {
+                    "bold": false,
+                    "italic": false,
+                    "underline": false,
+                    "strikethrough": false,
+                    "smallCaps": false,
+                    "backgroundColor": {},
+                    "foregroundColor": {
+                        "color": {
+                            "rgbColor": {}
+                        }
+                    },
+                    "fontSize": {
+                        "magnitude": 11,
+                        "unit": "PT"
+                    },
+                    "weightedFontFamily": {
+                        "fontFamily": "Arial",
+                        "weight": 400
+                    },
+                    "baselineOffset": "NONE"
+                },
+                "paragraphStyle": {
+                    "namedStyleType": "NORMAL_TEXT",
+                    "alignment": "START",
+                    "lineSpacing": 115,
+                    "direction": "LEFT_TO_RIGHT",
+                    "spacingMode": "COLLAPSE_LISTS",
+                    "spaceAbove": {
+                        "unit": "PT"
+                    },
+                    "spaceBelow": {
+                        "unit": "PT"
+                    },
+                    "borderBetween": {
+                        "color": {},
+                        "width": {
+                            "unit": "PT"
+                        },
+                        "padding": {
+                            "unit": "PT"
+                        },
+                        "dashStyle": "SOLID"
+                    },
+                    "borderTop": {
+                        "color": {},
+                        "width": {
+                            "unit": "PT"
+                        },
+                        "padding": {
+                            "unit": "PT"
+                        },
+                        "dashStyle": "SOLID"
+                    },
+                    "borderBottom": {
+                        "color": {},
+                        "width": {
+                            "unit": "PT"
+                        },
+                        "padding": {
+                            "unit": "PT"
+                        },
+                        "dashStyle": "SOLID"
+                    },
+                    "borderLeft": {
+                        "color": {},
+                        "width": {
+                            "unit": "PT"
+                        },
+                        "padding": {
+                            "unit": "PT"
+                        },
+                        "dashStyle": "SOLID"
+                    },
+                    "borderRight": {
+                        "color": {},
+                        "width": {
+                            "unit": "PT"
+                        },
+                        "padding": {
+                            "unit": "PT"
+                        },
+                        "dashStyle": "SOLID"
+                    },
+                    "indentFirstLine": {
+                        "unit": "PT"
+                    },
+                    "indentStart": {
+                        "unit": "PT"
+                    },
+                    "indentEnd": {
+                        "unit": "PT"
+                    },
+                    "keepLinesTogether": false,
+                    "keepWithNext": false,
+                    "avoidWidowAndOrphan": true,
+                    "shading": {
+                        "backgroundColor": {}
+                    },
+                    "pageBreakBefore": false
+                }
+            },
+            {
+                "namedStyleType": "HEADING_1",
+                "textStyle": {
+                    "fontSize": {
+                        "magnitude": 20,
+                        "unit": "PT"
+                    }
+                },
+                "paragraphStyle": {
+                    "namedStyleType": "NORMAL_TEXT",
+                    "direction": "LEFT_TO_RIGHT",
+                    "spaceAbove": {
+                        "magnitude": 20,
+                        "unit": "PT"
+                    },
+                    "spaceBelow": {
+                        "magnitude": 6,
+                        "unit": "PT"
+                    },
+                    "keepLinesTogether": true,
+                    "keepWithNext": true,
+                    "pageBreakBefore": false
+                }
+            },
+            {
+                "namedStyleType": "HEADING_2",
+                "textStyle": {
+                    "bold": false,
+                    "fontSize": {
+                        "magnitude": 16,
+                        "unit": "PT"
+                    }
+                },
+                "paragraphStyle": {
+                    "namedStyleType": "NORMAL_TEXT",
+                    "direction": "LEFT_TO_RIGHT",
+                    "spaceAbove": {
+                        "magnitude": 18,
+                        "unit": "PT"
+                    },
+                    "spaceBelow": {
+                        "magnitude": 6,
+                        "unit": "PT"
+                    },
+                    "keepLinesTogether": true,
+                    "keepWithNext": true,
+                    "pageBreakBefore": false
+                }
+            },
+            {
+                "namedStyleType": "HEADING_3",
+                "textStyle": {
+                    "bold": false,
+                    "foregroundColor": {
+                        "color": {
+                            "rgbColor": {
+                                "red": 0.2627451,
+                                "green": 0.2627451,
+                                "blue": 0.2627451
+                            }
+                        }
+                    },
+                    "fontSize": {
+                        "magnitude": 14,
+                        "unit": "PT"
+                    }
+                },
+                "paragraphStyle": {
+                    "namedStyleType": "NORMAL_TEXT",
+                    "direction": "LEFT_TO_RIGHT",
+                    "spaceAbove": {
+                        "magnitude": 16,
+                        "unit": "PT"
+                    },
+                    "spaceBelow": {
+                        "magnitude": 4,
+                        "unit": "PT"
+                    },
+                    "keepLinesTogether": true,
+                    "keepWithNext": true,
+                    "pageBreakBefore": false
+                }
+            },
+            {
+                "namedStyleType": "HEADING_4",
+                "textStyle": {
+                    "foregroundColor": {
+                        "color": {
+                            "rgbColor": {
+                                "red": 0.4,
+                                "green": 0.4,
+                                "blue": 0.4
+                            }
+                        }
+                    },
+                    "fontSize": {
+                        "magnitude": 12,
+                        "unit": "PT"
+                    }
+                },
+                "paragraphStyle": {
+                    "namedStyleType": "NORMAL_TEXT",
+                    "direction": "LEFT_TO_RIGHT",
+                    "spaceAbove": {
+                        "magnitude": 14,
+                        "unit": "PT"
+                    },
+                    "spaceBelow": {
+                        "magnitude": 4,
+                        "unit": "PT"
+                    },
+                    "keepLinesTogether": true,
+                    "keepWithNext": true,
+                    "pageBreakBefore": false
+                }
+            },
+            {
+                "namedStyleType": "HEADING_5",
+                "textStyle": {
+                    "foregroundColor": {
+                        "color": {
+                            "rgbColor": {
+                                "red": 0.4,
+                                "green": 0.4,
+                                "blue": 0.4
+                            }
+                        }
+                    },
+                    "fontSize": {
+                        "magnitude": 11,
+                        "unit": "PT"
+                    }
+                },
+                "paragraphStyle": {
+                    "namedStyleType": "NORMAL_TEXT",
+                    "direction": "LEFT_TO_RIGHT",
+                    "spaceAbove": {
+                        "magnitude": 12,
+                        "unit": "PT"
+                    },
+                    "spaceBelow": {
+                        "magnitude": 4,
+                        "unit": "PT"
+                    },
+                    "keepLinesTogether": true,
+                    "keepWithNext": true,
+                    "pageBreakBefore": false
+                }
+            },
+            {
+                "namedStyleType": "HEADING_6",
+                "textStyle": {
+                    "italic": true,
+                    "foregroundColor": {
+                        "color": {
+                            "rgbColor": {
+                                "red": 0.4,
+                                "green": 0.4,
+                                "blue": 0.4
+                            }
+                        }
+                    },
+                    "fontSize": {
+                        "magnitude": 11,
+                        "unit": "PT"
+                    }
+                },
+                "paragraphStyle": {
+                    "namedStyleType": "NORMAL_TEXT",
+                    "direction": "LEFT_TO_RIGHT",
+                    "spaceAbove": {
+                        "magnitude": 12,
+                        "unit": "PT"
+                    },
+                    "spaceBelow": {
+                        "magnitude": 4,
+                        "unit": "PT"
+                    },
+                    "keepLinesTogether": true,
+                    "keepWithNext": true,
+                    "pageBreakBefore": false
+                }
+            },
+            {
+                "namedStyleType": "TITLE",
+                "textStyle": {
+                    "fontSize": {
+                        "magnitude": 26,
+                        "unit": "PT"
+                    }
+                },
+                "paragraphStyle": {
+                    "namedStyleType": "NORMAL_TEXT",
+                    "direction": "LEFT_TO_RIGHT",
+                    "spaceAbove": {
+                        "unit": "PT"
+                    },
+                    "spaceBelow": {
+                        "magnitude": 3,
+                        "unit": "PT"
+                    },
+                    "keepLinesTogether": true,
+                    "keepWithNext": true,
+                    "pageBreakBefore": false
+                }
+            },
+            {
+                "namedStyleType": "SUBTITLE",
+                "textStyle": {
+                    "italic": false,
+                    "foregroundColor": {
+                        "color": {
+                            "rgbColor": {
+                                "red": 0.4,
+                                "green": 0.4,
+                                "blue": 0.4
+                            }
+                        }
+                    },
+                    "fontSize": {
+                        "magnitude": 15,
+                        "unit": "PT"
+                    },
+                    "weightedFontFamily": {
+                        "fontFamily": "Arial",
+                        "weight": 400
+                    }
+                },
+                "paragraphStyle": {
+                    "namedStyleType": "NORMAL_TEXT",
+                    "direction": "LEFT_TO_RIGHT",
+                    "spaceAbove": {
+                        "unit": "PT"
+                    },
+                    "spaceBelow": {
+                        "magnitude": 16,
+                        "unit": "PT"
+                    },
+                    "keepLinesTogether": true,
+                    "keepWithNext": true,
+                    "pageBreakBefore": false
+                }
+            }
+        ]
+    },
+    "lists": {
+        "kix.ag7o0urpg73q": {
+            "listProperties": {
+                "nestingLevels": [
+                    {
+                        "bulletAlignment": "START",
+                        "glyphType": "DECIMAL",
+                        "glyphFormat": "%0.",
+                        "indentFirstLine": {
+                            "magnitude": 18,
+                            "unit": "PT"
+                        },
+                        "indentStart": {
+                            "magnitude": 36,
+                            "unit": "PT"
+                        },
+                        "textStyle": {
+                            "bold": true,
+                            "underline": false,
+                            "weightedFontFamily": {
+                                "fontFamily": "Arial",
+                                "weight": 400
+                            }
+                        },
+                        "startNumber": 1
+                    },
+                    {
+                        "bulletAlignment": "START",
+                        "glyphType": "ALPHA",
+                        "glyphFormat": "%1.",
+                        "indentFirstLine": {
+                            "magnitude": 54,
+                            "unit": "PT"
+                        },
+                        "indentStart": {
+                            "magnitude": 72,
+                            "unit": "PT"
+                        },
+                        "textStyle": {
+                            "underline": false
+                        },
+                        "startNumber": 1
+                    },
+                    {
+                        "bulletAlignment": "END",
+                        "glyphType": "ROMAN",
+                        "glyphFormat": "%2.",
+                        "indentFirstLine": {
+                            "magnitude": 90,
+                            "unit": "PT"
+                        },
+                        "indentStart": {
+                            "magnitude": 108,
+                            "unit": "PT"
+                        },
+                        "textStyle": {
+                            "underline": false
+                        },
+                        "startNumber": 1
+                    },
+                    {
+                        "bulletAlignment": "START",
+                        "glyphType": "DECIMAL",
+                        "glyphFormat": "%3.",
+                        "indentFirstLine": {
+                            "magnitude": 126,
+                            "unit": "PT"
+                        },
+                        "indentStart": {
+                            "magnitude": 144,
+                            "unit": "PT"
+                        },
+                        "textStyle": {
+                            "underline": false
+                        },
+                        "startNumber": 1
+                    },
+                    {
+                        "bulletAlignment": "START",
+                        "glyphType": "ALPHA",
+                        "glyphFormat": "%4.",
+                        "indentFirstLine": {
+                            "magnitude": 162,
+                            "unit": "PT"
+                        },
+                        "indentStart": {
+                            "magnitude": 180,
+                            "unit": "PT"
+                        },
+                        "textStyle": {
+                            "underline": false
+                        },
+                        "startNumber": 1
+                    },
+                    {
+                        "bulletAlignment": "END",
+                        "glyphType": "ROMAN",
+                        "glyphFormat": "%5.",
+                        "indentFirstLine": {
+                            "magnitude": 198,
+                            "unit": "PT"
+                        },
+                        "indentStart": {
+                            "magnitude": 216,
+                            "unit": "PT"
+                        },
+                        "textStyle": {
+                            "underline": false
+                        },
+                        "startNumber": 1
+                    },
+                    {
+                        "bulletAlignment": "START",
+                        "glyphType": "DECIMAL",
+                        "glyphFormat": "%6.",
+                        "indentFirstLine": {
+                            "magnitude": 234,
+                            "unit": "PT"
+                        },
+                        "indentStart": {
+                            "magnitude": 252,
+                            "unit": "PT"
+                        },
+                        "textStyle": {
+                            "underline": false
+                        },
+                        "startNumber": 1
+                    },
+                    {
+                        "bulletAlignment": "START",
+                        "glyphType": "ALPHA",
+                        "glyphFormat": "%7.",
+                        "indentFirstLine": {
+                            "magnitude": 270,
+                            "unit": "PT"
+                        },
+                        "indentStart": {
+                            "magnitude": 288,
+                            "unit": "PT"
+                        },
+                        "textStyle": {
+                            "underline": false
+                        },
+                        "startNumber": 1
+                    },
+                    {
+                        "bulletAlignment": "END",
+                        "glyphType": "ROMAN",
+                        "glyphFormat": "%8.",
+                        "indentFirstLine": {
+                            "magnitude": 306,
+                            "unit": "PT"
+                        },
+                        "indentStart": {
+                            "magnitude": 324,
+                            "unit": "PT"
+                        },
+                        "textStyle": {
+                            "underline": false
+                        },
+                        "startNumber": 1
+                    }
+                ]
+            }
+        }
+    },
+    "namedRanges": {
+        "distributionListRange": {
+            "name": "distributionListRange",
+            "namedRanges": [
+                {
+                    "namedRangeId": "kix.ffw0pg76d2x7",
+                    "name": "distributionListRange",
+                    "ranges": [
+                        {
+                            "startIndex": 101,
+                            "endIndex": 1266
+                        }
+                    ]
+                }
+            ]
+        },
+        "groupName": {
+            "name": "groupName",
+            "namedRanges": [
+                {
+                    "namedRangeId": "kix.dt33qktzcul2",
+                    "name": "groupName",
+                    "ranges": [
+                        {
+                            "startIndex": 1,
+                            "endIndex": 52
+                        }
+                    ]
+                }
+            ]
+        },
+        "rationaleRange": {
+            "name": "rationaleRange",
+            "namedRanges": [
+                {
+                    "namedRangeId": "kix.nzjlvpkvjbce",
+                    "name": "rationaleRange",
+                    "ranges": [
+                        {
+                            "startIndex": 1267,
+                            "endIndex": 1304
+                        }
+                    ]
+                }
+            ]
+        },
+        "titleRange": {
+            "name": "titleRange",
+            "namedRanges": [
+                {
+                    "namedRangeId": "kix.n46golfo41qb",
+                    "name": "titleRange",
+                    "ranges": [
+                        {
+                            "startIndex": 54,
+                            "endIndex": 71
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "revisionId": "ALBJ4Lt6X2-8WdPc54rIDonjOYDwFToaWmZ6l1d7B-i1Io4cXopoQ9criTHUhMPwPRZy4HYYyJgcgBvjq6AOaw",
+    "suggestionsViewMode": "SUGGESTIONS_INLINE",
+    "documentId": "1QIdMPeL49eoKc28n_aio3n0BScn__D2ZklVVqQwfK-M"
+}

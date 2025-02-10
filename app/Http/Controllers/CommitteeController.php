@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ResolutionRequest;
 use App\Exceptions\PythonScriptError;
+use App\Jobs\SyncReadingTypes;
+use App\Jobs\SyncResolutionLocations;
 use App\Jobs\UpdateAgenda;
 use App\Models\Committee;
 use App\Models\Plenary;
@@ -163,7 +165,9 @@ class CommitteeController extends Controller
                 throw new PythonScriptError("No document created in drive. Please try again. If the problem persists, please notify the Secretary");
             }
 
+
             UpdateAgenda::dispatchAfterResponse($plenary);
+            SyncResolutionLocations::dispatchAfterResponse($plenary);
 
             return response()->json($resolution);
         } catch (PythonScriptError $error) {
@@ -206,6 +210,7 @@ class CommitteeController extends Controller
         $plenary = Plenary::where('is_current', true)->first();
         if (!is_null($plenary)) {
             UpdateAgenda::dispatchAfterResponse($plenary);
+            SyncReadingTypes::dispatchAfterResponse($plenary);
         }
 
         return response()->json($resolution);

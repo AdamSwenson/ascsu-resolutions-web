@@ -31,7 +31,7 @@ def resolution_factory():
                       committee=committee,
                       cosponsors=[],
                       document_obj=None,
-                      is_first_reading=False,
+                      # is_first_reading=False,
                       is_approved=None,
                       status=None,
                       year=fake.year())
@@ -39,24 +39,26 @@ def resolution_factory():
 
 def first_reading_factory():
     r = resolution_factory()
-    r.is_first_reading = True
+    r.reading_type = 'first'
+    # r.is_first_reading = True
     return r
 
 
 def second_reading_factory():
     r = resolution_factory()
-    r.is_first_reading = False
-    r.is_waiver = False
+    r.reading_type = 'action'
+    # r.is_first_reading = False
+    # r.is_waiver = False
     return r
 
 
 def waiver_factory():
     r = resolution_factory()
-    r.is_waiver = True
-    r.is_first_reading = True
+    r.reading_type = 'waiver'
+    # r.is_waiver = True
+    # r.is_first_reading = True
     return r
 
 def committee_factory():
     fake = Faker()
-
     return Committee(full_name=fake.name(), abbreviation=fake.word())

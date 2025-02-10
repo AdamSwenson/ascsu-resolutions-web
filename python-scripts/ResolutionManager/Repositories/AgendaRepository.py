@@ -57,13 +57,6 @@ class AgendaRepository(object):
             RequestRepository.make_delete_content_request(1, final_index)
         ]
 
-        # requests = [
-        #     {
-        #         'deleteContentRange': {
-        #             'range': {'startIndex': 1, 'endIndex': final_index}
-        #         }
-        #     }
-        # ]
         try:
 
             result = self.service.documents().batchUpdate(documentId=plenary.agenda_id,
@@ -77,6 +70,7 @@ class AgendaRepository(object):
         """
         Creates a copy of the agenda template and moves it to appropriate folder.
         Sets the agenda_id on the plenary
+        :type plenary: Plenary
         :return:
         """
         template_id = self.config.AGENDA_TEMPLATE_ID
@@ -91,7 +85,8 @@ class AgendaRepository(object):
         """
         This creates a new agenda file if none already exists. If one does, it will
         wipe it clean
-        :param plenary:
+        :param plenary: The plenary to create the agenda for
+        :type plenary: Plenary
         :return:
         """
         if plenary.agenda_id is None:
@@ -112,139 +107,43 @@ class AgendaRepository(object):
             RequestRepository.make_insert_text_request(self.idx, text),
             RequestRepository.make_bold_text_request(self.idx, self.idx + len(text))
         ]
-        # requests = []
-        # requests.append({
-        #     'insertText': {
-        #         'location': {
-        #             'index': self.idx,
-        #         },
-        #         'text': text,
-        #     }
-        # })
-        # requests.append({
-        #     'updateTextStyle': {
-        #         'range': {
-        #             'startIndex': self.idx,
-        #             'endIndex': self.idx + len(text)
-        #         },
-        #         'textStyle': {
-        #             'bold': True,
-        #         },
-        #         'fields': 'bold'
-        #     }
-        # })
 
         self.idx += len(text)
         return requests
 
     def make_page_title_requests(self, plenary: Plenary):
         text = f"ASCSU Resolutions\n {plenary.month} {plenary.year}\n\n"
-        # text = template.format({'month': plenary.month, 'year': plenary.year})
-
-        # text = template.format({'month': plenary.month, 'year': plenary.year})
-        # text = "ASCSU Resolutions\n"
 
         requests = [
             RequestRepository.make_insert_text_request(self.idx, text),
             RequestRepository.make_title_style_request(self.idx, self.idx + len(text))
         ]
 
-        # requests = [
-        #     {
-        #         'insertText': {
-        #             'location': {
-        #                 'index': self.idx,
-        #             },
-        #             'text': text,
-        #         }
-        #     },
-        #     {
-        #         'updateParagraphStyle': {
-        #             'range': {
-        #                 'startIndex': self.idx,
-        #                 'endIndex': self.idx + len(text)
-        #             },
-        #             'paragraphStyle': {
-        #                 'namedStyleType': 'TITLE'
-        #             },
-        #             'fields': 'namedStyleType'
-        #         }
-        #     },
-        # {
-        #     'updateTextStyle': {
-        #         'range': {
-        #             'startIndex': self.idx,
-        #             'endIndex': self.idx + len(text)
-        #         },
-        #         'textStyle': {
-        #             'bold': True,
-        #         },
-        #         'fields': 'bold'
-        #     }
-        # },
-        # {
-        #     'updateParagraphStyle': {
-        #         'range': {
-        #             'startIndex': self.idx,
-        #             'endIndex': self.idx + len(text)
-        #         },
-        #         'paragraphStyle': {
-        #             'alignment': 'CENTER'
-        #         },
-        #         'fields': 'alignment'
-        #     }
-        # }
-        # ]
-
         self.idx += len(text)
         return requests
 
     def make_action_items_heading_requests(self):
-        text = "\nAction Items \n"
+        text = "\nSecond Readings \n"
 
         requests = [
             RequestRepository.make_insert_text_request(self.idx, text),
             RequestRepository.make_bold_text_request(self.idx, self.idx + len(text))
         ]
 
-        # requests = []
-        #
-        #
-        # requests.append({
-        #     'insertText': {
-        #         'location': {
-        #             'index': self.idx,
-        #         },
-        #         'text': text,
-        #     }
-        # })
-        # requests.append({
-        #     'updateTextStyle': {
-        #         'range': {
-        #             'startIndex': self.idx,
-        #             'endIndex': self.idx + len(text)
-        #         },
-        #         'textStyle': {
-        #             'bold': True,
-        #         },
-        #         'fields': 'bold'
-        #     }
-        # })
+        self.idx += len(text)
+        return requests
 
-        # requests.append({'updateParagraphStyle': {
-        #     'range': {
-        #         'startIndex': self.idx,
-        #         'endIndex': self.idx + len(text)
-        #     },
-        #     'paragraphStyle': {
-        #         'alignment': 'START'
-        #     },
-        #     'fields': 'alignment'
-        # }
-        # })
+    def make_waiver_items_heading_requests(self):
+        text = "\nFirst Reading Waivers \n"
+
+        requests = [
+            RequestRepository.make_insert_text_request(self.idx, text),
+            RequestRepository.make_bold_text_request(self.idx, self.idx + len(text))
+        ]
 
         self.idx += len(text)
         return requests
+
 
     def make_resolution_list_item_requests(self, resolution):
         """Returns a list of request objects required to make the entry"""
@@ -258,27 +157,6 @@ class AgendaRepository(object):
         requests.append(RequestRepository.make_insert_text_request(self.idx, text))
         requests.append(RequestRepository.make_align_left_request(self.idx, self.idx + len(text)))
 
-        # requests.append({
-        #     'insertText': {
-        #         'location': {
-        #             'index': self.idx,
-        #         },
-        #         'text': text,
-        #     }
-        # })
-        #
-        # requests.append({'updateParagraphStyle': {
-        #     'range': {
-        #         'startIndex': self.idx,
-        #         'endIndex': self.idx + len(text)
-        #     },
-        #     'paragraphStyle': {
-        #         'alignment': 'START'
-        #     },
-        #     'fields': 'alignment'
-        # }
-        # })
-
         self.idx += len(text)
 
         # Add url
@@ -286,48 +164,10 @@ class AgendaRepository(object):
         requests.append(RequestRepository.make_insert_text_request(self.idx, url_text))
         requests.append(RequestRepository.make_url_request(self.idx, self.idx + len(url_text), resolution.url))
 
-        #
-        # requests.append({
-        #     'insertText': {
-        #         'location': {
-        #             'index': self.idx,
-        #         },
-        #         'text': url_text
-        #     }
-        # })
-        #
-        # requests.append(
-        #     {
-        #         "updateTextStyle": {
-        #             "textStyle": {
-        #                 "link": {
-        #                     "url": resolution.url
-        #                 }
-        #             },
-        #             "range": {
-        #                 "startIndex": self.idx,
-        #                 "endIndex": self.idx + len(url_text)
-        #             },
-        #             "fields": "link"
-        #         }
-        #     })
-
         self.idx += len(url_text)
 
         # Make sure it has the correct styling
         requests.append(RequestRepository.make_normal_text_style_request(starting_idx, self.idx))
-
-        # requests.append({'updateParagraphStyle': {
-        #     'range': {
-        #         'startIndex': starting_idx,
-        #         'endIndex': self.idx
-        #     },
-        #     'paragraphStyle': {
-        #         'namedStyleType': 'NORMAL_TEXT'
-        #     },
-        #     'fields': 'namedStyleType'
-        # }
-        # })
 
         return requests
 
@@ -388,7 +228,7 @@ class AgendaRepository(object):
         pt = self.make_page_title_requests(plenary)
         requests.extend(pt)
 
-        # Make action items header and update index
+        # Make second reading items header and update index
         aih = self.make_action_items_heading_requests()
         requests.extend(aih)
 
@@ -399,6 +239,10 @@ class AgendaRepository(object):
             except Exception as e:
                 m = f"\n=======Agenda creation error=======\nAction\n{e}\n{r}\n==============\n"
                 self.logger.error(m)
+
+        # Make waiver items header and update index
+        aih = self.make_waiver_items_heading_requests()
+        requests.extend(aih)
 
         for w in self.waivers:
             try:

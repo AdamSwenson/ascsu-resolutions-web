@@ -17,14 +17,22 @@ use Illuminate\Database\Eloquent\Model;
 class Resolution extends Model
 {
     const URL_BASE = 'https://docs.google.com/document/d/';
+    const FOLDER_URL_BASE ='https://drive.google.com/drive/folders/';
 
     const READING_TYPES = ['first', 'waiver', 'working', 'action'];
+
+    const LOCATION_FIELDS = ['First reading' => 'first_reading_folder_id',
+        'Working drafts' => 'working_drafts_folder_id',
+        'Second reading' => 'second_reading_folder_id'
+    ];
+
 
     use HasFactory;
 
 
     //acceptable statuses: null, approved, failed
     protected $fillable = [
+        'current_folder_id',
         'document_id',
         'title',
         'number',
@@ -33,10 +41,16 @@ class Resolution extends Model
     ];
 
     protected $appends = [
-//        'is_first_reading', 'is_waiver',
-//        'readingType',
-        'url', 'formattedNumber', 'firstReadingPlenary', 'actionPlenaries',
-        'sponsor', 'cosponsors'];
+        'actionPlenaries',
+        'cosponsors',
+        'currentLocation',
+        'currentLocationUrl',
+        'firstReadingPlenary',
+        'formattedNumber',
+        'sponsor',
+        'url',
+        'workingPlenaries'
+    ];
 
     protected $casts = ['is_approved' => 'boolean'];
 
@@ -235,6 +249,29 @@ class Resolution extends Model
         return 'first';
     }
 
+    /**
+     * Returns a string with the plenary name and folder in which the
+     * resolution is currently stored.
+     * @version AR-139
+     * @return string|void
+     */
+    public function getCurrentLocationAttribute(){
+
+        foreach (self::LOCATION_FIELDS as $k => $v){
+            $p = Plenary::where($v, $this->current_folder_id)->first();
+            if(! is_null($p)){
+                return "$p->plenary_name  $k folder";
+            }
+        }
+    }
+
+    public function getCurrentLocationUrlAttribute(){
+        if(! is_null($this->currentLocation)){
+            return self::FOLDER_URL_BASE . $this->current_folder_id;
+        }
+        return '';
+    }
+
 //    /**
 //     * @return string
 //     * @deprecated AR-92
@@ -297,8 +334,14 @@ class Resolution extends Model
      */
     public function getFirstReadingPlenaryAttribute()
     {
+        $first = $this->belongsToMany(Plenary::class)
+//            ->wherePivot('is_first_reading', 1)
+            ->wherePivot('reading_type', 'first')
+            ->first();
+        if (! is_null($first)) return $first;
+
         return $this->belongsToMany(Plenary::class)
-            ->wherePivot('is_first_reading', 1)
+            ->wherePivot('reading_type', 'waiver')
             ->first();
     }
 
@@ -314,8 +357,9 @@ class Resolution extends Model
     public function getActionPlenariesAttribute()
     {
         return $this->belongsToMany(Plenary::class)
-            ->wherePivot('is_first_reading', 0)
-            ->get();
+//            ->wherePivot('is_first_reading', 0)
+            ->wherePivot('reading_type', 'action')
+             ->get();
     }
 
     /**

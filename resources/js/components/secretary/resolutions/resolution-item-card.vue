@@ -15,7 +15,14 @@
                 </div>
 
                 <div class="col">
+                    <h5 class="card-text text-light">History</h5>
                     <p class="card-text text-light">First reading: {{ firstReadingName }}</p>
+
+                    <p class="card-text text-light"
+                       v-if="workingPlenaryNames.length > 0 "
+                       v-for="p in workingPlenaryNames"
+                       :key="p + 'w'"
+                    >Working items: {{ p }}</p>
 
                     <p class="card-text text-light"
                        v-for="p in secondReadingNames"
@@ -26,7 +33,10 @@
             </div>
 
             <p class="card-text text-light">
-                <a v-bind:href="url" target="_blank">{{ url }}</a>
+                Link to resolution: <a v-bind:href="url" target="_blank">{{ url }}</a>
+            </p>
+            <p class="card-text text-light">
+                Resolution location: <a v-bind:href="currentLocationUrl" target="_blank">{{ currentLocation }}</a>
             </p>
 
             <p class="card-text">
@@ -49,6 +59,10 @@
 
                 <div class="col">
                     <committee-control-card :resolution-id="resolutionId"></committee-control-card>
+                </div>
+
+                <div class="col">
+                    <single-move-dialog :resolution-id="resolutionId"></single-move-dialog>
                 </div>
             </div>
         </div>
@@ -86,10 +100,12 @@ import WorkingSpinner from "../../common/working-spinner";
 import PermissionsControlCard from "./controls/permissions-control-card";
 import ApprovalControlCard from "./controls/approval-control-card";
 import CommitteeControlCard from "./controls/committee-control-card";
+import SingleMoveDialog from "../moveControls/single-move-dialog";
 
 export default {
     name: "resolution-item-card",
     components: {
+        SingleMoveDialog,
         CommitteeControlCard,
         ApprovalControlCard,
         PermissionsControlCard,
@@ -131,19 +147,6 @@ export default {
             return this.$store.getters.getResolution(this.resolutionId);
         },
 
-        firstReadingName: function () {
-            if (!isReadyToRock(this.firstReadingPlenary)) return '';
-            return this.firstReadingPlenary.plenaryName;
-        },
-
-        secondReadingNames: function () {
-            if (!isReadyToRock(this.actionPlenaries)) return [];
-            let n = [];
-            _.forEach(this.actionPlenaries, (p) => {
-                n.push(p.plenaryName)
-            });
-            return n;
-        },
 
         showWaiverIndicator: function () {
             return this.isWaiver;

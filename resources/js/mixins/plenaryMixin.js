@@ -4,6 +4,19 @@
 module.exports = {
 
     asyncComputed: {
+        /**
+         * Returns only plenaries for the academic year
+         */
+        academicYearPlenaries : function(){
+            return this.$store.getters.getAcademicYearPlenaries;
+
+        },
+
+        allPlenaries : function(){
+            return this.$store.getters.getPlenaries;
+        },
+
+
         plenaryId : function(){
             return _.toInteger(window.plenaryId);
         },

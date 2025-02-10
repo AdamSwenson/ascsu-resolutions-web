@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\PythonScriptError;
+use App\Jobs\SyncResolutionLocations;
 use App\Jobs\UpdateAgenda;
 use App\Models\Plenary;
 use App\Models\Resolution;
@@ -182,6 +183,7 @@ class ResolutionController extends Controller
             $j['readingType'] = $resolution->getReadingType($plenary);
 
             UpdateAgenda::dispatchAfterResponse($plenary);
+            SyncResolutionLocations::dispatchAfterResponse($plenary);
 
             return response()->json($j);
 

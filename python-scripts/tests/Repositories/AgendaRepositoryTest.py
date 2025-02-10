@@ -1,19 +1,37 @@
 from unittest import TestCase
 from unittest.mock import MagicMock
 from random import shuffle
+
+from googleapiclient.http import HttpMock
+from googleapiclient.discovery import build
+
 from ResolutionManager.Models.Plenaries import Plenary
 from ResolutionManager.Models.Resolutions import Resolution
 from ResolutionManager.Repositories.AgendaRepository import AgendaRepository
+from ResolutionManager.Repositories.DocumentRepository import DocumentRepository
+from ResolutionManager.Repositories.PermissionsRepository import PermissionsRepository
 from ResolutionManager.Repositories.RequestRepository import RequestRepository
 from ResolutionManager.Repositories.ResolutionRepository import ResolutionRepository
+from TestingParent import TestingParent
 from helpers.Factories import plenary_factory, resolution_factory, waiver_factory, first_reading_factory, \
     second_reading_factory
 
+from helpers.FakeItems import get_test_plenary
 
-class AgendaRepositoryTest(TestCase):
+
+class AgendaRepositoryTest(TestingParent):
     def setUp(self):
-        self.dao = {}
+        self.initialize()
+        self.dao = MagicMock()
+        http = HttpMock('mock-responses/mock-file-response.json', {'status': '200'})
+        api_key = 'your_api_key'
+        service_mock = build('drive', 'v3', http=http, developerKey=api_key)
+
         self.agenda_repo = AgendaRepository(self.dao)
+        self.agenda_repo.service = service_mock
+        self.agenda_repo.resolution_repo = MagicMock(spec=ResolutionRepository, return_value=[resolution_factory() for i in range(0, 5)])
+        self.agenda_repo.document_repo = MagicMock(spec=DocumentRepository,return_value={'document': 'why yes I am'})
+        self.agenda_repo.permission_repo = MagicMock(spec=PermissionsRepository, return_value=True)
         self.plenary = plenary_factory()
 
     def prep_complete_lists(self):
@@ -29,11 +47,22 @@ class AgendaRepositoryTest(TestCase):
         self.agenda_repo.resolution_repo = resolution_repo
 
     def test_check_setup(self):
+        self.prep_complete_lists()
         self.assertIsInstance(self.agenda_repo, AgendaRepository)
         # waivers = [resolution_factory() for i in range(1, 10)]
         for w in self.waivers:
             self.assertIsInstance(w, Resolution)
-            self.assertIs(w.is_waiver, True)
+            self.assertIs(w.waiver, True)
+            # self.assertIs(w.is_waiver, True)
+
+    def test_make_list(self):
+        # dao_mock =
+        # self.agenda_repo.resolution_repo = MagicMock(return_value=[resolution_factory() for i in range(0, 5)])
+        # self.agenda_repo.service = MagicMock(return_value=True)
+        # self.agenda_repo.document_repo = MagicMock(return_value={'document' : 'why yes I am'})
+        # self.agenda_repo.permission_repo = MagicMock(return_value=True)
+        plenary = get_test_plenary()
+        self.agenda_repo.make_resolution_list(plenary)
 
     def test_clear_body_content(self):
         self.fail()
@@ -72,19 +101,27 @@ class AgendaRepositoryTest(TestCase):
 
         for r in self.agenda_repo.waivers:
             self.assertIsInstance(r, Resolution)
-            self.assertIs(r.is_waiver, True)
-            self.assertIs(r.is_first_reading, True)
+            # dev Fix when make is_waiver /waiver consistent
+            # self.assertIs(r.is_waiver, True)
+            self.assertIs(r.waiver, True)
+            self.assertIs(r.is_first_reading, False)
+            # dev Note this has changed from previous behavior (below)
+            # self.assertIs(r.is_first_reading, True)
             self.assertIs(r.is_action, False)
 
         for r in self.agenda_repo.first_readings:
             self.assertIsInstance(r, Resolution)
-            self.assertIs(r.is_waiver, False)
+            # dev Fix when make is_waiver /waiver consistent
+            # self.assertIs(r.is_waiver, False)
+            self.assertIs(r.waiver, False)
             self.assertIs(r.is_first_reading, True)
             self.assertIs(r.is_action, False)
 
         for r in self.agenda_repo.second_readings:
             self.assertIsInstance(r, Resolution)
-            self.assertIs(r.is_waiver, False)
+            # dev Fix when make is_waiver /waiver consistent
+            # self.assertIs(r.is_waiver, False)
+            self.assertIs(r.waiver, False)
             self.assertIs(r.is_first_reading, False)
             self.assertIs(r.is_action, True)
 
@@ -106,13 +143,13 @@ class AgendaRepositoryTest(TestCase):
 
         for r in self.agenda_repo.waivers:
             self.assertIsInstance(r, Resolution)
-            self.assertIs(r.is_waiver, True)
+            self.assertIs(r.waiver, True)
             self.assertIs(r.is_first_reading, True)
             self.assertIs(r.is_action, False)
 
         for r in self.agenda_repo.first_readings:
             self.assertIsInstance(r, Resolution)
-            self.assertIs(r.is_waiver, False)
+            self.assertIs(r.waiver, False)
             self.assertIs(r.is_first_reading, True)
             self.assertIs(r.is_action, False)
 

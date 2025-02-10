@@ -16,10 +16,10 @@ from ResolutionManager.DAO.DAO import MySqlDao
 from ResolutionManager.config.Templates import Templates
 
 
-def main(plenary_id=None, resolution_id=None):
-    """Moves the indicated resolution to the working drafts folder for
-    the indicated plenary
-    Added in AR-89
+def main(plenary_id=None):
+    """Updates the current folder location of all resolutions for the plenary
+    Added in AR-139
+
     """
     config = Configuration()
     logger = logging.getLogger(__name__)
@@ -29,9 +29,6 @@ def main(plenary_id=None, resolution_id=None):
         if plenary_id is None:
             plenary_id = int(sys.argv[1])
 
-        if resolution_id is None:
-            resolution_id = int(sys.argv[2])
-
         dao = MySqlDao()
 
         file_repo = FileRepository()
@@ -39,15 +36,12 @@ def main(plenary_id=None, resolution_id=None):
         resolution_repo = ResolutionRepository(dao)
 
         plenary = plenary_repo.load_plenary(plenary_id)
-        resolution = resolution_repo.load_resolution(resolution_id)
+        resolutions = resolution_repo.load_all_resolutions_for_plenary(plenary)
 
-        file_repo.move_file_to_folder(resolution.document_id, plenary.working_drafts_folder_id)
-
-        # Possibly unnecessary for methods which move to working for a plenary, but
-        # needed for moving between plenaries
-        resolution_repo.set_as_working_item(plenary, resolution)
-
-        return resolution
+        for r in resolutions:
+            current_folder_id = file_repo.get_resolution_folder_id(r)
+            resolution_repo.update_resolution_current_folder_id(r,
+                                                                current_folder_id)
 
     except Exception as e:
         logger.warning(e)

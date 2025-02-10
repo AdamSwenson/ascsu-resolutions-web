@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\PythonScriptError;
+use App\Jobs\SyncReadingTypes;
+use App\Models\Plenary;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Process;
 
@@ -34,15 +36,19 @@ class DevController extends Controller
 
     public function runScript()
     {
-        $executablePath = config('app.pythonScript');
-        $command = config('app.pythonBin');
-        $command .= " test1.py ";
+        $plenary = Plenary::find(133);
 
-//        $command = " pip install --upgrade mysql-connector-python google SQLAlchemy==1.4.0 google-api-python-client google-auth-httplib2 google-auth-oauthlib
-//";
+        SyncReadingTypes::dispatch($plenary);
 
-        return Process::path($executablePath)
-            ->run($command);
+//        $executablePath = config('app.pythonScript');
+//        $command = config('app.pythonBin');
+//        $command .= " test1.py ";
+//
+////        $command = " pip install --upgrade mysql-connector-python google SQLAlchemy==1.4.0 google-api-python-client google-auth-httplib2 google-auth-oauthlib
+////";
+//
+//        return Process::path($executablePath)
+//            ->run($command);
 
 //        $result = Process::run('pwd');
 //        $result = Process::path('../../ResolutionManager/ResolutionManager/executables')

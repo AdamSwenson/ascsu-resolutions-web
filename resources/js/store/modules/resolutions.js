@@ -119,6 +119,30 @@ const actions = {
 
     },
 
+    moveResolutionsBetweenPlenaries({dispatch, commit, getters}, payload) {
+        let {sourcePlenary, destinationPlenary} = payload;
+        return new Promise(((resolve, reject) => {
+            window.console.log('resolutions', 'action', 124, sourcePlenary, destinationPlenary);
+            let url = routes.secretary.working.bulk(sourcePlenary, destinationPlenary);
+            return Vue.axios.post(url).then((response) => {
+                window.console.log('resolutions', 'response', 126, response);
+                return resolve();
+            })
+        }));
+
+    },
+
+    moveResolutionToPlenary({dispatch, commit, getters}, payload) {
+        let {destinationPlenary, resolution} = payload;
+        return new Promise(((resolve, reject) => {
+            let url = routes.secretary.working.single(destinationPlenary, resolution);
+            return Vue.axios.post(url).then((response) => {
+                window.console.log('move single resolution', 'response', 126, response);
+                return resolve();
+            })
+        }));
+    },
+
 
     initializeResolutions({dispatch, commit, getters}) {
         return new Promise(((resolve, reject) => {
