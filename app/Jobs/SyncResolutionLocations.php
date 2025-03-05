@@ -41,8 +41,10 @@ class SyncResolutionLocations implements ShouldQueue
 
         } catch (PythonScriptError $error) {
             Log::error($error->getMessage());
+            throw $error;
         } catch (\Exception $exception) {
             Log::error($exception->getMessage());
+            throw $exception;
         }
     }
 }
