@@ -6176,6 +6176,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../routes */ "./resources/js/routes.js");
 /* harmony import */ var _routes__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_routes__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _common_working_spinner__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../common/working-spinner */ "./resources/js/components/common/working-spinner.vue");
+/* harmony import */ var _utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utilities/readiness.utilities */ "./resources/js/utilities/readiness.utilities.js");
+
 
 
 
@@ -6189,13 +6191,28 @@ __webpack_require__.r(__webpack_exports__);
   mixins: [(_mixins_plenaryMixin__WEBPACK_IMPORTED_MODULE_0___default())],
   data: function data() {
     return {
-      // url : null,
-      isWorking: false
+      isUpdateWorking: false,
+      isLockWorking: false
     };
   },
   asyncComputed: {
     showUrl: function showUrl() {
       return !_.isNull(this.resolutionListUrl);
+    },
+    showUpdate: function showUpdate() {
+      if (!(0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_3__.isReadyToRock)(this.plenary)) return true;
+      if (this.plenary.is_agenda_locked === true) return false;
+      return true;
+    },
+    lockButtonText: function lockButtonText() {
+      if (!(0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_3__.isReadyToRock)(this.plenary)) return '';
+      if (this.plenary.is_agenda_locked === true) return 'Unlock resolution list';
+      return 'Lock resolution list';
+    },
+    lockButtonStyling: function lockButtonStyling() {
+      if (!(0,_utilities_readiness_utilities__WEBPACK_IMPORTED_MODULE_3__.isReadyToRock)(this.plenary)) return '';
+      if (this.plenary.is_agenda_locked === true) return 'btn-outline-primary';
+      return 'btn-primary';
     }
   },
   computed: {},
@@ -6204,11 +6221,33 @@ __webpack_require__.r(__webpack_exports__);
       window.console.log('secretary', 'createAgenda');
       var url = _routes__WEBPACK_IMPORTED_MODULE_1__.secretary.agenda.createAgenda(this.plenaryId);
       var me = this;
-      this.isWorking = true;
+      this.isUpdateWorking = true;
       Vue.axios.post(url).then(function (response) {
         window.console.log('secretary', 'response', 126, response);
         me.isWorking = false;
         // me.url = response.data.agendaUrl;
+      });
+    },
+    handleAgendaLock: function handleAgendaLock() {
+      this.isLockWorking = true;
+      if (this.plenary.is_agenda_locked === true) {
+        this.unlockAgenda();
+      } else {
+        this.lockAgenda();
+      }
+    },
+    lockAgenda: function lockAgenda() {
+      var me = this;
+      this.$store.dispatch('lockAgenda', this.plenary).then(function (response) {
+        me.plenary.is_agenda_locked = true;
+        me.isLockWorking = false;
+      });
+    },
+    unlockAgenda: function unlockAgenda() {
+      var me = this;
+      this.$store.dispatch('unlockAgenda', this.plenary).then(function (response) {
+        me.plenary.is_agenda_locked = false;
+        me.isLockWorking = false;
       });
     }
   }
@@ -8868,14 +8907,28 @@ var render = function render() {
     staticClass: "create-agenda card"
   }, [_c("h3", {
     staticClass: "card-title text-light"
-  }, [_vm._v("Create resolution list ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Resolution list ")]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
-  }, [_vm.isWorking ? _c("working-spinner") : _c("button", {
+  }, [_c("div", {
+    staticClass: "row"
+  }, [_vm.showUpdate ? _c("div", {
+    staticClass: "col update-list"
+  }, [_vm.isUpdateWorking ? _c("working-spinner") : _c("button", {
     staticClass: "btn btn-primary",
     on: {
       click: _vm.handleCreateAgenda
     }
-  }, [_vm._v("Create resolution list")])], 1), _vm._v(" "), _c("div", {
+  }, [_vm._v("Update resolution list\n            ")])], 1) : _vm._e(), _vm._v(" "), _c("div", {
+    staticClass: "col lock-list"
+  }, [_vm.isLockWorking ? _c("working-spinner") : _vm._e(), _vm._v(" "), !_vm.isLockWorking ? _c("button", {
+    staticClass: "btn ms-3",
+    "class": _vm.lockButtonStyling,
+    on: {
+      click: _vm.handleAgendaLock
+    }
+  }, [_vm._v(_vm._s(_vm.lockButtonText) + "\n            ")]) : _vm._e(), _vm._v(" "), _c("p", {
+    staticClass: "card-text text-light"
+  }, [_vm._v("Locking the list prevents it from being automatically overwritten")])], 1)])]), _vm._v(" "), _c("div", {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -10156,7 +10209,7 @@ var render = function render() {
     }
   }, [_vm._v("Sync titles")]), _vm._v(" "), _c("p", {
     staticClass: "card-text text-light"
-  }, [_vm._v("This will pull the current titles from documents in drive and update the database with them")])], 1)]);
+  }, [_vm._v("This pulls the current titles from documents in drive and update the database with them")])], 1)]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -10739,6 +10792,20 @@ module.exports = {
         var plenary_id = idify(plenary);
         var url = normalizedRouteRoot();
         url += 'secretary/agenda/';
+        url += plenary_id;
+        return url;
+      },
+      lockAgenda: function lockAgenda(plenary) {
+        var plenary_id = idify(plenary);
+        var url = normalizedRouteRoot();
+        url += 'agenda/lock/';
+        url += plenary_id;
+        return url;
+      },
+      unlockAgenda: function unlockAgenda(plenary) {
+        var plenary_id = idify(plenary);
+        var url = normalizedRouteRoot();
+        url += 'agenda/unlock/';
         url += plenary_id;
         return url;
       }
@@ -11384,10 +11451,29 @@ var actions = {
       var url = _routes__WEBPACK_IMPORTED_MODULE_0__.secretary.plenaries.loadAll();
       // let url = window.routeRoot + '/plenaries';
       return Vue.axios.get(url).then(function (response) {
-        _.forEach(response.data, function (r) {
-          commit('addPlenary', r);
-        });
-        return resolve();
+        return resolve(response);
+      });
+    });
+  },
+  lockAgenda: function lockAgenda(_ref3, plenary) {
+    var dispatch = _ref3.dispatch,
+      commit = _ref3.commit,
+      getters = _ref3.getters;
+    return new Promise(function (resolve, reject) {
+      var url = _routes__WEBPACK_IMPORTED_MODULE_0__.secretary.agenda.lockAgenda(plenary);
+      return Vue.axios.post(url).then(function (response) {
+        return resolve(response);
+      });
+    });
+  },
+  unlockAgenda: function unlockAgenda(_ref4, plenary) {
+    var dispatch = _ref4.dispatch,
+      commit = _ref4.commit,
+      getters = _ref4.getters;
+    return new Promise(function (resolve, reject) {
+      var url = _routes__WEBPACK_IMPORTED_MODULE_0__.secretary.agenda.unlockAgenda(plenary);
+      return Vue.axios.post(url).then(function (response) {
+        return resolve(response);
       });
     });
   }

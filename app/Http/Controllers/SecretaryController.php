@@ -7,6 +7,7 @@ use App\Jobs\SyncResolutionLocations;
 use App\Jobs\UpdateAgenda;
 use App\Models\Activity;
 use App\Models\Plenary;
+use App\Repositories\PlenaryRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Process;
@@ -17,6 +18,7 @@ class SecretaryController extends Controller
     public function __construct()
     {
 //        $this->middleware('auth');
+        $this->plenaryRepo = new PlenaryRepository();
     }
 
 
@@ -75,15 +77,25 @@ class SecretaryController extends Controller
         SyncResolutionLocations::dispatchAfterResponse($plenary);
         return $this->sendAjaxSuccess();
 
+//
+//        try {
+//            $scriptfile = 'web_make_agenda.py';
+//            $result = $this->handleScript($scriptfile, $plenary->id);
+//            return response()->json($result->output());
+//        } catch (PythonScriptError $error) {
+//            return $error->getMessage();
+//        }
 
-        try {
-            $scriptfile = 'web_make_agenda.py';
-            $result = $this->handleScript($scriptfile, $plenary->id);
-            return response()->json($result->output());
-        } catch (PythonScriptError $error) {
-            return $error->getMessage();
-        }
+    }
 
+    public function lockAgenda(Plenary $plenary){
+        $plenary =  $this->plenaryRepo->lockAgenda($plenary);
+        return response()->json($plenary);
+    }
+
+    public function unlockAgenda(Plenary $plenary){
+        $plenary =  $this->plenaryRepo->unlockAgenda($plenary);
+        return response()->json($plenary);
     }
 
     /**

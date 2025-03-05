@@ -31,23 +31,25 @@ class UpdateAgenda implements ShouldQueue
      */
     public function handle(): void
     {
-        try {
-            $scriptfile = 'web_make_agenda.py';
+        if (!$this->plenary->is_agenda_locked) {
 
-            $this->handleScript($scriptfile, $this->plenary->id);
+            try {
+                $scriptfile = 'web_make_agenda.py';
 
-            Log::info("Agenda updated for plenary {$this->plenary->id}");
-            //$result->output();
+                $this->handleScript($scriptfile, $this->plenary->id);
 
-            SyncReadingTypes::dispatch($this->plenary);
+                Log::info("Agenda updated for plenary {$this->plenary->id}");
+                //$result->output();
+
+                SyncReadingTypes::dispatch($this->plenary);
 
 //            SyncReadingTypes::dispatchAfterResponse($this->plenary);
 
-        } catch (PythonScriptError $error) {
-            Log::error($error->getMessage());
-        }catch (\Exception $exception){
-            Log::error($exception->getMessage());
+            } catch (PythonScriptError $error) {
+                Log::error($error->getMessage());
+            } catch (\Exception $exception) {
+                Log::error($exception->getMessage());
+            }
         }
-
     }
 }

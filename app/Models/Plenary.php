@@ -20,9 +20,10 @@ class Plenary extends Model
         'plenary_folder_id',
         'second_reading_folder_id',
         'working_drafts_folder_id',
-        'thursday_date'];
+        'thursday_date',
+        'is_agenda_locked'];
 
-protected $casts = ['is_current' => 'boolean'];
+protected $casts = ['is_current' => 'boolean', 'is_agenda_locked' => 'boolean'];
 
 protected $appends = ['publicUrl', 'plenaryUrl', 'plenaryName', 'resolutionListUrl'];
 

@@ -48,14 +48,32 @@ const actions = {
             let url = routes.secretary.plenaries.loadAll();
             // let url = window.routeRoot + '/plenaries';
             return Vue.axios.get(url).then((response) => {
-                _.forEach(response.data, (r) => {
-                    commit('addPlenary', r)
-                });
-                return resolve();
+
+                return resolve(response);
             });
 
         }));
-    }
+    },
+
+    lockAgenda({dispatch, commit, getters}, plenary) {
+        return new Promise(((resolve, reject) => {
+            let url = routes.secretary.agenda.lockAgenda(plenary);
+            return Vue.axios.post(url).then((response) => {
+                return resolve(response);
+            });
+
+        }));
+    },
+
+    unlockAgenda({dispatch, commit, getters}, plenary) {
+        return new Promise(((resolve, reject) => {
+            let url = routes.secretary.agenda.unlockAgenda(plenary);
+            return Vue.axios.post(url).then((response) => {
+                return resolve(response);
+            });
+
+        }));
+    },
 };
 
 /**
