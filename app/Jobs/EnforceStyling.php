@@ -12,7 +12,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-class UpdateAgenda implements ShouldQueue
+class EnforceStyling implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, HandleScriptTrait;
 
@@ -31,16 +31,13 @@ class UpdateAgenda implements ShouldQueue
      */
     public function handle(): void
     {
-        if (!$this->plenary->is_agenda_locked) {
 
             try {
-                $scriptfile = 'web_make_agenda.py';
+                $scriptfile = 'web_enforce_styling.py';
 
                 $this->handleScript($scriptfile, $this->plenary->id);
 
-                Log::info("Agenda updated for plenary {$this->plenary->id}");
-
-                SyncReadingTypes::dispatch($this->plenary);
+                Log::info("Styling enforced for plenary {$this->plenary->id}");
 
             } catch (PythonScriptError $error) {
                 Log::error($error->getMessage());
@@ -50,5 +47,5 @@ class UpdateAgenda implements ShouldQueue
                 throw $exception;
             }
         }
-    }
+
 }

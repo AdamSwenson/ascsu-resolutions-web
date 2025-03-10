@@ -12,10 +12,11 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-class UpdateAgenda implements ShouldQueue
+class CreatePublicFolder implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, HandleScriptTrait;
 
+    const SCRIPT_FILE = 'web_copy_first_readings_for_feedback.py';
     public Plenary $plenary;
 
     /**
@@ -31,24 +32,19 @@ class UpdateAgenda implements ShouldQueue
      */
     public function handle(): void
     {
-        if (!$this->plenary->is_agenda_locked) {
+        try {
 
-            try {
-                $scriptfile = 'web_make_agenda.py';
+            $this->handleScript(self::SCRIPT_FILE, $this->plenary->id);
 
-                $this->handleScript($scriptfile, $this->plenary->id);
+            Log::info("Public folder created for plenary {$this->plenary->id}");
 
-                Log::info("Agenda updated for plenary {$this->plenary->id}");
-
-                SyncReadingTypes::dispatch($this->plenary);
-
-            } catch (PythonScriptError $error) {
-                Log::error($error->getMessage());
-                throw $error;
-            } catch (\Exception $exception) {
-                Log::error($exception->getMessage());
-                throw $exception;
-            }
+        } catch (PythonScriptError $error) {
+            Log::error($error->getMessage());
+            throw $error;
+        } catch (\Exception $exception) {
+            Log::error($exception->getMessage());
+            throw $exception;
         }
+
     }
 }

@@ -7,7 +7,7 @@
 
         <button v-else class="btn btn-primary" v-on:click="handleSyncTitles">Sync titles</button>
 
-        <p class="card-text text-light">This will pull the current titles from documents in drive and update the database with them</p>
+        <p class="card-text text-light">This pulls the current titles from documents in drive and update the database with them</p>
     </div>
 
 </div>

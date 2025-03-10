@@ -79,7 +79,22 @@ module.exports = {
                 url += 'secretary/agenda/'
                 url += plenary_id;
                 return url
-            }
+            },
+
+            lockAgenda: (plenary) => {
+                let plenary_id = idify(plenary);
+                let url = normalizedRouteRoot()
+                url += 'agenda/lock/'
+                url += plenary_id;
+                return url
+            },
+            unlockAgenda: (plenary) => {
+                let plenary_id = idify(plenary);
+                let url = normalizedRouteRoot()
+                url += 'agenda/unlock/'
+                url += plenary_id;
+                return url
+            },
         },
 
         permissions: {

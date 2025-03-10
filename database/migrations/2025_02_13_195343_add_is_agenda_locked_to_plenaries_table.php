@@ -8,12 +8,11 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     * Added in AR-139
      */
     public function up(): void
     {
-        Schema::table('resolutions', function (Blueprint $table) {
-            $table->text('current_folder_id')->nullable();
+        Schema::table('plenaries', function (Blueprint $table) {
+            $table->boolean('is_agenda_locked')->nullable();
         });
     }
 
@@ -22,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('resolutions', function (Blueprint $table) {
-            $table->dropColumn('current_folder_id');
+        Schema::table('plenaries', function (Blueprint $table) {
+            $table->dropColumn('is_agenda_locked');
         });
     }
 };

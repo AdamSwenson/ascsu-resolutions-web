@@ -12,11 +12,13 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-class UpdateAgenda implements ShouldQueue
+class SyncTitles implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, HandleScriptTrait;
 
     public Plenary $plenary;
+
+    const SCRIPT_FILE = 'web_sync_titles.py';
 
     /**
      * Create a new job instance.
@@ -31,24 +33,17 @@ class UpdateAgenda implements ShouldQueue
      */
     public function handle(): void
     {
-        if (!$this->plenary->is_agenda_locked) {
+        try {
+            $this->handleScript(self::SCRIPT_FILE, $this->plenary->id);
 
-            try {
-                $scriptfile = 'web_make_agenda.py';
+            Log::info("Titles synced for plenary {$this->plenary->id}");
 
-                $this->handleScript($scriptfile, $this->plenary->id);
-
-                Log::info("Agenda updated for plenary {$this->plenary->id}");
-
-                SyncReadingTypes::dispatch($this->plenary);
-
-            } catch (PythonScriptError $error) {
-                Log::error($error->getMessage());
-                throw $error;
-            } catch (\Exception $exception) {
-                Log::error($exception->getMessage());
-                throw $exception;
-            }
+        } catch (PythonScriptError $error) {
+            Log::error($error->getMessage());
+            throw $error;
+        } catch (\Exception $exception) {
+            Log::error($exception->getMessage());
+            throw $exception;
         }
     }
 }

@@ -3,10 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\PythonScriptError;
+use App\Jobs\CreatePublicFolder;
+use App\Jobs\EnforceStyling;
+use App\Jobs\LockAllEditing;
+use App\Jobs\SyncReadingTypes;
 use App\Jobs\SyncResolutionLocations;
+use App\Jobs\SyncTitles;
+use App\Jobs\UnlockAllEditing;
 use App\Jobs\UpdateAgenda;
 use App\Models\Activity;
 use App\Models\Plenary;
+use App\Repositories\PlenaryRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Process;
@@ -17,6 +24,7 @@ class SecretaryController extends Controller
     public function __construct()
     {
 //        $this->middleware('auth');
+        $this->plenaryRepo = new PlenaryRepository();
     }
 
 
@@ -29,9 +37,11 @@ class SecretaryController extends Controller
     public function enforceStyling(Plenary $plenary)
     {
         try {
-            $scriptfile = 'web_enforce_styling.py';
-            $result = $this->handleScript($scriptfile, $plenary->id);
-            return response()->json($result->output());
+            EnforceStyling::dispatch($plenary);
+            return $this->sendAjaxSuccess();
+//            $scriptfile = 'web_enforce_styling.py';
+//            $result = $this->handleScript($scriptfile, $plenary->id);
+//            return response()->json($result->output());
         } catch (PythonScriptError $error) {
             return $error->getMessage();
         }
@@ -70,20 +80,35 @@ class SecretaryController extends Controller
      */
     public function createAgenda(Plenary $plenary)
     {
-
-        UpdateAgenda::dispatchAfterResponse($plenary);
-        SyncResolutionLocations::dispatchAfterResponse($plenary);
-        return $this->sendAjaxSuccess();
-
-
         try {
-            $scriptfile = 'web_make_agenda.py';
-            $result = $this->handleScript($scriptfile, $plenary->id);
-            return response()->json($result->output());
+            UpdateAgenda::dispatch($plenary);
+            SyncResolutionLocations::dispatch($plenary);
+            return $this->sendAjaxSuccess();
         } catch (PythonScriptError $error) {
             return $error->getMessage();
         }
 
+//
+//        try {
+//            $scriptfile = 'web_make_agenda.py';
+//            $result = $this->handleScript($scriptfile, $plenary->id);
+//            return response()->json($result->output());
+//        } catch (PythonScriptError $error) {
+//            return $error->getMessage();
+//        }
+
+    }
+
+    public function lockAgenda(Plenary $plenary)
+    {
+        $plenary = $this->plenaryRepo->lockAgenda($plenary);
+        return response()->json($plenary);
+    }
+
+    public function unlockAgenda(Plenary $plenary)
+    {
+        $plenary = $this->plenaryRepo->unlockAgenda($plenary);
+        return response()->json($plenary);
     }
 
     /**
@@ -94,16 +119,25 @@ class SecretaryController extends Controller
      */
     public function createPublic(Plenary $plenary)
     {
-
         try {
-            $scriptfile = 'web_copy_first_readings_for_feedback.py';
-            $this->handleScript($scriptfile, $plenary->id);
+            CreatePublicFolder::dispatch($plenary);
             $plenary->refresh();
             return response()->json($plenary);
-
         } catch (PythonScriptError $error) {
             return $error->getMessage();
         }
+
+//
+//
+//        try {
+//            $scriptfile = 'web_copy_first_readings_for_feedback.py';
+//            $this->handleScript($scriptfile, $plenary->id);
+//            $plenary->refresh();
+//            return response()->json($plenary);
+//
+//        } catch (PythonScriptError $error) {
+//            return $error->getMessage();
+//        }
 
     }
 
@@ -117,10 +151,8 @@ class SecretaryController extends Controller
     public function syncTitles(Plenary $plenary)
     {
         try {
-            $scriptfile = 'web_sync_titles.py';
-            $result = $this->handleScript($scriptfile, $plenary->id);
-            return response()->json($result->output());
-
+            SyncTitles::dispatch($plenary);
+            $this->sendAjaxSuccess();
         } catch (PythonScriptError $error) {
             return $error->getMessage();
         }
@@ -135,7 +167,20 @@ class SecretaryController extends Controller
      */
     public function startPlenary(Plenary $plenary)
     {
-        return $this->sendAjaxSuccess();
+        try{
+//            SyncTitles::dispatch($plenary);
+//            SyncResolutionLocations::dispatch($plenary);
+//            SyncReadingTypes::dispatch($plenary);
+//            UpdateAgenda::dispatch($plenary);
+//            LockAllEditing::dispatch($plenary);
+//            EnforceStyling::dispatch($plenary);
+//
+//            $this->plenaryRepo->lockAgenda($plenary);
+
+            return $this->sendAjaxSuccess();
+        }catch (PythonScriptError $error){
+            return $error->getMessage();
+        }
 
     }
 
@@ -147,7 +192,15 @@ class SecretaryController extends Controller
      */
     public function stopPlenary(Plenary $plenary)
     {
-        return $this->sendAjaxSuccess();
+        try{
+//            SyncTitles::dispatch($plenary);
+//            EnforceStyling::dispatch($plenary);
+//            UnlockAllEditing::dispatch($plenary);
+
+            return $this->sendAjaxSuccess();
+        }catch (PythonScriptError $error){
+            return $error->getMessage();
+        }
     }
 
 }

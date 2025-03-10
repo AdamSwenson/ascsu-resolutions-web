@@ -43,4 +43,27 @@ class PlenaryRepository implements IPlenaryRepository
         return Plenary::where('id', $nextId)->first();
     }
 
+
+    /**
+     * Locks agenda so that it will not be updated
+     * @param Plenary $plenary
+     * @return Plenary
+     */
+    public function lockAgenda(Plenary $plenary){
+        $plenary->is_agenda_locked = True;
+        $plenary->save();
+        return $plenary;
+    }
+
+
+    /**
+     * Sets the agenda to unlocked so it will be updated on jobs
+     * @param Plenary $plenary
+     * @return Plenary
+     */
+    public function unlockAgenda(Plenary $plenary){
+        $plenary->is_agenda_locked = False;
+        $plenary->save();
+        return $plenary;
+    }
 }

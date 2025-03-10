@@ -46,6 +46,8 @@ Route::post('/secretary/sync/{plenary}', [SecretaryController::class, 'syncTitle
 Route::post('secretary/plenary/{plenary}/start', [SecretaryController::class, 'startPlenary']);
 Route::post('secretary/plenary/{plenary}/stop', [SecretaryController::class, 'stopPlenary']);
 
+Route::post('/agenda/unlock/{plenary}', [SecretaryController::class, 'unlockAgenda']);
+Route::post('/agenda/lock/{plenary}', [SecretaryController::class, 'lockAgenda']);
 
 //Plenaries
 Route::post('/secretary/folders', [PlenaryController::class, 'createPlenary']);
