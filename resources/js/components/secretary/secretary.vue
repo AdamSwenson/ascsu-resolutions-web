@@ -8,16 +8,6 @@
             <h1 class="text-light text-center">{{ plenaryName }} Plenary</h1>
         </div>
 
-        <div class="row  row-cols-1 row-cols-md-3 g-4 mb-5 mt-5">
-
-            <div class="col">
-                <single-control-card></single-control-card>
-            </div>
-
-            <div class="col">
-                <bulk-move-dialog></bulk-move-dialog>
-            </div>
-        </div>
 
 
         <div class="row  row-cols-1 row-cols-md-3 g-4 mb-5 mt-5">
@@ -37,6 +27,18 @@
                 <manager-permissions :plenaryId="plenaryId"></manager-permissions>
             </div>
         </div>
+
+        <div class="row  row-cols-1 row-cols-md-3 g-4 mb-5 mt-5">
+
+<!--            <div class="col">-->
+<!--                <single-control-card></single-control-card>-->
+<!--            </div>-->
+
+            <div class="col">
+                <bulk-move-dialog></bulk-move-dialog>
+            </div>
+        </div>
+
 
         <div class="resolutions">
             <div class="mb-4">

@@ -9968,12 +9968,6 @@ var render = function render() {
     staticClass: "row row-cols-1 row-cols-md-3 g-4 mb-5 mt-5"
   }, [_c("div", {
     staticClass: "col"
-  }, [_c("single-control-card")], 1), _vm._v(" "), _c("div", {
-    staticClass: "col"
-  }, [_c("bulk-move-dialog")], 1)]), _vm._v(" "), _c("div", {
-    staticClass: "row row-cols-1 row-cols-md-3 g-4 mb-5 mt-5"
-  }, [_c("div", {
-    staticClass: "col"
   }, [_c("public-folder-creation", {
     attrs: {
       plenaryId: _vm.plenaryId
@@ -9999,6 +9993,10 @@ var render = function render() {
       plenaryId: _vm.plenaryId
     }
   })], 1)]), _vm._v(" "), _c("div", {
+    staticClass: "row row-cols-1 row-cols-md-3 g-4 mb-5 mt-5"
+  }, [_c("div", {
+    staticClass: "col"
+  }, [_c("bulk-move-dialog")], 1)]), _vm._v(" "), _c("div", {
     staticClass: "resolutions"
   }, [_vm._m(0), _vm._v(" "), _c("div", {
     staticClass: "row mb-5"
