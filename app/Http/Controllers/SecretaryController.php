@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Exceptions\PythonScriptError;
 use App\Jobs\CreatePublicFolder;
 use App\Jobs\EnforceStyling;
+use App\Jobs\LockAllEditing;
+use App\Jobs\SyncReadingTypes;
 use App\Jobs\SyncResolutionLocations;
 use App\Jobs\SyncTitles;
+use App\Jobs\UnlockAllEditing;
 use App\Jobs\UpdateAgenda;
 use App\Models\Activity;
 use App\Models\Plenary;
@@ -164,7 +167,20 @@ class SecretaryController extends Controller
      */
     public function startPlenary(Plenary $plenary)
     {
-        return $this->sendAjaxSuccess();
+        try{
+//            SyncTitles::dispatch($plenary);
+//            SyncResolutionLocations::dispatch($plenary);
+//            SyncReadingTypes::dispatch($plenary);
+//            UpdateAgenda::dispatch($plenary);
+//            LockAllEditing::dispatch($plenary);
+//            EnforceStyling::dispatch($plenary);
+//
+//            $this->plenaryRepo->lockAgenda($plenary);
+
+            return $this->sendAjaxSuccess();
+        }catch (PythonScriptError $error){
+            return $error->getMessage();
+        }
 
     }
 
@@ -176,7 +192,15 @@ class SecretaryController extends Controller
      */
     public function stopPlenary(Plenary $plenary)
     {
-        return $this->sendAjaxSuccess();
+        try{
+//            SyncTitles::dispatch($plenary);
+//            EnforceStyling::dispatch($plenary);
+//            UnlockAllEditing::dispatch($plenary);
+
+            return $this->sendAjaxSuccess();
+        }catch (PythonScriptError $error){
+            return $error->getMessage();
+        }
     }
 
 }

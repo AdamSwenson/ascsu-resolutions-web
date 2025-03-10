@@ -48,7 +48,9 @@ const actions = {
             let url = routes.secretary.plenaries.loadAll();
             // let url = window.routeRoot + '/plenaries';
             return Vue.axios.get(url).then((response) => {
-
+                _.forEach(response.data, (d) => {
+                    commit('addPlenary', d)
+                });
                 return resolve(response);
             });
 
@@ -104,24 +106,24 @@ const getters = {
         _.forEach(state.plenaries, (p) => {
             //dev we actually do want the current plenary to be an option
             // if (p.id !== plenary.id) {
-                let date = new Date(p.thursday_date);
+            let date = new Date(p.thursday_date);
 
-                if (month >= 7) {
-                    //we are in the fall semester, so return the next spring also
-                    if ((date.getFullYear() === year && date.getMonth() >= 7) ||
-                        (date.getFullYear() === year + 1 && date.getMonth() < 7)) {
-                        out.push(p);
-                    }
-
-                } else {
-                    //we are in spring so return previous fall
-                    if ((date.getFullYear() === year && date.getMonth() < 7) ||
-                        (date.getFullYear() === year - 1 && date.getMonth() >= 7)) {
-                        out.push(p);
-                        // window.console.log('plenaries', 'c', 105, date.getFullYear() - 1);
-                    }
-
+            if (month >= 7) {
+                //we are in the fall semester, so return the next spring also
+                if ((date.getFullYear() === year && date.getMonth() >= 7) ||
+                    (date.getFullYear() === year + 1 && date.getMonth() < 7)) {
+                    out.push(p);
                 }
+
+            } else {
+                //we are in spring so return previous fall
+                if ((date.getFullYear() === year && date.getMonth() < 7) ||
+                    (date.getFullYear() === year - 1 && date.getMonth() >= 7)) {
+                    out.push(p);
+                    // window.console.log('plenaries', 'c', 105, date.getFullYear() - 1);
+                }
+
+            }
             // }
         });
 

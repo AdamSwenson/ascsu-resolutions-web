@@ -11451,6 +11451,9 @@ var actions = {
       var url = _routes__WEBPACK_IMPORTED_MODULE_0__.secretary.plenaries.loadAll();
       // let url = window.routeRoot + '/plenaries';
       return Vue.axios.get(url).then(function (response) {
+        _.forEach(response.data, function (d) {
+          commit('addPlenary', d);
+        });
         return resolve(response);
       });
     });

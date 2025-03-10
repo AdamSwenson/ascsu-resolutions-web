@@ -27,7 +27,8 @@ trait HandleScriptTrait
         }
 
         $executablePath = config('app.pythonScript');
-        $result = Process::path($executablePath)
+        $result = Process::timeout(300)
+            ->path($executablePath)
             ->run($command);
 
         if ($result->successful()) {

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\PythonScriptError;
+use App\Jobs\LockAllEditing;
+use App\Jobs\UnlockAllEditing;
 use App\Models\Plenary;
 use App\Models\Resolution;
 use Illuminate\Http\Request;
@@ -15,9 +17,12 @@ class PermissionsController extends Controller
     public function lockEditingAll(Plenary $plenary)
     {
         try{
-            $scriptfile = 'web_lock_all_plenary_files.py';
-            $result = $this->handleScript($scriptfile, $plenary->id);
-            return $result->output();
+            LockAllEditing::dispatch($plenary);
+            return $this->sendAjaxSuccess();
+
+//            $scriptfile = 'web_lock_all_plenary_files.py';
+//            $result = $this->handleScript($scriptfile, $plenary->id);
+//            return $result->output();
         }catch (PythonScriptError $error){
             return $error->getMessage();
         }
@@ -33,9 +38,11 @@ class PermissionsController extends Controller
     public function unlockEditingAll(Plenary $plenary)
     {
         try{
-            $scriptfile = 'web_unlock_all_plenary_files.py';
-            $result = $this->handleScript($scriptfile, $plenary->id);
-            return $result->output();
+            UnlockAllEditing::dispatch($plenary);
+            return $this->sendAjaxSuccess();
+//            $scriptfile = 'web_unlock_all_plenary_files.py';
+//            $result = $this->handleScript($scriptfile, $plenary->id);
+//            return $result->output();
         }catch (PythonScriptError $error){
             return $error->getMessage();
         }

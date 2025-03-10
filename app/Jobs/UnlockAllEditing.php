@@ -12,13 +12,12 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
-class SyncTitles implements ShouldQueue
+class UnlockAllEditing implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, HandleScriptTrait;
 
     public Plenary $plenary;
-
-    const SCRIPT_FILE = 'web_sync_titles.py';
+    const SCRIPT_FILE = 'web_unlock_all_plenary_files.py';
 
     /**
      * Create a new job instance.
@@ -28,6 +27,7 @@ class SyncTitles implements ShouldQueue
         $this->plenary = $plenary;
     }
 
+
     /**
      * Execute the job.
      */
@@ -36,7 +36,7 @@ class SyncTitles implements ShouldQueue
         try {
             $this->handleScript(self::SCRIPT_FILE, $this->plenary->id);
 
-            Log::info("Titles synced for plenary {$this->plenary->id}");
+            Log::info("All resolutions unlocked for plenary {$this->plenary->id}");
 
         } catch (PythonScriptError $error) {
             Log::error($error->getMessage());
