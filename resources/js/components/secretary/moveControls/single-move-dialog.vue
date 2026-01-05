@@ -9,11 +9,14 @@
         <div class="card-body">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item" v-for="p in destinationPlenaries" :key="p.thursday_date">
-                    <a href="#"
-                       class="btn btn-sm "
-                       v-bind:class="p.plenaryName === destination.plenaryName ? 'btn-primary' : 'btn-outline-primary' "
-                       v-on:click="setAsDestination(p)"
-                    >Select</a> {{ p.plenaryName }}
+                    <!--                    <a href="#"-->
+                    <button
+                        class="btn btn-sm "
+                        v-bind:class="p.plenaryName === destination.plenaryName ? 'btn-primary' : 'btn-outline-primary' "
+                        v-on:click="setAsDestination(p)"
+                    >Select
+                    </button>
+                    {{ p.plenaryName }}
                 </li>
             </ul>
 
@@ -55,7 +58,7 @@ export default {
         destinationPlenaries: function () {
             let me = this;
             return _.filter(this.academicYearPlenaries, (p) => {
-            return p.id !== me.plenary.id;
+                return p.id !== me.plenary.id;
             });
             // return this.academicYearPlenaries;
         },

@@ -1,9 +1,10 @@
 <template>
-    <a href="#"
-       class="failed-toggle-button  btn btn-sm"
-       v-bind:class="styling"
-       v-on:click="handleClick"
-    >{{ label }}</a>
+    <button
+        class="failed-toggle-button  btn btn-sm"
+        v-bind:class="styling"
+        v-on:click="handleClick"
+    >{{ label }}
+    </button>
 </template>
 
 <script>
@@ -53,18 +54,17 @@ export default {
 
         handleClick: function () {
             //Click when approved so un mark
-            if(this.isFailed){
+            if (this.isFailed) {
                 this.$store.dispatch('markResolutionUnvoted', this.resolution)
             }
 
-            if(! this.isFailed){
+            if (!this.isFailed) {
                 this.$store.dispatch('markResolutionFailed', this.resolution);
             }
 
         },
 
     },
-
 
 
 }

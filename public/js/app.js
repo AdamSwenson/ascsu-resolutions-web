@@ -9117,18 +9117,15 @@ var render = function render() {
     return _c("li", {
       key: p.thursday_date,
       staticClass: "list-group-item"
-    }, [_c("a", {
+    }, [_c("button", {
       staticClass: "btn btn-sm",
       "class": p.plenaryName === _vm.source.plenaryName ? "btn-primary" : "btn-outline-primary",
-      attrs: {
-        href: "#"
-      },
       on: {
         click: function click($event) {
           return _vm.setAsSource(p);
         }
       }
-    }, [_vm._v("Select")]), _vm._v(" " + _vm._s(p.plenaryName) + "\n                        ")]);
+    }, [_vm._v("Select ")]), _vm._v(" " + _vm._s(p.plenaryName) + "\n                        ")]);
   }), 0)])])]), _vm._v(" "), _c("div", {
     staticClass: "col-md-6"
   }, [_c("div", {
@@ -9151,12 +9148,9 @@ var render = function render() {
     return _c("li", {
       key: p.thursday_date,
       staticClass: "list-group-item"
-    }, [_c("a", {
+    }, [_c("button", {
       staticClass: "btn btn-sm",
       "class": p.plenaryName === _vm.destination.plenaryName ? "btn-primary" : "btn-outline-primary",
-      attrs: {
-        href: "#"
-      },
       on: {
         click: function click($event) {
           return _vm.setAsDestination(p);
@@ -9239,18 +9233,15 @@ var render = function render() {
     return _c("li", {
       key: p.thursday_date,
       staticClass: "list-group-item"
-    }, [_c("a", {
+    }, [_c("button", {
       staticClass: "btn btn-sm",
       "class": p.plenaryName === _vm.destination.plenaryName ? "btn-primary" : "btn-outline-primary",
-      attrs: {
-        href: "#"
-      },
       on: {
         click: function click($event) {
           return _vm.setAsDestination(p);
         }
       }
-    }, [_vm._v("Select")]), _vm._v(" " + _vm._s(p.plenaryName) + "\n            ")]);
+    }, [_vm._v("Select\n                ")]), _vm._v("\n                " + _vm._s(p.plenaryName) + "\n            ")]);
   }), 0), _vm._v(" "), _c("p", {
     staticClass: "text-light small"
   }, [_vm._v("Moves the resolution file to the selected plenary's working drafts folder. ")])]), _vm._v(" "), _c("div", {
@@ -9293,16 +9284,13 @@ var render = function render() {
     staticClass: "plenary-list-item"
   }, [_c("li", {
     staticClass: "list-group-item"
-  }, [_c("a", {
+  }, [_c("button", {
     staticClass: "btn btn-sm",
     "class": _vm.styling,
-    attrs: {
-      href: "#"
-    },
     on: {
       click: _vm.setAsCurrent
     }
-  }, [_vm._v("Current")]), _vm._v(" " + _vm._s(_vm.plenaryName) + "\n    ")])]);
+  }, [_vm._v("Current")]), _vm._v(" " + _vm._s(_vm.plenaryName) + "\n        ")])]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -9374,16 +9362,13 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("a", {
+  return _c("button", {
     staticClass: "approved-toggle-button btn btn-sm",
     "class": _vm.styling,
-    attrs: {
-      href: "#"
-    },
     on: {
       click: _vm.handleClick
     }
-  }, [_vm._v(_vm._s(_vm.label))]);
+  }, [_vm._v(_vm._s(_vm.label) + "\n")]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -9513,16 +9498,13 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("a", {
+  return _c("button", {
     staticClass: "failed-toggle-button btn btn-sm",
     "class": _vm.styling,
-    attrs: {
-      href: "#"
-    },
     on: {
       click: _vm.handleClick
     }
-  }, [_vm._v(_vm._s(_vm.label))]);
+  }, [_vm._v(_vm._s(_vm.label) + "\n")]);
 };
 var staticRenderFns = [];
 render._withStripped = true;
@@ -9770,12 +9752,9 @@ __webpack_require__.r(__webpack_exports__);
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("a", {
+  return _c("button", {
     staticClass: "resolution-permission-button btn btn-sm",
     "class": _vm.styling,
-    attrs: {
-      href: "#"
-    },
     on: {
       click: _vm.toggleEditing
     }
