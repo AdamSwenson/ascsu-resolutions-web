@@ -1,9 +1,13 @@
 <template>
 
-    <a href="#" class="resolution-permission-button btn btn-sm "
+
+<!--    <a href="#" -->
+       <button
+       class="resolution-permission-button btn btn-sm "
        v-bind:class="styling"
        v-on:click="toggleEditing"
-    >{{buttonLabel}}</a>
+    >{{buttonLabel}}</button>
+<!--    </a>-->
 
 </template>
 

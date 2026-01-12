@@ -9,7 +9,6 @@
         </div>
 
 
-
         <div class="row  row-cols-1 row-cols-md-3 g-4 mb-5 mt-5">
             <div class="col">
                 <public-folder-creation :plenaryId="plenaryId"></public-folder-creation>
@@ -30,9 +29,9 @@
 
         <div class="row  row-cols-1 row-cols-md-3 g-4 mb-5 mt-5">
 
-<!--            <div class="col">-->
-<!--                <single-control-card></single-control-card>-->
-<!--            </div>-->
+            <!--            <div class="col">-->
+            <!--                <single-control-card></single-control-card>-->
+            <!--            </div>-->
 
             <div class="col">
                 <bulk-move-dialog></bulk-move-dialog>

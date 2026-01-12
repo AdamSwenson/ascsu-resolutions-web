@@ -2,10 +2,12 @@
     <div class="plenary-list-item ">
 
         <li class="list-group-item">
-            <a href="#" class="btn btn-sm "
+<!--            <a href="#" -->
+            <button
+               class="btn btn-sm "
                v-bind:class="styling"
                v-on:click="setAsCurrent"
-            >Current</a> {{ plenaryName }}
+            >Current</button> {{ plenaryName }}
         </li>
 
     </div>

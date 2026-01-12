@@ -17,11 +17,12 @@
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item" v-for="p in sourcePlenaries" :key="p.thursday_date">
-                                <a href="#"
+
+                                <button
                                    class="btn btn-sm "
                                    v-bind:class="p.plenaryName === source.plenaryName ? 'btn-primary' : 'btn-outline-primary' "
                                    v-on:click="setAsSource(p)"
-                                >Select</a> {{ p.plenaryName }}
+                                >Select </button> {{ p.plenaryName }}
                             </li>
                         </ul>
 
@@ -45,11 +46,11 @@
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item" v-for="p in destinationPlenaries" :key="p.thursday_date">
-                                <a href="#"
+                                <button
                                    class="btn btn-sm "
                                    v-bind:class="p.plenaryName === destination.plenaryName ? 'btn-primary' : 'btn-outline-primary' "
                                    v-on:click="setAsDestination(p)"
-                                >Select</a> {{ p.plenaryName }}
+                                >Select</button> {{ p.plenaryName }}
                             </li>
                         </ul>
 

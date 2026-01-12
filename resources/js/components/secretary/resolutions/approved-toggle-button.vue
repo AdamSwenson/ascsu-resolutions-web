@@ -1,9 +1,10 @@
 <template>
-    <a href="#"
-       class="approved-toggle-button  btn btn-sm"
-       v-bind:class="styling"
-       v-on:click="handleClick"
-    >{{ label }}</a>
+    <button
+        class="approved-toggle-button  btn btn-sm"
+        v-bind:class="styling"
+        v-on:click="handleClick"
+    >{{ label }}
+    </button>
 </template>
 
 <script>
