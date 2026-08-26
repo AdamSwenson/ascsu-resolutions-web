@@ -17,7 +17,7 @@ class Resolution(object):
                  status=None,
                  reading_type=None,
                  current_folder_id=None,
-                 year=25):
+                 year=26):
         """
         :type current_folder_id: str
         :param is_first_reading: Whether the resolution is currently in first reading

@@ -8,7 +8,6 @@
             <h1 class="text-light text-center">{{ plenaryName }} Plenary</h1>
         </div>
 
-
         <div class="row  row-cols-1 row-cols-md-3 g-4 mb-5 mt-5">
             <div class="col">
                 <public-folder-creation :plenaryId="plenaryId"></public-folder-creation>
