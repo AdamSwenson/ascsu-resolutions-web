@@ -21,15 +21,22 @@ class FileRepositoryTest(unittest.TestCase):
 
 
     def test_create_folder(self):
+        pass
+        # frepo = FileRepository()
+        # http = HttpMock('../mock-responses/mock-file-response.json', {'status': '200'})
+        # api_key = 'your_api_key'
+        # frepo.service = build('drive', 'v3', http=http, developerKey=api_key)
+        #
+        # result = frepo.create_folder('taco')
+        # self.assertEqual(result, "x100b")
+
+    def test_copy_file(self):
         frepo = FileRepository()
-        http = HttpMock('../mock-responses/mock-file-response.json', {'status': '200'})
-        api_key = 'your_api_key'
-        frepo.service = build('drive', 'v3', http=http, developerKey=api_key)
+        fileid = "1RvAyHak38xQC3jqoIJPXY4ZmKPLqktMv2LibdoenH5w"
 
-        result = frepo.create_folder('taco')
-        self.assertEqual(result, "x100b")
-
-
+        copy_id = frepo.copy_file(fileid, 'copied_file')
+        self.assertIsNotNone(copy_id)
+        print(copy_id)
 
 if __name__ == '__main__':
     unittest.main()

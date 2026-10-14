@@ -95,13 +95,20 @@ class FileRepository(object):
             print(f'An error occurred: {error}')
 
 
-    def copy_file(self, document_id, copy_name):
+    def copy_file(self, document_id, copy_name: str):
+        """Duplicates the file
+        :param copy_name: The name that the new file will have
+        :type document_id: str
+        """
         body = {
-            'name': copy_name
+            'name': copy_name,
         }
         try:
             drive_response = self.service.files().copy(
-                fileId=document_id, body=body).execute()
+                fileId=document_id,
+                body=body,
+                copyComments=True,
+            ).execute()
             document_copy_id = drive_response.get('id')
             print(f"\n Copied document \n    New doc id : {document_copy_id} \n    New doc name : {copy_name} \n")
             return document_copy_id;
